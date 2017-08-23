@@ -5,6 +5,7 @@ import {
     Switch
 } from 'react-router-dom'
 import App from '../components/App'
+import LoginComp from '../components/LoginComp'
 import NotFound from '../components/common/NotFound'
 
 export default class Routes extends Component {
@@ -12,7 +13,7 @@ export default class Routes extends Component {
         return(
             <Switch>
                 <Route exact path="/" component={App} />
-                <Route path="/about" component={App}/>
+                <Route path="/login" component={LoginComp}/>
                 <Route component={NotFound}/>
             </Switch>
         )

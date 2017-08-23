@@ -1,0 +1,1 @@
+export const AUTH_REQ = 'AUTH_REQ'
