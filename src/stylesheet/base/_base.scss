@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto:900');
+@import url('https://fonts.googleapis.com/css?family=Roboto:700');
+@import "variable";
+
+//mixins style
+@mixin gradient-color($color-1, $color-2){
+    background: -webkit-linear-gradient(right top,$color-1, $color-2);
+    background: -moz-linear-gradient(right top,$color-1, $color-2);
+    background: -o-linear-gradient(right top,$color-1, $color-2);
+    background: linear-gradient(right top,$color-1, $color-2);
+}
+
+@mixin border-radius($radius){
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin font-family($font-1, $font-2){
+    font-family: $font-1, $font-2;
+}
+
+@mixin form-input($width){
+    @extend .form-primary;
+    width: $width;
+}
+
+@mixin color-opacity($opacity){
+    background-color : rgba(39, 161, 195, $opacity);
+}
+
+//base style
+.gradient-color-primary{
+    @include gradient-color($color-secondary, $color-primary);
+}
+
+.radius-primary{
+    @include border-radius(10px);
+}
+
+.radius-secondary{
+    @include border-radius(5px);
+}
+
+.font-family-primary{
+    @include font-family('Roboto', 'sans-serif');
+}
+
+.font-primary{
+    @include font-family('Roboto', 'sans-serif');
+    font-size: $font-size-02;
+    color: $color-02;
+}
+
+.font-secondary{
+    @include font-family('Roboto', 'sans-serif');
+    font-size: $font-size-02;
+    color: $color-secondary;
+}
+
+.font-secondary-2{
+    @include font-family('Roboto', 'sans-serif');
+    font-size: $font-size-02;
+    color: $color-01;
+}
+
+.form-primary{
+    @extend .radius-secondary;
+    border: 1px solid $color-04;
+    width: calc(100% - 15px);
+    height: 40px;
+    font-size: $font-size-02;
+    padding-left: 15px;
+    outline: none;
+}
+
+.checkbox-primary{
+    @extend .radius-secondary;
+    border: 1px solid $color-04;
+    
+    cursor: pointer;
+    font-size: $font-size-02;
+    outline: none;
+}
+
+.placeholder-primary{
+    ::-webkit-input-placeholder {
+        color: $color-03;
+      }
+    ::-moz-placeholder {
+        color: $color-03;
+      }
+    :-ms-input-placeholder {
+        color: $color-03;
+      }
+    :-moz-placeholder {
+        color: $color-03;
+      }
+}
+
+*{
+    padding: 0;
+    margin: 0;
+}

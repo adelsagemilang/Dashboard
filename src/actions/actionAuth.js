@@ -26,22 +26,3 @@ export function authReq(){
         })
     }
 }
-
-// export function authReq(){
-//     console.log('login clicked')
-//     return (dispatch) => {
-//         axios.get(API_URL)
-//             .then(res => {
-//                 dispatch({
-//                     type: AUTH_REQ,
-//                     payload: res.data
-//                 })
-
-//                 // this.context.router.push('/');
-//                 console.log('succ: '+ res.data)
-//             })
-//         .catch((error) => {
-//             console.log('err: '+ error)
-//         })
-//     }
-// }

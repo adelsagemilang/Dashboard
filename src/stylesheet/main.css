@@ -1,0 +1,186 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Roboto:900");
+@import url("https://fonts.googleapis.com/css?family=Roboto:700");
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Roboto:900");
+@import url("https://fonts.googleapis.com/css?family=Roboto:700");
+.gradient-color-primary, .login-comp .container-login {
+  background: -webkit-linear-gradient(right top, #79BE75, #27A1C3);
+  background: -moz-linear-gradient(right top, #79BE75, #27A1C3);
+  background: -o-linear-gradient(right top, #79BE75, #27A1C3);
+  background: linear-gradient(right top, #79BE75, #27A1C3); }
+
+.radius-primary, .login-comp .container-login .box-form-login .content {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px; }
+
+.radius-secondary, .form-primary, .login-comp .container-login .box-form-login .content .form form .form-input, .checkbox-primary, .login-comp .container-login .box-form-login .content .form form .add-checkbox, .button-primary {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px; }
+
+.font-family-primary, .login-comp .container-login .box-form-login .content .title {
+  font-family: "Roboto", "sans-serif"; }
+
+.font-primary, .login-comp .container-login .box-form-login .content .form form .remember-me {
+  font-family: "Roboto", "sans-serif";
+  font-size: 13px;
+  color: #767676; }
+
+.font-secondary, .login-comp .container-login .box-form-login .content .forgot-password a {
+  font-family: "Roboto", "sans-serif";
+  font-size: 13px;
+  color: #79BE75; }
+
+.font-secondary-2, .button-primary {
+  font-family: "Roboto", "sans-serif";
+  font-size: 13px;
+  color: #FFFFFF; }
+
+.form-primary, .login-comp .container-login .box-form-login .content .form form .form-input {
+  border: 1px solid #DDDDDD;
+  width: calc(100% - 15px);
+  height: 40px;
+  font-size: 13px;
+  padding-left: 15px;
+  outline: none; }
+
+.checkbox-primary, .login-comp .container-login .box-form-login .content .form form .add-checkbox {
+  border: 1px solid #DDDDDD;
+  cursor: pointer;
+  font-size: 13px;
+  outline: none; }
+
+.placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder {
+  color: #B7B7B7; }
+
+.placeholder-primary ::-moz-placeholder, .login-comp ::-moz-placeholder {
+  color: #B7B7B7; }
+
+.placeholder-primary :-ms-input-placeholder, .login-comp :-ms-input-placeholder {
+  color: #B7B7B7; }
+
+.placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder {
+  color: #B7B7B7; }
+
+* {
+  padding: 0;
+  margin: 0; }
+
+.button-primary {
+  background-color: #27A1C3;
+  border: none;
+  width: 100%;
+  height: 40px;
+  outline: none;
+  cursor: pointer; }
+  .button-primary:hover {
+    background-color: rgba(39, 161, 195, 0.8); }
+
+.gradient-color-primary, .login-comp .container-login {
+  background: -webkit-linear-gradient(right top, #79BE75, #27A1C3);
+  background: -moz-linear-gradient(right top, #79BE75, #27A1C3);
+  background: -o-linear-gradient(right top, #79BE75, #27A1C3);
+  background: linear-gradient(right top, #79BE75, #27A1C3); }
+
+.radius-primary, .login-comp .container-login .box-form-login .content {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px; }
+
+.radius-secondary, .form-primary, .login-comp .container-login .box-form-login .content .form form .form-input, .checkbox-primary, .login-comp .container-login .box-form-login .content .form form .add-checkbox, .button-primary {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px; }
+
+.font-family-primary, .login-comp .container-login .box-form-login .content .title {
+  font-family: "Roboto", "sans-serif"; }
+
+.font-primary, .login-comp .container-login .box-form-login .content .form form .remember-me {
+  font-family: "Roboto", "sans-serif";
+  font-size: 13px;
+  color: #767676; }
+
+.font-secondary, .login-comp .container-login .box-form-login .content .forgot-password a {
+  font-family: "Roboto", "sans-serif";
+  font-size: 13px;
+  color: #79BE75; }
+
+.font-secondary-2, .button-primary {
+  font-family: "Roboto", "sans-serif";
+  font-size: 13px;
+  color: #FFFFFF; }
+
+.form-primary, .login-comp .container-login .box-form-login .content .form form .form-input {
+  border: 1px solid #DDDDDD;
+  width: calc(100% - 15px);
+  height: 40px;
+  font-size: 13px;
+  padding-left: 15px;
+  outline: none; }
+
+.checkbox-primary, .login-comp .container-login .box-form-login .content .form form .add-checkbox {
+  border: 1px solid #DDDDDD;
+  cursor: pointer;
+  font-size: 13px;
+  outline: none; }
+
+.placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder {
+  color: #B7B7B7; }
+
+.placeholder-primary ::-moz-placeholder, .login-comp ::-moz-placeholder {
+  color: #B7B7B7; }
+
+.placeholder-primary :-ms-input-placeholder, .login-comp :-ms-input-placeholder {
+  color: #B7B7B7; }
+
+.placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder {
+  color: #B7B7B7; }
+
+* {
+  padding: 0;
+  margin: 0; }
+
+.login-comp .container-login {
+  width: 100%;
+  height: 100vh; }
+  .login-comp .container-login .box-form-login {
+    margin: 0 auto 0 auto;
+    padding: 150px 0 0 0;
+    max-width: 390px; }
+    .login-comp .container-login .box-form-login .content {
+      background-color: #FFFFFF;
+      width: 390px;
+      height: 390px; }
+      .login-comp .container-login .box-form-login .content .box-typeface-image {
+        margin: 0 auto 0 auto;
+        padding: 30px 0 0 0;
+        max-width: 100px; }
+        .login-comp .container-login .box-form-login .content .box-typeface-image .typeface-image {
+          width: 100px; }
+      .login-comp .container-login .box-form-login .content .title {
+        margin: 13px 0 0 0;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 700;
+        color: #767676; }
+      .login-comp .container-login .box-form-login .content .form {
+        margin: 30px 0 0 0;
+        padding: 0 40px 0 40px; }
+        .login-comp .container-login .box-form-login .content .form form .form-input {
+          margin: 0 0 13px 0; }
+        .login-comp .container-login .box-form-login .content .form form .add-checkbox {
+          margin: 0px 0 0 0;
+          float: left; }
+        .login-comp .container-login .box-form-login .content .form form .remember-me {
+          margin: -1.5px 0 0 20px; }
+      .login-comp .container-login .box-form-login .content .forgot-password {
+        margin: 15px 0 0 0;
+        text-align: center; }
+        .login-comp .container-login .box-form-login .content .forgot-password a {
+          text-decoration: none; }
