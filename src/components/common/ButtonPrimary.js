@@ -4,7 +4,9 @@ import "../../stylesheet/component/common/_button_primary.scss"
 export default class ButtonPrimary extends Component {
     render(){
         return(
-            <button className="button-primary">
+            <button
+            className="button-primary"
+            type="submit">
                 Login
             </button>
         )

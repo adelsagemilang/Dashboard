@@ -2,11 +2,10 @@ import axios from 'axios'
 import ReactDOM from 'react-dom'
 import { API_URL } from '../containers/RootUrl'
 import { AUTH_REQ } from '../actions/actionTypes'
-import { router } from 'react-router';
+import { router } from 'react-router'
 
-export function authReq(){
+export function authReq(props){
     console.log('login clicked')
-    console.log('ref '+ this)
     
     return (dispatch) => {
         axios.post(API_URL + 'login', {
