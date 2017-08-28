@@ -1,0 +1,37 @@
+@import "../../../base/base";
+
+.sidebar{
+    @extend .gradient-color-primary;
+    width: 235px;
+    height: 100vh;
+    padding: 26px 0 0 0;
+    position: fixed;
+    
+    .container-sidebar{
+        // background: url('/images/bg_sidebar_expanded.png');
+        .box-list{
+            z-index: 2;
+            .box-expand-list{
+                margin-top: -5px;
+                width: 100%;
+                height: auto;
+                @include color-opacity-3(0.1);
+            }
+        }
+        .box-image{   
+            max-width: 72px;
+            padding: 0 0 35px 26px;
+            img{}
+        }
+        .bg-sidebar{
+            position: fixed;
+            z-index: -1;
+            img{
+                position: fixed;
+                bottom: 0;
+                width: calc(235px + 26px);
+                margin: -150px 0 0 -26px;
+            }
+        }
+    }
+}

@@ -7,7 +7,16 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 @import url("https://fonts.googleapis.com/css?family=Roboto:900");
 @import url("https://fonts.googleapis.com/css?family=Roboto:700");
-.gradient-color-primary, .login-comp .container-login {
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Roboto:900");
+@import url("https://fonts.googleapis.com/css?family=Roboto:700");
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Roboto:900");
+@import url("https://fonts.googleapis.com/css?family=Roboto:700");
+* {
+  font-family: "Roboto", "sans-serif"; }
+
+.gradient-color-primary, .sidebar, .login-comp .container-login {
   background: -webkit-linear-gradient(right top, #79BE75, #27A1C3);
   background: -moz-linear-gradient(right top, #79BE75, #27A1C3);
   background: -o-linear-gradient(right top, #79BE75, #27A1C3);
@@ -30,15 +39,20 @@
 
 .font-primary, .login-comp .container-login .box-form-login .content .form form .remember-me {
   font-family: "Roboto", "sans-serif";
-  font-size: 13px;
+  font-size: 14px;
   color: #767676; }
 
 .font-secondary, .login-comp .container-login .box-form-login .content .forgot-password a {
   font-family: "Roboto", "sans-serif";
-  font-size: 13px;
+  font-size: 14px;
   color: #79BE75; }
 
-.font-secondary-2, .button-primary {
+.font-secondary-2, .button-primary, .list-menu .box-text-menu p {
+  font-family: "Roboto", "sans-serif";
+  font-size: 14px;
+  color: #FFFFFF; }
+
+.font-secondary-3, .expand-list .box-text-menu p {
   font-family: "Roboto", "sans-serif";
   font-size: 13px;
   color: #FFFFFF; }
@@ -47,14 +61,14 @@
   border: 1px solid #DDDDDD;
   width: calc(100% - 15px);
   height: 40px;
-  font-size: 13px;
+  font-size: 14px;
   padding-left: 15px;
   outline: none; }
 
 .checkbox-primary, .login-comp .container-login .box-form-login .content .form form .add-checkbox {
   border: 1px solid #DDDDDD;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
   outline: none; }
 
 .placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder {
@@ -68,6 +82,9 @@
 
 .placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder {
   color: #B7B7B7; }
+
+.transition {
+  transition: all 0.25s ease-in-out; }
 
 * {
   padding: 0;
@@ -83,7 +100,10 @@
   .button-primary:hover {
     background-color: rgba(39, 161, 195, 0.8); }
 
-.gradient-color-primary, .login-comp .container-login {
+* {
+  font-family: "Roboto", "sans-serif"; }
+
+.gradient-color-primary, .sidebar, .login-comp .container-login {
   background: -webkit-linear-gradient(right top, #79BE75, #27A1C3);
   background: -moz-linear-gradient(right top, #79BE75, #27A1C3);
   background: -o-linear-gradient(right top, #79BE75, #27A1C3);
@@ -106,15 +126,20 @@
 
 .font-primary, .login-comp .container-login .box-form-login .content .form form .remember-me {
   font-family: "Roboto", "sans-serif";
-  font-size: 13px;
+  font-size: 14px;
   color: #767676; }
 
 .font-secondary, .login-comp .container-login .box-form-login .content .forgot-password a {
   font-family: "Roboto", "sans-serif";
-  font-size: 13px;
+  font-size: 14px;
   color: #79BE75; }
 
-.font-secondary-2, .button-primary {
+.font-secondary-2, .button-primary, .list-menu .box-text-menu p {
+  font-family: "Roboto", "sans-serif";
+  font-size: 14px;
+  color: #FFFFFF; }
+
+.font-secondary-3, .expand-list .box-text-menu p {
   font-family: "Roboto", "sans-serif";
   font-size: 13px;
   color: #FFFFFF; }
@@ -123,14 +148,14 @@
   border: 1px solid #DDDDDD;
   width: calc(100% - 15px);
   height: 40px;
-  font-size: 13px;
+  font-size: 14px;
   padding-left: 15px;
   outline: none; }
 
 .checkbox-primary, .login-comp .container-login .box-form-login .content .form form .add-checkbox {
   border: 1px solid #DDDDDD;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
   outline: none; }
 
 .placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder {
@@ -144,12 +169,42 @@
 
 .placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder {
   color: #B7B7B7; }
+
+.transition {
+  transition: all 0.25s ease-in-out; }
 
 * {
   padding: 0;
   margin: 0; }
 
-.gradient-color-primary, .login-comp .container-login {
+.sidebar {
+  width: 235px;
+  height: 100vh;
+  padding: 26px 0 0 0;
+  position: fixed; }
+  .sidebar .container-sidebar .box-list {
+    z-index: 2; }
+    .sidebar .container-sidebar .box-list .box-expand-list {
+      margin-top: -5px;
+      width: 100%;
+      height: auto;
+      background-color: rgba(0, 0, 0, 0.1); }
+  .sidebar .container-sidebar .box-image {
+    max-width: 72px;
+    padding: 0 0 35px 26px; }
+  .sidebar .container-sidebar .bg-sidebar {
+    position: fixed;
+    z-index: -1; }
+    .sidebar .container-sidebar .bg-sidebar img {
+      position: fixed;
+      bottom: 0;
+      width: calc(235px + 26px);
+      margin: -150px 0 0 -26px; }
+
+* {
+  font-family: "Roboto", "sans-serif"; }
+
+.gradient-color-primary, .sidebar, .login-comp .container-login {
   background: -webkit-linear-gradient(right top, #79BE75, #27A1C3);
   background: -moz-linear-gradient(right top, #79BE75, #27A1C3);
   background: -o-linear-gradient(right top, #79BE75, #27A1C3);
@@ -172,15 +227,20 @@
 
 .font-primary, .login-comp .container-login .box-form-login .content .form form .remember-me {
   font-family: "Roboto", "sans-serif";
-  font-size: 13px;
+  font-size: 14px;
   color: #767676; }
 
 .font-secondary, .login-comp .container-login .box-form-login .content .forgot-password a {
   font-family: "Roboto", "sans-serif";
-  font-size: 13px;
+  font-size: 14px;
   color: #79BE75; }
 
-.font-secondary-2, .button-primary {
+.font-secondary-2, .button-primary, .list-menu .box-text-menu p {
+  font-family: "Roboto", "sans-serif";
+  font-size: 14px;
+  color: #FFFFFF; }
+
+.font-secondary-3, .expand-list .box-text-menu p {
   font-family: "Roboto", "sans-serif";
   font-size: 13px;
   color: #FFFFFF; }
@@ -189,14 +249,14 @@
   border: 1px solid #DDDDDD;
   width: calc(100% - 15px);
   height: 40px;
-  font-size: 13px;
+  font-size: 14px;
   padding-left: 15px;
   outline: none; }
 
 .checkbox-primary, .login-comp .container-login .box-form-login .content .form form .add-checkbox {
   border: 1px solid #DDDDDD;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
   outline: none; }
 
 .placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder {
@@ -210,6 +270,192 @@
 
 .placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder {
   color: #B7B7B7; }
+
+.transition {
+  transition: all 0.25s ease-in-out; }
+
+* {
+  padding: 0;
+  margin: 0; }
+
+.list-menu {
+  opacity: 0.6;
+  padding: 14px 10px 10px 26px;
+  margin-bottom: 5px;
+  cursor: pointer; }
+  .list-menu:hover {
+    background-color: rgba(255, 255, 255, 0.2); }
+  .list-menu .box-icon {
+    max-width: 23px; }
+  .list-menu .box-text-menu {
+    margin: -22px 0 0 35px;
+    float: left; }
+
+.list-menu-active {
+  opacity: 1; }
+
+* {
+  font-family: "Roboto", "sans-serif"; }
+
+.gradient-color-primary, .sidebar, .login-comp .container-login {
+  background: -webkit-linear-gradient(right top, #79BE75, #27A1C3);
+  background: -moz-linear-gradient(right top, #79BE75, #27A1C3);
+  background: -o-linear-gradient(right top, #79BE75, #27A1C3);
+  background: linear-gradient(right top, #79BE75, #27A1C3); }
+
+.radius-primary, .login-comp .container-login .box-form-login .content {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px; }
+
+.radius-secondary, .form-primary, .login-comp .container-login .box-form-login .content .form form .form-input, .checkbox-primary, .login-comp .container-login .box-form-login .content .form form .add-checkbox, .button-primary {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px; }
+
+.font-family-primary, .login-comp .container-login .box-form-login .content .title {
+  font-family: "Roboto", "sans-serif"; }
+
+.font-primary, .login-comp .container-login .box-form-login .content .form form .remember-me {
+  font-family: "Roboto", "sans-serif";
+  font-size: 14px;
+  color: #767676; }
+
+.font-secondary, .login-comp .container-login .box-form-login .content .forgot-password a {
+  font-family: "Roboto", "sans-serif";
+  font-size: 14px;
+  color: #79BE75; }
+
+.font-secondary-2, .button-primary, .list-menu .box-text-menu p {
+  font-family: "Roboto", "sans-serif";
+  font-size: 14px;
+  color: #FFFFFF; }
+
+.font-secondary-3, .expand-list .box-text-menu p {
+  font-family: "Roboto", "sans-serif";
+  font-size: 13px;
+  color: #FFFFFF; }
+
+.form-primary, .login-comp .container-login .box-form-login .content .form form .form-input {
+  border: 1px solid #DDDDDD;
+  width: calc(100% - 15px);
+  height: 40px;
+  font-size: 14px;
+  padding-left: 15px;
+  outline: none; }
+
+.checkbox-primary, .login-comp .container-login .box-form-login .content .form form .add-checkbox {
+  border: 1px solid #DDDDDD;
+  cursor: pointer;
+  font-size: 14px;
+  outline: none; }
+
+.placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder {
+  color: #B7B7B7; }
+
+.placeholder-primary ::-moz-placeholder, .login-comp ::-moz-placeholder {
+  color: #B7B7B7; }
+
+.placeholder-primary :-ms-input-placeholder, .login-comp :-ms-input-placeholder {
+  color: #B7B7B7; }
+
+.placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder {
+  color: #B7B7B7; }
+
+.transition {
+  transition: all 0.25s ease-in-out; }
+
+* {
+  padding: 0;
+  margin: 0; }
+
+.expand-list {
+  opacity: 0.7;
+  padding: 14px 10px 10px 30px;
+  border-top: 1px solid color-opacity-3(1);
+  cursor: pointer; }
+  .expand-list:hover {
+    background-color: rgba(255, 255, 255, 0.2); }
+  .expand-list .box-icon {
+    max-width: 16px; }
+  .expand-list .box-text-menu {
+    margin: -18px 0 0 30px;
+    float: left; }
+
+* {
+  font-family: "Roboto", "sans-serif"; }
+
+.gradient-color-primary, .sidebar, .login-comp .container-login {
+  background: -webkit-linear-gradient(right top, #79BE75, #27A1C3);
+  background: -moz-linear-gradient(right top, #79BE75, #27A1C3);
+  background: -o-linear-gradient(right top, #79BE75, #27A1C3);
+  background: linear-gradient(right top, #79BE75, #27A1C3); }
+
+.radius-primary, .login-comp .container-login .box-form-login .content {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px; }
+
+.radius-secondary, .form-primary, .login-comp .container-login .box-form-login .content .form form .form-input, .checkbox-primary, .login-comp .container-login .box-form-login .content .form form .add-checkbox, .button-primary {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px; }
+
+.font-family-primary, .login-comp .container-login .box-form-login .content .title {
+  font-family: "Roboto", "sans-serif"; }
+
+.font-primary, .login-comp .container-login .box-form-login .content .form form .remember-me {
+  font-family: "Roboto", "sans-serif";
+  font-size: 14px;
+  color: #767676; }
+
+.font-secondary, .login-comp .container-login .box-form-login .content .forgot-password a {
+  font-family: "Roboto", "sans-serif";
+  font-size: 14px;
+  color: #79BE75; }
+
+.font-secondary-2, .button-primary, .list-menu .box-text-menu p {
+  font-family: "Roboto", "sans-serif";
+  font-size: 14px;
+  color: #FFFFFF; }
+
+.font-secondary-3, .expand-list .box-text-menu p {
+  font-family: "Roboto", "sans-serif";
+  font-size: 13px;
+  color: #FFFFFF; }
+
+.form-primary, .login-comp .container-login .box-form-login .content .form form .form-input {
+  border: 1px solid #DDDDDD;
+  width: calc(100% - 15px);
+  height: 40px;
+  font-size: 14px;
+  padding-left: 15px;
+  outline: none; }
+
+.checkbox-primary, .login-comp .container-login .box-form-login .content .form form .add-checkbox {
+  border: 1px solid #DDDDDD;
+  cursor: pointer;
+  font-size: 14px;
+  outline: none; }
+
+.placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder {
+  color: #B7B7B7; }
+
+.placeholder-primary ::-moz-placeholder, .login-comp ::-moz-placeholder {
+  color: #B7B7B7; }
+
+.placeholder-primary :-ms-input-placeholder, .login-comp :-ms-input-placeholder {
+  color: #B7B7B7; }
+
+.placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder {
+  color: #B7B7B7; }
+
+.transition {
+  transition: all 0.25s ease-in-out; }
 
 * {
   padding: 0;

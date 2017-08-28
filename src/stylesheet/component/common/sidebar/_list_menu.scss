@@ -1,0 +1,26 @@
+@import "../../../base/base";
+
+.list-menu{
+    opacity: 0.6;
+    padding: 14px 10px 10px 26px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    &:hover{
+        @include color-opacity-2(0.2);
+    }
+    .box-icon{
+        max-width: 23px;
+        img{}
+    }
+    .box-text-menu{
+        margin: -22px 0 0 35px;
+        float: left;
+        p{
+            @extend .font-secondary-2
+        }
+    }
+}
+
+.list-menu-active{
+    opacity: 1;
+}

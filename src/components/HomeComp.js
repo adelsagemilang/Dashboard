@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 import { actionAuth } from '../actions/actionAuth'
 import { connect } from 'react-redux'
+import SideBar from '../components/common/sidebar/SideBar'
 
 
 export default class HomeComp extends Component{
@@ -15,8 +16,8 @@ export default class HomeComp extends Component{
 
     render(){
         return(
-            <div>
-                Home
+            <div className="home-comp">
+                <SideBar />
             </div>
         )
     }

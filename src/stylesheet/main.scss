@@ -1,7 +1,10 @@
 //common
 @import "component/common/button_primary";
 @import "component/common/input_form";
-@import "component/common/sidebar";
+    //common sidebar
+    @import "component/common/sidebar/sidebar";
+    @import "component/common/sidebar/list_menu";
+    @import "component/common/sidebar/list_menu_expand";
 
 //compont general
 @import "component/login_comp";

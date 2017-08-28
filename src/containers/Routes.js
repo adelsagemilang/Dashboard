@@ -19,7 +19,7 @@ export default class Routes extends Component {
                     exact path="/"
                     component={App}/>
 
-                <Route path="/Home" component={HomeComp} onEnter={requireAuth} />
+                <Route path="/home" component={HomeComp} onEnter={requireAuth} />
                 <Route path="/about" component={App} onEnter={requireAuth} />
                 <Route path="/login" component={LoginComp} onEnter={requireAuth} />
                 <Route component={NotFound}/>
