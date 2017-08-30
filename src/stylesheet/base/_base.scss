@@ -65,6 +65,12 @@
     color: $color-02;
 }
 
+.font-primary{
+    @include font-family('Roboto', 'sans-serif');
+    font-size: $font-size-02;
+    color: $color-02;
+}
+
 .font-secondary{
     @include font-family('Roboto', 'sans-serif');
     font-size: $font-size-02;
@@ -81,6 +87,12 @@
     @include font-family('Roboto', 'sans-serif');
     font-size: $font-size-04;
     color: $color-01;
+}
+
+.font-secondary-4{
+    @include font-family('Roboto', 'sans-serif');
+    font-size: $font-size-02;
+    color: $color-03;
 }
 
 .form-primary{

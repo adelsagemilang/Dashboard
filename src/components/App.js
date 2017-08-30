@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 import { actionAuth } from '../actions/actionAuth'
 import { connect } from 'react-redux'
+import LayoutMaster from '../components/common/LayoutMaster'
 
 
 export default class App extends Component{
@@ -9,15 +10,12 @@ export default class App extends Component{
         
     }
 
-    componentDidMount(){
-     
-    }
-
     render(){
         return(
             <div>
-                apps
-                {this.props.children}
+                <main>
+                    
+                </main>
             </div>
         )
     }

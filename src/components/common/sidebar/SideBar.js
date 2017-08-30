@@ -65,11 +65,9 @@ export default class SideBar extends Component {
         if(isExpandOnA === true){
             return (
                 <div className="box-expand-list">
-                    <Link to="/admin">
-                        <ExpandMenuExpand class="expand-animate" text="Admin" to="to"/>
-                    </Link>
-                    <ExpandMenuExpand class="expand-animate" text="Admin Pemandu Rukman" />
-                    <ExpandMenuExpand class="expand-animate" text="Admin Rukman" />
+                    <ExpandMenuExpand class="expand-animate" text="Admin" link="admin"/>
+                    <ExpandMenuExpand class="expand-animate" text="Admin Pemandu Rukman" link="admin-pemandu-rukman"/>
+                    <ExpandMenuExpand class="expand-animate" text="Admin Rukman" link="admin-rukman"/>
                 </div>
             )
         }else if(!isExpandOnB){
@@ -86,13 +84,15 @@ export default class SideBar extends Component {
         const url = window.location.pathname;
         if(url === '/home' ||  url === '/home/'){
             isActive = 'list-menu-active'
+        }else if(url === '/admin/admin' || url === '/admin/admin/'){
+            this.state.isExpandOnA = true
         }
 
         return(
             <div className="sidebar">
                 <div className="container-sidebar">
                     <div className="box-image">
-                        <img src="./images/typeface-aruni.svg" />
+                        <img src="../images/typeface-aruni.svg" />
                     </div>
                     <div className="box-list">
                         <Link to="/home">
@@ -118,7 +118,7 @@ export default class SideBar extends Component {
                         </div>
                     </div>
                     <div className="bg-sidebar">
-                        <img src="./images/bg_sidebar_expanded.png" />
+                        <img src="../images/bg_sidebar_expanded.png" />
                     </div>
                 </div>
             </div>

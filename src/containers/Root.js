@@ -10,24 +10,24 @@ import {
     
 import configureStore from '../store/configureStore'
 import Routes from '../containers/Routes'
-import createHistory from 'history/createBrowserHistory'
+import createBrowserHistory from 'history/createBrowserHistory'
 import App from '../components/App'
-import actionAuth from '../actions/actionAuth'
-import NotFound from '../components/common/NotFound'
 
+
+const history = createBrowserHistory()
 const store = configureStore()
 // store.dispatch(actionAuth.fetchAuth())
 
 export default class Root extends Component {
     render(){
         return(
-            <Provider store={store}>
-                <Router>
-                    <div>
-                        <Routes />
-                    </div>
-                </Router>
-            </Provider>
+                <Provider store={store}>
+                    <Router history={history}>
+                        <div>
+                            <Routes />
+                        </div>
+                    </Router>
+                </Provider>
         )
     }
 }
