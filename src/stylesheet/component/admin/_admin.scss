@@ -1,0 +1,36 @@
+@import "../../base/base";
+
+.user-access{
+    margin: 120px 0px 0 235px;
+    position: absolute;
+    width: calc(100% - 235px);
+    height: 100px;
+    
+    .user-access-container{
+        .box-table{
+            table{
+                border-collapse: collapse;
+                width: 100%;
+                thead{
+                    border-top:1px solid $color-05;
+                    border-bottom:1px solid $color-05;
+                    tr{                        
+                        th{
+                            @extend .font-primary;
+                            padding: 14px 14px 14px 14px;
+                            text-align: left;
+                        }
+                    }
+                }
+                tbody{
+                    tr{
+                        td{
+                            padding: 14px 14px 14px 14px;
+                            @extend .font-primary;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

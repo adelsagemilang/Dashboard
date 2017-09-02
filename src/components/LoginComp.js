@@ -48,10 +48,14 @@ class LoginComp extends Component{
         })
         .then(res => {
             const data = res.data.token
+            const userName = res.data.user.name
+            const userEmail = res.data.user.email
             this.setState({data})
             console.log('succ: '+ this.state.data)
 
             Cookie.save('TK', Base64.encode(Crypto.AES.encrypt(data, TK_KEY)))
+            Cookie.save('username', Base64.encode(Crypto.AES.encrypt(userName, TK_KEY)))
+            Cookie.save('email', Base64.encode(Crypto.AES.encrypt(userEmail, TK_KEY)))
             this.props.history.push('/home');
         })
         .catch((error) => {

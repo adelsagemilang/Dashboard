@@ -1,6 +1,7 @@
 @import "../base/base";
 
 .login-comp{
+    z-index: 10;
     @extend .placeholder-primary;
     .container-login{
         @extend .gradient-color-primary;

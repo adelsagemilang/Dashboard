@@ -17,14 +17,16 @@ export default class Routes extends Component {
     render(){
         return(
             <div>
+                
                 <Switch>
                     <Route exact path="/" component={App} />
-                    <Route path="/home" component={LayoutMaster || HomeComp} onEnter={requireAuth} />
-                    <Route path="/admin/admin" component={LayoutMaster || Admin} onEnter={requireAuth} />
-                    <Route path="/about" component={LayoutMaster || App} onEnter={requireAuth} />
+                    <Route path="/home" component={HomeComp} onEnter={requireAuth} />
+                    <Route path="/admin/admin" component={Admin} onEnter={requireAuth} />
+                    <Route path="/about" component={App} onEnter={requireAuth} />
                     <Route path="/login" component={LoginComp} onEnter={requireAuth} />
                     <Route component={NotFound}/>
                 </Switch>
+                <LayoutMaster/>
             </div>
         )
     }
