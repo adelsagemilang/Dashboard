@@ -16,6 +16,9 @@
                     border-bottom:1px solid $color-05;
                     tr{                        
                         th{
+                            &:first-child{
+                                padding: 0 0 0 27px;
+                            }
                             @extend .font-primary;
                             padding: 14px 14px 14px 14px;
                             text-align: left;
@@ -24,10 +27,21 @@
                 }
                 tbody{
                     tr{
+                        height: 56px;
                         td{
-                            padding: 14px 14px 14px 14px;
+                            
+                            &:first-child{
+                                padding: 0 0 0 27px;
+                                font-weight: 600;
+                            }
+                            // padding: 10px 10px 10px 10px;
+                            padding: 0 0 0 10px;
                             @extend .font-primary;
+                            line-height: 20px;
                         }
+                    }
+                    .list-grey{
+                        background-color: $color-06;
                     }
                 }
             }

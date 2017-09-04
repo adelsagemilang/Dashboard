@@ -37,7 +37,8 @@ class LoginComp extends Component{
         e.preventDefault();
         // this.props.authReq()
         const { cookies } = this.props;
-        console.log('username' + this.state.username)
+        console.log('username: ' + this.state.username)
+        console.log('password: ' + this.state.password)
         
         axios.post(API_URL + 'login', {
             username: this.state.username,

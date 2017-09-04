@@ -1,24 +1,17 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto");
-@import url("https://fonts.googleapis.com/css?family=Roboto:900");
-@import url("https://fonts.googleapis.com/css?family=Roboto:700");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
 @import url("https://fonts.googleapis.com/css?family=Roboto");
-@import url("https://fonts.googleapis.com/css?family=Roboto:900");
-@import url("https://fonts.googleapis.com/css?family=Roboto:700");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
 @import url("https://fonts.googleapis.com/css?family=Roboto");
-@import url("https://fonts.googleapis.com/css?family=Roboto:900");
-@import url("https://fonts.googleapis.com/css?family=Roboto:700");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
 @import url("https://fonts.googleapis.com/css?family=Roboto");
-@import url("https://fonts.googleapis.com/css?family=Roboto:900");
-@import url("https://fonts.googleapis.com/css?family=Roboto:700");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
 @import url("https://fonts.googleapis.com/css?family=Roboto");
-@import url("https://fonts.googleapis.com/css?family=Roboto:900");
-@import url("https://fonts.googleapis.com/css?family=Roboto:700");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
 @import url("https://fonts.googleapis.com/css?family=Roboto");
-@import url("https://fonts.googleapis.com/css?family=Roboto:900");
-@import url("https://fonts.googleapis.com/css?family=Roboto:700");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
 @import url("https://fonts.googleapis.com/css?family=Roboto");
-@import url("https://fonts.googleapis.com/css?family=Roboto:900");
-@import url("https://fonts.googleapis.com/css?family=Roboto:700");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
 * {
   font-family: "Roboto", "sans-serif"; }
 
@@ -43,12 +36,12 @@
 .font-family-primary, .login-comp .container-login .box-form-login .content .title {
   font-family: "Roboto", "sans-serif"; }
 
-.font-primary, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
 
-.font-primary, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
@@ -140,12 +133,12 @@
 .font-family-primary, .login-comp .container-login .box-form-login .content .title {
   font-family: "Roboto", "sans-serif"; }
 
-.font-primary, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
 
-.font-primary, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
@@ -210,6 +203,12 @@
     width: 100%;
     height: 75px;
     border-bottom: 1px solid #D6D6D6; }
+    .header-comp .header-container .box-title {
+      position: inherit;
+      padding: 24px 30px 0 26px; }
+      .header-comp .header-container .box-title p {
+        font-size: 25px !important;
+        font-weight: 300; }
     .header-comp .header-container .header-icon img {
       cursor: pointer;
       width: 20px; }
@@ -266,12 +265,12 @@
 .font-family-primary, .login-comp .container-login .box-form-login .content .title {
   font-family: "Roboto", "sans-serif"; }
 
-.font-primary, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
 
-.font-primary, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
@@ -377,12 +376,12 @@
 .font-family-primary, .login-comp .container-login .box-form-login .content .title {
   font-family: "Roboto", "sans-serif"; }
 
-.font-primary, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
 
-.font-primary, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
@@ -480,12 +479,12 @@
 .font-family-primary, .login-comp .container-login .box-form-login .content .title {
   font-family: "Roboto", "sans-serif"; }
 
-.font-primary, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
 
-.font-primary, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
@@ -598,12 +597,12 @@
 .font-family-primary, .login-comp .container-login .box-form-login .content .title {
   font-family: "Roboto", "sans-serif"; }
 
-.font-primary, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
 
-.font-primary, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
@@ -726,12 +725,12 @@
 .font-family-primary, .login-comp .container-login .box-form-login .content .title {
   font-family: "Roboto", "sans-serif"; }
 
-.font-primary, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
 
-.font-primary, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
@@ -803,5 +802,15 @@
       .user-access .user-access-container .box-table table thead tr th {
         padding: 14px 14px 14px 14px;
         text-align: left; }
-    .user-access .user-access-container .box-table table tbody tr td {
-      padding: 14px 14px 14px 14px; }
+        .user-access .user-access-container .box-table table thead tr th:first-child {
+          padding: 0 0 0 27px; }
+    .user-access .user-access-container .box-table table tbody tr {
+      height: 56px; }
+      .user-access .user-access-container .box-table table tbody tr td {
+        padding: 0 0 0 10px;
+        line-height: 20px; }
+        .user-access .user-access-container .box-table table tbody tr td:first-child {
+          padding: 0 0 0 27px;
+          font-weight: 600; }
+    .user-access .user-access-container .box-table table tbody .list-grey {
+      background-color: #F7F7F7; }

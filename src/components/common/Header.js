@@ -22,12 +22,18 @@ export default class Header extends Component{
         return(
             <div className="header-comp">
                 <div className="header-container">
+                    <div className="box-title">
+                        <p>{this.props.title}</p>
+                    </div>
+                    
                     <div className="box-logout header-icon">
                         <img src="../images/icon/logout-icon.svg" />
                     </div>
+
                     <div className="box-setting header-icon">
                         <img src="../images/icon/setting-icon.svg" />
                     </div>
+
                     <div className="box-user">
                         <div className="box-img-user">
                             <img src="../images/user-img.jpeg" />
@@ -37,6 +43,7 @@ export default class Header extends Component{
                             <p className="status">{this.userEmail}</p>
                         </div>
                     </div>
+
                 </div>
             </div>
         )

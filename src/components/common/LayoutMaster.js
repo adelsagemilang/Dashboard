@@ -6,7 +6,7 @@ export default class LayoutMaster extends Component{
     render(){
         return(
             <div>
-                <Header />
+                {/* <Header /> */}
                 <SideBar />
                 {/* {this.props.children} */}
             </div>
