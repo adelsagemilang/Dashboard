@@ -1,12 +1,58 @@
 @import "../../base/base";
 
 .user-access{
-    margin: 120px 0px 0 235px;
+    margin: 100px 0px 0 235px;
     position: absolute;
     width: calc(100% - 235px);
     height: 100px;
-    
+    @extend .placeholder-primary;
     .user-access-container{
+        .box-top{
+            .count-item{
+                padding: 0 0 25px 26px;
+                margin: 5px 0 0 0;
+                @extend .font-secondary-5;
+                float: left;
+            }
+            .option-input{
+                margin: -5px 0 0 12px;
+                width: 185px;
+                height: 40px;
+                @include border-radius(5px);
+                -webkit-appearance: none;
+                border: 1px solid $color-04;
+                background: none;
+                outline: none;
+                padding: 12px;
+                @extend .font-primary;
+                float: left;
+            }
+            .search-item{
+                display: block;
+                float: left;
+                bottom: 0;
+                top: 100px;
+                outline: none;
+                padding: 0 0 0 12px;
+                @extend .font-primary;
+                border: 1px solid $color-04;
+                margin: -5px 0 0 12px!important;
+                width: 185px;
+                height: 38px;
+                @include border-radius(5px);
+            }
+
+            .role-filter{
+                margin: -5px 0 0 12px!important;
+            }
+            .box-btn{
+                position: absolute;
+                right: 0;
+                margin: -5px 27px 0 0;
+                max-width: 130px;
+                min-width: 130px;
+            }
+        }
         .box-table{
             table{
                 border-collapse: collapse;
@@ -26,6 +72,7 @@
                     }
                 }
                 tbody{
+                    border-bottom:1px solid $color-05;
                     tr{
                         height: 56px;
                         td{
@@ -35,7 +82,7 @@
                                 font-weight: 600;
                             }
                             // padding: 10px 10px 10px 10px;
-                            padding: 0 0 0 10px;
+                            padding: 0 0 0 15px;
                             @extend .font-primary;
                             line-height: 20px;
                         }
@@ -43,6 +90,18 @@
                     .list-grey{
                         background-color: $color-06;
                     }
+                }
+            }
+        }
+
+        .box-footer-table{
+            .footer-table{
+                width: 100%;
+                height: 56px;
+                border-bottom:1px solid $color-05;
+                .text-footer{
+                    @extend .font-primary;
+                    padding: 20px 0 0 27px;
                 }
             }
         }

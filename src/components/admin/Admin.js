@@ -7,10 +7,13 @@ import autoBind from 'react-autobind'
 import { API_URL, TK_KEY } from '../../containers/RootUrl'
 import '../../stylesheet/component/admin/_admin.scss'
 import Header from '../common/Header'
+import { ButtonPrimary } from '../common/ButtonPrimary'
+import ReactPaginate from 'react-paginate'
 
 export default class Admin extends Component{
     constructor(props){
         super(props)
+        autoBind(this)
 
         this.state = {
             dataHere: [],
@@ -20,6 +23,10 @@ export default class Admin extends Component{
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
         this.userName = Crypto.AES.decrypt(Base64.decode(Cookie.load('username')), TK_KEY).toString(Crypto.enc.Utf8)
         this.userEmail = Crypto.AES.decrypt(Base64.decode(Cookie.load('email')), TK_KEY).toString(Crypto.enc.Utf8)
+    }
+
+    handleAdd(){
+        console.log('clocked add')
     }
 
     componentDidMount(){
@@ -52,6 +59,22 @@ export default class Admin extends Component{
                 <Header title="Akses User - Admin" />
                 <div className="user-access">
                     <div className="user-access-container">
+                        <div className="box-top">
+                            <p className="count-item">30 Users</p>
+                            <select className="per-page option-input">
+                                <option>10 entri per halaman</option>
+                                <option>10 entri per halaman</option>
+                            </select>
+                            <input className="search-item" type="text" placeholder="Cari .." />
+                            <select className="role-filter option-input">
+                                <option>Semua Role</option>
+                                <option>Semua Role</option>
+                            </select>
+                            <div className="box-btn" onClick={this.handleAdd}>
+                                <ButtonPrimary name="Tambah User" />
+                            </div>
+                        </div>
+
                         <div className="box-table">
                             <table>
                                 <thead>
@@ -92,6 +115,12 @@ export default class Admin extends Component{
                                     })}
                                 </tbody>
                             </table>
+                        </div>
+
+                        <div className="box-footer-table">
+                            <div className="footer-table">
+                                <p className="text-footer">Menampilkan 10 entri dari 30 Anggota Kelompok Tani</p>
+                            </div>
                         </div>
                     </div>
                 </div>

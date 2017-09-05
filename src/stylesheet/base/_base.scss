@@ -94,6 +94,12 @@
     color: $color-03;
 }
 
+.font-secondary-5{
+    @include font-family('Roboto', 'sans-serif');
+    font-size: $font-size-06;
+    color: $color-primary;
+}
+
 .form-primary{
     @extend .radius-secondary;
     border: 1px solid $color-04;

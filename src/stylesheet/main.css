@@ -36,12 +36,12 @@
 .font-family-primary, .login-comp .container-login .box-form-login .content .title {
   font-family: "Roboto", "sans-serif"; }
 
-.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-top .option-input, .user-access .user-access-container .box-top .search-item, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td, .user-access .user-access-container .box-footer-table .footer-table .text-footer {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
 
-.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-top .option-input, .user-access .user-access-container .box-top .search-item, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td, .user-access .user-access-container .box-footer-table .footer-table .text-footer {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
@@ -66,6 +66,11 @@
   font-size: 14px;
   color: #B7B7B7; }
 
+.font-secondary-5, .user-access .user-access-container .box-top .count-item {
+  font-family: "Roboto", "sans-serif";
+  font-size: 16px;
+  color: #27A1C3; }
+
 .form-primary, .login-comp .container-login .box-form-login .content .form form .form-input {
   border: 1px solid #DDDDDD;
   width: calc(100% - 15px);
@@ -80,16 +85,16 @@
   font-size: 14px;
   outline: none; }
 
-.placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder {
+.placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder, .user-access ::-webkit-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary ::-moz-placeholder, .login-comp ::-moz-placeholder {
+.placeholder-primary ::-moz-placeholder, .login-comp ::-moz-placeholder, .user-access ::-moz-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary :-ms-input-placeholder, .login-comp :-ms-input-placeholder {
+.placeholder-primary :-ms-input-placeholder, .login-comp :-ms-input-placeholder, .user-access :-ms-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder {
+.placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder, .user-access :-moz-placeholder {
   color: #B7B7B7; }
 
 .transition {
@@ -133,12 +138,12 @@
 .font-family-primary, .login-comp .container-login .box-form-login .content .title {
   font-family: "Roboto", "sans-serif"; }
 
-.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-top .option-input, .user-access .user-access-container .box-top .search-item, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td, .user-access .user-access-container .box-footer-table .footer-table .text-footer {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
 
-.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-top .option-input, .user-access .user-access-container .box-top .search-item, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td, .user-access .user-access-container .box-footer-table .footer-table .text-footer {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
@@ -163,6 +168,11 @@
   font-size: 14px;
   color: #B7B7B7; }
 
+.font-secondary-5, .user-access .user-access-container .box-top .count-item {
+  font-family: "Roboto", "sans-serif";
+  font-size: 16px;
+  color: #27A1C3; }
+
 .form-primary, .login-comp .container-login .box-form-login .content .form form .form-input {
   border: 1px solid #DDDDDD;
   width: calc(100% - 15px);
@@ -177,16 +187,16 @@
   font-size: 14px;
   outline: none; }
 
-.placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder {
+.placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder, .user-access ::-webkit-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary ::-moz-placeholder, .login-comp ::-moz-placeholder {
+.placeholder-primary ::-moz-placeholder, .login-comp ::-moz-placeholder, .user-access ::-moz-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary :-ms-input-placeholder, .login-comp :-ms-input-placeholder {
+.placeholder-primary :-ms-input-placeholder, .login-comp :-ms-input-placeholder, .user-access :-ms-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder {
+.placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder, .user-access :-moz-placeholder {
   color: #B7B7B7; }
 
 .transition {
@@ -265,12 +275,12 @@
 .font-family-primary, .login-comp .container-login .box-form-login .content .title {
   font-family: "Roboto", "sans-serif"; }
 
-.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-top .option-input, .user-access .user-access-container .box-top .search-item, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td, .user-access .user-access-container .box-footer-table .footer-table .text-footer {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
 
-.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-top .option-input, .user-access .user-access-container .box-top .search-item, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td, .user-access .user-access-container .box-footer-table .footer-table .text-footer {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
@@ -295,6 +305,11 @@
   font-size: 14px;
   color: #B7B7B7; }
 
+.font-secondary-5, .user-access .user-access-container .box-top .count-item {
+  font-family: "Roboto", "sans-serif";
+  font-size: 16px;
+  color: #27A1C3; }
+
 .form-primary, .login-comp .container-login .box-form-login .content .form form .form-input {
   border: 1px solid #DDDDDD;
   width: calc(100% - 15px);
@@ -309,16 +324,16 @@
   font-size: 14px;
   outline: none; }
 
-.placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder {
+.placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder, .user-access ::-webkit-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary ::-moz-placeholder, .login-comp ::-moz-placeholder {
+.placeholder-primary ::-moz-placeholder, .login-comp ::-moz-placeholder, .user-access ::-moz-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary :-ms-input-placeholder, .login-comp :-ms-input-placeholder {
+.placeholder-primary :-ms-input-placeholder, .login-comp :-ms-input-placeholder, .user-access :-ms-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder {
+.placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder, .user-access :-moz-placeholder {
   color: #B7B7B7; }
 
 .transition {
@@ -376,12 +391,12 @@
 .font-family-primary, .login-comp .container-login .box-form-login .content .title {
   font-family: "Roboto", "sans-serif"; }
 
-.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-top .option-input, .user-access .user-access-container .box-top .search-item, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td, .user-access .user-access-container .box-footer-table .footer-table .text-footer {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
 
-.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-top .option-input, .user-access .user-access-container .box-top .search-item, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td, .user-access .user-access-container .box-footer-table .footer-table .text-footer {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
@@ -406,6 +421,11 @@
   font-size: 14px;
   color: #B7B7B7; }
 
+.font-secondary-5, .user-access .user-access-container .box-top .count-item {
+  font-family: "Roboto", "sans-serif";
+  font-size: 16px;
+  color: #27A1C3; }
+
 .form-primary, .login-comp .container-login .box-form-login .content .form form .form-input {
   border: 1px solid #DDDDDD;
   width: calc(100% - 15px);
@@ -420,16 +440,16 @@
   font-size: 14px;
   outline: none; }
 
-.placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder {
+.placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder, .user-access ::-webkit-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary ::-moz-placeholder, .login-comp ::-moz-placeholder {
+.placeholder-primary ::-moz-placeholder, .login-comp ::-moz-placeholder, .user-access ::-moz-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary :-ms-input-placeholder, .login-comp :-ms-input-placeholder {
+.placeholder-primary :-ms-input-placeholder, .login-comp :-ms-input-placeholder, .user-access :-ms-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder {
+.placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder, .user-access :-moz-placeholder {
   color: #B7B7B7; }
 
 .transition {
@@ -479,12 +499,12 @@
 .font-family-primary, .login-comp .container-login .box-form-login .content .title {
   font-family: "Roboto", "sans-serif"; }
 
-.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-top .option-input, .user-access .user-access-container .box-top .search-item, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td, .user-access .user-access-container .box-footer-table .footer-table .text-footer {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
 
-.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-top .option-input, .user-access .user-access-container .box-top .search-item, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td, .user-access .user-access-container .box-footer-table .footer-table .text-footer {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
@@ -509,6 +529,11 @@
   font-size: 14px;
   color: #B7B7B7; }
 
+.font-secondary-5, .user-access .user-access-container .box-top .count-item {
+  font-family: "Roboto", "sans-serif";
+  font-size: 16px;
+  color: #27A1C3; }
+
 .form-primary, .login-comp .container-login .box-form-login .content .form form .form-input {
   border: 1px solid #DDDDDD;
   width: calc(100% - 15px);
@@ -523,16 +548,16 @@
   font-size: 14px;
   outline: none; }
 
-.placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder {
+.placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder, .user-access ::-webkit-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary ::-moz-placeholder, .login-comp ::-moz-placeholder {
+.placeholder-primary ::-moz-placeholder, .login-comp ::-moz-placeholder, .user-access ::-moz-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary :-ms-input-placeholder, .login-comp :-ms-input-placeholder {
+.placeholder-primary :-ms-input-placeholder, .login-comp :-ms-input-placeholder, .user-access :-ms-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder {
+.placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder, .user-access :-moz-placeholder {
   color: #B7B7B7; }
 
 .transition {
@@ -597,12 +622,12 @@
 .font-family-primary, .login-comp .container-login .box-form-login .content .title {
   font-family: "Roboto", "sans-serif"; }
 
-.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-top .option-input, .user-access .user-access-container .box-top .search-item, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td, .user-access .user-access-container .box-footer-table .footer-table .text-footer {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
 
-.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-top .option-input, .user-access .user-access-container .box-top .search-item, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td, .user-access .user-access-container .box-footer-table .footer-table .text-footer {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
@@ -627,6 +652,11 @@
   font-size: 14px;
   color: #B7B7B7; }
 
+.font-secondary-5, .user-access .user-access-container .box-top .count-item {
+  font-family: "Roboto", "sans-serif";
+  font-size: 16px;
+  color: #27A1C3; }
+
 .form-primary, .login-comp .container-login .box-form-login .content .form form .form-input {
   border: 1px solid #DDDDDD;
   width: calc(100% - 15px);
@@ -641,16 +671,16 @@
   font-size: 14px;
   outline: none; }
 
-.placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder {
+.placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder, .user-access ::-webkit-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary ::-moz-placeholder, .login-comp ::-moz-placeholder {
+.placeholder-primary ::-moz-placeholder, .login-comp ::-moz-placeholder, .user-access ::-moz-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary :-ms-input-placeholder, .login-comp :-ms-input-placeholder {
+.placeholder-primary :-ms-input-placeholder, .login-comp :-ms-input-placeholder, .user-access :-ms-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder {
+.placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder, .user-access :-moz-placeholder {
   color: #B7B7B7; }
 
 .transition {
@@ -725,12 +755,12 @@
 .font-family-primary, .login-comp .container-login .box-form-login .content .title {
   font-family: "Roboto", "sans-serif"; }
 
-.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-top .option-input, .user-access .user-access-container .box-top .search-item, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td, .user-access .user-access-container .box-footer-table .footer-table .text-footer {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
 
-.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td {
+.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-top .option-input, .user-access .user-access-container .box-top .search-item, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td, .user-access .user-access-container .box-footer-table .footer-table .text-footer {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #767676; }
@@ -755,6 +785,11 @@
   font-size: 14px;
   color: #B7B7B7; }
 
+.font-secondary-5, .user-access .user-access-container .box-top .count-item {
+  font-family: "Roboto", "sans-serif";
+  font-size: 16px;
+  color: #27A1C3; }
+
 .form-primary, .login-comp .container-login .box-form-login .content .form form .form-input {
   border: 1px solid #DDDDDD;
   width: calc(100% - 15px);
@@ -769,16 +804,16 @@
   font-size: 14px;
   outline: none; }
 
-.placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder {
+.placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder, .user-access ::-webkit-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary ::-moz-placeholder, .login-comp ::-moz-placeholder {
+.placeholder-primary ::-moz-placeholder, .login-comp ::-moz-placeholder, .user-access ::-moz-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary :-ms-input-placeholder, .login-comp :-ms-input-placeholder {
+.placeholder-primary :-ms-input-placeholder, .login-comp :-ms-input-placeholder, .user-access :-ms-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder {
+.placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder, .user-access :-moz-placeholder {
   color: #B7B7B7; }
 
 .transition {
@@ -789,10 +824,51 @@
   margin: 0; }
 
 .user-access {
-  margin: 120px 0px 0 235px;
+  margin: 100px 0px 0 235px;
   position: absolute;
   width: calc(100% - 235px);
   height: 100px; }
+  .user-access .user-access-container .box-top .count-item {
+    padding: 0 0 25px 26px;
+    margin: 5px 0 0 0;
+    float: left; }
+  .user-access .user-access-container .box-top .option-input {
+    margin: -5px 0 0 12px;
+    width: 185px;
+    height: 40px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-appearance: none;
+    border: 1px solid #DDDDDD;
+    background: none;
+    outline: none;
+    padding: 12px;
+    float: left; }
+  .user-access .user-access-container .box-top .search-item {
+    display: block;
+    float: left;
+    bottom: 0;
+    top: 100px;
+    outline: none;
+    padding: 0 0 0 12px;
+    border: 1px solid #DDDDDD;
+    margin: -5px 0 0 12px !important;
+    width: 185px;
+    height: 38px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px; }
+  .user-access .user-access-container .box-top .role-filter {
+    margin: -5px 0 0 12px !important; }
+  .user-access .user-access-container .box-top .box-btn {
+    position: absolute;
+    right: 0;
+    margin: -5px 27px 0 0;
+    max-width: 130px;
+    min-width: 130px; }
   .user-access .user-access-container .box-table table {
     border-collapse: collapse;
     width: 100%; }
@@ -804,13 +880,21 @@
         text-align: left; }
         .user-access .user-access-container .box-table table thead tr th:first-child {
           padding: 0 0 0 27px; }
-    .user-access .user-access-container .box-table table tbody tr {
-      height: 56px; }
-      .user-access .user-access-container .box-table table tbody tr td {
-        padding: 0 0 0 10px;
-        line-height: 20px; }
-        .user-access .user-access-container .box-table table tbody tr td:first-child {
-          padding: 0 0 0 27px;
-          font-weight: 600; }
-    .user-access .user-access-container .box-table table tbody .list-grey {
-      background-color: #F7F7F7; }
+    .user-access .user-access-container .box-table table tbody {
+      border-bottom: 1px solid #D6D6D6; }
+      .user-access .user-access-container .box-table table tbody tr {
+        height: 56px; }
+        .user-access .user-access-container .box-table table tbody tr td {
+          padding: 0 0 0 15px;
+          line-height: 20px; }
+          .user-access .user-access-container .box-table table tbody tr td:first-child {
+            padding: 0 0 0 27px;
+            font-weight: 600; }
+      .user-access .user-access-container .box-table table tbody .list-grey {
+        background-color: #F7F7F7; }
+  .user-access .user-access-container .box-footer-table .footer-table {
+    width: 100%;
+    height: 56px;
+    border-bottom: 1px solid #D6D6D6; }
+    .user-access .user-access-container .box-footer-table .footer-table .text-footer {
+      padding: 20px 0 0 27px; }

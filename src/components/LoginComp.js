@@ -10,7 +10,7 @@ import Cookie from 'react-cookie';
 import Crypto from 'crypto-js';
 import Base64 from 'base-64';
 import '../stylesheet/component/_login_comp.scss'
-import ButtonPrimary from './common/ButtonPrimary'
+import { ButtonPrimary } from './common/ButtonPrimary'
 import InputForm from './common/InputForm'
 
 class LoginComp extends Component{
@@ -105,7 +105,7 @@ class LoginComp extends Component{
                                     placeholder="Password"
                                     ref="password"  />
                                     <p className="remember-me">Remember Me</p> <br/>
-                                    <ButtonPrimary />
+                                    <ButtonPrimary name="Login"/>
                                 </form>
                             </div>
                             <p className="forgot-password"><a href="">Lupa Password?</a></p>
