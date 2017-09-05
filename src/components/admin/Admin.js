@@ -34,6 +34,19 @@ export default class Admin extends Component{
         console.log(this.state.toggleAddUser)
     }
 
+    renderPopupAddUser(){
+        let { toggleAddUser } = this.state
+
+        if( toggleAddUser === true ){
+            return (
+                <AddUser />
+            )
+        }
+        else{
+            return null;
+        }
+    }
+
     componentDidMount(){
         console.log(this.authToken)
         // axios.get(API_URL + 'user_access?page=0&size=100&text=&user_role=1',{
@@ -61,7 +74,7 @@ export default class Admin extends Component{
 
         return(
             <div>
-                <AddUser />
+                {this.renderPopupAddUser()}
                 <Header title="Akses User - Admin" />
                 <div className="user-access">
                     <div className="user-access-container">

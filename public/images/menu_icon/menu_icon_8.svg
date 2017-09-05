@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="1410.682 562.968 20.019 18.768">
+  <defs>
+    <style>
+      .cls-1 {
+        opacity: 0.6;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: none;
+        stroke: #fff;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <g id="Group_116" data-name="Group 116" class="cls-1" transform="translate(1410.682 562.968)">
+    <g id="Group_99" data-name="Group 99">
+      <g id="Group_95" data-name="Group 95" transform="translate(0 1.251)">
+        <path id="Path_79" data-name="Path 79" class="cls-2" d="M16.891,19.517H3.128A3.1,3.1,0,0,1,0,16.389V5.128A3.1,3.1,0,0,1,3.128,2H16.891a3.1,3.1,0,0,1,3.128,3.128V16.389A3.1,3.1,0,0,1,16.891,19.517ZM3.128,3.251A1.843,1.843,0,0,0,1.251,5.128V16.389a1.843,1.843,0,0,0,1.877,1.877H16.891a1.843,1.843,0,0,0,1.877-1.877V5.128a1.843,1.843,0,0,0-1.877-1.877Z" transform="translate(0 -2)"/>
+      </g>
+      <g id="Group_96" data-name="Group 96" transform="translate(0.626 5.943)">
+        <rect id="Rectangle_29" data-name="Rectangle 29" class="cls-2" width="18.768" height="1.251"/>
+      </g>
+      <g id="Group_97" data-name="Group 97" transform="translate(5.192)">
+        <rect id="Rectangle_30" data-name="Rectangle 30" class="cls-2" width="1.251" height="4.004"/>
+      </g>
+      <g id="Group_98" data-name="Group 98" transform="translate(13.325)">
+        <rect id="Rectangle_31" data-name="Rectangle 31" class="cls-2" width="1.251" height="4.004"/>
+      </g>
+    </g>
+    <path id="Path_80" data-name="Path 80" class="cls-3" d="M9.2,16.662,11.5,19.2,15.406,15" transform="translate(-2.575 -5.027)"/>
+  </g>
+</svg>

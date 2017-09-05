@@ -16,7 +16,7 @@ export default class HomeComp extends Component{
     render(){
         return(
             <div className="home-comp">
-                Home
+                
             </div>
         )
     }

@@ -17,80 +17,14 @@ export default class SideBar extends Component {
             isExpandOnC: false,
             isExpandOnD: false,
             isExpandOnE: false,
+            isExpandonF: false,
+            isExpandonG: false,
+            isExpandonH: false,
 
-            isExpendedA: false,
             isExpandAdmin: '',
 
         }
 
-    }
-
-    handleClickMenuA(props){
-        console.log('clicked menu ' + this.state.isExpandOnA)
-        this.setState( ({
-            isExpandOnA: !this.state.isExpandOnA
-        }))
-    }
-
-    handleClickMenuB(props){
-        console.log('clicked menu ' + this.state.isExpandOnB)
-        this.setState(prevState => ({
-            isExpandOnB: !prevState.isExpandOnB
-        }))
-    }
- 
-    handleClickMenuC(props){
-        console.log('clicked menu ' + this.state.isExpandOnC)
-        this.setState(prevState => ({
-            isExpandOnC: !prevState.isExpandOnC
-        }))
-    }
- 
-    handleClickMenuD(props){
-        console.log('clicked menu ' + this.state.isExpandOnD)
-        this.setState(prevState => ({
-            isExpandOnD: !prevState.isExpandOnD
-        }))
-    }
- 
-    handleClickMenuE(props){
-        console.log('clicked menu ' + this.state.isExpandOnE)
-        this.setState(prevState => ({
-            isExpandOnE: !prevState.isExpandOnE
-        }))
-    }
-    
-
-    renderExpandUserAccess(){
-        let { isExpandOnA } = this.state
-
-        if(isExpandOnA === true){
-            return (
-                <div className="box-expand-list">
-                    <ListMenuExpand classActive={this.state.isExpandAdmin} text="Admin" link="admin"/>
-                    <ListMenuExpand classActive={this.state.isExpandStatus} text="Admin Pemandu Rukman" link="admin-pemandu-rukman"/>
-                    <ListMenuExpand classActive={this.state.isExpandStatus} text="Admin Rukman" link="admin-rukman"/>
-                </div>
-            )
-        }else{
-            return null
-        }
-    }
- 
-    renderExpandPemanduRukman(){
-        let { isExpandOnB } = this.state
-
-        if(isExpandOnB === true){
-            return (
-                <div className="box-expand-list">
-                    <ListMenuExpand classActive={this.state.isExpandAdmin} text="Admin" link="admin"/>
-                    <ListMenuExpand classActive={this.state.isExpandStatus} text="Admin Pemandu Rukman" link="admin-pemandu-rukman"/>
-                    <ListMenuExpand classActive={this.state.isExpandStatus} text="Admin Rukman" link="admin-rukman"/>
-                </div>
-            )
-        }else{
-            return null
-        }
     }
  
     render(){
@@ -101,30 +35,130 @@ export default class SideBar extends Component {
         
         if(url === '/home' ||  url === '/home/'){
             isActive = 'list-menu-active'
+            this.state = {
+                isExpandOnHome: true,
+                isExpandOnA: false,
+                isExpandOnB: false,
+                isExpandOnC: false,
+                isExpandOnD: false,
+                isExpandOnE: false,
+                isExpandonF: false,
+                isExpandOnG: false,
+                isExpandonH: false
+            }
 
-        }else if(url === '/admin/admin' || url === '/admin/admin/'){
-            this.state = { 
-                isExpandOnA: true,
-                isExpendedA: true
-            }
+        }else if(url === '/admin/data-petani' || url === '/admin/data-petani/'){
             isActive = 'list-menu-active'
-            
-            if(isActive){
-                this.state.isExpandAdmin = 'expand-is-active'
-            }else{
-                return this.state.isExpendedA  === false
+            this.state = {
+                isExpandOnHome: false,
+                isExpandOnA: true,
+                isExpandOnB: false,
+                isExpandOnC: false,
+                isExpandOnD: false,
+                isExpandOnE: false,
+                isExpandonF: false,
+                isExpandOnG: false,
+                isExpandonH: false
             }
-        }else  if(url === '/pemandu-rukman/data-lokasi-petani' || url === '/pemandu-rukman/data-lokasi-petani/'){
-            this.state = { 
+            
+        }else  if(url === '/admin/data-kelompok-tani' || url === '/admin/data-kelompok-tani/'){
+            isActive = 'list-menu-active'
+            this.state = {
+                isExpandOnHome: false,
+                isExpandOnA: false,
                 isExpandOnB: true,
-                isExpendedB: true
+                isExpandOnC: false,
+                isExpandOnD: false,
+                isExpandOnE: false,
+                isExpandonF: false,
+                isExpandOnG: false,
+                isExpandonH: false
             }
             
-            if(this.state.isExpendedB  === true){
-                this.state.isExpandAdmin = 'expand-is-active'
-            }else{
-                return this.state.isExpendedB  === false
+        }else  if(url === '/admin/data-anggota-kelompok-tani' || url === '/admin/data-anggota-kelompok-tani/'){
+            isActive = 'list-menu-active'
+            this.state = {
+                isExpandOnHome: false,
+                isExpandOnA: false,
+                isExpandOnB: false,
+                isExpandOnC: true,
+                isExpandOnD: false,
+                isExpandOnE: false,
+                isExpandonF: false,
+                isExpandOnG: false,
+                isExpandonH: false
             }
+            
+        }else  if(url === '/admin/data-lahan' || url === '/admin/data-lahan/'){
+            isActive = 'list-menu-active'
+            this.state = {
+                isExpandOnHome: false,
+                isExpandOnA: false,
+                isExpandOnB: false,
+                isExpandOnC: false,
+                isExpandOnD: true,
+                isExpandOnE: false,
+                isExpandonF: false,
+                isExpandOnG: false,
+                isExpandonH: false
+            }
+            
+        }else  if(url === '/admin/data-tiket-program' || url === '/admin/data-tiket-program/'){
+            isActive = 'list-menu-active'
+            this.state = {
+                isExpandOnHome: false,
+                isExpandOnA: false,
+                isExpandOnB: false,
+                isExpandOnC: false,
+                isExpandOnD: false,
+                isExpandOnE: true,
+                isExpandonF: false,
+                isExpandOnG: false,
+                isExpandonH: false
+            }
+            
+        }else  if(url === '/admin/program' || url === '/admin/program/'){
+            isActive = 'list-menu-active'
+            this.state = {
+                isExpandOnHome: false,
+                isExpandOnA: false,
+                isExpandOnB: false,
+                isExpandOnC: false,
+                isExpandOnD: false,
+                isExpandOnE: false,
+                isExpandonF: true,
+                isExpandOnG: false,
+                isExpandonH: false
+            }
+            
+        }else  if(url === '/admin/kegiatan-petani' || url === '/admin/kegiatan-petani/'){
+            isActive = 'list-menu-active'
+            this.state = {
+                isExpandOnHome: false,
+                isExpandOnA: false,
+                isExpandOnB: false,
+                isExpandOnC: false,
+                isExpandOnD: false,
+                isExpandOnE: false,
+                isExpandonF: false,
+                isExpandOnG: true,
+                isExpandonH: false
+            }
+            
+        }else  if(url === '/admin/rekap-kegiatan' || url === '/admin/rekap-kegiatan/'){
+            isActive = 'list-menu-active'
+            this.state = {
+                isExpandOnHome: false,
+                isExpandOnA: false,
+                isExpandOnB: false,
+                isExpandOnC: false,
+                isExpandOnD: false,
+                isExpandOnE: false,
+                isExpandonF: false,
+                isExpandOnG: false,
+                isExpandonH: true
+            }
+            
         }else{
             return null
         }
@@ -138,26 +172,49 @@ export default class SideBar extends Component {
                     <div className="box-list">
                         <Link to="/home" replace>
                             <div >
-                                <ListMenu text="Home" icon="" classActive={isActive}/>
+                                <ListMenu text="Dashboard" icon="../images/menu_icon/menu_icon_1.svg" classActive={this.state.isExpandOnHome ? isActive : null}/>
                             </div>
                         </Link>
-                        <div onClick={this.handleClickMenuA} >
-                            <ListMenu text="Akses User" icon="" classActive={this.state.isExpandOnA ? isActive : null}/>
-                            {this.renderExpandUserAccess()}
-                        </div>
-                        <div onClick={this.handleClickMenuB}>
-                            <ListMenu text="Pemandu Rukman" icon="" classActive={this.state.isExpandOnB ? "list-menu-active" : null}/>
-                            {this.renderExpandPemanduRukman()}
-                        </div>
-                        <div onClick={this.handleClickMenuC}>
-                            <ListMenu text="Rukman" icon="" />
-                        </div>
-                        <div onClick={this.handleClickMenuD}>
-                            <ListMenu text="Dompet" icon="" />
-                        </div>
-                        <div onClick={this.handleClickMenuE}>
-                            <ListMenu text="Pusat Informasi" icon="" />
-                        </div>
+                        <Link to="/admin/data-petani">
+                            <div>
+                                <ListMenu text="Data Petani" icon="../images/menu_icon/menu_icon_2.svg" classActive={this.state.isExpandOnA ? isActive : null}/>
+                            </div>
+                        </Link>
+                        <Link to="/admin/data-kelompok-tani">
+                            <div>
+                                <ListMenu text="Data Kelompok Tani" icon="../images/menu_icon/menu_icon_3.svg" classActive={this.state.isExpandOnB ? isActive : null}/>
+                            </div>
+                        </Link>
+                        <Link to="/admin/data-anggota-kelompok-tani">
+                            <div>
+                                <ListMenu text="Data Anggota Kel. Tani" icon="../images/menu_icon/menu_icon_4.svg" classActive={this.state.isExpandOnC ? isActive : null}/>
+                            </div>
+                        </Link>
+                        <Link to="/admin/data-lahan">
+                            <div>
+                                <ListMenu text="Data Lahan" icon="../images/menu_icon/menu_icon_5.svg" classActive={this.state.isExpandOnD ? isActive : null}/>
+                            </div>
+                        </Link>
+                        <Link to="/admin/data-tiket-program">
+                            <div>
+                                <ListMenu text="Tiket Program" icon="../images/menu_icon/menu_icon_6.svg" classActive={this.state.isExpandOnE ? isActive : null}/>
+                            </div>
+                        </Link>
+                        <Link to="/admin/program">
+                            <div>
+                                <ListMenu text="Program" icon="../images/menu_icon/menu_icon_7.svg" classActive={this.state.isExpandOnF ? isActive : null}/>
+                            </div>
+                        </Link>
+                        <Link to="/admin/kegiatan-petani">
+                            <div>
+                                <ListMenu text="Kegiatan Petani" icon="../images/menu_icon/menu_icon_8.svg" classActive={this.state.isExpandOnG ? isActive : null}/>
+                            </div>
+                        </Link>
+                        <Link to="/admin/rekap-kegiatan">
+                            <div>
+                                <ListMenu text="Rekap Kegiatan" icon="../images/menu_icon/menu_icon_9.svg" classActive={this.state.isExpandOnH ? isActive : null}/>
+                            </div>
+                        </Link>
                     </div>
                     <div className="bg-sidebar">
                         <img src="../images/bg_sidebar_expanded.png" />
