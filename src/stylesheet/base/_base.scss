@@ -19,6 +19,18 @@
     border-radius: $radius;
 }
 
+@mixin border-radius-bottom($left, $right){
+    -webkit-border-bottom-left-radius: $left;
+    -moz-border-bottom-left-radius: $left;
+    -ms-border-bottom-left-radius: $left;
+    border-bottom-left-radius: $left;
+
+    -webkit-border-bottom-right-radius: $right;
+    -moz-border-bottom-right-radius: $right;
+    -ms-border-bottom-right-radius: $right;
+    border-bottom-right-radius: $right;
+}
+
 @mixin font-family($font-1, $font-2){
     font-family: $font-1, $font-2;
 }
@@ -37,6 +49,9 @@
 @mixin color-opacity-3($opacity){
     background-color : rgba(0, 0, 0, $opacity);
 }
+@mixin color-opacity-4($opacity){
+    background-color : rgba(57, 57, 57, $opacity);
+}
 
 //base style
 *{
@@ -54,14 +69,12 @@
     @include border-radius(5px);
 }
 
-.font-family-primary{
-    @include font-family('Roboto', 'sans-serif');
+.radius-bottom-primary{
+    @include border-radius-bottom(5px, 5px);
 }
 
-.font-primary{
+.font-family-primary{
     @include font-family('Roboto', 'sans-serif');
-    font-size: $font-size-02;
-    color: $color-02;
 }
 
 .font-primary{
@@ -97,6 +110,12 @@
 .font-secondary-5{
     @include font-family('Roboto', 'sans-serif');
     font-size: $font-size-06;
+    color: $color-primary;
+}
+
+.font-secondary-6{
+    @include font-family('Roboto', 'sans-serif');
+    font-size: $font-size-03;
     color: $color-primary;
 }
 

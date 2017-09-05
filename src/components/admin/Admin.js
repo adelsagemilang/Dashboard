@@ -8,6 +8,7 @@ import { API_URL, TK_KEY } from '../../containers/RootUrl'
 import '../../stylesheet/component/admin/_admin.scss'
 import Header from '../common/Header'
 import { ButtonPrimary } from '../common/ButtonPrimary'
+import AddUser from './AddUser'
 import ReactPaginate from 'react-paginate'
 
 export default class Admin extends Component{
@@ -17,7 +18,8 @@ export default class Admin extends Component{
 
         this.state = {
             dataHere: [],
-            classBgColor: ''
+            classBgColor: '',
+            toggleAddUser: false
         }
 
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
@@ -26,7 +28,10 @@ export default class Admin extends Component{
     }
 
     handleAdd(){
-        console.log('clocked add')
+        this.setState({
+            toggleAddUser : !this.state.toggleAddUser
+        })
+        console.log(this.state.toggleAddUser)
     }
 
     componentDidMount(){
@@ -56,6 +61,7 @@ export default class Admin extends Component{
 
         return(
             <div>
+                <AddUser />
                 <Header title="Akses User - Admin" />
                 <div className="user-access">
                     <div className="user-access-container">

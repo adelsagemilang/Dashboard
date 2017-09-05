@@ -1,0 +1,41 @@
+@import "../../base/base";
+
+.add-popup{
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100vh;
+    @include color-opacity-4(0.6);
+
+    .popup-container{
+        max-width: 552px;
+        margin: 0 auto;
+        .box-content{
+            width: 552px;
+            height: auto;
+            margin: 20px 0 0 0;
+            background-color: $color-01;
+            @extend .radius-secondary;
+
+            .content{
+                padding: 20px 0 0 20px;
+                .title{
+                    @extend .font-secondary-6;
+                    font-weight: 500;
+                }
+                .sub-title{
+                    padding: 5px 0 0 0;
+                    @extend .font-primary;
+                }
+            }
+
+            .footer-content{
+                @extend .gradient-color-primary;
+                margin: 25px 0 0 0;
+                width: 100%;
+                height: 4px;
+                @extend .radius-bottom-primary;
+            }
+        }
+    }
+}
