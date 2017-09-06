@@ -12,8 +12,6 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
-@import url("https://fonts.googleapis.com/css?family=Roboto");
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
 * {
   font-family: "Roboto", "sans-serif"; }
 
@@ -63,7 +61,7 @@
   font-size: 14px;
   color: #FFFFFF; }
 
-.font-secondary-3, .expand-list .box-text-menu p, .expand-list .box-text-menu .active {
+.font-secondary-3 {
   font-family: "Roboto", "sans-serif";
   font-size: 13px;
   color: #FFFFFF; }
@@ -175,7 +173,7 @@
   font-size: 14px;
   color: #FFFFFF; }
 
-.font-secondary-3, .expand-list .box-text-menu p, .expand-list .box-text-menu .active {
+.font-secondary-3 {
   font-family: "Roboto", "sans-serif";
   font-size: 13px;
   color: #FFFFFF; }
@@ -322,7 +320,7 @@
   font-size: 14px;
   color: #FFFFFF; }
 
-.font-secondary-3, .expand-list .box-text-menu p, .expand-list .box-text-menu .active {
+.font-secondary-3 {
   font-family: "Roboto", "sans-serif";
   font-size: 13px;
   color: #FFFFFF; }
@@ -448,7 +446,7 @@
   font-size: 14px;
   color: #FFFFFF; }
 
-.font-secondary-3, .expand-list .box-text-menu p, .expand-list .box-text-menu .active {
+.font-secondary-3 {
   font-family: "Roboto", "sans-serif";
   font-size: 13px;
   color: #FFFFFF; }
@@ -515,135 +513,13 @@
     float: left; }
 
 .list-menu-active {
-  opacity: 1; }
-
-* {
-  font-family: "Roboto", "sans-serif"; }
-
-.gradient-color-primary, .sidebar, .login-comp .container-login, .add-popup .popup-container .box-content .footer-content {
-  background: -webkit-linear-gradient(right top, #79BE75, #27A1C3);
-  background: -moz-linear-gradient(right top, #79BE75, #27A1C3);
-  background: -o-linear-gradient(right top, #79BE75, #27A1C3);
-  background: linear-gradient(right top, #79BE75, #27A1C3); }
-
-.radius-primary, .login-comp .container-login .box-form-login .content {
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  border-radius: 10px; }
-
-.radius-secondary, .form-primary, .login-comp .container-login .box-form-login .content .form form .form-input, .checkbox-primary, .login-comp .container-login .box-form-login .content .form form .add-checkbox, .button-primary, .add-popup .popup-container .box-content {
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  border-radius: 5px; }
-
-.radius-bottom-primary, .add-popup .popup-container .box-content .footer-content {
-  -webkit-border-bottom-left-radius: 5px;
-  -moz-border-bottom-left-radius: 5px;
-  -ms-border-bottom-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  -webkit-border-bottom-right-radius: 5px;
-  -moz-border-bottom-right-radius: 5px;
-  -ms-border-bottom-right-radius: 5px;
-  border-bottom-right-radius: 5px; }
-
-.font-family-primary, .login-comp .container-login .box-form-login .content .title {
-  font-family: "Roboto", "sans-serif"; }
-
-.font-primary, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .user-access .user-access-container .box-top .option-input, .user-access .user-access-container .box-top .search-item, .user-access .user-access-container .box-table table thead tr th, .user-access .user-access-container .box-table table tbody tr td, .user-access .user-access-container .box-footer-table .footer-table .text-footer, .add-popup .popup-container .box-content .content .sub-title {
-  font-family: "Roboto", "sans-serif";
-  font-size: 14px;
-  color: #767676; }
-
-.font-secondary, .login-comp .container-login .box-form-login .content .forgot-password a {
-  font-family: "Roboto", "sans-serif";
-  font-size: 14px;
-  color: #79BE75; }
-
-.font-secondary-2, .button-primary, .list-menu .box-text-menu p {
-  font-family: "Roboto", "sans-serif";
-  font-size: 14px;
-  color: #FFFFFF; }
-
-.font-secondary-3, .expand-list .box-text-menu p, .expand-list .box-text-menu .active {
-  font-family: "Roboto", "sans-serif";
-  font-size: 13px;
-  color: #FFFFFF; }
-
-.font-secondary-4, .header-comp .header-container .box-user .box-user-text .status {
-  font-family: "Roboto", "sans-serif";
-  font-size: 14px;
-  color: #B7B7B7; }
-
-.font-secondary-5, .user-access .user-access-container .box-top .count-item {
-  font-family: "Roboto", "sans-serif";
-  font-size: 16px;
-  color: #27A1C3; }
-
-.font-secondary-6, .add-popup .popup-container .box-content .content .title {
-  font-family: "Roboto", "sans-serif";
-  font-size: 15px;
-  color: #27A1C3; }
-
-.form-primary, .login-comp .container-login .box-form-login .content .form form .form-input {
-  border: 1px solid #DDDDDD;
-  width: calc(100% - 15px);
-  height: 40px;
-  font-size: 14px;
-  padding-left: 15px;
-  outline: none; }
-
-.checkbox-primary, .login-comp .container-login .box-form-login .content .form form .add-checkbox {
-  border: 1px solid #DDDDDD;
-  cursor: pointer;
-  font-size: 14px;
-  outline: none; }
-
-.placeholder-primary ::-webkit-input-placeholder, .login-comp ::-webkit-input-placeholder, .user-access ::-webkit-input-placeholder {
-  color: #B7B7B7; }
-
-.placeholder-primary ::-moz-placeholder, .login-comp ::-moz-placeholder, .user-access ::-moz-placeholder {
-  color: #B7B7B7; }
-
-.placeholder-primary :-ms-input-placeholder, .login-comp :-ms-input-placeholder, .user-access :-ms-input-placeholder {
-  color: #B7B7B7; }
-
-.placeholder-primary :-moz-placeholder, .login-comp :-moz-placeholder, .user-access :-moz-placeholder {
-  color: #B7B7B7; }
-
-.transition {
-  transition: all 0.25s ease-in-out; }
-
-* {
-  padding: 0;
-  margin: 0; }
-
-.expand-list {
-  padding: 15px 15px 15px 34px;
-  border-top: 1px solid color-opacity-3(1);
-  cursor: pointer; }
-  .expand-list:hover {
-    background-color: rgba(255, 255, 255, 0.2); }
-  .expand-list .box-icon {
-    opacity: 0.7;
-    max-width: 5px; }
-    .expand-list .box-icon .circle-icon {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      border: 1px solid #FFFFFF; }
-  .expand-list .box-text-menu {
-    margin: -11px 0 0 30px;
-    float: left; }
-    .expand-list .box-text-menu p {
-      opacity: 0.7; }
-    .expand-list .box-text-menu .active {
-      opacity: 1; }
-  .expand-list .expand-is-active {
+  opacity: 1;
+  position: relative; }
+  .list-menu-active .active-mark {
     position: absolute;
     margin: -3px 0 0 0;
     right: 0;
+    bottom: 16px;
     width: 0;
     height: 0;
     border-top: 8px solid transparent;
@@ -699,7 +575,7 @@
   font-size: 14px;
   color: #FFFFFF; }
 
-.font-secondary-3, .expand-list .box-text-menu p, .expand-list .box-text-menu .active {
+.font-secondary-3 {
   font-family: "Roboto", "sans-serif";
   font-size: 13px;
   color: #FFFFFF; }
@@ -842,7 +718,7 @@
   font-size: 14px;
   color: #FFFFFF; }
 
-.font-secondary-3, .expand-list .box-text-menu p, .expand-list .box-text-menu .active {
+.font-secondary-3 {
   font-family: "Roboto", "sans-serif";
   font-size: 13px;
   color: #FFFFFF; }
@@ -1020,7 +896,7 @@
   font-size: 14px;
   color: #FFFFFF; }
 
-.font-secondary-3, .expand-list .box-text-menu p, .expand-list .box-text-menu .active {
+.font-secondary-3 {
   font-family: "Roboto", "sans-serif";
   font-size: 13px;
   color: #FFFFFF; }
@@ -1097,3 +973,6 @@
         margin: 25px 0 0 0;
         width: 100%;
         height: 4px; }
+
+.text-center {
+  text-align: center; }

@@ -57,7 +57,7 @@ class LoginComp extends Component{
             Cookie.save('TK', Base64.encode(Crypto.AES.encrypt(data, TK_KEY)))
             Cookie.save('username', Base64.encode(Crypto.AES.encrypt(userName, TK_KEY)))
             Cookie.save('email', Base64.encode(Crypto.AES.encrypt(userEmail, TK_KEY)))
-            this.props.history.push('/home');
+            this.props.history.push('/dashboard');
         })
         .catch((error) => {
             console.log('err: '+ error)

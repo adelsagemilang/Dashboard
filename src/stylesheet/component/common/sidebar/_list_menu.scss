@@ -23,4 +23,17 @@
 
 .list-menu-active{
     opacity: 1;
+    position: relative;
+
+    .active-mark{
+        position: absolute;
+        margin: -3px 0 0 0;
+        right: 0;
+        bottom: 16px;
+        width: 0; 
+        height: 0; 
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent; 
+        border-right:8px solid $color-01;
+    }
 }

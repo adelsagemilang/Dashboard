@@ -17,6 +17,7 @@ export default class ListMenu extends Component {
                 <div className="box-text-menu">
                     <p>{this.props.text}</p>
                 </div>
+                <div className="active-mark"></div>
             </div>
         )
     }

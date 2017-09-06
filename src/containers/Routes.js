@@ -6,7 +6,7 @@ import {
     Redirect
 } from 'react-router-dom'
 import App from '../components/App'
-import HomeComp from '../components/HomeComp'
+import HomeComp from '../components/admin/HomeComp'
 import Admin from '../components/admin/Admin'
 import LoginComp from '../components/LoginComp'
 import NotFound from '../components/common/NotFound'
@@ -19,7 +19,7 @@ export default class Routes extends Component {
             <div>
                 <Switch>
                     <Route exact path="/" component={App} />
-                    <Route path="/home" component={HomeComp} onEnter={requireAuth} />
+                    <Route path="/dashboard" component={HomeComp} onEnter={requireAuth} />
                     <Route path="/admin/data-petani" component={Admin} onEnter={requireAuth} />
                     <Route path="/about" component={App} onEnter={requireAuth} />
                     <Route path="/login" component={LoginComp} onEnter={requireAuth} />

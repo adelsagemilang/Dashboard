@@ -6,7 +6,6 @@ import axios from 'axios'
 import autoBind from 'react-autobind'
 import { API_URL, TK_KEY } from '../../containers/RootUrl'
 import '../../stylesheet/component/admin/_admin.scss'
-import Header from '../common/Header'
 import { ButtonPrimary } from '../common/ButtonPrimary'
 import AddUser from './AddUser'
 import ReactPaginate from 'react-paginate'
@@ -75,7 +74,6 @@ export default class Admin extends Component{
         return(
             <div>
                 {this.renderPopupAddUser()}
-                <Header title="Akses User - Admin" />
                 <div className="user-access">
                     <div className="user-access-container">
                         <div className="box-top">
