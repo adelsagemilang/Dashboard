@@ -1,5 +1,5 @@
 //common
-@import "component/common/button_primary";
+@import "component/common/button";
 @import "component/common/input_form";
 @import "component/common/header";
 
@@ -10,9 +10,8 @@
 //compont general
 @import "component/login_comp";
 @import "component/admin/admin";
-@import "component/admin/adduser";
+@import "component/admin/popup";
 
-//helper
 
-@import "base/helper"
-
+//base
+@import "base/helper";

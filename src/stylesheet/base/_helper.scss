@@ -1,3 +1,57 @@
 .text-center{
 	text-align: center;
 }
+
+.strong{
+	font-weight: bold;
+}
+
+.row-flex {
+    display: block;
+
+    @media (min-width: 768px) {
+        display: flex;
+    }
+
+    &.flex-xs {
+        display: flex;
+
+        @media(min-width: 768px) {
+            display: flex;
+        }
+
+        @media(min-width: 992px) {
+            display: flex;
+        }
+    }
+
+    &.flex-tablet {
+        display: block;
+
+        @media (min-width: 992px) {
+            display: flex;
+        }
+    }
+
+    &.flex-center {
+        align-items: center;
+        justify-content: center;
+    }
+
+    &.flex-top {
+        align-items: start;
+        justify-content: start;
+    }
+
+    &.flex-space {
+      justify-content: space-between;
+    }
+}
+
+.pull-left{
+    float: left;
+}
+
+.pull-right{
+    float: right;
+}

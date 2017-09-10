@@ -1,0 +1,70 @@
+@import '../../base/base';
+
+.btn{
+	@extend .font-secondary-2;
+    @extend .radius-secondary;
+    width: 100%;
+    height: 40px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.button-primary{
+   	@extend .btn;
+    background-color: $color-primary;
+    &:hover{
+        @include color-opacity(0.8);
+    }
+}
+
+.button-secondary{
+	@extend .btn;
+	background-color: $button-secondary;
+	&:hover{
+		background-color: $button-secondary-hover;
+	}
+	&:focus, &:active{
+		background-color: $button-secondary-active;
+	}
+}
+
+.btn-sm{
+	@extend .radius-secondary;
+	width: 30px;
+	height: 30px;
+	outline: none;
+	cursor: pointer;
+	border-style: solid;
+	border-width: 1px;
+}
+
+.btn-outline-sm{
+	@extend .btn-sm;
+	border-color: $color-04;
+	background-color: transparent;
+}
+
+.btn-red-sm{
+	@extend .btn-sm;
+	background-color: $color-07;
+	border: none;
+}
+
+.icon-sm{
+	width: 14px;
+	height: 14px;
+	background-size: cover;
+}
+
+.icon-create{
+	@extend .icon-sm;
+	margin: auto;
+	background-image: url('/images/icon/button_icon/icon_create_grey.svg');
+}
+
+.icon-delete{
+	@extend .icon-sm;
+	margin: auto;
+	background-image: url('/images/icon/button_icon/icon_delete.svg');
+}

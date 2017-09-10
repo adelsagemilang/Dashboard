@@ -1,109 +1,332 @@
 @import "../../base/base";
+@import '../../base/helper';
+p{
+    color: $color-02;
+    font-size: 14px;
+}
+.main-content{
+    margin: 0 0 0 235px;
+
+    .dashboard{
+        padding-top: 75px;
+
+        .dashboard-top{
+            display: flex;
+            border-bottom: 1px solid $color-04;
+            .box-stat{
+                display: flex;
+                float: left;
+                width: 100%;
+
+                .box{
+                    flex: 0 0 160px;
+                    float: left;
+                    padding: 40px;
+                    border-right: 1px solid $color-04;
+
+                }
+            }
+            .box-tiket{
+                width: (4/12)*100%;
+                float: left;
+                padding: 40px;
+
+                .chart-wrapper{
+                    display: flex;
+                    overflow: hidden;
+
+                    ul{
+                        float: right;
+                        list-style: none;
+
+                        li{
+                            display: flex;
+                            justify-content: flex-start;
+                            white-space: nowrap;
+                            padding-top: 15px;
+                            font-size: 14px;
+                            color: $color-02;
+
+                            span{
+                                height: 12px;
+                                flex: 0 0 12px;
+                                margin: 3px;
+                                margin-right: 10px;
+                                border-radius: 100%;
+                            }
+                        }
+                    }
+
+                    canvas{
+                        margin-left: -30px;
+                    }
+                }
+            }
+        }
+
+        .dashboard-middle{
+            display: flex;
+            border-bottom: 1px solid $color-04;
+
+            .box-program{
+                width: 401px;
+                float: left;
+                padding: 40px;
+                border-right: 1px solid $color-04;
+
+                .chart-wrapper{
+                    display: flex;
+                    overflow: hidden;
+
+                    ul{
+                        float: right;
+                        list-style: none;
+
+                        li{
+                            display: flex;
+                            justify-content: flex-start;
+                            white-space: nowrap;
+                            padding-top: 15px;
+                            font-size: 14px;
+                            color: $color-02;
+
+                            span{
+                                height: 12px;
+                                flex: 0 0 12px;
+                                margin: 3px;
+                                margin-right: 10px;
+                                border-radius: 100%;
+                            }
+                        }
+                    }
+
+                    canvas{
+                        margin-left: -40px;
+                    }
+                }
+            }
+
+            .box-program-active{
+                padding: 40px;
+                flex: 0 0 160px;
+                border-right: 1px solid $color-04;
+            }
+
+            .box-stat-lahan{
+                width: (4/12)*100%;
+                float: left;
+                padding: 40px;
+
+            }
+        }
+
+        .dashboard-bottom{
+            display: flex;
+            border-bottom: 1px solid $color-04;
+
+            .box-kegiatan{
+                border-right: 1px solid $color-04;
+                flex: 0 0 722px;
+                .box-top{
+                    display: table;
+                    justify-content: space-between;
+                    padding: 15px 0;
+                    width: 100%;
+
+                    .table-heading{
+                    display: table-cell;
+                    vertical-align: middle;
+                    padding-left: 27px;
+                    }
+                    .search-wrapper{
+                        padding-right: 30px;
+                        display: table-cell;
+
+                        input{
+                            float: right;
+                        }
+                    }
+                }
+            }
+
+            .box-petani-nganggur{
+                width: 100%;
+                .box-top{
+                    display: table;
+                    justify-content: space-between;
+                    padding: 15px 0;
+                    width: 100%;
+
+                    .table-heading{
+                    display: table-cell;
+                    vertical-align: middle;
+                    padding-left: 27px;
+                    }
+                    .search-wrapper{
+                        padding-right: 30px;
+                        display: table-cell;
+
+                        input{
+                            float: right;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .edit-akun{
+        padding-top: 75px;
+        overflow: hidden;
+        .content-top{
+            @extend .row-flex;
+            padding: 0 25px;
+            width: 100%;
+            .box-picture{
+                padding: 15px 15px 15px 0px;
+                width: 166px;
+                height: 166px;
+                .picture-wrapper{
+                    height: 100%;
+                    width: 100%; 
+                    img{
+                        @include border-radius(100%);
+                        height: 100%;
+                        width: 100%;
+                        object-fit: cover;
+                        object-position: center;
+                    }
+                }
+            }
+            .box-profile-form{
+                padding: 15px 0 15px 15px;
+
+                .box-1,.box-2{
+                    padding: 5px 15px 0 0px;
+                    display: block;
+
+                    .form-control{
+                        width: 280px;
+                    }
+                }
+            }
+            .box-bank-form{
+                padding: 15px 0;
+                p{
+                    padding-left: 15px;
+                }
+                .box-form{
+                    padding: 5px 15px 0 15px;
+                    display: block;
+
+                    .row-flex{
+                        width: 100%;
+                    }
+
+                    .form-control{
+                        width: 280px;
+
+                        &.select-option.input-sm{
+                            font-size: 14px;
+                            height: 40px;
+                            width: 140px;
+                        }
+                        &.input-sm{
+                            width: 130px;
+                            margin-right: 10px !important;
+                        }
+                    }
+                }
+
+            }
+        }
+        .content-bottom{
+            @extend .row-flex;
+            width: 100%;
+            padding: 0 25px;
+            p{
+                padding-bottom: 5px;
+            }
+            .box-alamat{
+                width: 50%;
+                
+                textarea{
+                    resize: none;
+                    color: #B7B7B7;
+                    padding-top: 15px;
+                    padding-bottom: 15px;
+                    height: 60px;
+                    width: 100%;
+                    box-sizing: border-box;
+                }
+                
+                .row-flex{
+                    width: 100%;
+                    .form-control{
+                        width: 180px;
+                        margin-right: 10px !important;
+
+                        &.select-option{
+                            width: 194px;
+                            height: 40px;
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+            .box-informasi-akun{
+                padding: 0 30px;
+                width: 500px;
+
+                .form-control{
+                    margin-right: 10px !important;
+                    width: 225px;
+                }
+            }
+        }
+
+        .button-primary{
+            float: left;
+            width: 195px;
+            margin-left: 25px;
+            margin-top: 20px;
+        }
+    }
+}
+
+.box.text-center{
+    h3{
+        font-weight: 300;
+        font-size: 60px;
+        color: $color-primary;
+        letter-spacing: -1px;
+
+        .text-muted{
+            font-size: 30px;
+            color: $color-02;
+        }
+
+        sup{
+            font-size: 24px;
+        }
+    }
+
+    p{
+        line-height: 22px;
+    }
+}
+
 
 .user-access{
-    margin: 100px 0px 0 235px;
+    margin-top: 100px;
     position: absolute;
     width: calc(100% - 235px);
     height: 100px;
     @extend .placeholder-primary;
-    .user-access-container{
-        .box-top{
-            .count-item{
-                padding: 0 0 25px 26px;
-                margin: 5px 0 0 0;
-                @extend .font-secondary-5;
-                float: left;
-            }
-            .option-input{
-                margin: -5px 0 0 12px;
-                width: 185px;
-                height: 40px;
-                @include border-radius(5px);
-                -webkit-appearance: none;
-                border: 1px solid $color-04;
-                background: none;
-                outline: none;
-                padding: 12px;
-                @extend .font-primary;
-                float: left;
-            }
-            .search-item{
-                display: block;
-                float: left;
-                bottom: 0;
-                top: 100px;
-                outline: none;
-                padding: 0 0 0 12px;
-                @extend .font-primary;
-                border: 1px solid $color-04;
-                margin: -5px 0 0 12px!important;
-                width: 185px;
-                height: 38px;
-                @include border-radius(5px);
-            }
+}
 
-            .role-filter{
-                margin: -5px 0 0 12px!important;
-            }
-            .box-btn{
-                position: absolute;
-                right: 0;
-                margin: -5px 27px 0 0;
-                max-width: 130px;
-                min-width: 130px;
-            }
-        }
-        .box-table{
-            table{
-                border-collapse: collapse;
-                width: 100%;
-                thead{
-                    border-top:1px solid $color-05;
-                    border-bottom:1px solid $color-05;
-                    tr{                        
-                        th{
-                            &:first-child{
-                                padding: 0 0 0 27px;
-                            }
-                            @extend .font-primary;
-                            padding: 14px 14px 14px 14px;
-                            text-align: left;
-                        }
-                    }
-                }
-                tbody{
-                    border-bottom:1px solid $color-05;
-                    tr{
-                        height: 56px;
-                        td{
-                            
-                            &:first-child{
-                                padding: 0 0 0 27px;
-                                font-weight: 600;
-                            }
-                            // padding: 10px 10px 10px 10px;
-                            padding: 0 0 0 15px;
-                            @extend .font-primary;
-                            line-height: 20px;
-                        }
-                    }
-                    .list-grey{
-                        background-color: $color-06;
-                    }
-                }
-            }
-        }
-
-        .box-footer-table{
-            .footer-table{
-                width: 100%;
-                height: 56px;
-                border-bottom:1px solid $color-05;
-                .text-footer{
-                    @extend .font-primary;
-                    padding: 20px 0 0 27px;
-                }
-            }
-        }
+.row-flex{
+    .box-btn{
+        padding: 5px;
     }
 }

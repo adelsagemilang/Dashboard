@@ -4,11 +4,11 @@ import Crypto from 'crypto-js'
 import Base64 from 'base-64'
 import axios from 'axios'
 import autoBind from 'react-autobind'
-import '../../stylesheet/component/admin/_adduser.scss'
-import { API_URL, TK_KEY } from '../../containers/RootUrl'
+import '../../../stylesheet/component/admin/_popup.scss'
+import { API_URL, TK_KEY } from '../../../containers/RootUrl'
 
 
-export default class AddUser extends Component{
+export default class TambahPetani extends Component{
     constructor(props){
         super(props)
         autoBind(this)

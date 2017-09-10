@@ -1,21 +1,61 @@
 import React, {Component, PropTypes} from 'react'
 import Cookie from 'react-cookie'
+import Crypto from 'crypto-js'
+import Base64 from 'base-64'
+import axios from 'axios'
+import autoBind from 'react-autobind'
+import { API_URL, TK_KEY } from '../../containers/RootUrl'
+import { ButtonPrimary } from '../common/ButtonPrimary'
+import Header from '../common/Header'
 import { actionAuth } from '../../actions/actionAuth'
+import ReactPaginate from 'react-paginate'
+import Doughnut from './chart/doughnut'
 
 
 export default class HomeComp extends Component{
     constructor(props){
         super(props)
-        
+        autoBind(this)
+
+        this.state = {
+            dataHere: [],
+            classBgColor: '',
+            toggleAddUser: false
+        }
+
+        this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
+        this.userName = Crypto.AES.decrypt(Base64.decode(Cookie.load('username')), TK_KEY).toString(Crypto.enc.Utf8)
+        this.userEmail = Crypto.AES.decrypt(Base64.decode(Cookie.load('email')), TK_KEY).toString(Crypto.enc.Utf8)
     }
 
     componentDidMount(){
-     
+        console.log(this.authToken)
+        // axios.get(API_URL + 'user_access?page=0&size=100&text=&user_role=1',{
+        axios.get(API_URL + 'user_access?page=0&size=100&text=&user_role=1',{
+            headers:{ 
+                'X-AUTH-TOKEN' : this.authToken
+            }
+        })
+        .then(res => {
+            const dataHere = res.data.content
+            this.setState({dataHere})
+            console.log('data here: '+
+            dataHere.map( datas => {
+                return datas.email
+            }))
+        })
+        .catch((error) => {
+            console.log('err: '+ error)
+        })
     }
 
     render(){
+        const DataHere = this.state.dataHere
+        let ClassBgColor = this.state.classBgColor
+        
         return(
-            <div>
+            <div className="main-content">
+                <Header title="Dashboard" />
                 <div className="dashboard">
                     <div className="dashboard-top">
                         <div className="box-stat">
@@ -28,13 +68,128 @@ export default class HomeComp extends Component{
                                 <p>Jumlah Kelompok Petani</p>
                             </div>
                             <div className="box text-center">
-                                <h3>7 <span className="text-muted">/ 12</span></h3>
+                                <h3>7<span className="text-muted">/ 12</span></h3>
                                 <p>Keikutsertaan Petani pada Program</p>
                             </div>
                         </div>
                         <div className="box-tiket">
-                            <p className="strong">Tiket Program</p>
+                            <Doughnut/>
+                        </div>
+                    </div>
+                    <div className="dashboard-middle">
+                        <div className="box-program">
+                            <Doughnut/>
+                        </div>
+                        <div className="box box-program-active text-center">
+                            <h3>5<span className="text-muted">/ 12</span></h3>
+                            <p>Program Aktif</p>
+                        </div>
+                        <div className="box box-stat-lahan text-center">
+                            <h3>1 m<sup>2</sup><span className="text-muted">/ 5,778,435 m</span></h3>
+                        </div>
+                    </div>
+                    <div className="dashboard-bottom">
+                        <div className="box-kegiatan">
+                            <div className="box-top">
+                                <div className="table-heading">
+                                    <p className="strong">Kegiatan Petani Yang Belum Selesai</p>
+                                </div>
+                                <div className="search-wrapper">
+                                    <input className="search-item" type="text" placeholder="Cari .." />
+                                </div>
+                            </div>
+                            <div className="box-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Kel. Tani</th>
+                                            <th>Nama Petani</th>
+                                            <th>Program</th>
+                                            <th>Tanggal Kegiatan</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {DataHere.map((datahere, i) => {
+                                            if(i % 2 === 1){
+                                                return(
+                                                    <tr key={i} className='list-grey'>
+                                                        <td>{datahere.user_role_id}</td>
+                                                        <td>{datahere.name}</td>
+                                                        <td>{datahere.ktp_number}</td>
+                                                        <td>{datahere.email}</td>
+                                                        <td>{datahere.phone_number}</td>
+                                                    </tr>
+                                                )
+                                            }else{
+                                                return(
+                                                    <tr key={i} >
+                                                        <td>{datahere.user_role_id}</td>
+                                                        <td>{datahere.name}</td>
+                                                        <td>{datahere.ktp_number}</td>
+                                                        <td>{datahere.email}</td>
+                                                        <td>{datahere.phone_number}</td>
+                                                    </tr>
+                                                )
+                                            }
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
 
+                            <div className="box-footer-table">
+                                <div className="footer-table">
+                                    <p className="text-footer">Menampilkan 10 entri dari 30 Anggota Kelompok Tani</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="box-petani-nganggur">
+                            <div className="box-top">
+                                <div className="table-heading">
+                                    <p className="strong">Daftar Petani Menganggur</p>
+                                </div>
+                                <div className="search-wrapper">
+                                    <input className="search-item" type="text" placeholder="Cari .." />
+                                </div>
+                            </div>
+                            <div className="box-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Petani</th>
+                                            <th>Kelompok Petani</th>
+                                            <th>Program</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {DataHere.map((datahere, i) => {
+                                            if(i % 2 === 1){
+                                                return(
+                                                    <tr key={i} className='list-grey'>
+                                                        <td>{datahere.user_role_id}</td>
+                                                        <td>{datahere.name}</td>
+                                                        <td>{datahere.ktp_number}</td>
+                                                    </tr>
+                                                )
+                                            }else{
+                                                return(
+                                                    <tr key={i} >
+                                                        <td>{datahere.user_role_id}</td>
+                                                        <td>{datahere.name}</td>
+                                                        <td>{datahere.ktp_number}</td>
+                                                    </tr>
+                                                )
+                                            }
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div className="box-footer-table">
+                                <div className="footer-table">
+                                    <p className="text-footer">Menampilkan 10 entri dari 30 Anggota Kelompok Tani</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

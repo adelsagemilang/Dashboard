@@ -61,6 +61,10 @@
     @include gradient-color($color-secondary, $color-primary);
 }
 
+.gradient-color-warning{
+    @include gradient-color($color-warning-secondary, $color-warning);
+}
+
 .radius-primary{
     @include border-radius(10px);
 }
@@ -139,18 +143,45 @@
 }
 
 .placeholder-primary{
-    ::-webkit-input-placeholder {
+    &::-webkit-input-placeholder {
         color: $color-03;
       }
-    ::-moz-placeholder {
+    &::-moz-placeholder {
         color: $color-03;
       }
-    :-ms-input-placeholder {
+    &:-ms-input-placeholder {
         color: $color-03;
       }
-    :-moz-placeholder {
+    &:-moz-placeholder {
         color: $color-03;
       }
+}
+
+.select-option{
+    @extend .font-primary;
+    float: left;
+    @include border-radius(5px);
+    -webkit-appearance: none;
+    border: 1px solid $color-04;
+    background: none;
+    outline: none;
+    color: $color-03;
+}
+
+.form-control{
+    @extend .placeholder-primary;
+    display: block;
+    float: left;
+    bottom: 0;
+    top: 100px;
+    outline: none;
+    padding: 0 0 0 12px;
+    border: 1px solid $color-04;
+    margin: 5px 0 !important;
+    width: calc(100% - 15px);
+    height: 38px;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
 //Transitions
@@ -161,4 +192,158 @@
 *{
     padding: 0;
     margin: 0;
+}
+
+//table
+.box-top{
+    .count-item{
+        padding: 0 25px 25px 26px;
+        margin: 5px 0 0 0;
+        @extend .font-secondary-5;
+        float: left;
+    }
+    .select-wrapper{
+        &:after{
+            top: 14px;
+            right: 20px;
+        }
+    }
+    .option-input{
+        @extend .select-option;
+        margin: -5px 10px 0 0;
+        width: 185px;
+        height: 40px;
+        padding: 12px;
+        
+    }
+    .search-item{
+        display: block;
+        float: left;
+        bottom: 0;
+        top: 100px;
+        outline: none;
+        padding: 0 0 0 12px;
+        @extend .font-primary;
+        border: 1px solid $color-04;
+         margin: -5px 10px 0 0 !important;
+        width: 185px;
+        height: 38px;
+        @include border-radius(5px);
+    }
+
+    .role-filter{
+        margin: -5px 0 0 12px!important;
+    }
+    .box-btn{
+        margin: -7px 27px 0 0;
+        max-width: 130px;
+        min-width: 130px;
+    }
+}
+.box-table{
+    table{
+        border-collapse: collapse;
+        width: 100%;
+        thead{
+            border-top:1px solid $color-05;
+            border-bottom:1px solid $color-05;
+            tr{                        
+                th{
+                    &:first-child{
+                        padding: 0 0 0 27px;
+                    }
+                    @extend .font-primary;
+                    padding: 14px 14px 14px 14px;
+                    text-align: left;
+                    &:last-child{
+                        text-align: center;
+                    }
+                }
+            }
+        }
+        tbody{
+            border-bottom:1px solid $color-05;
+            tr{
+                height: 56px;
+                td{
+                    
+                    &:first-child{
+                        padding: 0 0 0 27px;
+                        font-weight: 600;
+                    }
+                    // padding: 10px 10px 10px 10px;
+                    padding: 0 0 0 15px;
+                    @extend .font-primary;
+                    line-height: 20px;
+                }
+            }
+            .list-grey{
+                background-color: $color-06;
+            }
+        }
+    }
+}
+
+.box-footer-table{
+    margin: 0 0 5px 0;
+    .footer-table{
+        width: 100%;
+        height: 56px;
+        border-bottom:1px solid $color-05;
+        .text-footer{
+            @extend .font-primary;
+            padding: 20px 0 0 27px;
+        }
+    }
+
+    .box-pagination{
+        width: 200px;
+        .pagination-content{
+            position: absolute;
+            right: 27px;
+            margin: -43px 0 0 0;
+          .pagination{  
+            @extend .font-primary;
+            .active{
+              border-radius: 50px;
+            //   border: 1px solid $primary-color;
+            //   background-color: $bg-secondary-color;
+            }
+            li{
+                padding: 0 0 0 30px;
+                display: inline-block;
+                list-style: none;
+                &:first-child{
+                    position: relative;
+                    margin: -10px 0 0 0;
+                }
+            }
+  
+            li>a, li>span{
+              cursor: pointer;
+              border: none;
+              border-radius: 50px;
+              margin-left: 5px!important;
+
+              &:active, &:focus{
+                outline: none;
+                border: none;
+              }
+            }
+
+            .box-lable{
+                border: 1px solid $color-04;
+                width: 26px;
+                height: 26px;
+                @extend .radius-secondary;
+                display: inline-block;
+                img{
+                    margin: 8px 0 0 9px;
+                    width: 6px;
+                    height: auto;
+                }
+            }
+          }
+        }
+    }
 }

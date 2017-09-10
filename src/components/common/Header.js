@@ -5,10 +5,17 @@ import Crypto from 'crypto-js';
 import Base64 from 'base-64';
 import autoBind from 'react-autobind';
 import { API_URL, TK_KEY } from '../../containers/RootUrl'
+import { Link } from 'react-router-dom'
 
 export default class Header extends Component{
     constructor(props){
         super(props)
+
+        autoBind(this)
+
+        this.state = {
+            settingActive: false
+        }
 
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
         this.userName = Crypto.AES.decrypt(Base64.decode(Cookie.load('username')), TK_KEY).toString(Crypto.enc.Utf8)
@@ -19,6 +26,15 @@ export default class Header extends Component{
         console.log('username: '+ this.userName )
     }
     render(){
+
+        const url = window.location.pathname;
+
+        if(url === '/admin/edit-akun' ||  url === '/admin/edit-akun'){
+            this.state.settingActive = true
+        }else{
+            this.state.settingActive = false
+        }
+
         return(
             <div className="header-comp">
                 <div className="header-container">
@@ -29,11 +45,11 @@ export default class Header extends Component{
                     <div className="box-logout header-icon">
                         <img src="../images/icon/logout-icon.svg" />
                     </div>
-
                     <div className="box-setting header-icon">
-                        <img src="../images/icon/setting-icon.svg" />
+                        <Link to="/admin/edit-akun">
+                            <img src={ this.state.settingActive ? '../images/icon/setting-icon-blue.svg' : '../images/icon/setting-icon.svg' } />
+                         </Link>    
                     </div>
-
                     <div className="box-user">
                         <div className="box-img-user">
                             <img src="../images/user-img.jpeg" />

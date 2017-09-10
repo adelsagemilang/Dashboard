@@ -1,0 +1,27 @@
+.input-form{
+	position: relative;
+	display: table;
+	.icon-form{
+	    position: absolute;
+	    height: 15px;
+	    right: 15px;
+	    top: 17px;
+	}
+}
+
+.select-wrapper{
+	float: left;
+	position: relative;
+}
+
+.select-wrapper::after{
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 45%;
+    height: 6px;
+    width: 12px;
+    background-image: url(/images/icon/button_icon/icon_dropdown.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
