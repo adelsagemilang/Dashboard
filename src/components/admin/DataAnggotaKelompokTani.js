@@ -15,7 +15,7 @@ import Header from '../common/Header'
 import InputForm from '../common/InputForm'
 import ReactPaginate from 'react-paginate'
 
-export default class DataPetani extends Component{
+export default class DataAnggotaKelompokPetani extends Component{
     constructor(props){
         super(props)
         autoBind(this)
@@ -170,7 +170,7 @@ export default class DataPetani extends Component{
                 return datas.phone_number
             })
 
-            if( phone.length == 1 ){
+            if( phone.length ){
                 this.setState({
                     phoneNotFound : false,
                     phoneFound: true
@@ -179,16 +179,14 @@ export default class DataPetani extends Component{
                 this.handleCancel()
                 
             }
-            else{
-                this.setState({
-                    phoneNotFound : true,
-                    phoneFound: false
-                })
-                this.handleCancel()
-            }
         })
         .catch((error) => {
             console.log('err: '+ error)
+            this.setState({
+                phoneNotFound : true,
+                phoneFound: false
+            })
+            this.handleCancel()
             
         })
     }
@@ -278,12 +276,12 @@ export default class DataPetani extends Component{
                 {this.phoneNotFound()}
                 {this.handleDaftar()}
                 <div className="main-content">
-                    <Header title="Data Petani" />
+                    <Header title="Data Anggota Kelompok Tani" />
                     <div className="user-access">
                         <div className="user-access-container">
                             <div className="box-top row-flex flex-space">
                                 <div className="pull-left">
-                                    <p className="count-item">30 Petani</p>
+                                    <p className="count-item">30 Anggota Kelompok Tani</p>
                                     <div className="select-wrapper">
                                         <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
                                             <option value="10">10 entri per halaman</option>
@@ -295,13 +293,13 @@ export default class DataPetani extends Component{
                                     <InputForm
                                     inputId="search_admin"
                                     handleChange={this.handleSearch}
-                                    placeholder="Cari .."
+                                    placeholder="Cari Nama atau ID Kelompok Tani"
                                     class="search-item"
                                     type="text"/>
                                 </div>
                                 <div className="pull-right">
-                                    <div className="box-btn" onClick={this.toggleAddUser}>
-                                        <ButtonPrimary name="Tambah Petani" />
+                                    <div className="box-btn auto" onClick={this.toggleAddUser}>
+                                        <ButtonPrimary name="Tambah Kelompok Tani" />
                                     </div>
                                 </div>
                             </div>
@@ -310,12 +308,12 @@ export default class DataPetani extends Component{
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Nama Lengkap</th>
-                                            <th>No. Telp</th>
-                                            <th>Alamat</th>
-                                            <th>Tempat Tanggal Lahir</th>
-                                            <th>Nama Ibu Kandung</th>
-                                            <th>Rek. Bank</th>
+                                            <th>ID Kelompok Tani</th>
+                                            <th>Nama Kelompok Tani</th>
+                                            <th>Nama Anggota</th>
+                                            <th>No. HP</th>
+                                            <th>No. KTP</th>
+                                            <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -324,42 +322,36 @@ export default class DataPetani extends Component{
                                             if(i % 2 === 1){
                                                 return(
                                                     <tr key={i} className='list-grey'>
-                                                        <td>{datahere.user_role_id}</td>
-                                                        <td>{datahere.name}</td>
-                                                        <td>{datahere.ktp_number}</td>
-                                                        <td>{datahere.email}</td>
-                                                        <td>{datahere.phone_number}</td>
-                                                        <td>{datahere.city}</td>
-                                                        <td className="text-center">
-                                                        	<div className="row-flex flex-center">
-                                                        		<div className="box-btn" onClick={this.handleCreate}>
-                                                        			<ButtonIcon class="btn-outline-sm" icon="icon-create"/>
-                                                        		</div>
-                                                        		 <div className="box-btn" onClick={this.handleDelete}>
-																	 <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
-                                                        		 </div>
-                                                        	</div>	
+                                                        <td className="strong">017123</td>
+                                                        <td>Kelompok Tani Bogor</td>
+                                                        <td>Rendy Syabany</td>
+                                                        <td>082112217474</td>
+                                                        <td>1234567890123456</td>
+                                                        <td className="text-success">Aktif</td>
+                                                        <td>
+                                                            <div className="row-flex flex-center">
+                                                                 <div className="box-btn" onClick={this.handleDelete}>
+                                                                     <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
+                                                                 </div>
+                                                            </div>  
                                                         </td>
                                                     </tr>
                                                 )
                                             }else{
                                                 return(
                                                     <tr key={i} >
-                                                        <td>{datahere.user_role_id}</td>
-                                                        <td>{datahere.name}</td>
-                                                        <td>{datahere.ktp_number}</td>
-                                                        <td>{datahere.email}</td>
-                                                        <td>{datahere.phone_number}</td>
-                                                        <td>{datahere.city}</td>
-                                                        <td className="text-center">
-                                                        	<div className="row-flex flex-center">
-                                                        		<div className="box-btn" onClick={this.handleCreate}>
-                                                        			<ButtonIcon class="btn-outline-sm" icon="icon-create"/>
-                                                        		</div>
-                                                        		 <div className="box-btn" onClick={this.handleDelete}>
-																	 <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
-                                                        		 </div>
-                                                        	</div>	
+                                                        <td className="strong">017123</td>
+                                                        <td>Kelompok Tani Bogor</td>
+                                                        <td>Rendy Syabany</td>
+                                                        <td>082112217474</td>
+                                                        <td>1234567890123456</td>
+                                                        <td className="text-success">Aktif</td>
+                                                        <td>
+                                                            <div className="row-flex flex-center">
+                                                                 <div className="box-btn" onClick={this.handleDelete}>
+                                                                     <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
+                                                                 </div>
+                                                            </div>  
                                                         </td>
                                                     </tr>
                                                 )

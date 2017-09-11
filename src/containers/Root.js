@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import PropTypes from 'prop-types'
 import {
-    BrowserRouter as Router,
+    Router,
     Route,
     Link,
     Switch

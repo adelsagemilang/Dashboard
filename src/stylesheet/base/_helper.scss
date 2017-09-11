@@ -1,5 +1,19 @@
+@import './variable';
+
 .text-center{
 	text-align: center;
+}
+
+.text-success{
+    color: $color-secondary !important;
+}
+
+.text-info{
+    color: $color-primary;
+}
+
+.text-danger{
+    color: $color-warning !important;
 }
 
 .strong{

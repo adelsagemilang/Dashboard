@@ -65,10 +65,6 @@ class LoginComp extends Component{
 
     }
 
-    componentDidMount(){
-        console.log(window.location.pathname)
-    }
-
     render(){
         
         return(

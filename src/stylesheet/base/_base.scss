@@ -56,6 +56,7 @@
 //base style
 *{
     @include font-family('Roboto', 'sans-serif');
+    color: $color-02;
 }
 .gradient-color-primary{
     @include gradient-color($color-secondary, $color-primary);
@@ -196,6 +197,7 @@
 
 //table
 .box-top{
+    margin-top: 25px;
     .count-item{
         padding: 0 25px 25px 26px;
         margin: 5px 0 0 0;
@@ -216,6 +218,19 @@
         padding: 12px;
         
     }
+    
+    .row-flex{
+        .search-item{
+            width: 180px;
+        }
+
+        .input-form{
+            .icon-form{
+                top: 9px;
+                right: 20px;
+            }
+        }
+    }
     .search-item{
         display: block;
         float: left;
@@ -223,29 +238,37 @@
         top: 100px;
         outline: none;
         padding: 0 0 0 12px;
-        @extend .font-primary;
+        @extend .font-secondary-4;
         border: 1px solid $color-04;
          margin: -5px 10px 0 0 !important;
-        width: 185px;
+        width: 260px;
         height: 38px;
         @include border-radius(5px);
+        @extend .placeholder-primary;
     }
 
     .role-filter{
         margin: -5px 0 0 12px!important;
     }
     .box-btn{
-        margin: -7px 27px 0 0;
-        max-width: 130px;
-        min-width: 130px;
+        margin: -10px 27px 0 0;
+        width: 130px;
+
+        &.auto{
+            width: auto;
+
+            button{
+                padding: 10px 15px;
+            }
+        }
     }
 }
 .box-table{
+    border-top:1px solid $color-05;
     table{
         border-collapse: collapse;
         width: 100%;
         thead{
-            border-top:1px solid $color-05;
             border-bottom:1px solid $color-05;
             tr{                        
                 th{
@@ -272,7 +295,7 @@
                         font-weight: 600;
                     }
                     // padding: 10px 10px 10px 10px;
-                    padding: 0 0 0 15px;
+                    padding: 0 15px;
                     @extend .font-primary;
                     line-height: 20px;
                 }

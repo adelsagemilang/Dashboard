@@ -22,6 +22,13 @@ export default class Header extends Component{
         this.userEmail = Crypto.AES.decrypt(Base64.decode(Cookie.load('email')), TK_KEY).toString(Crypto.enc.Utf8)
     }
 
+     handleLogout(){
+        Cookie.remove('TK', { path: '/' });
+        Cookie.remove('email', { path: '/' });
+        Cookie.remove('username', { path: '/' });
+        window.location.reload(true)
+    }
+
     componentDidMount(){
         console.log('username: '+ this.userName )
     }
@@ -42,7 +49,7 @@ export default class Header extends Component{
                         <p>{this.props.title}</p>
                     </div>
                     
-                    <div className="box-logout header-icon">
+                    <div className="box-logout header-icon" onClick={this.handleLogout}>
                         <img src="../images/icon/logout-icon.svg" />
                     </div>
                     <div className="box-setting header-icon">

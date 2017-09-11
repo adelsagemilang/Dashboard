@@ -292,6 +292,33 @@ p{
             margin-top: 20px;
         }
     }
+
+    .tiket-program{
+        .box-status{
+            margin-bottom: 30px;
+            border-bottom: 1px solid $color-05;
+            border-top: 1px solid $color-05;
+
+            .col-3{
+                    width: (10/3)*100%;
+                    padding: 30px 15px;
+                    border-right: 1px solid $color-05;
+
+            }
+
+            .col-4{
+                width: (10/4)*100%;
+                padding: 30px 15px;
+                border-right: 1px solid $color-05;
+            }
+
+            h3{
+                font-size: 60px;
+                font-weight: 300;
+            }
+
+        }
+    }
 }
 
 .box.text-center{
@@ -318,10 +345,10 @@ p{
 
 
 .user-access{
-    margin-top: 100px;
+    margin-top: 75px;
     position: absolute;
     width: calc(100% - 235px);
-    height: 100px;
+    height: 100%;
     @extend .placeholder-primary;
 }
 

@@ -15,7 +15,7 @@ import Header from '../common/Header'
 import InputForm from '../common/InputForm'
 import ReactPaginate from 'react-paginate'
 
-export default class DataPetani extends Component{
+export default class Datalahan extends Component{
     constructor(props){
         super(props)
         autoBind(this)
@@ -170,7 +170,7 @@ export default class DataPetani extends Component{
                 return datas.phone_number
             })
 
-            if( phone.length == 1 ){
+            if( phone.length ){
                 this.setState({
                     phoneNotFound : false,
                     phoneFound: true
@@ -179,16 +179,14 @@ export default class DataPetani extends Component{
                 this.handleCancel()
                 
             }
-            else{
-                this.setState({
-                    phoneNotFound : true,
-                    phoneFound: false
-                })
-                this.handleCancel()
-            }
         })
         .catch((error) => {
             console.log('err: '+ error)
+            this.setState({
+                phoneNotFound : true,
+                phoneFound: false
+            })
+            this.handleCancel()
             
         })
     }
@@ -278,12 +276,12 @@ export default class DataPetani extends Component{
                 {this.phoneNotFound()}
                 {this.handleDaftar()}
                 <div className="main-content">
-                    <Header title="Data Petani" />
+                    <Header title="Data Lahan" />
                     <div className="user-access">
                         <div className="user-access-container">
                             <div className="box-top row-flex flex-space">
                                 <div className="pull-left">
-                                    <p className="count-item">30 Petani</p>
+                                    <p className="count-item">30 Lahan Petani</p>
                                     <div className="select-wrapper">
                                         <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
                                             <option value="10">10 entri per halaman</option>
@@ -295,13 +293,13 @@ export default class DataPetani extends Component{
                                     <InputForm
                                     inputId="search_admin"
                                     handleChange={this.handleSearch}
-                                    placeholder="Cari .."
+                                    placeholder="Cari.."
                                     class="search-item"
                                     type="text"/>
                                 </div>
                                 <div className="pull-right">
-                                    <div className="box-btn" onClick={this.toggleAddUser}>
-                                        <ButtonPrimary name="Tambah Petani" />
+                                    <div className="box-btn auto" onClick={this.toggleAddUser}>
+                                        <ButtonPrimary name="Tambah Kelompok Tani" />
                                     </div>
                                 </div>
                             </div>
@@ -310,12 +308,15 @@ export default class DataPetani extends Component{
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Nama Lengkap</th>
-                                            <th>No. Telp</th>
-                                            <th>Alamat</th>
-                                            <th>Tempat Tanggal Lahir</th>
-                                            <th>Nama Ibu Kandung</th>
-                                            <th>Rek. Bank</th>
+                                            <th>Nama Petani</th>
+                                            <th>Nama lahan</th>
+                                            <th>Luas</th>
+                                            <th>Ketinggian</th>
+                                            <th>Sumber Pengairan</th>
+                                            <th>Komoditas Tanam</th>
+                                            <th>Hama Dominan</th>
+                                            <th>Penyakit Dominan</th>
+                                            <th>Lokasi</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -324,42 +325,50 @@ export default class DataPetani extends Component{
                                             if(i % 2 === 1){
                                                 return(
                                                     <tr key={i} className='list-grey'>
-                                                        <td>{datahere.user_role_id}</td>
-                                                        <td>{datahere.name}</td>
-                                                        <td>{datahere.ktp_number}</td>
-                                                        <td>{datahere.email}</td>
-                                                        <td>{datahere.phone_number}</td>
-                                                        <td>{datahere.city}</td>
-                                                        <td className="text-center">
-                                                        	<div className="row-flex flex-center">
-                                                        		<div className="box-btn" onClick={this.handleCreate}>
-                                                        			<ButtonIcon class="btn-outline-sm" icon="icon-create"/>
-                                                        		</div>
-                                                        		 <div className="box-btn" onClick={this.handleDelete}>
-																	 <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
-                                                        		 </div>
-                                                        	</div>	
+                                                        <td className="strong">Rendy Syabany</td>
+                                                        <td>Lahan Cikidang</td>
+                                                        <td>2000m</td>
+                                                        <td>2000mdpl</td>
+                                                        <td>Irigasi</td>
+                                                        <td>Bawang Merah
+                                                            Cabe Rawit
+                                                            Sawi</td>
+                                                        <td>Hama Wereng</td>
+                                                        <td>Rontok</td>
+                                                        <td>Jl. Bungur 2 No. 10
+                                                        Cilendek Timur, Bogor Barat
+                                                        Kota Bogor, Jawa Barat</td>
+                                                         <td>
+                                                            <div className="row-flex flex-center">
+                                                                 <div className="box-btn" onClick={this.handleDelete}>
+                                                                     <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
+                                                                 </div>
+                                                            </div>  
                                                         </td>
                                                     </tr>
                                                 )
                                             }else{
                                                 return(
                                                     <tr key={i} >
-                                                        <td>{datahere.user_role_id}</td>
-                                                        <td>{datahere.name}</td>
-                                                        <td>{datahere.ktp_number}</td>
-                                                        <td>{datahere.email}</td>
-                                                        <td>{datahere.phone_number}</td>
-                                                        <td>{datahere.city}</td>
-                                                        <td className="text-center">
-                                                        	<div className="row-flex flex-center">
-                                                        		<div className="box-btn" onClick={this.handleCreate}>
-                                                        			<ButtonIcon class="btn-outline-sm" icon="icon-create"/>
-                                                        		</div>
-                                                        		 <div className="box-btn" onClick={this.handleDelete}>
-																	 <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
-                                                        		 </div>
-                                                        	</div>	
+                                                        <td className="strong">Rendy Syabany</td>
+                                                        <td>Lahan Cikidang</td>
+                                                        <td>2000m</td>
+                                                        <td>2000mdpl</td>
+                                                        <td>Irigasi</td>
+                                                        <td>Bawang Merah
+                                                            Cabe Rawit
+                                                            Sawi</td>
+                                                        <td>Hama Wereng</td>
+                                                        <td>Rontok</td>
+                                                        <td>Jl. Bungur 2 No. 10
+                                                        Cilendek Timur, Bogor Barat
+                                                        Kota Bogor, Jawa Barat</td>
+                                                         <td>
+                                                            <div className="row-flex flex-center">
+                                                                 <div className="box-btn" onClick={this.handleDelete}>
+                                                                     <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
+                                                                 </div>
+                                                            </div>  
                                                         </td>
                                                     </tr>
                                                 )

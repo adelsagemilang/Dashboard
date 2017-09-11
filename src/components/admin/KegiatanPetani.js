@@ -15,7 +15,7 @@ import Header from '../common/Header'
 import InputForm from '../common/InputForm'
 import ReactPaginate from 'react-paginate'
 
-export default class DataPetani extends Component{
+export default class KegiatanPetani extends Component{
     constructor(props){
         super(props)
         autoBind(this)
@@ -23,10 +23,6 @@ export default class DataPetani extends Component{
         this.state = {
             dataHere: [],
             classBgColor: '',
-            toggleAddUser: false,
-            phoneFound: false,
-            phoneNotFound: false,
-            daftarPetani: false,
             entriPage: []
         }
 
@@ -127,118 +123,6 @@ export default class DataPetani extends Component{
     }
 
 
-    toggleAddUser(){
-        this.setState({
-            toggleAddUser : !this.state.toggleAddUser
-        })
-    }
-
-    renderPopupAddUser(){
-        let { toggleAddUser } = this.state
-
-        if( toggleAddUser === true ){
-            return (
-                <SearchPetani 
-                    toggleAddUser={this.toggleAddUser}
-                    handleSearchToAdd = {this.handleSearchToAdd}
-                />
-            )
-        }
-        else{
-            return null;
-        }
-    }
-
-    handleCancel(){
-        console.log('canceled')
-        this.setState({
-            toggleAddUser: false
-        })
-    }
-
-    handleSearchToAdd(){
-        console.log('clicked');
-        const value = document.getElementById('search-to-add').value
-        axios.get(API_URL + 'user_access?page=0&size=10&text=' + value + '&user_role=1',{
-            headers:{ 
-                'X-AUTH-TOKEN' : this.authToken
-            }
-        })
-        .then(res => {
-            const dataHere = res.data.content
-            const phone = dataHere.map( datas => {
-                return datas.phone_number
-            })
-
-            if( phone.length == 1 ){
-                this.setState({
-                    phoneNotFound : false,
-                    phoneFound: true
-                })
-
-                this.handleCancel()
-                
-            }
-            else{
-                this.setState({
-                    phoneNotFound : true,
-                    phoneFound: false
-                })
-                this.handleCancel()
-            }
-        })
-        .catch((error) => {
-            console.log('err: '+ error)
-            
-        })
-    }
-
-    phoneFound(){
-        if(this.state.phoneFound){
-            return (
-                <PhoneFound 
-                    togglePhoneFound={this.togglePhoneFound} 
-                />
-            )
-        }
-        
-    }
-
-    togglePhoneFound(){
-        this.setState({
-            phoneFound: !this.state.phoneFound
-        })
-    }
-
-    phoneNotFound(){
-        if(this.state.phoneNotFound){
-            return <PhoneNotFound 
-                handleDaftar={this.toggleHandleDaftar} 
-                togglePhoneNotFound={this.togglePhoneNotFound}
-                />
-        }
- 
-    }
-
-    togglePhoneNotFound(){
-        this.setState({
-            phoneNotFound: !this.state.phoneNotFound
-        })
-    }
-
-    toggleHandleDaftar(){
-        this.setState({
-            daftarPetani: !this.state.daftarPetani,
-            phoneNotFound: false
-        })
-    }
-
-    handleDaftar(){
-        if(this.state.daftarPetani){
-            return <TambahPetani toggleHandleDaftar={this.toggleHandleDaftar} />
-        }
-    }
-
     componentDidMount(){
         console.log(this.authToken)
         axios.get(API_URL + 'user_access?page=0&size=10&text=&user_role=1',{
@@ -270,20 +154,19 @@ export default class DataPetani extends Component{
     render(){
         const DataHere = this.state.dataHere
         let ClassBgColor = this.state.classBgColor
+        let CurrentTime = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })
+        let titleHead = "Kegiatan Petani Hari ini - "+CurrentTime
+        console.log(titleHead)
 
         return(
             <div>
-                {this.renderPopupAddUser()}
-                {this.phoneFound()}
-                {this.phoneNotFound()}
-                {this.handleDaftar()}
                 <div className="main-content">
-                    <Header title="Data Petani" />
+                    <Header title={titleHead} />
                     <div className="user-access">
                         <div className="user-access-container">
                             <div className="box-top row-flex flex-space">
-                                <div className="pull-left">
-                                    <p className="count-item">30 Petani</p>
+                                <div className="pull-left row-flex">
+                                    <p className="count-item">30 Lahan Petani</p>
                                     <div className="select-wrapper">
                                         <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
                                             <option value="10">10 entri per halaman</option>
@@ -295,13 +178,13 @@ export default class DataPetani extends Component{
                                     <InputForm
                                     inputId="search_admin"
                                     handleChange={this.handleSearch}
-                                    placeholder="Cari .."
+                                    placeholder="Cari.."
                                     class="search-item"
                                     type="text"/>
-                                </div>
-                                <div className="pull-right">
-                                    <div className="box-btn" onClick={this.toggleAddUser}>
-                                        <ButtonPrimary name="Tambah Petani" />
+                                    <div className="select-wrapper">
+                                        <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
+                                            <option value="">Filter</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -310,13 +193,12 @@ export default class DataPetani extends Component{
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Nama Lengkap</th>
-                                            <th>No. Telp</th>
-                                            <th>Alamat</th>
-                                            <th>Tempat Tanggal Lahir</th>
-                                            <th>Nama Ibu Kandung</th>
-                                            <th>Rek. Bank</th>
-                                            <th>Aksi</th>
+                                            <th>Kelompok Tani</th>
+                                            <th>Nama Petani</th>
+                                            <th>Program</th>
+                                            <th>Kegiatan</th>
+                                            <th>Rincian Kegiatan</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -324,43 +206,23 @@ export default class DataPetani extends Component{
                                             if(i % 2 === 1){
                                                 return(
                                                     <tr key={i} className='list-grey'>
-                                                        <td>{datahere.user_role_id}</td>
-                                                        <td>{datahere.name}</td>
-                                                        <td>{datahere.ktp_number}</td>
-                                                        <td>{datahere.email}</td>
-                                                        <td>{datahere.phone_number}</td>
-                                                        <td>{datahere.city}</td>
-                                                        <td className="text-center">
-                                                        	<div className="row-flex flex-center">
-                                                        		<div className="box-btn" onClick={this.handleCreate}>
-                                                        			<ButtonIcon class="btn-outline-sm" icon="icon-create"/>
-                                                        		</div>
-                                                        		 <div className="box-btn" onClick={this.handleDelete}>
-																	 <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
-                                                        		 </div>
-                                                        	</div>	
-                                                        </td>
+                                                        <td>Kelompok Tani Sukabumi</td>
+                                                        <td>Rendy Syabany</td>
+                                                        <td>Penanam Cabai 1 Hektar</td>
+                                                        <td>Menanam Cabai</td>
+                                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam provident dolorum, quibusdam?</td>
+                                                        <td className="text-center">Sudah Selesai</td>
                                                     </tr>
                                                 )
                                             }else{
                                                 return(
                                                     <tr key={i} >
-                                                        <td>{datahere.user_role_id}</td>
-                                                        <td>{datahere.name}</td>
-                                                        <td>{datahere.ktp_number}</td>
-                                                        <td>{datahere.email}</td>
-                                                        <td>{datahere.phone_number}</td>
-                                                        <td>{datahere.city}</td>
-                                                        <td className="text-center">
-                                                        	<div className="row-flex flex-center">
-                                                        		<div className="box-btn" onClick={this.handleCreate}>
-                                                        			<ButtonIcon class="btn-outline-sm" icon="icon-create"/>
-                                                        		</div>
-                                                        		 <div className="box-btn" onClick={this.handleDelete}>
-																	 <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
-                                                        		 </div>
-                                                        	</div>	
-                                                        </td>
+                                                        <td>Kelompok Tani Sukabumi</td>
+                                                        <td>Rendy Syabany</td>
+                                                        <td>Penanam Cabai 1 Hektar</td>
+                                                        <td>Menanam Cabai</td>
+                                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam provident dolorum, quibusdam?</td>
+                                                        <td className="text-center">Sudah Selesai</td>
                                                     </tr>
                                                 )
                                             }

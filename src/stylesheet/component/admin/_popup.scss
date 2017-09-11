@@ -37,11 +37,45 @@
                     margin-top: 10px;
                 }
 
+                textarea{
+                    resize: none;
+                    color: #B7B7B7;
+                    padding-top: 15px;
+                    padding-bottom: 15px;
+                    height: 60px;
+                    width: 100%;
+                    box-sizing: border-box;
+                }
+
+                .strong{
+                    margin-top: 10px;
+                }
+
                 .row-flex{
                     width: 100%;
+                    &.col-2{
+                       .input-form{
+                         width: 250px !important;
+                       }
+                    }
+                    &.col-3{
+                        .input-form{
+                          width: 163px !important;
+                        }
+
+                        .select-option{
+                            width: 162px;
+                            margin-right: 10px !important;
+                            height: 41px;
+                        }
+                    }
                     .input-form{
-                        width: 270px;
                         margin-right: 10px;
+                        margin-top: 0px !important;
+                    }
+
+                    &.mg-t-10{
+                        margin-top: 10px;
                     }
                 }
 

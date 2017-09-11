@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-    BrowserRouter as Router,
+    Router,
     Route,
     Switch,
     Redirect
@@ -10,9 +10,15 @@ import HomeComp from '../components/admin/HomeComp'
 import Admin from '../components/admin/Admin'
 import DataPetani from '../components/admin/DataPetani'
 import DataKelompokTani from '../components/admin/DataKelompokTani'
+import DataAnggotaKelompokTani from'../components/admin/DataAnggotaKelompokTani'
+import DataLahan from'../components/admin/DataLahan'
 import EditAkun from '../components/admin/EditAkun'
+import TiketProgram from '../components/admin/TiketProgram'
+import Program from '../components/admin/Program'
+import RekapKegiatan from '../components/admin/RekapKegiatan'
+import KegiatanPetani from '../components/admin/KegiatanPetani'
 import LoginComp from '../components/LoginComp'
-import { requireAuth } from './requireAuth'
+import { Authenticated } from './Auth'
 import LayoutMaster from '../components/common/LayoutMaster'
 import NotFound from '../components/common/NotFound'
 
@@ -22,13 +28,19 @@ export default class Routes extends Component {
             <div>
                 <LayoutMaster>
                     <Switch>
-                        <Route exact path="/" component={App} />
-                        <Route path="/dashboard" component={HomeComp} onEnter={requireAuth} />
-                        <Route path="/admin/data-petani" component={DataPetani} onEnter={requireAuth} />
-                        <Route path="/admin/data-kelompok-tani" component={DataKelompokTani} onEnter={requireAuth} />
-                        <Route path="/admin/edit-akun" component={EditAkun} onEnter={requireAuth} />
-                        <Route path="/about" component={App} onEnter={requireAuth} />
-                        <Route path="/login" component={LoginComp} onEnter={requireAuth} />
+                        <Authenticated exact path="/" component={App} />
+                        <Authenticated exact path="/dashboard" component={HomeComp}/>
+                        <Authenticated exact path="/admin/data-petani" component={DataPetani}/>
+                        <Authenticated exact path="/admin/data-kelompok-tani" component={DataKelompokTani}/>
+                        <Authenticated exact path="/admin/data-anggota-kelompok-tani" component={DataAnggotaKelompokTani}/>
+                        <Authenticated exact path="/admin/data-lahan" component={DataLahan}/>
+                        <Authenticated exact path="/admin/data-tiket-program" component={TiketProgram}/>
+                        <Authenticated exact path="/admin/program" component={Program}/>
+                        <Authenticated exact path="/admin/kegiatan-petani" component={KegiatanPetani}/>
+                        <Authenticated exact path="/admin/edit-akun" component={EditAkun}/>
+                        <Authenticated exact path="/admin/rekap-kegiatan" component={RekapKegiatan}/>
+                        <Authenticated exact path="/about" component={App}/>
+                        <Authenticated exact path="/login" component={LoginComp}/>
                         <Route path='/404' component={NotFound} />
                         <Redirect from='*' to='/404' />
                     </Switch>
