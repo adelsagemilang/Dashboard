@@ -7,6 +7,7 @@ import autoBind from 'react-autobind'
 import { API_URL, TK_KEY } from '../../containers/RootUrl'
 import { ButtonPrimary } from '../common/ButtonPrimary'
 import { ButtonIcon } from '../common/ButtonIcon'
+import Success from './popup/common-popup/Success'
 import HapusData from './popup/common-popup/HapusData'
 import TambahPetani from './popup/data-petani/TambahPetani'
 import SearchPetani from './popup/data-petani/searchPetani'
@@ -26,6 +27,7 @@ export default class DataPetani extends Component{
             classBgColor: '',
             toggleAddUser: false,
             toggleDeletePopup: false,
+            toggleSuccess: false,
             phoneFound: false,
             phoneNotFound: false,
             daftarPetani: false,
@@ -168,6 +170,14 @@ export default class DataPetani extends Component{
         }
     }
 
+    renderPopupSuccess(){
+        return (
+                <Success 
+                toggleDeletePopup={this.toggleDeletePopup} 
+            />
+            )
+    }
+
     handleCancel(){
         console.log('canceled')
         this.setState({
@@ -297,6 +307,7 @@ export default class DataPetani extends Component{
                 {this.phoneFound()}
                 {this.phoneNotFound()}
                 {this.handleDaftar()}
+                {this.renderPopupSuccess()}
                 <div className="main-content">
                     <Header title="Data Petani" />
                     <div className="user-access">

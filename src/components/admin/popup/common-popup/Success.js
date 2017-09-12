@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { ButtonPrimary } from '../../../common/ButtonPrimary'
 
 class Success extends Component {
     constructor(props) {
@@ -10,20 +11,14 @@ class Success extends Component {
             <div className="add-popup">
 	           	<div className="popup-container sm">
 					<div className="box-content">
-						<div className="content">
-							<p className="title warning text-center">Tiket Program berhasil ditambahkan</p>
-							<p className="sub-title"></p>
+						<div className="content text-center">
+							<img src="../images/icon/icon_success.svg" />
+							<p className="sub-title">Tiket Program berhasil ditambahkan</p>
 							<div className="box-btn auto" onClick={this.props.toggleDeletePopup}>
 	                        <ButtonPrimary
                                 class="button-primary"
                                 type="button"
-                                name="Tidak" />
-                            </div>
-                            <div className="box-btn auto">
-                                <ButtonPrimary
-                                class="button-secondary"
-                                type="submit"
-                                name="Ya" />
+                                name="Selesai" />
                             </div>
 						</div>
 						<div className="footer-content"></div>
