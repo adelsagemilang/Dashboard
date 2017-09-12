@@ -7,6 +7,7 @@ import autoBind from 'react-autobind'
 import { API_URL, TK_KEY } from '../../containers/RootUrl'
 import { ButtonPrimary } from '../common/ButtonPrimary'
 import { ButtonIcon } from '../common/ButtonIcon'
+import HapusData from './popup/common-popup/HapusData'
 import TambahPetani from './popup/data-petani/TambahPetani'
 import SearchPetani from './popup/data-petani/searchPetani'
 import PhoneFound from './popup/data-petani/phoneFound'
@@ -24,6 +25,7 @@ export default class DataPetani extends Component{
             dataHere: [],
             classBgColor: '',
             toggleAddUser: false,
+            toggleDeletePopup: false,
             phoneFound: false,
             phoneNotFound: false,
             daftarPetani: false,
@@ -133,6 +135,13 @@ export default class DataPetani extends Component{
         })
     }
 
+    toggleDeletePopup(){
+        console.log('clicked');
+        this.setState({
+            toggleDeletePopup : !this.state.toggleDeletePopup
+        })
+    }
+
     renderPopupAddUser(){
         let { toggleAddUser } = this.state
 
@@ -146,6 +155,16 @@ export default class DataPetani extends Component{
         }
         else{
             return null;
+        }
+    }
+
+    renderPopupDelete(){
+        if (this.state.toggleDeletePopup){
+            return (
+                <HapusData 
+                toggleDeletePopup={this.toggleDeletePopup} 
+            />
+            )
         }
     }
 
@@ -274,6 +293,7 @@ export default class DataPetani extends Component{
         return(
             <div>
                 {this.renderPopupAddUser()}
+                {this.renderPopupDelete()}
                 {this.phoneFound()}
                 {this.phoneNotFound()}
                 {this.handleDaftar()}
@@ -335,7 +355,7 @@ export default class DataPetani extends Component{
                                                         		<div className="box-btn" onClick={this.handleCreate}>
                                                         			<ButtonIcon class="btn-outline-sm" icon="icon-create"/>
                                                         		</div>
-                                                        		 <div className="box-btn" onClick={this.handleDelete}>
+                                                        		 <div className="box-btn" onClick={this.toggleDeletePopup}>
 																	 <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
                                                         		 </div>
                                                         	</div>	
@@ -356,7 +376,7 @@ export default class DataPetani extends Component{
                                                         		<div className="box-btn" onClick={this.handleCreate}>
                                                         			<ButtonIcon class="btn-outline-sm" icon="icon-create"/>
                                                         		</div>
-                                                        		 <div className="box-btn" onClick={this.handleDelete}>
+                                                        		 <div className="box-btn" onClick={this.toggleDeletePopup}>
 																	 <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
                                                         		 </div>
                                                         	</div>	

@@ -1,3 +1,6 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
 @import url("https://fonts.googleapis.com/css?family=Roboto");
@@ -102,16 +105,16 @@
   font-size: 14px;
   outline: none; }
 
-.placeholder-primary::-webkit-input-placeholder, .form-control::-webkit-input-placeholder, .box-top .search-item::-webkit-input-placeholder, .login-comp::-webkit-input-placeholder, .user-access::-webkit-input-placeholder {
+.placeholder-primary::-webkit-input-placeholder, .form-control::-webkit-input-placeholder, .tag-wrapper .react-tagsinput-input::-webkit-input-placeholder, .box-top .search-item::-webkit-input-placeholder, .login-comp::-webkit-input-placeholder, .user-access::-webkit-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary::-moz-placeholder, .form-control::-moz-placeholder, .box-top .search-item::-moz-placeholder, .login-comp::-moz-placeholder, .user-access::-moz-placeholder {
+.placeholder-primary::-moz-placeholder, .form-control::-moz-placeholder, .tag-wrapper .react-tagsinput-input::-moz-placeholder, .box-top .search-item::-moz-placeholder, .login-comp::-moz-placeholder, .user-access::-moz-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary:-ms-input-placeholder, .form-control:-ms-input-placeholder, .box-top .search-item:-ms-input-placeholder, .login-comp:-ms-input-placeholder, .user-access:-ms-input-placeholder {
+.placeholder-primary:-ms-input-placeholder, .form-control:-ms-input-placeholder, .tag-wrapper .react-tagsinput-input:-ms-input-placeholder, .box-top .search-item:-ms-input-placeholder, .login-comp:-ms-input-placeholder, .user-access:-ms-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary:-moz-placeholder, .form-control:-moz-placeholder, .box-top .search-item:-moz-placeholder, .login-comp:-moz-placeholder, .user-access:-moz-placeholder {
+.placeholder-primary:-moz-placeholder, .form-control:-moz-placeholder, .tag-wrapper .react-tagsinput-input:-moz-placeholder, .box-top .search-item:-moz-placeholder, .login-comp:-moz-placeholder, .user-access:-moz-placeholder {
   color: #B7B7B7; }
 
 .select-option, .box-top .option-input {
@@ -126,7 +129,7 @@
   outline: none;
   color: #B7B7B7; }
 
-.form-control {
+.form-control, .tag-wrapper .react-tagsinput-input {
   display: block;
   float: left;
   bottom: 0;
@@ -161,9 +164,9 @@
     width: 185px;
     height: 40px;
     padding: 12px; }
-  .box-top .row-flex .search-item, .box-top .main-content .edit-akun .content-top .search-item, .main-content .edit-akun .box-top .content-top .search-item, .box-top .main-content .edit-akun .content-bottom .search-item, .main-content .edit-akun .box-top .content-bottom .search-item {
+  .box-top .row-flex .search-item, .box-top .tag-wrapper .search-item, .box-top .main-content .edit-akun .content-top .search-item, .main-content .edit-akun .box-top .content-top .search-item, .box-top .main-content .edit-akun .content-bottom .search-item, .main-content .edit-akun .box-top .content-bottom .search-item {
     width: 180px; }
-  .box-top .row-flex .input-form .icon-form, .box-top .main-content .edit-akun .content-top .input-form .icon-form, .main-content .edit-akun .box-top .content-top .input-form .icon-form, .box-top .main-content .edit-akun .content-bottom .input-form .icon-form, .main-content .edit-akun .box-top .content-bottom .input-form .icon-form {
+  .box-top .row-flex .input-form .icon-form, .box-top .tag-wrapper .input-form .icon-form, .box-top .main-content .edit-akun .content-top .input-form .icon-form, .main-content .edit-akun .box-top .content-top .input-form .icon-form, .box-top .main-content .edit-akun .content-bottom .input-form .icon-form, .main-content .edit-akun .box-top .content-bottom .input-form .icon-form {
     top: 9px;
     right: 20px; }
   .box-top .search-item {
@@ -421,16 +424,16 @@
   font-size: 14px;
   outline: none; }
 
-.placeholder-primary::-webkit-input-placeholder, .form-control::-webkit-input-placeholder, .box-top .search-item::-webkit-input-placeholder, .login-comp::-webkit-input-placeholder, .user-access::-webkit-input-placeholder {
+.placeholder-primary::-webkit-input-placeholder, .form-control::-webkit-input-placeholder, .tag-wrapper .react-tagsinput-input::-webkit-input-placeholder, .box-top .search-item::-webkit-input-placeholder, .login-comp::-webkit-input-placeholder, .user-access::-webkit-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary::-moz-placeholder, .form-control::-moz-placeholder, .box-top .search-item::-moz-placeholder, .login-comp::-moz-placeholder, .user-access::-moz-placeholder {
+.placeholder-primary::-moz-placeholder, .form-control::-moz-placeholder, .tag-wrapper .react-tagsinput-input::-moz-placeholder, .box-top .search-item::-moz-placeholder, .login-comp::-moz-placeholder, .user-access::-moz-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary:-ms-input-placeholder, .form-control:-ms-input-placeholder, .box-top .search-item:-ms-input-placeholder, .login-comp:-ms-input-placeholder, .user-access:-ms-input-placeholder {
+.placeholder-primary:-ms-input-placeholder, .form-control:-ms-input-placeholder, .tag-wrapper .react-tagsinput-input:-ms-input-placeholder, .box-top .search-item:-ms-input-placeholder, .login-comp:-ms-input-placeholder, .user-access:-ms-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary:-moz-placeholder, .form-control:-moz-placeholder, .box-top .search-item:-moz-placeholder, .login-comp:-moz-placeholder, .user-access:-moz-placeholder {
+.placeholder-primary:-moz-placeholder, .form-control:-moz-placeholder, .tag-wrapper .react-tagsinput-input:-moz-placeholder, .box-top .search-item:-moz-placeholder, .login-comp:-moz-placeholder, .user-access:-moz-placeholder {
   color: #B7B7B7; }
 
 .select-option, .box-top .option-input {
@@ -445,7 +448,7 @@
   outline: none;
   color: #B7B7B7; }
 
-.form-control {
+.form-control, .tag-wrapper .react-tagsinput-input {
   display: block;
   float: left;
   bottom: 0;
@@ -480,9 +483,9 @@
     width: 185px;
     height: 40px;
     padding: 12px; }
-  .box-top .row-flex .search-item, .box-top .main-content .edit-akun .content-top .search-item, .main-content .edit-akun .box-top .content-top .search-item, .box-top .main-content .edit-akun .content-bottom .search-item, .main-content .edit-akun .box-top .content-bottom .search-item {
+  .box-top .row-flex .search-item, .box-top .tag-wrapper .search-item, .box-top .main-content .edit-akun .content-top .search-item, .main-content .edit-akun .box-top .content-top .search-item, .box-top .main-content .edit-akun .content-bottom .search-item, .main-content .edit-akun .box-top .content-bottom .search-item {
     width: 180px; }
-  .box-top .row-flex .input-form .icon-form, .box-top .main-content .edit-akun .content-top .input-form .icon-form, .main-content .edit-akun .box-top .content-top .input-form .icon-form, .box-top .main-content .edit-akun .content-bottom .input-form .icon-form, .main-content .edit-akun .box-top .content-bottom .input-form .icon-form {
+  .box-top .row-flex .input-form .icon-form, .box-top .tag-wrapper .input-form .icon-form, .box-top .main-content .edit-akun .content-top .input-form .icon-form, .main-content .edit-akun .box-top .content-top .input-form .icon-form, .box-top .main-content .edit-akun .content-bottom .input-form .icon-form, .main-content .edit-akun .box-top .content-bottom .input-form .icon-form {
     top: 9px;
     right: 20px; }
   .box-top .search-item {
@@ -715,16 +718,16 @@
   font-size: 14px;
   outline: none; }
 
-.placeholder-primary::-webkit-input-placeholder, .form-control::-webkit-input-placeholder, .box-top .search-item::-webkit-input-placeholder, .login-comp::-webkit-input-placeholder, .user-access::-webkit-input-placeholder {
+.placeholder-primary::-webkit-input-placeholder, .form-control::-webkit-input-placeholder, .tag-wrapper .react-tagsinput-input::-webkit-input-placeholder, .box-top .search-item::-webkit-input-placeholder, .login-comp::-webkit-input-placeholder, .user-access::-webkit-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary::-moz-placeholder, .form-control::-moz-placeholder, .box-top .search-item::-moz-placeholder, .login-comp::-moz-placeholder, .user-access::-moz-placeholder {
+.placeholder-primary::-moz-placeholder, .form-control::-moz-placeholder, .tag-wrapper .react-tagsinput-input::-moz-placeholder, .box-top .search-item::-moz-placeholder, .login-comp::-moz-placeholder, .user-access::-moz-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary:-ms-input-placeholder, .form-control:-ms-input-placeholder, .box-top .search-item:-ms-input-placeholder, .login-comp:-ms-input-placeholder, .user-access:-ms-input-placeholder {
+.placeholder-primary:-ms-input-placeholder, .form-control:-ms-input-placeholder, .tag-wrapper .react-tagsinput-input:-ms-input-placeholder, .box-top .search-item:-ms-input-placeholder, .login-comp:-ms-input-placeholder, .user-access:-ms-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary:-moz-placeholder, .form-control:-moz-placeholder, .box-top .search-item:-moz-placeholder, .login-comp:-moz-placeholder, .user-access:-moz-placeholder {
+.placeholder-primary:-moz-placeholder, .form-control:-moz-placeholder, .tag-wrapper .react-tagsinput-input:-moz-placeholder, .box-top .search-item:-moz-placeholder, .login-comp:-moz-placeholder, .user-access:-moz-placeholder {
   color: #B7B7B7; }
 
 .select-option, .box-top .option-input {
@@ -739,7 +742,7 @@
   outline: none;
   color: #B7B7B7; }
 
-.form-control {
+.form-control, .tag-wrapper .react-tagsinput-input {
   display: block;
   float: left;
   bottom: 0;
@@ -774,9 +777,356 @@
     width: 185px;
     height: 40px;
     padding: 12px; }
-  .box-top .row-flex .search-item, .box-top .main-content .edit-akun .content-top .search-item, .main-content .edit-akun .box-top .content-top .search-item, .box-top .main-content .edit-akun .content-bottom .search-item, .main-content .edit-akun .box-top .content-bottom .search-item {
+  .box-top .row-flex .search-item, .box-top .tag-wrapper .search-item, .box-top .main-content .edit-akun .content-top .search-item, .main-content .edit-akun .box-top .content-top .search-item, .box-top .main-content .edit-akun .content-bottom .search-item, .main-content .edit-akun .box-top .content-bottom .search-item {
     width: 180px; }
-  .box-top .row-flex .input-form .icon-form, .box-top .main-content .edit-akun .content-top .input-form .icon-form, .main-content .edit-akun .box-top .content-top .input-form .icon-form, .box-top .main-content .edit-akun .content-bottom .input-form .icon-form, .main-content .edit-akun .box-top .content-bottom .input-form .icon-form {
+  .box-top .row-flex .input-form .icon-form, .box-top .tag-wrapper .input-form .icon-form, .box-top .main-content .edit-akun .content-top .input-form .icon-form, .main-content .edit-akun .box-top .content-top .input-form .icon-form, .box-top .main-content .edit-akun .content-bottom .input-form .icon-form, .main-content .edit-akun .box-top .content-bottom .input-form .icon-form {
+    top: 9px;
+    right: 20px; }
+  .box-top .search-item {
+    display: block;
+    float: left;
+    bottom: 0;
+    top: 100px;
+    outline: none;
+    padding: 0 0 0 12px;
+    border: 1px solid #DDDDDD;
+    margin: -5px 10px 0 0 !important;
+    width: 260px;
+    height: 38px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px; }
+  .box-top .role-filter {
+    margin: -5px 0 0 12px !important; }
+  .box-top .box-btn {
+    margin: -10px 27px 0 0;
+    width: 130px; }
+    .box-top .box-btn.auto {
+      width: auto; }
+      .box-top .box-btn.auto button {
+        padding: 10px 15px; }
+
+.box-table {
+  border-top: 1px solid #D6D6D6; }
+  .box-table table {
+    border-collapse: collapse;
+    width: 100%; }
+    .box-table table thead {
+      border-bottom: 1px solid #D6D6D6; }
+      .box-table table thead tr th {
+        padding: 14px 14px 14px 14px;
+        text-align: left; }
+        .box-table table thead tr th:first-child {
+          padding: 0 0 0 27px; }
+        .box-table table thead tr th:last-child {
+          text-align: center; }
+    .box-table table tbody {
+      border-bottom: 1px solid #D6D6D6; }
+      .box-table table tbody tr {
+        height: 56px; }
+        .box-table table tbody tr td {
+          padding: 0 15px;
+          line-height: 20px; }
+          .box-table table tbody tr td:first-child {
+            padding: 0 0 0 27px;
+            font-weight: 600; }
+      .box-table table tbody .list-grey {
+        background-color: #F7F7F7; }
+
+.box-footer-table {
+  margin: 0 0 5px 0; }
+  .box-footer-table .footer-table {
+    width: 100%;
+    height: 56px;
+    border-bottom: 1px solid #D6D6D6; }
+    .box-footer-table .footer-table .text-footer {
+      padding: 20px 0 0 27px; }
+  .box-footer-table .box-pagination {
+    width: 200px; }
+    .box-footer-table .box-pagination .pagination-content {
+      position: absolute;
+      right: 27px;
+      margin: -43px 0 0 0; }
+      .box-footer-table .box-pagination .pagination-content .pagination .active {
+        border-radius: 50px; }
+      .box-footer-table .box-pagination .pagination-content .pagination li {
+        padding: 0 0 0 30px;
+        display: inline-block;
+        list-style: none; }
+        .box-footer-table .box-pagination .pagination-content .pagination li:first-child {
+          position: relative;
+          margin: -10px 0 0 0; }
+      .box-footer-table .box-pagination .pagination-content .pagination li > a, .box-footer-table .box-pagination .pagination-content .pagination li > span {
+        cursor: pointer;
+        border: none;
+        border-radius: 50px;
+        margin-left: 5px !important; }
+        .box-footer-table .box-pagination .pagination-content .pagination li > a:active, .box-footer-table .box-pagination .pagination-content .pagination li > a:focus, .box-footer-table .box-pagination .pagination-content .pagination li > span:active, .box-footer-table .box-pagination .pagination-content .pagination li > span:focus {
+          outline: none;
+          border: none; }
+      .box-footer-table .box-pagination .pagination-content .pagination .box-lable {
+        border: 1px solid #DDDDDD;
+        width: 26px;
+        height: 26px;
+        display: inline-block; }
+        .box-footer-table .box-pagination .pagination-content .pagination .box-lable img {
+          margin: 8px 0 0 9px;
+          width: 6px;
+          height: auto; }
+
+.text-center {
+  text-align: center; }
+
+.text-success {
+  color: #79BE75 !important; }
+
+.text-info {
+  color: #27A1C3; }
+
+.text-danger {
+  color: #C43737 !important; }
+
+.strong {
+  font-weight: bold; }
+
+.row-flex, .tag-wrapper, .main-content .edit-akun .content-top, .main-content .edit-akun .content-bottom {
+  display: block; }
+  @media (min-width: 768px) {
+    .row-flex, .tag-wrapper, .main-content .edit-akun .content-top, .main-content .edit-akun .content-bottom {
+      display: flex; } }
+  .row-flex.flex-xs, .flex-xs.tag-wrapper, .main-content .edit-akun .flex-xs.content-top, .main-content .edit-akun .flex-xs.content-bottom {
+    display: flex; }
+    @media (min-width: 768px) {
+      .row-flex.flex-xs, .flex-xs.tag-wrapper, .main-content .edit-akun .flex-xs.content-top, .main-content .edit-akun .flex-xs.content-bottom {
+        display: flex; } }
+    @media (min-width: 992px) {
+      .row-flex.flex-xs, .flex-xs.tag-wrapper, .main-content .edit-akun .flex-xs.content-top, .main-content .edit-akun .flex-xs.content-bottom {
+        display: flex; } }
+  .row-flex.flex-tablet, .flex-tablet.tag-wrapper, .main-content .edit-akun .flex-tablet.content-top, .main-content .edit-akun .flex-tablet.content-bottom {
+    display: block; }
+    @media (min-width: 992px) {
+      .row-flex.flex-tablet, .flex-tablet.tag-wrapper, .main-content .edit-akun .flex-tablet.content-top, .main-content .edit-akun .flex-tablet.content-bottom {
+        display: flex; } }
+  .row-flex.flex-center, .flex-center.tag-wrapper, .main-content .edit-akun .flex-center.content-top, .main-content .edit-akun .flex-center.content-bottom {
+    align-items: center;
+    justify-content: center; }
+  .row-flex.flex-top, .flex-top.tag-wrapper, .main-content .edit-akun .flex-top.content-top, .main-content .edit-akun .flex-top.content-bottom {
+    align-items: start;
+    justify-content: start; }
+  .row-flex.flex-space, .flex-space.tag-wrapper, .main-content .edit-akun .flex-space.content-top, .main-content .edit-akun .flex-space.content-bottom {
+    justify-content: space-between; }
+
+.pull-left {
+  float: left; }
+
+.pull-right {
+  float: right; }
+
+.w-100 {
+  width: 100%; }
+
+.tag-wrapper.w-100 .react-tagsinput {
+  width: 100%; }
+  .tag-wrapper.w-100 .react-tagsinput span {
+    width: 100%; }
+
+.tag-wrapper .react-tagsinput span {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 205px; }
+  .tag-wrapper .react-tagsinput span .react-tagsinput-tag {
+    -ms-flex-order: 2;
+    order: 2;
+    display: inline-block;
+    width: fit-content;
+    float: left;
+    padding: 5px 10px;
+    border: 1px solid #d5d5d5;
+    border-radius: 5px;
+    margin: 5px; }
+    .tag-wrapper .react-tagsinput span .react-tagsinput-tag a::before {
+      content: " ×";
+      font-weight: lighter;
+      color: #C43737; }
+  .tag-wrapper .react-tagsinput span input {
+    order: 1; }
+
+.tag-wrapper .react-tagsinput-remove {
+  cursor: pointer;
+  margin-left: 10px; }
+
+.tag-wrapper button {
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  background: none;
+  outline: none;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: #d5d5d5;
+  padding: 5px 10px;
+  margin: 5px;
+  cursor: pointer; }
+  .tag-wrapper button img {
+    height: 16px; }
+
+* {
+  font-family: "Roboto", "sans-serif";
+  color: #767676; }
+
+.gradient-color-primary, .sidebar, .login-comp .container-login, .add-popup .popup-container .footer-content {
+  background: -webkit-linear-gradient(right top, #79BE75, #27A1C3);
+  background: -moz-linear-gradient(right top, #79BE75, #27A1C3);
+  background: -o-linear-gradient(right top, #79BE75, #27A1C3);
+  background: linear-gradient(right top, #79BE75, #27A1C3); }
+
+.gradient-color-warning, .add-popup .popup-container .footer-content.warning {
+  background: -webkit-linear-gradient(right top, #DA7542, #C43737);
+  background: -moz-linear-gradient(right top, #DA7542, #C43737);
+  background: -o-linear-gradient(right top, #DA7542, #C43737);
+  background: linear-gradient(right top, #DA7542, #C43737); }
+
+.radius-primary, .login-comp .container-login .box-form-login .content {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px; }
+
+.radius-secondary, .form-primary, .login-comp .container-login .box-form-login .content .form form .form-input, .checkbox-primary, .login-comp .container-login .box-form-login .content .form form .add-checkbox, .box-footer-table .box-pagination .pagination-content .pagination .box-lable, .btn, .button-primary, .button-secondary, .btn-sm, .btn-outline-sm, .btn-red-sm, .add-popup .popup-container .box-content {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px; }
+
+.radius-bottom-primary, .add-popup .popup-container .footer-content {
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-bottom-left-radius: 5px;
+  -ms-border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  -moz-border-bottom-right-radius: 5px;
+  -ms-border-bottom-right-radius: 5px;
+  border-bottom-right-radius: 5px; }
+
+.font-family-primary, .login-comp .container-login .box-form-login .content .title {
+  font-family: "Roboto", "sans-serif"; }
+
+.font-primary, .select-option, .box-top .option-input, .box-table table thead tr th, .box-table table tbody tr td, .box-footer-table .footer-table .text-footer, .box-footer-table .box-pagination .pagination-content .pagination, .header-comp .header-container .box-title p, .header-comp .header-container .box-user .box-user-text .username, .login-comp .container-login .box-form-login .content .form form .remember-me, .add-popup .popup-container .box-content .content .sub-title {
+  font-family: "Roboto", "sans-serif";
+  font-size: 14px;
+  color: #767676; }
+
+.font-secondary, .login-comp .container-login .box-form-login .content .forgot-password a {
+  font-family: "Roboto", "sans-serif";
+  font-size: 14px;
+  color: #79BE75; }
+
+.font-secondary-2, .btn, .button-primary, .button-secondary, .list-menu .box-text-menu p {
+  font-family: "Roboto", "sans-serif";
+  font-size: 14px;
+  color: #FFFFFF; }
+
+.font-secondary-3 {
+  font-family: "Roboto", "sans-serif";
+  font-size: 13px;
+  color: #FFFFFF; }
+
+.font-secondary-4, .box-top .search-item, .header-comp .header-container .box-user .box-user-text .status {
+  font-family: "Roboto", "sans-serif";
+  font-size: 14px;
+  color: #B7B7B7; }
+
+.font-secondary-5, .box-top .count-item {
+  font-family: "Roboto", "sans-serif";
+  font-size: 16px;
+  color: #27A1C3; }
+
+.font-secondary-6, .add-popup .popup-container .box-content .content .title {
+  font-family: "Roboto", "sans-serif";
+  font-size: 15px;
+  color: #27A1C3; }
+
+.form-primary, .login-comp .container-login .box-form-login .content .form form .form-input {
+  border: 1px solid #DDDDDD;
+  width: calc(100% - 15px);
+  height: 40px;
+  font-size: 14px;
+  padding-left: 15px;
+  outline: none; }
+
+.checkbox-primary, .login-comp .container-login .box-form-login .content .form form .add-checkbox {
+  border: 1px solid #DDDDDD;
+  cursor: pointer;
+  font-size: 14px;
+  outline: none; }
+
+.placeholder-primary::-webkit-input-placeholder, .form-control::-webkit-input-placeholder, .tag-wrapper .react-tagsinput-input::-webkit-input-placeholder, .box-top .search-item::-webkit-input-placeholder, .login-comp::-webkit-input-placeholder, .user-access::-webkit-input-placeholder {
+  color: #B7B7B7; }
+
+.placeholder-primary::-moz-placeholder, .form-control::-moz-placeholder, .tag-wrapper .react-tagsinput-input::-moz-placeholder, .box-top .search-item::-moz-placeholder, .login-comp::-moz-placeholder, .user-access::-moz-placeholder {
+  color: #B7B7B7; }
+
+.placeholder-primary:-ms-input-placeholder, .form-control:-ms-input-placeholder, .tag-wrapper .react-tagsinput-input:-ms-input-placeholder, .box-top .search-item:-ms-input-placeholder, .login-comp:-ms-input-placeholder, .user-access:-ms-input-placeholder {
+  color: #B7B7B7; }
+
+.placeholder-primary:-moz-placeholder, .form-control:-moz-placeholder, .tag-wrapper .react-tagsinput-input:-moz-placeholder, .box-top .search-item:-moz-placeholder, .login-comp:-moz-placeholder, .user-access:-moz-placeholder {
+  color: #B7B7B7; }
+
+.select-option, .box-top .option-input {
+  float: left;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-appearance: none;
+  border: 1px solid #DDDDDD;
+  background: none;
+  outline: none;
+  color: #B7B7B7; }
+
+.form-control, .tag-wrapper .react-tagsinput-input {
+  display: block;
+  float: left;
+  bottom: 0;
+  top: 100px;
+  outline: none;
+  padding: 0 0 0 12px;
+  border: 1px solid #DDDDDD;
+  margin: 5px 0 !important;
+  width: calc(100% - 15px);
+  height: 38px;
+  border-radius: 5px;
+  font-size: 14px; }
+
+.transition {
+  transition: all 0.25s ease-in-out; }
+
+* {
+  padding: 0;
+  margin: 0; }
+
+.box-top {
+  margin-top: 25px; }
+  .box-top .count-item {
+    padding: 0 25px 25px 26px;
+    margin: 5px 0 0 0;
+    float: left; }
+  .box-top .select-wrapper:after {
+    top: 14px;
+    right: 20px; }
+  .box-top .option-input {
+    margin: -5px 10px 0 0;
+    width: 185px;
+    height: 40px;
+    padding: 12px; }
+  .box-top .row-flex .search-item, .box-top .tag-wrapper .search-item, .box-top .main-content .edit-akun .content-top .search-item, .main-content .edit-akun .box-top .content-top .search-item, .box-top .main-content .edit-akun .content-bottom .search-item, .main-content .edit-akun .box-top .content-bottom .search-item {
+    width: 180px; }
+  .box-top .row-flex .input-form .icon-form, .box-top .tag-wrapper .input-form .icon-form, .box-top .main-content .edit-akun .content-top .input-form .icon-form, .main-content .edit-akun .box-top .content-top .input-form .icon-form, .box-top .main-content .edit-akun .content-bottom .input-form .icon-form, .main-content .edit-akun .box-top .content-bottom .input-form .icon-form {
     top: 9px;
     right: 20px; }
   .box-top .search-item {
@@ -986,16 +1336,16 @@
   font-size: 14px;
   outline: none; }
 
-.placeholder-primary::-webkit-input-placeholder, .form-control::-webkit-input-placeholder, .box-top .search-item::-webkit-input-placeholder, .login-comp::-webkit-input-placeholder, .user-access::-webkit-input-placeholder {
+.placeholder-primary::-webkit-input-placeholder, .form-control::-webkit-input-placeholder, .tag-wrapper .react-tagsinput-input::-webkit-input-placeholder, .box-top .search-item::-webkit-input-placeholder, .login-comp::-webkit-input-placeholder, .user-access::-webkit-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary::-moz-placeholder, .form-control::-moz-placeholder, .box-top .search-item::-moz-placeholder, .login-comp::-moz-placeholder, .user-access::-moz-placeholder {
+.placeholder-primary::-moz-placeholder, .form-control::-moz-placeholder, .tag-wrapper .react-tagsinput-input::-moz-placeholder, .box-top .search-item::-moz-placeholder, .login-comp::-moz-placeholder, .user-access::-moz-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary:-ms-input-placeholder, .form-control:-ms-input-placeholder, .box-top .search-item:-ms-input-placeholder, .login-comp:-ms-input-placeholder, .user-access:-ms-input-placeholder {
+.placeholder-primary:-ms-input-placeholder, .form-control:-ms-input-placeholder, .tag-wrapper .react-tagsinput-input:-ms-input-placeholder, .box-top .search-item:-ms-input-placeholder, .login-comp:-ms-input-placeholder, .user-access:-ms-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary:-moz-placeholder, .form-control:-moz-placeholder, .box-top .search-item:-moz-placeholder, .login-comp:-moz-placeholder, .user-access:-moz-placeholder {
+.placeholder-primary:-moz-placeholder, .form-control:-moz-placeholder, .tag-wrapper .react-tagsinput-input:-moz-placeholder, .box-top .search-item:-moz-placeholder, .login-comp:-moz-placeholder, .user-access:-moz-placeholder {
   color: #B7B7B7; }
 
 .select-option, .box-top .option-input {
@@ -1010,7 +1360,7 @@
   outline: none;
   color: #B7B7B7; }
 
-.form-control {
+.form-control, .tag-wrapper .react-tagsinput-input {
   display: block;
   float: left;
   bottom: 0;
@@ -1045,9 +1395,9 @@
     width: 185px;
     height: 40px;
     padding: 12px; }
-  .box-top .row-flex .search-item, .box-top .main-content .edit-akun .content-top .search-item, .main-content .edit-akun .box-top .content-top .search-item, .box-top .main-content .edit-akun .content-bottom .search-item, .main-content .edit-akun .box-top .content-bottom .search-item {
+  .box-top .row-flex .search-item, .box-top .tag-wrapper .search-item, .box-top .main-content .edit-akun .content-top .search-item, .main-content .edit-akun .box-top .content-top .search-item, .box-top .main-content .edit-akun .content-bottom .search-item, .main-content .edit-akun .box-top .content-bottom .search-item {
     width: 180px; }
-  .box-top .row-flex .input-form .icon-form, .box-top .main-content .edit-akun .content-top .input-form .icon-form, .main-content .edit-akun .box-top .content-top .input-form .icon-form, .box-top .main-content .edit-akun .content-bottom .input-form .icon-form, .main-content .edit-akun .box-top .content-bottom .input-form .icon-form {
+  .box-top .row-flex .input-form .icon-form, .box-top .tag-wrapper .input-form .icon-form, .box-top .main-content .edit-akun .content-top .input-form .icon-form, .main-content .edit-akun .box-top .content-top .input-form .icon-form, .box-top .main-content .edit-akun .content-bottom .input-form .icon-form, .main-content .edit-akun .box-top .content-bottom .input-form .icon-form {
     top: 9px;
     right: 20px; }
   .box-top .search-item {
@@ -1260,16 +1610,16 @@
   font-size: 14px;
   outline: none; }
 
-.placeholder-primary::-webkit-input-placeholder, .form-control::-webkit-input-placeholder, .box-top .search-item::-webkit-input-placeholder, .login-comp::-webkit-input-placeholder, .user-access::-webkit-input-placeholder {
+.placeholder-primary::-webkit-input-placeholder, .form-control::-webkit-input-placeholder, .tag-wrapper .react-tagsinput-input::-webkit-input-placeholder, .box-top .search-item::-webkit-input-placeholder, .login-comp::-webkit-input-placeholder, .user-access::-webkit-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary::-moz-placeholder, .form-control::-moz-placeholder, .box-top .search-item::-moz-placeholder, .login-comp::-moz-placeholder, .user-access::-moz-placeholder {
+.placeholder-primary::-moz-placeholder, .form-control::-moz-placeholder, .tag-wrapper .react-tagsinput-input::-moz-placeholder, .box-top .search-item::-moz-placeholder, .login-comp::-moz-placeholder, .user-access::-moz-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary:-ms-input-placeholder, .form-control:-ms-input-placeholder, .box-top .search-item:-ms-input-placeholder, .login-comp:-ms-input-placeholder, .user-access:-ms-input-placeholder {
+.placeholder-primary:-ms-input-placeholder, .form-control:-ms-input-placeholder, .tag-wrapper .react-tagsinput-input:-ms-input-placeholder, .box-top .search-item:-ms-input-placeholder, .login-comp:-ms-input-placeholder, .user-access:-ms-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary:-moz-placeholder, .form-control:-moz-placeholder, .box-top .search-item:-moz-placeholder, .login-comp:-moz-placeholder, .user-access:-moz-placeholder {
+.placeholder-primary:-moz-placeholder, .form-control:-moz-placeholder, .tag-wrapper .react-tagsinput-input:-moz-placeholder, .box-top .search-item:-moz-placeholder, .login-comp:-moz-placeholder, .user-access:-moz-placeholder {
   color: #B7B7B7; }
 
 .select-option, .box-top .option-input {
@@ -1284,7 +1634,7 @@
   outline: none;
   color: #B7B7B7; }
 
-.form-control {
+.form-control, .tag-wrapper .react-tagsinput-input {
   display: block;
   float: left;
   bottom: 0;
@@ -1319,9 +1669,9 @@
     width: 185px;
     height: 40px;
     padding: 12px; }
-  .box-top .row-flex .search-item, .box-top .main-content .edit-akun .content-top .search-item, .main-content .edit-akun .box-top .content-top .search-item, .box-top .main-content .edit-akun .content-bottom .search-item, .main-content .edit-akun .box-top .content-bottom .search-item {
+  .box-top .row-flex .search-item, .box-top .tag-wrapper .search-item, .box-top .main-content .edit-akun .content-top .search-item, .main-content .edit-akun .box-top .content-top .search-item, .box-top .main-content .edit-akun .content-bottom .search-item, .main-content .edit-akun .box-top .content-bottom .search-item {
     width: 180px; }
-  .box-top .row-flex .input-form .icon-form, .box-top .main-content .edit-akun .content-top .input-form .icon-form, .main-content .edit-akun .box-top .content-top .input-form .icon-form, .box-top .main-content .edit-akun .content-bottom .input-form .icon-form, .main-content .edit-akun .box-top .content-bottom .input-form .icon-form {
+  .box-top .row-flex .input-form .icon-form, .box-top .tag-wrapper .input-form .icon-form, .box-top .main-content .edit-akun .content-top .input-form .icon-form, .main-content .edit-akun .box-top .content-top .input-form .icon-form, .box-top .main-content .edit-akun .content-bottom .input-form .icon-form, .main-content .edit-akun .box-top .content-bottom .input-form .icon-form {
     top: 9px;
     right: 20px; }
   .box-top .search-item {
@@ -1548,16 +1898,16 @@
   font-size: 14px;
   outline: none; }
 
-.placeholder-primary::-webkit-input-placeholder, .form-control::-webkit-input-placeholder, .box-top .search-item::-webkit-input-placeholder, .login-comp::-webkit-input-placeholder, .user-access::-webkit-input-placeholder {
+.placeholder-primary::-webkit-input-placeholder, .form-control::-webkit-input-placeholder, .tag-wrapper .react-tagsinput-input::-webkit-input-placeholder, .box-top .search-item::-webkit-input-placeholder, .login-comp::-webkit-input-placeholder, .user-access::-webkit-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary::-moz-placeholder, .form-control::-moz-placeholder, .box-top .search-item::-moz-placeholder, .login-comp::-moz-placeholder, .user-access::-moz-placeholder {
+.placeholder-primary::-moz-placeholder, .form-control::-moz-placeholder, .tag-wrapper .react-tagsinput-input::-moz-placeholder, .box-top .search-item::-moz-placeholder, .login-comp::-moz-placeholder, .user-access::-moz-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary:-ms-input-placeholder, .form-control:-ms-input-placeholder, .box-top .search-item:-ms-input-placeholder, .login-comp:-ms-input-placeholder, .user-access:-ms-input-placeholder {
+.placeholder-primary:-ms-input-placeholder, .form-control:-ms-input-placeholder, .tag-wrapper .react-tagsinput-input:-ms-input-placeholder, .box-top .search-item:-ms-input-placeholder, .login-comp:-ms-input-placeholder, .user-access:-ms-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary:-moz-placeholder, .form-control:-moz-placeholder, .box-top .search-item:-moz-placeholder, .login-comp:-moz-placeholder, .user-access:-moz-placeholder {
+.placeholder-primary:-moz-placeholder, .form-control:-moz-placeholder, .tag-wrapper .react-tagsinput-input:-moz-placeholder, .box-top .search-item:-moz-placeholder, .login-comp:-moz-placeholder, .user-access:-moz-placeholder {
   color: #B7B7B7; }
 
 .select-option, .box-top .option-input {
@@ -1572,7 +1922,7 @@
   outline: none;
   color: #B7B7B7; }
 
-.form-control {
+.form-control, .tag-wrapper .react-tagsinput-input {
   display: block;
   float: left;
   bottom: 0;
@@ -1607,9 +1957,9 @@
     width: 185px;
     height: 40px;
     padding: 12px; }
-  .box-top .row-flex .search-item, .box-top .main-content .edit-akun .content-top .search-item, .main-content .edit-akun .box-top .content-top .search-item, .box-top .main-content .edit-akun .content-bottom .search-item, .main-content .edit-akun .box-top .content-bottom .search-item {
+  .box-top .row-flex .search-item, .box-top .tag-wrapper .search-item, .box-top .main-content .edit-akun .content-top .search-item, .main-content .edit-akun .box-top .content-top .search-item, .box-top .main-content .edit-akun .content-bottom .search-item, .main-content .edit-akun .box-top .content-bottom .search-item {
     width: 180px; }
-  .box-top .row-flex .input-form .icon-form, .box-top .main-content .edit-akun .content-top .input-form .icon-form, .main-content .edit-akun .box-top .content-top .input-form .icon-form, .box-top .main-content .edit-akun .content-bottom .input-form .icon-form, .main-content .edit-akun .box-top .content-bottom .input-form .icon-form {
+  .box-top .row-flex .input-form .icon-form, .box-top .tag-wrapper .input-form .icon-form, .box-top .main-content .edit-akun .content-top .input-form .icon-form, .main-content .edit-akun .box-top .content-top .input-form .icon-form, .box-top .main-content .edit-akun .content-bottom .input-form .icon-form, .main-content .edit-akun .box-top .content-bottom .input-form .icon-form {
     top: 9px;
     right: 20px; }
   .box-top .search-item {
@@ -1720,31 +2070,31 @@
 .strong {
   font-weight: bold; }
 
-.row-flex, .main-content .edit-akun .content-top, .main-content .edit-akun .content-bottom {
+.row-flex, .tag-wrapper, .main-content .edit-akun .content-top, .main-content .edit-akun .content-bottom {
   display: block; }
   @media (min-width: 768px) {
-    .row-flex, .main-content .edit-akun .content-top, .main-content .edit-akun .content-bottom {
+    .row-flex, .tag-wrapper, .main-content .edit-akun .content-top, .main-content .edit-akun .content-bottom {
       display: flex; } }
-  .row-flex.flex-xs, .main-content .edit-akun .flex-xs.content-top, .main-content .edit-akun .flex-xs.content-bottom {
+  .row-flex.flex-xs, .flex-xs.tag-wrapper, .main-content .edit-akun .flex-xs.content-top, .main-content .edit-akun .flex-xs.content-bottom {
     display: flex; }
     @media (min-width: 768px) {
-      .row-flex.flex-xs, .main-content .edit-akun .flex-xs.content-top, .main-content .edit-akun .flex-xs.content-bottom {
+      .row-flex.flex-xs, .flex-xs.tag-wrapper, .main-content .edit-akun .flex-xs.content-top, .main-content .edit-akun .flex-xs.content-bottom {
         display: flex; } }
     @media (min-width: 992px) {
-      .row-flex.flex-xs, .main-content .edit-akun .flex-xs.content-top, .main-content .edit-akun .flex-xs.content-bottom {
+      .row-flex.flex-xs, .flex-xs.tag-wrapper, .main-content .edit-akun .flex-xs.content-top, .main-content .edit-akun .flex-xs.content-bottom {
         display: flex; } }
-  .row-flex.flex-tablet, .main-content .edit-akun .flex-tablet.content-top, .main-content .edit-akun .flex-tablet.content-bottom {
+  .row-flex.flex-tablet, .flex-tablet.tag-wrapper, .main-content .edit-akun .flex-tablet.content-top, .main-content .edit-akun .flex-tablet.content-bottom {
     display: block; }
     @media (min-width: 992px) {
-      .row-flex.flex-tablet, .main-content .edit-akun .flex-tablet.content-top, .main-content .edit-akun .flex-tablet.content-bottom {
+      .row-flex.flex-tablet, .flex-tablet.tag-wrapper, .main-content .edit-akun .flex-tablet.content-top, .main-content .edit-akun .flex-tablet.content-bottom {
         display: flex; } }
-  .row-flex.flex-center, .main-content .edit-akun .flex-center.content-top, .main-content .edit-akun .flex-center.content-bottom {
+  .row-flex.flex-center, .flex-center.tag-wrapper, .main-content .edit-akun .flex-center.content-top, .main-content .edit-akun .flex-center.content-bottom {
     align-items: center;
     justify-content: center; }
-  .row-flex.flex-top, .main-content .edit-akun .flex-top.content-top, .main-content .edit-akun .flex-top.content-bottom {
+  .row-flex.flex-top, .flex-top.tag-wrapper, .main-content .edit-akun .flex-top.content-top, .main-content .edit-akun .flex-top.content-bottom {
     align-items: start;
     justify-content: start; }
-  .row-flex.flex-space, .main-content .edit-akun .flex-space.content-top, .main-content .edit-akun .flex-space.content-bottom {
+  .row-flex.flex-space, .flex-space.tag-wrapper, .main-content .edit-akun .flex-space.content-top, .main-content .edit-akun .flex-space.content-bottom {
     justify-content: space-between; }
 
 .pull-left {
@@ -1752,6 +2102,9 @@
 
 .pull-right {
   float: right; }
+
+.w-100 {
+  width: 100%; }
 
 p {
   color: #767676;
@@ -1898,7 +2251,7 @@ p {
         .main-content .edit-akun .content-top .box-profile-form .box-1, .main-content .edit-akun .content-top .box-profile-form .box-2 {
           padding: 5px 15px 0 0px;
           display: block; }
-          .main-content .edit-akun .content-top .box-profile-form .box-1 .form-control, .main-content .edit-akun .content-top .box-profile-form .box-2 .form-control {
+          .main-content .edit-akun .content-top .box-profile-form .box-1 .form-control, .main-content .edit-akun .content-top .box-profile-form .box-1 .tag-wrapper .react-tagsinput-input, .tag-wrapper .main-content .edit-akun .content-top .box-profile-form .box-1 .react-tagsinput-input, .main-content .edit-akun .content-top .box-profile-form .box-2 .form-control, .main-content .edit-akun .content-top .box-profile-form .box-2 .tag-wrapper .react-tagsinput-input, .tag-wrapper .main-content .edit-akun .content-top .box-profile-form .box-2 .react-tagsinput-input {
             width: 280px; }
       .main-content .edit-akun .content-top .box-bank-form {
         padding: 15px 0; }
@@ -1907,15 +2260,15 @@ p {
         .main-content .edit-akun .content-top .box-bank-form .box-form {
           padding: 5px 15px 0 15px;
           display: block; }
-          .main-content .edit-akun .content-top .box-bank-form .box-form .row-flex, .main-content .edit-akun .content-top .box-bank-form .box-form .content-top, .main-content .edit-akun .content-top .box-bank-form .box-form .content-bottom {
+          .main-content .edit-akun .content-top .box-bank-form .box-form .row-flex, .main-content .edit-akun .content-top .box-bank-form .box-form .tag-wrapper, .main-content .edit-akun .content-top .box-bank-form .box-form .content-top, .main-content .edit-akun .content-top .box-bank-form .box-form .content-bottom {
             width: 100%; }
-          .main-content .edit-akun .content-top .box-bank-form .box-form .form-control {
+          .main-content .edit-akun .content-top .box-bank-form .box-form .form-control, .main-content .edit-akun .content-top .box-bank-form .box-form .tag-wrapper .react-tagsinput-input, .tag-wrapper .main-content .edit-akun .content-top .box-bank-form .box-form .react-tagsinput-input {
             width: 280px; }
-            .main-content .edit-akun .content-top .box-bank-form .box-form .form-control.select-option.input-sm, .main-content .edit-akun .content-top .box-bank-form .box-form .box-top .form-control.input-sm.option-input, .box-top .main-content .edit-akun .content-top .box-bank-form .box-form .form-control.input-sm.option-input {
+            .main-content .edit-akun .content-top .box-bank-form .box-form .form-control.select-option.input-sm, .main-content .edit-akun .content-top .box-bank-form .box-form .box-top .form-control.input-sm.option-input, .box-top .main-content .edit-akun .content-top .box-bank-form .box-form .form-control.input-sm.option-input, .main-content .edit-akun .content-top .box-bank-form .box-form .box-top .tag-wrapper .input-sm.option-input.react-tagsinput-input, .box-top .tag-wrapper .main-content .edit-akun .content-top .box-bank-form .box-form .input-sm.option-input.react-tagsinput-input, .main-content .edit-akun .content-top .box-bank-form .box-form .tag-wrapper .box-top .input-sm.option-input.react-tagsinput-input, .tag-wrapper .box-top .main-content .edit-akun .content-top .box-bank-form .box-form .input-sm.option-input.react-tagsinput-input, .main-content .edit-akun .content-top .box-bank-form .box-form .tag-wrapper .select-option.input-sm.react-tagsinput-input, .tag-wrapper .main-content .edit-akun .content-top .box-bank-form .box-form .select-option.input-sm.react-tagsinput-input {
               font-size: 14px;
               height: 40px;
               width: 140px; }
-            .main-content .edit-akun .content-top .box-bank-form .box-form .form-control.input-sm {
+            .main-content .edit-akun .content-top .box-bank-form .box-form .form-control.input-sm, .main-content .edit-akun .content-top .box-bank-form .box-form .tag-wrapper .input-sm.react-tagsinput-input, .tag-wrapper .main-content .edit-akun .content-top .box-bank-form .box-form .input-sm.react-tagsinput-input {
               width: 130px;
               margin-right: 10px !important; }
     .main-content .edit-akun .content-bottom {
@@ -1933,19 +2286,19 @@ p {
           height: 60px;
           width: 100%;
           box-sizing: border-box; }
-        .main-content .edit-akun .content-bottom .box-alamat .row-flex, .main-content .edit-akun .content-bottom .box-alamat .content-top, .main-content .edit-akun .content-bottom .box-alamat .content-bottom {
+        .main-content .edit-akun .content-bottom .box-alamat .row-flex, .main-content .edit-akun .content-bottom .box-alamat .tag-wrapper, .main-content .edit-akun .content-bottom .box-alamat .content-top, .main-content .edit-akun .content-bottom .box-alamat .content-bottom {
           width: 100%; }
-          .main-content .edit-akun .content-bottom .box-alamat .row-flex .form-control, .main-content .edit-akun .content-bottom .box-alamat .content-top .form-control, .main-content .edit-akun .content-bottom .box-alamat .content-bottom .form-control {
+          .main-content .edit-akun .content-bottom .box-alamat .row-flex .form-control, .main-content .edit-akun .content-bottom .box-alamat .tag-wrapper .form-control, .main-content .edit-akun .content-bottom .box-alamat .content-top .form-control, .main-content .edit-akun .content-bottom .box-alamat .content-bottom .form-control, .tag-wrapper .main-content .edit-akun .content-bottom .box-alamat .row-flex .react-tagsinput-input, .main-content .edit-akun .content-bottom .box-alamat .tag-wrapper .react-tagsinput-input, .tag-wrapper .main-content .edit-akun .content-bottom .box-alamat .content-top .react-tagsinput-input, .tag-wrapper .main-content .edit-akun .content-bottom .box-alamat .content-bottom .react-tagsinput-input {
             width: 180px;
             margin-right: 10px !important; }
-            .main-content .edit-akun .content-bottom .box-alamat .row-flex .form-control.select-option, .main-content .edit-akun .content-bottom .box-alamat .content-top .form-control.select-option, .main-content .edit-akun .content-bottom .box-alamat .content-bottom .form-control.select-option, .main-content .edit-akun .content-bottom .box-alamat .row-flex .box-top .form-control.option-input, .box-top .main-content .edit-akun .content-bottom .box-alamat .row-flex .form-control.option-input, .main-content .edit-akun .content-bottom .box-alamat .content-top .box-top .form-control.option-input, .box-top .main-content .edit-akun .content-bottom .box-alamat .content-top .form-control.option-input, .main-content .edit-akun .content-bottom .box-alamat .content-bottom .box-top .form-control.option-input, .box-top .main-content .edit-akun .content-bottom .box-alamat .content-bottom .form-control.option-input {
+            .main-content .edit-akun .content-bottom .box-alamat .row-flex .form-control.select-option, .main-content .edit-akun .content-bottom .box-alamat .tag-wrapper .form-control.select-option, .main-content .edit-akun .content-bottom .box-alamat .content-top .form-control.select-option, .main-content .edit-akun .content-bottom .box-alamat .content-bottom .form-control.select-option, .main-content .edit-akun .content-bottom .box-alamat .row-flex .box-top .form-control.option-input, .box-top .main-content .edit-akun .content-bottom .box-alamat .row-flex .form-control.option-input, .main-content .edit-akun .content-bottom .box-alamat .tag-wrapper .box-top .form-control.option-input, .box-top .main-content .edit-akun .content-bottom .box-alamat .tag-wrapper .form-control.option-input, .main-content .edit-akun .content-bottom .box-alamat .content-top .box-top .form-control.option-input, .box-top .main-content .edit-akun .content-bottom .box-alamat .content-top .form-control.option-input, .main-content .edit-akun .content-bottom .box-alamat .content-bottom .box-top .form-control.option-input, .box-top .main-content .edit-akun .content-bottom .box-alamat .content-bottom .form-control.option-input, .box-top .tag-wrapper .main-content .edit-akun .content-bottom .box-alamat .row-flex .option-input.react-tagsinput-input, .main-content .edit-akun .content-bottom .box-alamat .box-top .tag-wrapper .option-input.react-tagsinput-input, .box-top .main-content .edit-akun .content-bottom .box-alamat .tag-wrapper .option-input.react-tagsinput-input, .box-top .tag-wrapper .main-content .edit-akun .content-bottom .box-alamat .content-top .option-input.react-tagsinput-input, .box-top .tag-wrapper .main-content .edit-akun .content-bottom .box-alamat .content-bottom .option-input.react-tagsinput-input, .tag-wrapper .box-top .main-content .edit-akun .content-bottom .box-alamat .row-flex .option-input.react-tagsinput-input, .main-content .edit-akun .content-bottom .box-alamat .tag-wrapper .box-top .option-input.react-tagsinput-input, .tag-wrapper .box-top .main-content .edit-akun .content-bottom .box-alamat .content-top .option-input.react-tagsinput-input, .tag-wrapper .box-top .main-content .edit-akun .content-bottom .box-alamat .content-bottom .option-input.react-tagsinput-input, .tag-wrapper .main-content .edit-akun .content-bottom .box-alamat .row-flex .select-option.react-tagsinput-input, .main-content .edit-akun .content-bottom .box-alamat .tag-wrapper .select-option.react-tagsinput-input, .tag-wrapper .main-content .edit-akun .content-bottom .box-alamat .content-top .select-option.react-tagsinput-input, .tag-wrapper .main-content .edit-akun .content-bottom .box-alamat .content-bottom .select-option.react-tagsinput-input {
               width: 194px;
               height: 40px;
               font-size: 14px; }
       .main-content .edit-akun .content-bottom .box-informasi-akun {
         padding: 0 30px;
         width: 500px; }
-        .main-content .edit-akun .content-bottom .box-informasi-akun .form-control {
+        .main-content .edit-akun .content-bottom .box-informasi-akun .form-control, .main-content .edit-akun .content-bottom .box-informasi-akun .tag-wrapper .react-tagsinput-input, .tag-wrapper .main-content .edit-akun .content-bottom .box-informasi-akun .react-tagsinput-input {
           margin-right: 10px !important;
           width: 225px; }
     .main-content .edit-akun .button-primary {
@@ -1989,7 +2342,7 @@ p {
   width: calc(100% - 235px);
   height: 100%; }
 
-.row-flex .box-btn, .main-content .edit-akun .content-top .box-btn, .main-content .edit-akun .content-bottom .box-btn {
+.row-flex .box-btn, .tag-wrapper .box-btn, .main-content .edit-akun .content-top .box-btn, .main-content .edit-akun .content-bottom .box-btn {
   padding: 5px; }
 
 * {
@@ -2082,16 +2435,16 @@ p {
   font-size: 14px;
   outline: none; }
 
-.placeholder-primary::-webkit-input-placeholder, .form-control::-webkit-input-placeholder, .box-top .search-item::-webkit-input-placeholder, .login-comp::-webkit-input-placeholder, .user-access::-webkit-input-placeholder {
+.placeholder-primary::-webkit-input-placeholder, .form-control::-webkit-input-placeholder, .tag-wrapper .react-tagsinput-input::-webkit-input-placeholder, .box-top .search-item::-webkit-input-placeholder, .login-comp::-webkit-input-placeholder, .user-access::-webkit-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary::-moz-placeholder, .form-control::-moz-placeholder, .box-top .search-item::-moz-placeholder, .login-comp::-moz-placeholder, .user-access::-moz-placeholder {
+.placeholder-primary::-moz-placeholder, .form-control::-moz-placeholder, .tag-wrapper .react-tagsinput-input::-moz-placeholder, .box-top .search-item::-moz-placeholder, .login-comp::-moz-placeholder, .user-access::-moz-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary:-ms-input-placeholder, .form-control:-ms-input-placeholder, .box-top .search-item:-ms-input-placeholder, .login-comp:-ms-input-placeholder, .user-access:-ms-input-placeholder {
+.placeholder-primary:-ms-input-placeholder, .form-control:-ms-input-placeholder, .tag-wrapper .react-tagsinput-input:-ms-input-placeholder, .box-top .search-item:-ms-input-placeholder, .login-comp:-ms-input-placeholder, .user-access:-ms-input-placeholder {
   color: #B7B7B7; }
 
-.placeholder-primary:-moz-placeholder, .form-control:-moz-placeholder, .box-top .search-item:-moz-placeholder, .login-comp:-moz-placeholder, .user-access:-moz-placeholder {
+.placeholder-primary:-moz-placeholder, .form-control:-moz-placeholder, .tag-wrapper .react-tagsinput-input:-moz-placeholder, .box-top .search-item:-moz-placeholder, .login-comp:-moz-placeholder, .user-access:-moz-placeholder {
   color: #B7B7B7; }
 
 .select-option, .box-top .option-input {
@@ -2106,7 +2459,7 @@ p {
   outline: none;
   color: #B7B7B7; }
 
-.form-control {
+.form-control, .tag-wrapper .react-tagsinput-input {
   display: block;
   float: left;
   bottom: 0;
@@ -2141,9 +2494,9 @@ p {
     width: 185px;
     height: 40px;
     padding: 12px; }
-  .box-top .row-flex .search-item, .box-top .main-content .edit-akun .content-top .search-item, .main-content .edit-akun .box-top .content-top .search-item, .box-top .main-content .edit-akun .content-bottom .search-item, .main-content .edit-akun .box-top .content-bottom .search-item {
+  .box-top .row-flex .search-item, .box-top .tag-wrapper .search-item, .box-top .main-content .edit-akun .content-top .search-item, .main-content .edit-akun .box-top .content-top .search-item, .box-top .main-content .edit-akun .content-bottom .search-item, .main-content .edit-akun .box-top .content-bottom .search-item {
     width: 180px; }
-  .box-top .row-flex .input-form .icon-form, .box-top .main-content .edit-akun .content-top .input-form .icon-form, .main-content .edit-akun .box-top .content-top .input-form .icon-form, .box-top .main-content .edit-akun .content-bottom .input-form .icon-form, .main-content .edit-akun .box-top .content-bottom .input-form .icon-form {
+  .box-top .row-flex .input-form .icon-form, .box-top .tag-wrapper .input-form .icon-form, .box-top .main-content .edit-akun .content-top .input-form .icon-form, .main-content .edit-akun .box-top .content-top .input-form .icon-form, .box-top .main-content .edit-akun .content-bottom .input-form .icon-form, .main-content .edit-akun .box-top .content-bottom .input-form .icon-form {
     top: 9px;
     right: 20px; }
   .box-top .search-item {
@@ -2250,6 +2603,8 @@ p {
     margin: 0 auto; }
     .add-popup .popup-container.sm {
       width: 375px; }
+    .add-popup .popup-container.md {
+      width: 400px; }
     .add-popup .popup-container .box-content {
       height: auto;
       margin: 20px 0 0 0;
@@ -2273,20 +2628,24 @@ p {
           box-sizing: border-box; }
         .add-popup .popup-container .box-content .content .strong {
           margin-top: 10px; }
-        .add-popup .popup-container .box-content .content .row-flex, .add-popup .popup-container .box-content .content .main-content .edit-akun .content-top, .main-content .edit-akun .add-popup .popup-container .box-content .content .content-top, .add-popup .popup-container .box-content .content .main-content .edit-akun .content-bottom, .main-content .edit-akun .add-popup .popup-container .box-content .content .content-bottom {
+        .add-popup .popup-container .box-content .content .row-flex, .add-popup .popup-container .box-content .content .tag-wrapper, .add-popup .popup-container .box-content .content .main-content .edit-akun .content-top, .main-content .edit-akun .add-popup .popup-container .box-content .content .content-top, .add-popup .popup-container .box-content .content .main-content .edit-akun .content-bottom, .main-content .edit-akun .add-popup .popup-container .box-content .content .content-bottom {
           width: 100%; }
-          .add-popup .popup-container .box-content .content .row-flex.col-2 .input-form, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-2.content-top .input-form, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-2.content-top .input-form, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-2.content-bottom .input-form, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-2.content-bottom .input-form {
+          .add-popup .popup-container .box-content .content .row-flex.col-2 .input-form, .add-popup .popup-container .box-content .content .col-2.tag-wrapper .input-form, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-2.content-top .input-form, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-2.content-top .input-form, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-2.content-bottom .input-form, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-2.content-bottom .input-form {
             width: 250px !important; }
-          .add-popup .popup-container .box-content .content .row-flex.col-3 .input-form, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-3.content-top .input-form, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-3.content-top .input-form, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-3.content-bottom .input-form, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-3.content-bottom .input-form {
+          .add-popup .popup-container .box-content .content .row-flex.col-2 .select-option, .add-popup .popup-container .box-content .content .col-2.tag-wrapper .select-option, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-2.content-top .select-option, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-2.content-top .select-option, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-2.content-bottom .select-option, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-2.content-bottom .select-option, .add-popup .popup-container .box-content .content .row-flex.col-2 .box-top .option-input, .box-top .add-popup .popup-container .box-content .content .row-flex.col-2 .option-input, .add-popup .popup-container .box-content .content .col-2.tag-wrapper .box-top .option-input, .box-top .add-popup .popup-container .box-content .content .col-2.tag-wrapper .option-input, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-2.content-top .box-top .option-input, .box-top .add-popup .popup-container .box-content .content .main-content .edit-akun .col-2.content-top .option-input, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-2.content-top .box-top .option-input, .box-top .main-content .edit-akun .add-popup .popup-container .box-content .content .col-2.content-top .option-input, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-2.content-bottom .box-top .option-input, .box-top .add-popup .popup-container .box-content .content .main-content .edit-akun .col-2.content-bottom .option-input, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-2.content-bottom .box-top .option-input, .box-top .main-content .edit-akun .add-popup .popup-container .box-content .content .col-2.content-bottom .option-input {
+            width: 250px;
+            margin-right: 10px !important;
+            height: 41px; }
+          .add-popup .popup-container .box-content .content .row-flex.col-3 .input-form, .add-popup .popup-container .box-content .content .col-3.tag-wrapper .input-form, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-3.content-top .input-form, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-3.content-top .input-form, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-3.content-bottom .input-form, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-3.content-bottom .input-form {
             width: 163px !important; }
-          .add-popup .popup-container .box-content .content .row-flex.col-3 .select-option, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-3.content-top .select-option, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-3.content-top .select-option, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-3.content-bottom .select-option, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-3.content-bottom .select-option, .add-popup .popup-container .box-content .content .row-flex.col-3 .box-top .option-input, .box-top .add-popup .popup-container .box-content .content .row-flex.col-3 .option-input, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-3.content-top .box-top .option-input, .box-top .add-popup .popup-container .box-content .content .main-content .edit-akun .col-3.content-top .option-input, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-3.content-top .box-top .option-input, .box-top .main-content .edit-akun .add-popup .popup-container .box-content .content .col-3.content-top .option-input, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-3.content-bottom .box-top .option-input, .box-top .add-popup .popup-container .box-content .content .main-content .edit-akun .col-3.content-bottom .option-input, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-3.content-bottom .box-top .option-input, .box-top .main-content .edit-akun .add-popup .popup-container .box-content .content .col-3.content-bottom .option-input {
+          .add-popup .popup-container .box-content .content .row-flex.col-3 .select-option, .add-popup .popup-container .box-content .content .col-3.tag-wrapper .select-option, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-3.content-top .select-option, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-3.content-top .select-option, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-3.content-bottom .select-option, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-3.content-bottom .select-option, .add-popup .popup-container .box-content .content .row-flex.col-3 .box-top .option-input, .box-top .add-popup .popup-container .box-content .content .row-flex.col-3 .option-input, .add-popup .popup-container .box-content .content .col-3.tag-wrapper .box-top .option-input, .box-top .add-popup .popup-container .box-content .content .col-3.tag-wrapper .option-input, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-3.content-top .box-top .option-input, .box-top .add-popup .popup-container .box-content .content .main-content .edit-akun .col-3.content-top .option-input, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-3.content-top .box-top .option-input, .box-top .main-content .edit-akun .add-popup .popup-container .box-content .content .col-3.content-top .option-input, .add-popup .popup-container .box-content .content .main-content .edit-akun .col-3.content-bottom .box-top .option-input, .box-top .add-popup .popup-container .box-content .content .main-content .edit-akun .col-3.content-bottom .option-input, .main-content .edit-akun .add-popup .popup-container .box-content .content .col-3.content-bottom .box-top .option-input, .box-top .main-content .edit-akun .add-popup .popup-container .box-content .content .col-3.content-bottom .option-input {
             width: 162px;
             margin-right: 10px !important;
             height: 41px; }
-          .add-popup .popup-container .box-content .content .row-flex .input-form, .add-popup .popup-container .box-content .content .main-content .edit-akun .content-top .input-form, .main-content .edit-akun .add-popup .popup-container .box-content .content .content-top .input-form, .add-popup .popup-container .box-content .content .main-content .edit-akun .content-bottom .input-form, .main-content .edit-akun .add-popup .popup-container .box-content .content .content-bottom .input-form {
+          .add-popup .popup-container .box-content .content .row-flex .input-form, .add-popup .popup-container .box-content .content .tag-wrapper .input-form, .add-popup .popup-container .box-content .content .main-content .edit-akun .content-top .input-form, .main-content .edit-akun .add-popup .popup-container .box-content .content .content-top .input-form, .add-popup .popup-container .box-content .content .main-content .edit-akun .content-bottom .input-form, .main-content .edit-akun .add-popup .popup-container .box-content .content .content-bottom .input-form {
             margin-right: 10px;
             margin-top: 0px !important; }
-          .add-popup .popup-container .box-content .content .row-flex.mg-t-10, .add-popup .popup-container .box-content .content .main-content .edit-akun .mg-t-10.content-top, .main-content .edit-akun .add-popup .popup-container .box-content .content .mg-t-10.content-top, .add-popup .popup-container .box-content .content .main-content .edit-akun .mg-t-10.content-bottom, .main-content .edit-akun .add-popup .popup-container .box-content .content .mg-t-10.content-bottom {
+          .add-popup .popup-container .box-content .content .row-flex.mg-t-10, .add-popup .popup-container .box-content .content .mg-t-10.tag-wrapper, .add-popup .popup-container .box-content .content .main-content .edit-akun .mg-t-10.content-top, .main-content .edit-akun .add-popup .popup-container .box-content .content .mg-t-10.content-top, .add-popup .popup-container .box-content .content .main-content .edit-akun .mg-t-10.content-bottom, .main-content .edit-akun .add-popup .popup-container .box-content .content .mg-t-10.content-bottom {
             margin-top: 10px; }
         .add-popup .popup-container .box-content .content .box-btn {
           display: inline-block;
@@ -2296,7 +2655,7 @@ p {
           .add-popup .popup-container .box-content .content .box-btn.auto {
             width: auto; }
             .add-popup .popup-container .box-content .content .box-btn.auto button {
-              padding: 10px 15px; }
+              padding: 10px 20px; }
         .add-popup .popup-container .box-content .content .sub-title {
           padding: 5px 0 0 0; }
         .add-popup .popup-container .box-content .content .text-center img {
@@ -2322,31 +2681,31 @@ p {
 .strong {
   font-weight: bold; }
 
-.row-flex, .main-content .edit-akun .content-top, .main-content .edit-akun .content-bottom {
+.row-flex, .tag-wrapper, .main-content .edit-akun .content-top, .main-content .edit-akun .content-bottom {
   display: block; }
   @media (min-width: 768px) {
-    .row-flex, .main-content .edit-akun .content-top, .main-content .edit-akun .content-bottom {
+    .row-flex, .tag-wrapper, .main-content .edit-akun .content-top, .main-content .edit-akun .content-bottom {
       display: flex; } }
-  .row-flex.flex-xs, .main-content .edit-akun .flex-xs.content-top, .main-content .edit-akun .flex-xs.content-bottom {
+  .row-flex.flex-xs, .flex-xs.tag-wrapper, .main-content .edit-akun .flex-xs.content-top, .main-content .edit-akun .flex-xs.content-bottom {
     display: flex; }
     @media (min-width: 768px) {
-      .row-flex.flex-xs, .main-content .edit-akun .flex-xs.content-top, .main-content .edit-akun .flex-xs.content-bottom {
+      .row-flex.flex-xs, .flex-xs.tag-wrapper, .main-content .edit-akun .flex-xs.content-top, .main-content .edit-akun .flex-xs.content-bottom {
         display: flex; } }
     @media (min-width: 992px) {
-      .row-flex.flex-xs, .main-content .edit-akun .flex-xs.content-top, .main-content .edit-akun .flex-xs.content-bottom {
+      .row-flex.flex-xs, .flex-xs.tag-wrapper, .main-content .edit-akun .flex-xs.content-top, .main-content .edit-akun .flex-xs.content-bottom {
         display: flex; } }
-  .row-flex.flex-tablet, .main-content .edit-akun .flex-tablet.content-top, .main-content .edit-akun .flex-tablet.content-bottom {
+  .row-flex.flex-tablet, .flex-tablet.tag-wrapper, .main-content .edit-akun .flex-tablet.content-top, .main-content .edit-akun .flex-tablet.content-bottom {
     display: block; }
     @media (min-width: 992px) {
-      .row-flex.flex-tablet, .main-content .edit-akun .flex-tablet.content-top, .main-content .edit-akun .flex-tablet.content-bottom {
+      .row-flex.flex-tablet, .flex-tablet.tag-wrapper, .main-content .edit-akun .flex-tablet.content-top, .main-content .edit-akun .flex-tablet.content-bottom {
         display: flex; } }
-  .row-flex.flex-center, .main-content .edit-akun .flex-center.content-top, .main-content .edit-akun .flex-center.content-bottom {
+  .row-flex.flex-center, .flex-center.tag-wrapper, .main-content .edit-akun .flex-center.content-top, .main-content .edit-akun .flex-center.content-bottom {
     align-items: center;
     justify-content: center; }
-  .row-flex.flex-top, .main-content .edit-akun .flex-top.content-top, .main-content .edit-akun .flex-top.content-bottom {
+  .row-flex.flex-top, .flex-top.tag-wrapper, .main-content .edit-akun .flex-top.content-top, .main-content .edit-akun .flex-top.content-bottom {
     align-items: start;
     justify-content: start; }
-  .row-flex.flex-space, .main-content .edit-akun .flex-space.content-top, .main-content .edit-akun .flex-space.content-bottom {
+  .row-flex.flex-space, .flex-space.tag-wrapper, .main-content .edit-akun .flex-space.content-top, .main-content .edit-akun .flex-space.content-bottom {
     justify-content: space-between; }
 
 .pull-left {
@@ -2354,3 +2713,6 @@ p {
 
 .pull-right {
   float: right; }
+
+.w-100 {
+  width: 100%; }

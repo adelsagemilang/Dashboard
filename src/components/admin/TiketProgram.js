@@ -7,10 +7,7 @@ import autoBind from 'react-autobind'
 import { API_URL, TK_KEY } from '../../containers/RootUrl'
 import { ButtonPrimary } from '../common/ButtonPrimary'
 import { ButtonIcon } from '../common/ButtonIcon'
-import TambahPetani from './popup/data-petani/TambahPetani'
-import SearchPetani from './popup/data-petani/searchPetani'
-import PhoneFound from './popup/data-petani/phoneFound'
-import PhoneNotFound from './popup/data-petani/phoneNotFound'
+import TambahTiketProgram from './popup/tiket-program/TambahTiketProgram'
 import Header from '../common/Header'
 import InputForm from '../common/InputForm'
 import ReactPaginate from 'react-paginate'
@@ -23,16 +20,11 @@ export default class TiketProgram extends Component{
         this.state = {
             dataHere: [],
             classBgColor: '',
-            toggleAddUser: false,
-            phoneFound: false,
-            phoneNotFound: false,
-            daftarPetani: false,
+            toggleTambahTiket: false,
             entriPage: []
         }
 
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
-        this.userName = Crypto.AES.decrypt(Base64.decode(Cookie.load('username')), TK_KEY).toString(Crypto.enc.Utf8)
-        this.userEmail = Crypto.AES.decrypt(Base64.decode(Cookie.load('email')), TK_KEY).toString(Crypto.enc.Utf8)
     }
 
     handleSearch(id, value){
@@ -127,21 +119,18 @@ export default class TiketProgram extends Component{
     }
 
 
-    toggleAddUser(){
+    toggleTambahTiket(){
         this.setState({
-            toggleAddUser : !this.state.toggleAddUser
+            toggleTambahTiket : !this.state.toggleTambahTiket
         })
     }
 
-    renderPopupAddUser(){
-        let { toggleAddUser } = this.state
+    renderPopupTambahTiket(){
+        let { toggleTambahTiket } = this.state
 
-        if( toggleAddUser === true ){
+        if( toggleTambahTiket === true ){
             return (
-                <SearchPetani 
-                    toggleAddUser={this.toggleAddUser}
-                    handleSearchToAdd = {this.handleSearchToAdd}
-                />
+                <TambahTiketProgram toggleTambahTiket={this.toggleTambahTiket} />
             )
         }
         else{
@@ -152,89 +141,8 @@ export default class TiketProgram extends Component{
     handleCancel(){
         console.log('canceled')
         this.setState({
-            toggleAddUser: false
+            toggleTambahTiket: false
         })
-    }
-
-    handleSearchToAdd(){
-        console.log('clicked');
-        const value = document.getElementById('search-to-add').value
-        axios.get(API_URL + 'user_access?page=0&size=10&text=' + value + '&user_role=1',{
-            headers:{ 
-                'X-AUTH-TOKEN' : this.authToken
-            }
-        })
-        .then(res => {
-            const dataHere = res.data.content
-            const phone = dataHere.map( datas => {
-                return datas.phone_number
-            })
-
-            if( phone.length ){
-                this.setState({
-                    phoneNotFound : false,
-                    phoneFound: true
-                })
-
-                this.handleCancel()
-                
-            }
-        })
-        .catch((error) => {
-            console.log('err: '+ error)
-            this.setState({
-                phoneNotFound : true,
-                phoneFound: false
-            })
-            this.handleCancel()
-            
-        })
-    }
-
-    phoneFound(){
-        if(this.state.phoneFound){
-            return (
-                <PhoneFound 
-                    togglePhoneFound={this.togglePhoneFound} 
-                />
-            )
-        }
-        
-    }
-
-    togglePhoneFound(){
-        this.setState({
-            phoneFound: !this.state.phoneFound
-        })
-    }
-
-    phoneNotFound(){
-        if(this.state.phoneNotFound){
-            return <PhoneNotFound 
-                handleDaftar={this.toggleHandleDaftar} 
-                togglePhoneNotFound={this.togglePhoneNotFound}
-                />
-        }
- 
-    }
-
-    togglePhoneNotFound(){
-        this.setState({
-            phoneNotFound: !this.state.phoneNotFound
-        })
-    }
-
-    toggleHandleDaftar(){
-        this.setState({
-            daftarPetani: !this.state.daftarPetani,
-            phoneNotFound: false
-        })
-    }
-
-    handleDaftar(){
-        if(this.state.daftarPetani){
-            return <TambahPetani toggleHandleDaftar={this.toggleHandleDaftar} />
-        }
     }
 
     componentDidMount(){
@@ -271,10 +179,7 @@ export default class TiketProgram extends Component{
 
         return(
             <div>
-                {this.renderPopupAddUser()}
-                {this.phoneFound()}
-                {this.phoneNotFound()}
-                {this.handleDaftar()}
+                {this.renderPopupTambahTiket()}
                 <div className="main-content">
                     <Header title="Tiket Program" />
                     <div className="user-access tiket-program">
@@ -324,7 +229,7 @@ export default class TiketProgram extends Component{
                                     </div>
                                 </div>
                                 <div className="pull-right">
-                                    <div className="box-btn auto" onClick={this.toggleAddUser}>
+                                    <div className="box-btn auto" onClick={this.toggleTambahTiket}>
                                         <ButtonPrimary name="Tambah Kelompok Tani" />
                                     </div>
                                 </div>

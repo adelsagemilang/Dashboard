@@ -15,6 +15,10 @@
             width: 375px;
         }
 
+        &.md{
+            width: 400px;
+        }
+
         .box-content{
             height: auto;
             margin: 20px 0 0 0;
@@ -57,6 +61,12 @@
                        .input-form{
                          width: 250px !important;
                        }
+
+                       .select-option{
+                            width: 250px;
+                            margin-right: 10px !important;
+                            height: 41px;
+                        }
                     }
                     &.col-3{
                         .input-form{
@@ -89,7 +99,7 @@
                         width: auto;
 
                         button{
-                            padding: 10px 15px;
+                            padding: 10px 20px;
                         }
                     }
                 }
