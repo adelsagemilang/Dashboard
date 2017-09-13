@@ -183,7 +183,7 @@ export default class KegiatanPetani extends Component{
                                     type="text"/>
                                     <div className="select-wrapper">
                                         <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
-                                            <option value="">Filter</option>
+                                            <option value="">Status</option>
                                         </select>
                                     </div>
                                 </div>

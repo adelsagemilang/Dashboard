@@ -117,6 +117,26 @@
                 }
             }
         }
+
+        .box-table{
+            overflow: scroll;
+            max-width: 100%;
+            display: -webkit-box;
+
+            th{
+                white-space: nowrap;
+            }
+
+            td{
+                .select-wrapper{
+                    width: 120px;
+                }
+
+                .input-form{
+                    margin-top: 0px;
+                }
+            }
+        }
         .footer-content{
             @extend .gradient-color-primary;
             margin: 25px 0 0 0;

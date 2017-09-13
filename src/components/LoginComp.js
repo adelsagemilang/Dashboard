@@ -20,8 +20,7 @@ class LoginComp extends Component{
 
         this.state = {
             username: '',
-            password: '',
-            user: {}
+            pin: '',
         }
     }
 
@@ -30,7 +29,7 @@ class LoginComp extends Component{
     }
 
     handleChangePassword(e){
-        this.setState({ password: e.target.value })
+        this.setState({ pin: e.target.value })
     }
 
     handleSubmit(e){
@@ -38,25 +37,25 @@ class LoginComp extends Component{
         // this.props.authReq()
         const { cookies } = this.props;
         console.log('username: ' + this.state.username)
-        console.log('password: ' + this.state.password)
+        console.log('pin: ' + this.state.pin)
         
         axios.post(API_URL + 'login', {
             username: this.state.username,
-            password: this.state.password
+            pin: this.state.pin
         },
         {
             headers: { 'Content-Type' : 'application/json'}
         })
         .then(res => {
             const data = res.data.token
-            const userName = res.data.user.name
-            const userEmail = res.data.user.email
+            const userName = res.data.name
+            const userLevel = res.data.user_level_name
             this.setState({data})
             console.log('succ: '+ this.state.data)
 
             Cookie.save('TK', Base64.encode(Crypto.AES.encrypt(data, TK_KEY)))
             Cookie.save('username', Base64.encode(Crypto.AES.encrypt(userName, TK_KEY)))
-            Cookie.save('email', Base64.encode(Crypto.AES.encrypt(userEmail, TK_KEY)))
+            Cookie.save('user_level_name', Base64.encode(Crypto.AES.encrypt(userLevel, TK_KEY)))
             this.props.history.push('/dashboard');
         })
         .catch((error) => {

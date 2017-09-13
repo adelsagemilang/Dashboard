@@ -23,6 +23,7 @@ export default class RekapKegiatan extends Component{
         this.state = {
             dataHere: [],
             classBgColor: '',
+            toggleDropdownFilter: false,
             entriPage: []
         }
 
@@ -122,6 +123,54 @@ export default class RekapKegiatan extends Component{
         })
     }
 
+    toggleDropdownFilter(){
+        this.setState({
+            toggleDropdownFilter: !this.state.toggleDropdownFilter
+        })
+    }
+
+    renderDropdownFilter(){
+        if(this.state.toggleDropdownFilter){
+            return(
+                <div className="dropdown-collapse">
+                    <div className="row-flex col-2">
+                        <InputForm
+                        handleChange={this._handleChange}
+                        placeholder="Tanggal Kegiatan"
+                        type="text" 
+                        class="form-control" 
+                        icon="true" 
+                        src="../images/icon/button_icon/icon-datepicker.svg"/>
+                        <div className="select-wrapper">
+                            <select className="per-page option-input" value={ this.state.value }>
+                                <option value="">Model Bisnis</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="row w-100">
+                         <InputForm
+                            handleChange={this._handleChange}
+                            placeholder="Ketik nama atau ID Kelompok Tani…"
+                            type="text" 
+                            class="form-control" />
+                    </div>
+                    <div className="row w-100 mg-b-10">
+                        <InputForm
+                            handleChange={this._handleChange}
+                            placeholder="Ketik nama Petani…"
+                            type="text" 
+                            class="form-control" />
+                    </div>
+                    <div className="pull-left">
+                        <div className="box-btn" onClick={this.handleFilter}>
+                            <ButtonPrimary name="Filter" />
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+    }
+
 
     componentDidMount(){
         console.log(this.authToken)
@@ -178,10 +227,11 @@ export default class RekapKegiatan extends Component{
                                     placeholder="Cari.."
                                     class="search-item"
                                     type="text"/>
-                                    <div className="select-wrapper">
-                                        <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
-                                            <option value="">Filter</option>
-                                        </select>
+                                    <div className="select-wrapper dropdown">
+                                        <a href="#" className="dropdown-filter" onClick={this.toggleDropdownFilter}>
+                                            Filter
+                                        </a>
+                                        {this.renderDropdownFilter()}
                                     </div>
                                 </div>
                             </div>

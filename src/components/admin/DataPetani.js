@@ -35,14 +35,12 @@ export default class DataPetani extends Component{
         }
 
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
-        this.userName = Crypto.AES.decrypt(Base64.decode(Cookie.load('username')), TK_KEY).toString(Crypto.enc.Utf8)
-        this.userEmail = Crypto.AES.decrypt(Base64.decode(Cookie.load('email')), TK_KEY).toString(Crypto.enc.Utf8)
     }
 
     handleSearch(id, value){
         console.log('ini value: '+value)
 
-        axios.get(API_URL + 'user_access?page=0&size=10&text=' + value + '&user_role=1',{
+        axios.get(API_URL + 'farmers?pagination=true&text=' + value + '&page=0&size=10',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -56,12 +54,6 @@ export default class DataPetani extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-            
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -72,7 +64,7 @@ export default class DataPetani extends Component{
         console.log('value: '+ e.target.value)
         const valueEntri = e.target.value
 
-        axios.get(API_URL + 'user_access?page=0&size=' + valueEntri + '&text=&user_role=1',{
+        axios.get(API_URL + 'farmers?pagination=true&text=&page=0&size=' + valueEntri ,{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -87,11 +79,6 @@ export default class DataPetani extends Component{
             this.setState({totalElements})
             this.setState({totalsize})
             
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -104,7 +91,7 @@ export default class DataPetani extends Component{
         let selected = dataHere.selected
         console.log(selected)
 
-        axios.get(API_URL + 'user_access?page='+ selected +'&size=10&text=&user_role=1',{
+        axios.get(API_URL + 'farmers?pagination=true&text=&page='+ selected +'&size=10',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -119,11 +106,6 @@ export default class DataPetani extends Component{
             this.setState({totalElements})
             this.setState({totalsize})
 
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -141,6 +123,12 @@ export default class DataPetani extends Component{
         console.log('clicked');
         this.setState({
             toggleDeletePopup : !this.state.toggleDeletePopup
+        })
+    }
+
+    toggleSuccessPopup(){
+        this.setState({
+            toggleSuccess: !this.state.toggleSuccess
         })
     }
 
@@ -171,11 +159,13 @@ export default class DataPetani extends Component{
     }
 
     renderPopupSuccess(){
-        return (
+        if(this.state.toggleSuccess){
+            return (
                 <Success 
-                toggleDeletePopup={this.toggleDeletePopup} 
+                toggleSuccessPopup={this.toggleSuccessPopup} 
             />
             )
+        }
     }
 
     handleCancel(){
@@ -188,7 +178,7 @@ export default class DataPetani extends Component{
     handleSearchToAdd(){
         console.log('clicked');
         const value = document.getElementById('search-to-add').value
-        axios.get(API_URL + 'user_access?page=0&size=10&text=' + value + '&user_role=1',{
+        axios.get(API_URL + 'farmers?pagination=true&text=' + value + '&page=0&size=10',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -208,16 +198,14 @@ export default class DataPetani extends Component{
                 this.handleCancel()
                 
             }
-            else{
-                this.setState({
-                    phoneNotFound : true,
-                    phoneFound: false
-                })
-                this.handleCancel()
-            }
         })
         .catch((error) => {
             console.log('err: '+ error)
+            this.setState({
+                phoneNotFound : true,
+                phoneFound: false
+            })
+            this.handleCancel()
             
         })
     }
@@ -264,13 +252,13 @@ export default class DataPetani extends Component{
 
     handleDaftar(){
         if(this.state.daftarPetani){
-            return <TambahPetani toggleHandleDaftar={this.toggleHandleDaftar} />
+            return <TambahPetani success={this.toggleSuccessPopup} toggleHandleDaftar={this.toggleHandleDaftar} />
         }
     }
 
     componentDidMount(){
         console.log(this.authToken)
-        axios.get(API_URL + 'user_access?page=0&size=10&text=&user_role=1',{
+        axios.get(API_URL + 'farmers?pagination=true&text=&page=0&size=10',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -284,12 +272,6 @@ export default class DataPetani extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -331,7 +313,7 @@ export default class DataPetani extends Component{
                                     type="text"/>
                                 </div>
                                 <div className="pull-right">
-                                    <div className="box-btn" onClick={this.toggleAddUser}>
+                                    <div className="box-btn" onClick={this.toggleHandleDaftar}>
                                         <ButtonPrimary name="Tambah Petani" />
                                     </div>
                                 </div>
@@ -355,42 +337,66 @@ export default class DataPetani extends Component{
                                             if(i % 2 === 1){
                                                 return(
                                                     <tr key={i} className='list-grey'>
-                                                        <td>{datahere.user_role_id}</td>
-                                                        <td>{datahere.name}</td>
-                                                        <td>{datahere.ktp_number}</td>
-                                                        <td>{datahere.email}</td>
+                                                        <td>
+                                                            <p>{datahere.name}</p>
+                                                            <p className="normal">{datahere.ktp_number}</p>
+                                                        </td>
                                                         <td>{datahere.phone_number}</td>
-                                                        <td>{datahere.city}</td>
+                                                        <td>{datahere.address}</td>
+                                                        <td>
+                                                            <p>{datahere.birth_place}</p>
+                                                            <p>{datahere.birth_date}</p>
+                                                        </td>
+                                                        <td>{datahere.biological_mothers_name}</td>
+                                                        <td>
+                                                        { datahere.bank != null ?
+                                                            (
+                                                                datahere.bank.bank_name ||
+                                                                datahere.bank.rek_number 
+                                                            ): "Data bank belum ada"
+                                                        } </td>
                                                         <td className="text-center">
-                                                        	<div className="row-flex flex-center">
-                                                        		<div className="box-btn" onClick={this.handleCreate}>
-                                                        			<ButtonIcon class="btn-outline-sm" icon="icon-create"/>
-                                                        		</div>
-                                                        		 <div className="box-btn" onClick={this.toggleDeletePopup}>
-																	 <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
-                                                        		 </div>
-                                                        	</div>	
+                                                            <div className="row-flex flex-center">
+                                                                <div className="box-btn" onClick={this.handleCreate}>
+                                                                    <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
+                                                                </div>
+                                                                 <div className="box-btn" onClick={this.toggleDeletePopup}>
+                                                                     <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
+                                                                 </div>
+                                                            </div>  
                                                         </td>
                                                     </tr>
                                                 )
                                             }else{
                                                 return(
                                                     <tr key={i} >
-                                                        <td>{datahere.user_role_id}</td>
-                                                        <td>{datahere.name}</td>
-                                                        <td>{datahere.ktp_number}</td>
-                                                        <td>{datahere.email}</td>
+                                                        <td>
+                                                            <p>{datahere.name}</p>
+                                                            <p className="normal">{datahere.ktp_number}</p>
+                                                        </td>
                                                         <td>{datahere.phone_number}</td>
-                                                        <td>{datahere.city}</td>
+                                                        <td>{datahere.address}</td>
+                                                        <td>
+                                                            <p>{datahere.birth_place}</p>
+                                                            <p>{datahere.birth_date}</p>
+                                                        </td>
+                                                        <td>{datahere.biological_mothers_name}</td>
+                                                        <td>
+                                                        { datahere.bank != null ?
+                                                            (
+                                                                datahere.bank.bank_name ||
+                                                                datahere.bank.rek_number 
+                                                            ): "Data bank belum ada"
+                                                        } </td>
                                                         <td className="text-center">
-                                                        	<div className="row-flex flex-center">
-                                                        		<div className="box-btn" onClick={this.handleCreate}>
-                                                        			<ButtonIcon class="btn-outline-sm" icon="icon-create"/>
-                                                        		</div>
-                                                        		 <div className="box-btn" onClick={this.toggleDeletePopup}>
-																	 <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
-                                                        		 </div>
-                                                        	</div>	
+                                                            <div className="row-flex flex-center">
+                                                                <div className="box-btn" onClick={this.handleCreate}>
+                                                                    <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
+                                                                </div>
+                                                                 <div className="box-btn" onClick={this.toggleDeletePopup}>
+                                                                     <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
+                                                                 </div>
+                                                            </div>  
                                                         </td>
                                                     </tr>
                                                 )

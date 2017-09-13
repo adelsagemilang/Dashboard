@@ -20,6 +20,19 @@
 	font-weight: bold;
 }
 
+.normal{
+    font-weight: normal;
+
+    label{
+        font-weight: normal;
+        white-space: nowrap;
+    }
+}
+
+.nowrap{
+    white-space: nowrap;
+}
+
 .row-flex {
     display: block;
 
@@ -62,6 +75,34 @@
     }
 }
 
+.mg-t-5{
+    margin-top: 5px;
+}
+
+.mg-l-10{
+    margin-left: 10px;
+}
+
+.mg-b-10{
+    margin-bottom: 10px;
+}
+
+.mg-r-10{
+    margin-right: 10px;
+}
+
+.pd-25{
+    padding: 25px;
+}
+
+.pd-l-10{
+    padding-left: 10px;
+}
+
+.pd-l-20{
+    padding-left: 20px;
+}
+
 .pull-left{
     float: left;
 }
@@ -72,4 +113,8 @@
 
 .w-100{
     width: 100%;
+}
+
+.list-unstyled{
+    list-style: none;
 }

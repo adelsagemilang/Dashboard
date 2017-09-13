@@ -16,6 +16,16 @@
                 font-size: $font-size-05!important;
                 font-weight: 300;
             }
+
+            a{
+                display: flex;
+                white-space: nowrap;
+                text-decoration: none;
+                img{
+                    height: 16px;
+                    padding: 7px 15px 7px 0px;
+                }
+            }
         }
 
         .header-icon{

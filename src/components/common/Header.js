@@ -19,12 +19,12 @@ export default class Header extends Component{
 
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
         this.userName = Crypto.AES.decrypt(Base64.decode(Cookie.load('username')), TK_KEY).toString(Crypto.enc.Utf8)
-        this.userEmail = Crypto.AES.decrypt(Base64.decode(Cookie.load('email')), TK_KEY).toString(Crypto.enc.Utf8)
+        this.userLevel = Crypto.AES.decrypt(Base64.decode(Cookie.load('user_level_name')), TK_KEY).toString(Crypto.enc.Utf8)
     }
 
      handleLogout(){
         Cookie.remove('TK', { path: '/' });
-        Cookie.remove('email', { path: '/' });
+        Cookie.remove('user_level_name', { path: '/' });
         Cookie.remove('username', { path: '/' });
         window.location.reload(true)
     }
@@ -46,7 +46,14 @@ export default class Header extends Component{
             <div className="header-comp">
                 <div className="header-container">
                     <div className="box-title">
-                        <p>{this.props.title}</p>
+                        { this.props.backprogram === "true" ?
+                            <Link to={this.props.link}>
+                                <img src="../images/icon/button_icon/back_icon.svg" />
+                                <p>{this.props.title}</p>
+                             </Link> 
+                        :
+                            <p>{this.props.title}</p>
+                        }
                     </div>
                     
                     <div className="box-logout header-icon" onClick={this.handleLogout}>
@@ -63,7 +70,7 @@ export default class Header extends Component{
                         </div>
                         <div className="box-user-text">
                             <p className="username">{this.userName}</p>
-                            <p className="status">{this.userEmail}</p>
+                            <p className="status">{this.userLevel}</p>
                         </div>
                     </div>
 

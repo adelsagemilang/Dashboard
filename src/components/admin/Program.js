@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react'
+import React, { Component, PropTypes} from 'react'
 import Cookie from 'react-cookie'
 import Crypto from 'crypto-js'
 import Base64 from 'base-64'
@@ -7,10 +7,10 @@ import autoBind from 'react-autobind'
 import { API_URL, TK_KEY } from '../../containers/RootUrl'
 import { ButtonPrimary } from '../common/ButtonPrimary'
 import { ButtonIcon } from '../common/ButtonIcon'
-import TambahPetani from './popup/data-petani/TambahPetani'
-import SearchPetani from './popup/data-petani/searchPetani'
-import PhoneFound from './popup/data-petani/phoneFound'
-import PhoneNotFound from './popup/data-petani/phoneNotFound'
+import TambahProgram from './popup/program/TambahProgram'
+import BuatProgram from './popup/program/BuatProgram'
+import HapusProgram from './popup/program/HapusProgram'
+import DropdownMenu from './dropdown-menu'
 import Header from '../common/Header'
 import InputForm from '../common/InputForm'
 import ReactPaginate from 'react-paginate'
@@ -23,10 +23,10 @@ export default class Program extends Component{
         this.state = {
             dataHere: [],
             classBgColor: '',
-            toggleAddUser: false,
-            phoneFound: false,
-            phoneNotFound: false,
-            daftarPetani: false,
+            toggleTambahProgram: false,
+            toggleBuatProgram: false,
+            toggleHapusProgram: false,
+            toggleDropdownFilter: false,
             entriPage: []
         }
 
@@ -127,20 +127,25 @@ export default class Program extends Component{
     }
 
 
-    toggleAddUser(){
+    toggleTambahProgram(){
         this.setState({
-            toggleAddUser : !this.state.toggleAddUser
+            toggleTambahProgram : !this.state.toggleTambahProgram
         })
     }
 
-    renderPopupAddUser(){
-        let { toggleAddUser } = this.state
+    toggleBuatProgram(){
+        this.setState({
+            toggleBuatProgram : !this.state.toggleBuatProgram
+        })
+    }
 
-        if( toggleAddUser === true ){
+    renderPopupTambahProgram(){
+        let { toggleTambahProgram } = this.state
+
+        if( toggleTambahProgram === true ){
             return (
-                <SearchPetani 
-                    toggleAddUser={this.toggleAddUser}
-                    handleSearchToAdd = {this.handleSearchToAdd}
+                <TambahProgram 
+                    toggleTambahProgram={this.toggleTambahProgram}
                 />
             )
         }
@@ -149,91 +154,145 @@ export default class Program extends Component{
         }
     }
 
-    handleCancel(){
-        console.log('canceled')
+    toggleDropdownFilter(){
         this.setState({
-            toggleAddUser: false
+            toggleDropdownFilter: !this.state.toggleDropdownFilter
         })
     }
 
-    handleSearchToAdd(){
-        console.log('clicked');
-        const value = document.getElementById('search-to-add').value
-        axios.get(API_URL + 'user_access?page=0&size=10&text=' + value + '&user_role=1',{
-            headers:{ 
-                'X-AUTH-TOKEN' : this.authToken
-            }
-        })
-        .then(res => {
-            const dataHere = res.data.content
-            const phone = dataHere.map( datas => {
-                return datas.phone_number
-            })
+    toggleDropdownMenu(i){
+        let id = document.getElementById(i)
+        /*let active = document.getElementsByClassName("active")
 
-            if( phone.length ){
-                this.setState({
-                    phoneNotFound : false,
-                    phoneFound: true
-                })
+        while (active.length){
+            active[0].classList.remove("active")
+        }*/
+        id.classList.toggle("active")
+    }
 
-                this.handleCancel()
-                
-            }
-        })
-        .catch((error) => {
-            console.log('err: '+ error)
-            this.setState({
-                phoneNotFound : true,
-                phoneFound: false
-            })
-            this.handleCancel()
-            
+    toggleHapusProgram(){
+        this.setState({
+            toggleHapusProgram: !this.state.toggleHapusProgram
         })
     }
 
-    phoneFound(){
-        if(this.state.phoneFound){
-            return (
-                <PhoneFound 
-                    togglePhoneFound={this.togglePhoneFound} 
-                />
+    incrementValue()
+    {
+        let check = document.getElementById('number')
+
+        if (check){
+            let value = document.getElementById('number').value 
+
+            if (value != "20"){
+                value ++
+                document.getElementById('number').value = value
+            }
+        }
+    }
+
+    decrementValue()
+    {
+        let check = document.getElementById('number')
+
+        if (check){
+            var value = document.getElementById('number').value
+            value --
+            value = value < 0 ? 0 : value
+            document.getElementById('number').value = value
+        }
+    }
+
+    checkValue(){
+        console.log()
+    }
+
+    renderPopupBuatProgram(){
+        if (this.state.toggleBuatProgram){
+            return(
+                <BuatProgram toggleBuatProgram={this.toggleBuatProgram} />
             )
         }
-        
     }
 
-    togglePhoneFound(){
-        this.setState({
-            phoneFound: !this.state.phoneFound
-        })
-    }
-
-    phoneNotFound(){
-        if(this.state.phoneNotFound){
-            return <PhoneNotFound 
-                handleDaftar={this.toggleHandleDaftar} 
-                togglePhoneNotFound={this.togglePhoneNotFound}
-                />
+    renderPopupHapusProgram(){
+        if (this.state.toggleHapusProgram){
+            return(
+                <HapusProgram toggleHapusProgram={this.toggleHapusProgram} />
+            )
         }
- 
     }
 
-    togglePhoneNotFound(){
-        this.setState({
-            phoneNotFound: !this.state.phoneNotFound
-        })
-    }
-
-    toggleHandleDaftar(){
-        this.setState({
-            daftarPetani: !this.state.daftarPetani,
-            phoneNotFound: false
-        })
-    }
-
-    handleDaftar(){
-        if(this.state.daftarPetani){
-            return <TambahPetani toggleHandleDaftar={this.toggleHandleDaftar} />
+    renderDropdownFilter(){
+        if(this.state.toggleDropdownFilter){
+            return(
+                <div className="dropdown-collapse">
+                    <div className="row-flex col-2">
+                        <div className="select-wrapper">
+                            <select className="per-page option-input" value={ this.state.value }>
+                                <option value="">Tipe Program</option>
+                            </select>
+                        </div>
+                        <div className="select-wrapper">
+                            <select className="per-page option-input" value={ this.state.value }>
+                                <option value="">Model Bisnis</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="row-flex col-2">
+                         <InputForm
+                            handleChange={this._handleChange}
+                            placeholder="Tanggal Pengajuan"
+                            type="text" 
+                            class="form-control" 
+                            icon="true" 
+                            src="../images/icon/button_icon/icon-datepicker.svg"/>
+                        <div className="select-wrapper">
+                            <select className="per-page option-input" value={ this.state.value }>
+                                <option value="">Inisiator</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="row-flex col-2">
+                         <InputForm
+                            handleChange={this._handleChange}
+                            placeholder="Periode"
+                            type="text" 
+                            class="form-control" 
+                            icon="true" 
+                            src="../images/icon/button_icon/icon-datepicker.svg"/>
+                        <div className="select-wrapper">
+                            <select className="per-page option-input" value={ this.state.value }>
+                                <option value="">Kelompok Tani</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="row-flex col-2">
+                        <div className="input-form row-flex input-plus-min">
+                           <button className="buttonmin" type="button" onClick={this.decrementValue}>-</button>
+                           <input className="form-control" type="text" id="number" value="0" max onChange={this.checkValue} />
+                           <span>Petani</span>
+                           <button className="buttonplus" type="button" onClick={this.incrementValue}>+</button>
+                        </div>
+                        <div className="select-wrapper">
+                            <select className="per-page option-input" value={ this.state.value }>
+                                <option value="">Biaya</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="row-flex col-2 mg-b-10">
+                        <div className="select-wrapper">
+                            <select className="per-page option-input" value={ this.state.value }>
+                                <option value="">Status</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="pull-left">
+                        <div className="box-btn" onClick={this.handleFilter}>
+                            <ButtonPrimary name="Filter" />
+                        </div>
+                    </div>
+                </div>
+            )
         }
     }
 
@@ -271,12 +330,11 @@ export default class Program extends Component{
 
         return(
             <div>
-                {this.renderPopupAddUser()}
-                {this.phoneFound()}
-                {this.phoneNotFound()}
-                {this.handleDaftar()}
+                {this.renderPopupTambahProgram()}
+                {this.renderPopupBuatProgram()}
+                {this.renderPopupHapusProgram()}
                 <div className="main-content">
-                    <Header title="Tiket Program" />
+                    <Header title="Program" />
                     <div className="user-access tiket-program">
                         <div className="user-access-container">
                             <div className="box-status row-flex">
@@ -321,15 +379,17 @@ export default class Program extends Component{
                                     type="text"
                                     icon="true"
                                     src="../images/icon/button_icon/icon-datepicker.svg"/>
-                                    <div className="select-wrapper">
-                                         <select className="option-input">
-                                            <option value="">Status</option>
-                                        </select>
+                                    <div className="select-wrapper dropdown">
+                                        <a href="#" className="dropdown-filter" onClick={this.toggleDropdownFilter}>
+                                            Filter
+                                        </a>
+
+                                        {this.renderDropdownFilter()}
                                     </div>
                                 </div>
                                 <div className="pull-right">
-                                    <div className="box-btn auto" onClick={this.toggleAddUser}>
-                                        <ButtonPrimary name="Tambah Kelompok Tani" />
+                                    <div className="box-btn auto" onClick={this.toggleTambahProgram}>
+                                        <ButtonPrimary name="Buat Program" />
                                     </div>
                                 </div>
                             </div>
@@ -360,10 +420,18 @@ export default class Program extends Component{
                                                         <td>Qelisa</td>
                                                          <td>
                                                             <div className="row-flex flex-center">
-                                                                 <div className="box-btn" onClick={this.handleDelete}>
-                                                                     <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
-                                                                 </div>
-                                                            </div>  
+                                                                 <div className="row-flex flex-center">
+                                                                     <div className="box-btn dropdown-three">
+                                                                        <div onClick={this.toggleDropdownMenu.bind(this, i) }>
+                                                                            <img src="../images/icon/dropdown-three.svg" height="7"/>
+
+                                                                            <DropdownMenu id={i} 
+                                                                                toggleHapusProgram={this.toggleHapusProgram} 
+                                                                            />
+                                                                        </div>
+                                                                     </div>
+                                                                </div>
+                                                            </div>   
                                                         </td>
                                                     </tr>
                                                 )
@@ -378,8 +446,14 @@ export default class Program extends Component{
                                                         <td>Qelisa</td>
                                                          <td>
                                                             <div className="row-flex flex-center">
-                                                                 <div className="box-btn" onClick={this.handleDelete}>
-                                                                     <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
+                                                                 <div className="box-btn dropdown-three">
+                                                                    <div onClick={this.toggleDropdownMenu.bind(this, i) }>
+                                                                        <img src="../images/icon/dropdown-three.svg" height="7"/>
+
+                                                                        <DropdownMenu id={i} 
+                                                                            toggleHapusProgram={this.toggleHapusProgram} 
+                                                                        />
+                                                                    </div>
                                                                  </div>
                                                             </div>  
                                                         </td>

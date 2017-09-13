@@ -7,6 +7,15 @@ p{
 .main-content{
     margin: 0 0 0 235px;
 
+    .nowrap{
+        .text-info{
+            white-space: nowrap;
+            max-width: 94px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
     .dashboard{
         padding-top: 75px;
 
@@ -179,13 +188,14 @@ p{
         padding-top: 75px;
         overflow: hidden;
         .content-top{
-            @extend .row-flex;
+            display: inline-block;
             padding: 0 25px;
             width: 100%;
             .box-picture{
                 padding: 15px 15px 15px 0px;
                 width: 166px;
                 height: 166px;
+                float: left;
                 .picture-wrapper{
                     height: 100%;
                     width: 100%; 
@@ -200,18 +210,20 @@ p{
             }
             .box-profile-form{
                 padding: 15px 0 15px 15px;
+                float: left;
 
                 .box-1,.box-2{
                     padding: 5px 15px 0 0px;
                     display: block;
 
                     .form-control{
-                        width: 280px;
+                        width: 240px;
                     }
                 }
             }
             .box-bank-form{
                 padding: 15px 0;
+                float: left;
                 p{
                     padding-left: 15px;
                 }
@@ -241,14 +253,15 @@ p{
             }
         }
         .content-bottom{
-            @extend .row-flex;
+            display: inline-block;
             width: 100%;
             padding: 0 25px;
             p{
                 padding-bottom: 5px;
             }
             .box-alamat{
-                width: 50%;
+                width: 560px;
+                float: left;
                 
                 textarea{
                     resize: none;
@@ -263,11 +276,11 @@ p{
                 .row-flex{
                     width: 100%;
                     .form-control{
-                        width: 180px;
+                        width: 130px;
                         margin-right: 10px !important;
 
                         &.select-option{
-                            width: 194px;
+                            width: 180px;
                             height: 40px;
                             font-size: 14px;
                         }
@@ -277,6 +290,7 @@ p{
             .box-informasi-akun{
                 padding: 0 30px;
                 width: 500px;
+                float: left;
 
                 .form-control{
                     margin-right: 10px !important;
@@ -317,6 +331,186 @@ p{
                 font-weight: 300;
             }
 
+        }
+
+        .dropdown-three{
+            position: relative;
+
+            .dropdown-collapse{
+                display: none;
+                @extend .dropdown-collapse;
+
+                &.active{
+                    display: block;
+                    left: -200px;
+                    padding: 10px 15px;
+                    width: 180px;
+                    border-radius: 5px;
+                    
+                    li{
+                        padding: 5px 0;
+
+                        &:last-child{
+                            color: $color-warning;
+                        }
+
+                        a{
+                            text-decoration: none;
+                            display: block;
+                        }
+
+                        &:hover{
+                            background-color: $color-primary;
+                            color: white;
+                            margin: 0 -15px;
+                            padding-left: 15px;
+
+                            a{
+                                color: white;
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    .ajukan-program{
+        .box-top{
+            margin-top: 0px;
+            .row-flex{
+                margin-bottom: 10px;
+
+                .w-40{
+                    width: 40%;
+                    padding: 10px;
+
+                    &.row-flex{
+                        .w-50{
+                            width: 50%;
+                            padding: 0 10px;
+                        }
+                    }
+                }
+
+                .w-60{
+                    width: 60%;
+                    padding: 10px;
+
+                    .w-33{
+                        width: (3/10)*100%;
+                        padding: 0 10px;
+                    }
+                }
+
+                .strong{
+                    white-space: nowrap;
+                }
+            }
+        }
+
+        .strong{
+            a{
+                font-weight: normal;
+                text-decoration: none;
+            }
+        }
+        .box-footer-table{
+            .box-pagination{
+                .pagination-content{
+                    right: 65px;
+                }
+            }
+        }
+
+        .pull-left{
+            &.row-flex{
+                .box-btn{
+                    button{
+                        padding: 10px 20px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.dropdown-collapse{
+    position: absolute;
+    z-index: 9999;
+    left: -1px;
+    top: 35px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: #fff;
+    padding: 15px 0px 15px 10px;
+    border: 1px solid #d5d5d5;
+
+    .row-flex{
+
+        &.col-2{
+            .input-form{
+                width: 190px;
+                margin-right: 10px;
+
+                .icon-form{
+                    top: 17px;
+                    right: 9px;
+                }
+
+                &.input-plus-min{
+                    .form-control{
+                        padding-right: 30px;
+                        padding-left: 60px;
+                    }
+
+                    span{
+                        position: absolute;
+                        right: 60px;
+                        top: 15px;
+                    }
+
+                    .buttonmin{
+                        position: absolute;
+                        left: 13px;
+                        top: 15px;
+                        background: none;
+                        border: none;
+                        outline: none;
+                        font-size: 16px;
+                    }
+
+                    .buttonplus{
+                        position: absolute;
+                        right: 13px;
+                        top: 15px;
+                        background: none;
+                        border: none;
+                        outline: none;
+                        font-size: 16px;
+                    }
+                }
+            }
+
+            .select-wrapper{
+                margin-right: 10px;
+                &:after{
+                    top: 22px;
+                }
+
+                .option-input{
+                    margin: 5px 1px;
+                }
+            }
+        }
+    }
+
+    .row{
+        &.w-100{
+            .input-form{
+                width: calc(100% - 10px);
+            }
         }
     }
 }

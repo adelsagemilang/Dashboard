@@ -6,13 +6,11 @@ import axios from 'axios'
 import autoBind from 'react-autobind'
 import { API_URL, TK_KEY } from '../../containers/RootUrl'
 import { ButtonPrimary } from '../common/ButtonPrimary'
-import { ButtonIcon } from '../common/ButtonIcon'
-import TambahKelompokPetani from './popup/data-kelompok-petani/TambahKelompokPetani'
 import Header from '../common/Header'
 import InputForm from '../common/InputForm'
 import ReactPaginate from 'react-paginate'
 
-export default class DataKelompokPetani extends Component{
+export default class DataPanen extends Component{
     constructor(props){
         super(props)
         autoBind(this)
@@ -20,7 +18,6 @@ export default class DataKelompokPetani extends Component{
         this.state = {
             dataHere: [],
             classBgColor: '',
-            toggleTambahKelompok: false,
             entriPage: []
         }
 
@@ -30,7 +27,7 @@ export default class DataKelompokPetani extends Component{
     handleSearch(id, value){
         console.log('ini value: '+value)
 
-        axios.get(API_URL + 'rukmans?pagination=true&text=' + value + '&page=0&size=10',{
+        axios.get(API_URL + 'harvests?pagination=true&text=' + value + '&page=0&size=9',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -60,7 +57,7 @@ export default class DataKelompokPetani extends Component{
         console.log('value: '+ e.target.value)
         const valueEntri = e.target.value
 
-        axios.get(API_URL + 'rukmans?pagination=true&text=&page=0&size=' + valueEntri ,{
+        axios.get(API_URL + 'harvests?pagination=true&text=&page=0&size=' + valueEntri ,{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -92,7 +89,7 @@ export default class DataKelompokPetani extends Component{
         let selected = dataHere.selected
         console.log(selected)
 
-        axios.get(API_URL + 'rukmans?pagination=true&text=&page='+ selected +'&size=10',{
+        axios.get(API_URL + 'harvests?pagination=true&text=&page='+ selected +'&size=2',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -118,36 +115,9 @@ export default class DataKelompokPetani extends Component{
         })
     }
 
-
-    toggleTambahKelompok(){
-        this.setState({
-            toggleTambahKelompok : !this.state.toggleTambahKelompok
-        })
-    }
-
-    renderPopupTambahKelompok(){
-        let { toggleTambahKelompok } = this.state
-
-        if( toggleTambahKelompok === true ){
-            return (
-               <TambahKelompokPetani toggleHandleTambah={this.toggleTambahKelompok} />
-            )
-        }
-        else{
-            return null;
-        }
-    }
-
-    handleCancel(){
-        console.log('canceled')
-        this.setState({
-            toggleAddUser: false
-        })
-    }
-
     componentDidMount(){
         console.log(this.authToken)
-        axios.get(API_URL + 'rukmans?pagination=true&text=&page=0&size=10',{
+        axios.get(API_URL + 'harvests?pagination=true&text=&page=0&size=2',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -179,14 +149,13 @@ export default class DataKelompokPetani extends Component{
 
         return(
             <div>
-                {this.renderPopupTambahKelompok()}
                 <div className="main-content">
-                    <Header title="Data Kelompok Tani" />
+                    <Header title="Data Petani" />
                     <div className="user-access">
                         <div className="user-access-container">
                             <div className="box-top row-flex flex-space">
                                 <div className="pull-left">
-                                    <p className="count-item">30 Kelompok Petani</p>
+                                    <p className="count-item">30 Order Keluar</p>
                                     <div className="select-wrapper">
                                         <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
                                             <option value="10">10 entri per halaman</option>
@@ -198,73 +167,48 @@ export default class DataKelompokPetani extends Component{
                                     <InputForm
                                     inputId="search_admin"
                                     handleChange={this.handleSearch}
-                                    placeholder="Cari Nama atau ID Kelompok Tani"
+                                    placeholder="Cari .."
                                     class="search-item"
                                     type="text"/>
                                 </div>
-
-                                {/*<div className="pull-right">
-                                    <div className="box-btn auto" onClick={this.toggleTambahKelompok}>
-                                        <ButtonPrimary name="Tambah Kelompok Tani" />
-                                    </div>
-                                </div>
-                            */}
                             </div>
 
                             <div className="box-table">
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Nama Kelompok Tani</th>
-                                            <th>Jumlah Anggota</th>
-                                            <th>Total Luas Lahan</th>
-                                            <th>Alamat</th>
-                                            <th>Data Ketua</th>
-                                            <th>Aksi</th>
+                                            <th>No</th>
+                                            <th>Nama Petani</th>
+                                            <th>Komoditas</th>
+                                            <th>Jumlah</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {DataHere.map((datahere, i) => {
                                             if(i % 2 === 1){
+                                                i = i + 1
                                                 return(
                                                     <tr key={i} className='list-grey'>
-                                                        <td className="strong">{datahere.rukman_id}</td>
-                                                        <td>{datahere.rukman_name}</td>
-                                                        <td className="text-center">10</td>
-                                                        <td>2000m</td>
-                                                        <td>{datahere.address}</td>
-                                                        <td>{datahere.surveyor_name}</td>
-                                                        <td>
-                                                            <div className="row-flex flex-center">
-                                                                <div className="box-btn" onClick={this.handleCreate}>
-                                                                    <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
-                                                                </div>
-                                                                 <div className="box-btn" onClick={this.handleDelete}>
-                                                                     <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
-                                                                 </div>
-                                                            </div>  
+                                                        <td>{i}</td>
+                                                        <td>{datahere.farmer_name}</td>
+                                                        <td>{datahere.commodity_name}</td>
+                                                        <td>{datahere.qty}</td>
+                                                        <td className="text-center">
+                                                            {datahere.status}   
                                                         </td>
                                                     </tr>
                                                 )
                                             }else{
+                                                i = i + 1
                                                 return(
                                                     <tr key={i} >
-                                                        <td className="strong">{datahere.rukman_id}</td>
-                                                        <td>{datahere.rukman_name}</td>
-                                                        <td className="text-center">10</td>
-                                                        <td>2000m</td>
-                                                        <td>{datahere.address}</td>
-                                                        <td>{datahere.surveyor_name}</td>
-                                                        <td>
-                                                            <div className="row-flex flex-center">
-                                                                <div className="box-btn" onClick={this.handleCreate}>
-                                                                    <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
-                                                                </div>
-                                                                 <div className="box-btn" onClick={this.handleDelete}>
-                                                                     <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
-                                                                 </div>
-                                                            </div>  
+                                                        <td>{i}</td>
+                                                        <td>{datahere.farmer_name}</td>
+                                                        <td>{datahere.commodity_name}</td>
+                                                        <td>{datahere.qty}</td>
+                                                        <td className="text-center">
+                                                            {datahere.status}   
                                                         </td>
                                                     </tr>
                                                 )

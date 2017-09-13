@@ -6,6 +6,7 @@
     height: 100vh;
     padding: 26px 0 0 0;
     position: fixed;
+    z-index: 2;
     
     .container-sidebar{
         // background: url('/images/bg_sidebar_expanded.png');
@@ -31,6 +32,49 @@
                 bottom: 0;
                 width: calc(235px + 26px);
                 margin: -150px 0 0 -26px;
+            }
+        }
+
+        .disabled-link{
+            pointer-events: none;
+            text-decoration: none !important;
+
+            div{
+                display: table;
+                width: 100%;
+                .list-menu{
+                    display: table-cell;
+                    .box-icon{
+                        display: block;
+                    }
+                    .box-text-menu{
+                        display: unset;
+                        p{
+                            max-width: 75px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
+                    .active-mark{
+                        display: unset;
+                    }
+                }
+            }
+
+            span.not-available{
+                background-color: rgba(255, 255, 255, 0.7);
+                padding: 5px 8px;
+                border-radius: 10px;
+                font-size: 9px;
+                margin-top: -12px;
+                max-height: 7px;
+                min-width: 66px;
+                margin-right: 7px;
+                text-transform: uppercase;
+                text-decoration: none !important;
+                display: inline-block;
+                vertical-align: middle;
             }
         }
     }

@@ -230,7 +230,7 @@ export default class TiketProgram extends Component{
                                 </div>
                                 <div className="pull-right">
                                     <div className="box-btn auto" onClick={this.toggleTambahTiket}>
-                                        <ButtonPrimary name="Tambah Kelompok Tani" />
+                                        <ButtonPrimary name="Tambah Tiket Program" />
                                     </div>
                                 </div>
                             </div>

@@ -12,21 +12,13 @@ export default class TextArea extends Component {
         }
     }
 
-    _onChange(e){
-        this.props.handleChange(
-            e.target.id,
-            e.target.value
-        )
-        console.log('ini: ' + e.target.value)
-    }
-
     render(){
         return(
             <div className="text-area">
                 <textarea
+                id={this.props.idtextarea}
                 className={ this.props.class }
-                value={this.props.title}
-                onChange={this._onChange}>
+                placeholder={this.props.title}>
                 </textarea>
             </div>
         )

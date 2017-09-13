@@ -68,3 +68,86 @@
 	margin: auto;
 	background-image: url('/images/icon/button_icon/icon_delete.svg');
 }
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid $color-05;
+    font-size: 14px;
+
+    img{
+	    height: 12px;
+	    display: inline-block;
+	    vertical-align: middle;
+	    margin-bottom: 2px;
+    }
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    max-width: 100%;
+    max-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;   
+    cursor: inherit;
+    display: block;
+}
+
+[type="checkbox"]:checked,
+[type="checkbox"]:not(:checked) {
+    position: absolute;
+    left: -9999px;
+}
+[type="checkbox"]:checked + label,
+[type="checkbox"]:not(:checked) + label
+{
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: #666;
+}
+[type="checkbox"]:checked + label:before,
+[type="checkbox"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 16px;
+    height: 16px;
+    border: 1px solid $color-primary;
+    border-radius: 5px;
+    background: #fff;
+}
+[type="checkbox"]:checked + label:after,
+[type="checkbox"]:not(:checked) + label:after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: $color-primary;
+    border-radius: 3px;
+    position: absolute;
+    top: 4.8px;
+    left: 5.3px;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+[type="checkbox"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+[type="checkbox"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
