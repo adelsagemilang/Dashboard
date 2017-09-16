@@ -41,10 +41,12 @@ export default class InputForm extends Component {
                 {this.props.type === "date" ? (
                     <DatePicker 
                         dateFormat="YYYY-MM-DD"
+                        showYearDropdown
                         selected={this.state.startDate} 
                         onChange={this.handleChange} 
                         className={this.props.class}
                         placeholderText={this.props.placeholder}
+                        yearDropdownItemNumber={15}
                         />
                 ) : (
                     <input
