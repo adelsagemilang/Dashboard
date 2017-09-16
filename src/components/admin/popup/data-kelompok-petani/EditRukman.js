@@ -11,14 +11,16 @@ import '../../../../stylesheet/component/admin/_popup.scss'
 import { API_URL, API_LIST_URL, TK_KEY } from '../../../../containers/RootUrl'
 
 
-class TambahKelompokPetani extends Component {
-     constructor(props) {
+export default class EditRukman extends Component{
+    constructor(props){
         super(props)
         autoBind(this)
 
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
         this.state = {
-            listProvince: {}
+            username: '',
+            listProvince: {},
+            listBank: {}
         }
     }
 
@@ -78,18 +80,24 @@ class TambahKelompokPetani extends Component {
         })
     }
 
-     handleSubmit(e){
+    handleChangeBank(e){
+        //get list vilage
+        this.setState({bankId: e.target.value}, () => {
+            console.log(this.state.bankId)
+        })
+    }
+
+    handleSubmit(e){
         // const doc = document.getElementById
         e.preventDefault();
         const { cookies } = this.props;
         
-        axios.post(API_URL + 'rukmans', {
+        axios.put(API_URL + this.props.url, {
             rukman_name: document.getElementById('nama-rukman').value,
             pic_name: document.getElementById('nama-pic').value,
             pic_ktp_number: document.getElementById('ktp-number').value,
             pic_phone_number: document.getElementById('phone_number').value,
             address: document.getElementById('address').value,
-            pos_code: document.getElementById('postcode').value,
             username: document.getElementById('username').value,
             password: document.getElementById('password').value,
             village_id: this.state.valueVillage
@@ -104,8 +112,8 @@ class TambahKelompokPetani extends Component {
         .then(res => {
             const data = res.data
             this.setState({data})
+            window.location.reload()
             console.log('succ: '+ this.state.data)
-            window.location.reload();
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -113,7 +121,45 @@ class TambahKelompokPetani extends Component {
     }
 
     componentDidMount(){
-         axios.get(API_LIST_URL+ 'provinces/')
+        axios.get(API_URL + this.props.urlget,{
+            headers:{ 
+                'X-AUTH-TOKEN' : this.authToken
+            }
+        })
+        .then(res => {
+            const {
+                rukman_id = res.data.rukman_id,
+                name = res.data.rukman_name,
+                pic_name = res.data.pic_name,
+                ktp_number = res.data.pic_ktp_number,
+                pic_phone_number = res.data.pic_phone_number,
+                address = res.data.address,
+                postcode = res.data.pos_code,
+                username = res.data.username,
+                password = res.data.password
+                
+            } = this.state
+
+            this.setState({
+                rukman_id,
+                name,
+                pic_name,
+                ktp_number,
+                pic_phone_number,
+                address,
+                postcode,
+                username,
+                password,
+                status: true
+            })
+
+            console.log(this.state.account_name)
+        })
+        .catch((error) => {
+            console.log('err: '+ error)
+        })
+
+        axios.get(API_LIST_URL+ 'provinces/')
         .then(res => {
             let listProvince = res.data
             this.setState({
@@ -126,14 +172,29 @@ class TambahKelompokPetani extends Component {
             console.log('err: '+ error)
         })
 
-        console.log(this.state.datahere)
+        axios.get(API_LIST_URL+ 'banks')
+        .then(res => {
+            let listBank = res.data
+            this.setState({
+                listBank,
+                listStatusBank: true
+            })
+            console.log('bank'+this.state.listBank)
+        })
+        .catch((error) => {
+            console.log('err: '+ error)
+        })
+
         
     }
 
-    render() {
+    render(){
         let{
             listStatus,
+            listStatusBank,
+
             listProvince,
+            listBank,
 
             listCities,
             statusCities,
@@ -144,15 +205,18 @@ class TambahKelompokPetani extends Component {
             listVillage,
             statusVillage
         } = this.state
-        return (
+        return(
             <div className="add-popup">
                 <div className="popup-container">
                     <div className="box-content">
                         <div className="content">
-                            <p className="title">Tambah User</p>
-                            <p className="sub-title">Silakan masukkan data kelompok tani dengan benar.</p>
-                            <div className="row-flex col-2 mg-t-10">
+                            <p className="title">Edit Data Petani</p>
+                            <p className="sub-title">Silakan masukkan data petani dengan benar.</p>
+                            {this.state.status ? (
+                            <form onSubmit={this.handleSubmit}>
+                                <div className="row-flex col-2 mg-t-10">
                                 <InputForm
+                                    defaultValue={this.state.name}
                                     inputId="nama-rukman" 
                                     type="text"
                                     placeholder="Nama Kelompok Tani"
@@ -160,6 +224,7 @@ class TambahKelompokPetani extends Component {
                                     handleChange={this._handleChange}
                                 />
                                 <InputForm
+                                    defaultValue={this.state.pic_name}
                                     inputId="nama-pic" 
                                     type="text"
                                     placeholder="Nama PIC"
@@ -169,6 +234,7 @@ class TambahKelompokPetani extends Component {
                             </div>
                             <div className="row-flex col-2 mg-t-10">
                                 <InputForm
+                                    defaultValue={this.state.ktp_number}
                                     inputId="ktp-number" 
                                     type="text"
                                     placeholder="Nomor KTP"
@@ -176,6 +242,7 @@ class TambahKelompokPetani extends Component {
                                     handleChange={this._handleChange}
                                 />
                                 <InputForm
+                                    defaultValue={this.state.pic_phone_number}
                                     inputId="phone_number" 
                                     type="text"
                                     placeholder="Nomor HP"
@@ -184,7 +251,7 @@ class TambahKelompokPetani extends Component {
                                 />
                             </div>
                             <p className="strong">Alamat</p>
-                            <TextArea idtextarea="address" title="Masukkan nama jalan/kampung dst..." class="form-control"/>
+                            <TextArea defaultValue={this.state.address} idtextarea="address" title="Masukkan nama jalan/kampung dst..." class="form-control"/>
                             <div className="row-flex col-3">
                                 <div className="select-wrapper">
                                    
@@ -250,6 +317,7 @@ class TambahKelompokPetani extends Component {
                                     </select>
                                 </div>
                                  <InputForm
+                                    defaultValue={this.state.postcode}
                                     inputId="postcode"
                                     handleChange={this._handleChange}
                                     placeholder="Kode Pos"
@@ -257,6 +325,7 @@ class TambahKelompokPetani extends Component {
                             </div>
                             <div className="row-flex col-2 mg-t-10">
                                 <InputForm
+                                    defaultValue={this.state.username}
                                     inputId="username" 
                                     type="text"
                                     placeholder="Username"
@@ -264,6 +333,7 @@ class TambahKelompokPetani extends Component {
                                     handleChange={this._handleChange}
                                 />
                                 <InputForm
+                                    defaultValue={this.state.password}
                                     inputId="password" 
                                     type="password"
                                     placeholder="Password"
@@ -271,7 +341,7 @@ class TambahKelompokPetani extends Component {
                                     handleChange={this._handleChange}
                                 />
                             </div>
-                            <div className="box-btn auto" onClick={this.handleSubmit}>
+                            <div className="box-btn auto">
                             <ButtonPrimary
                                 class="button-primary"
                                 type="submit"
@@ -283,13 +353,14 @@ class TambahKelompokPetani extends Component {
                                 type="button"
                                 name="Batal" />
                             </div>
+                            </form>
+                            ) : null 
+                            }
                         </div>
                         <div className="footer-content"></div>
                     </div>
                 </div>
             </div>
-        );
+        )
     }
 }
-
-export default TambahKelompokPetani;

@@ -8,6 +8,7 @@ import { API_URL, TK_KEY } from '../../containers/RootUrl'
 import { ButtonPrimary } from '../common/ButtonPrimary'
 import { ButtonIcon } from '../common/ButtonIcon'
 import TambahKelompokPetani from './popup/data-kelompok-petani/TambahKelompokPetani'
+import EditRukman from './popup/data-kelompok-petani/EditRukman'
 import Header from '../common/Header'
 import InputForm from '../common/InputForm'
 import ReactPaginate from 'react-paginate'
@@ -21,6 +22,7 @@ export default class DataKelompokPetani extends Component{
             dataHere: [],
             classBgColor: '',
             toggleTambahKelompok: false,
+            updateRukman: false,
             entriPage: []
         }
 
@@ -118,6 +120,20 @@ export default class DataKelompokPetani extends Component{
         })
     }
 
+    handleUpdate(rukman_id){
+        console.log('Update: ' + rukman_id)
+        this.setState({
+            rukman_id: rukman_id,
+            updatePetani: !this.state.updatePetani
+        })
+    }
+
+    toggleUpdateRukman(){
+        this.setState({
+            updateRukman: !this.state.updateRukman
+        })
+    }
+
 
     toggleTambahKelompok(){
         this.setState({
@@ -135,6 +151,18 @@ export default class DataKelompokPetani extends Component{
         }
         else{
             return null;
+        }
+    }
+
+    renderPopupUpdate(){
+        if (this.state.updatePetani){
+            return (
+                <EditRukman 
+                    urlget={'rukmans/'+this.state.rukman_id}
+                    url={'rukmans/edit/'+this.state.rukman_id}
+                    toggleUpdateRukman={this.toggleUpdateRukman} 
+            />
+            )
         }
     }
 
@@ -180,6 +208,7 @@ export default class DataKelompokPetani extends Component{
         return(
             <div>
                 {this.renderPopupTambahKelompok()}
+                {this.renderPopupUpdate()}
                 <div className="main-content">
                     <Header title="Data Kelompok Tani" />
                     <div className="user-access">
@@ -203,12 +232,11 @@ export default class DataKelompokPetani extends Component{
                                     type="text"/>
                                 </div>
 
-                                {/*<div className="pull-right">
+                                <div className="pull-right">
                                     <div className="box-btn auto" onClick={this.toggleTambahKelompok}>
                                         <ButtonPrimary name="Tambah Kelompok Tani" />
                                     </div>
                                 </div>
-                            */}
                             </div>
 
                             <div className="box-table">
@@ -237,7 +265,7 @@ export default class DataKelompokPetani extends Component{
                                                         <td>{datahere.surveyor_name}</td>
                                                         <td>
                                                             <div className="row-flex flex-center">
-                                                                <div className="box-btn" onClick={this.handleCreate}>
+                                                                <div className="box-btn" onClick={this.handleUpdate.bind(this,datahere.rukman_id)}>
                                                                     <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
                                                                 </div>
                                                                  <div className="box-btn" onClick={this.handleDelete}>
@@ -258,7 +286,7 @@ export default class DataKelompokPetani extends Component{
                                                         <td>{datahere.surveyor_name}</td>
                                                         <td>
                                                             <div className="row-flex flex-center">
-                                                                <div className="box-btn" onClick={this.handleCreate}>
+                                                                <div className="box-btn" onClick={this.handleUpdate.bind(this,datahere.rukman_id)}>
                                                                     <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
                                                                 </div>
                                                                  <div className="box-btn" onClick={this.handleDelete}>

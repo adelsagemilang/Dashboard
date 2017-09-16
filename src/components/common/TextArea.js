@@ -16,9 +16,11 @@ export default class TextArea extends Component {
         return(
             <div className="text-area">
                 <textarea
+                defaultValue={this.props.defaultValue}
                 id={this.props.idtextarea}
                 className={ this.props.class }
-                placeholder={this.props.title}>
+                placeholder={this.props.title}
+                >
                 </textarea>
             </div>
         )

@@ -17,6 +17,7 @@
     "react-chartjs-2": "^2.6.2",
     "react-collapse": "^4.0.3",
     "react-cookie": "^1.0.5",
+    "react-datepicker": "^0.54.0",
     "react-dom": "^15.6.1",
     "react-motion": "^0.5.1",
     "react-paginate": "^4.4.3",

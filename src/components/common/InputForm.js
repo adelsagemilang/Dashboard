@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import autoBind from 'react-autobind'
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
+import 'react-datepicker/dist/react-datepicker.css';
 import "../../stylesheet/component/common/_input_form.scss"
 
 export default class InputForm extends Component {
@@ -9,9 +13,19 @@ export default class InputForm extends Component {
 
         this.state = {
             title: '',
-
+            startDate: moment()
         }
     }
+
+
+    handleChange(date) {
+        this.setState({
+          startDate: date
+        })
+
+        this.props.getValueDatePicker(date) 
+
+      }
 
     _onChange(e){
         this.props.handleChange(
@@ -25,16 +39,16 @@ export default class InputForm extends Component {
         return(
             <div className="input-form">
                 {this.props.type === "date" ? (
-                    <input
-                    id={this.props.inputId}
-                    type={this.props.type}
-                    placeholder={this.props.placeholder}
-                    value={this.props.title}
-                    onChange={this._onChange}
-                    className={this.props.class}
-                    />
+                    <DatePicker 
+                        dateFormat="YYYY-MM-DD"
+                        selected={this.state.startDate} 
+                        onChange={this.handleChange} 
+                        className={this.props.class}
+                        placeholderText={this.props.placeholder}
+                        />
                 ) : (
                     <input
+                    defaultValue={this.props.defaultValue}
                     id={this.props.inputId}
                     type={this.props.type}
                     placeholder={this.props.placeholder}

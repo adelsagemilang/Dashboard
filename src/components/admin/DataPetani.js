@@ -10,6 +10,7 @@ import { ButtonIcon } from '../common/ButtonIcon'
 import Success from './popup/common-popup/Success'
 import HapusData from './popup/common-popup/HapusData'
 import TambahPetani from './popup/data-petani/TambahPetani'
+import EditPetani from './popup/data-petani/EditPetani'
 import SearchPetani from './popup/data-petani/searchPetani'
 import PhoneFound from './popup/data-petani/phoneFound'
 import PhoneNotFound from './popup/data-petani/phoneNotFound'
@@ -31,6 +32,7 @@ export default class DataPetani extends Component{
             phoneFound: false,
             phoneNotFound: false,
             daftarPetani: false,
+            updatePetani: false,
             entriPage: []
         }
 
@@ -113,14 +115,37 @@ export default class DataPetani extends Component{
     }
 
 
+    handleDelete(farmer_id, name){
+        console.log('delete: ' + farmer_id)
+        this.setState({
+            farmer_id: farmer_id,
+            name: name,
+            toggleDeletePopup: !this.state.toggleDeletePopup
+        })
+    }
+
+    handleUpdate(farmer_id){
+        console.log('Update: ' + farmer_id)
+        this.setState({
+            farmer_id: farmer_id,
+            updatePetani: !this.state.updatePetani
+        })
+    }
+
+
     toggleAddUser(){
         this.setState({
             toggleAddUser : !this.state.toggleAddUser
         })
     }
 
+    toggleUpdatePetani(){
+        this.setState({
+            updatePetani: !this.state.updatePetani
+        })
+    }
+
     toggleDeletePopup(){
-        console.log('clicked');
         this.setState({
             toggleDeletePopup : !this.state.toggleDeletePopup
         })
@@ -152,7 +177,12 @@ export default class DataPetani extends Component{
         if (this.state.toggleDeletePopup){
             return (
                 <HapusData 
-                toggleDeletePopup={this.toggleDeletePopup} 
+                    title="Hapus Petani"
+                    url={'farmers/delete/'+this.state.farmer_id}
+                    name={this.state.name}
+                    farmerId={this.state.farmer_id}
+                    handleDelete={this.handleDelete} 
+                    toggleDeletePopup={this.toggleDeletePopup} 
             />
             )
         }
@@ -162,7 +192,19 @@ export default class DataPetani extends Component{
         if(this.state.toggleSuccess){
             return (
                 <Success 
-                toggleSuccessPopup={this.toggleSuccessPopup} 
+                toggleSuccessPopup={this.handleSuccessDismiss} 
+            />
+            )
+        }
+    }
+
+    renderPopupUpdate(){
+        if (this.state.updatePetani){
+            return (
+                <EditPetani 
+                    urlget={'farmers/'+this.state.farmer_id}
+                    url={'farmers/edit/'+this.state.farmer_id}
+                    toggleUpdatePetani={this.toggleUpdatePetani} 
             />
             )
         }
@@ -173,6 +215,14 @@ export default class DataPetani extends Component{
         this.setState({
             toggleAddUser: false
         })
+    }
+
+    handleSuccessDismiss(){
+        this.setState({
+            toggleSuccess: !this.state.toggleSuccess,
+            daftarPetani: false
+        })
+        window.location.reload()
     }
 
     handleSearchToAdd(){
@@ -285,6 +335,7 @@ export default class DataPetani extends Component{
         return(
             <div>
                 {this.renderPopupAddUser()}
+                {this.renderPopupUpdate()}
                 {this.renderPopupDelete()}
                 {this.phoneFound()}
                 {this.phoneNotFound()}
@@ -351,16 +402,16 @@ export default class DataPetani extends Component{
                                                         <td>
                                                         { datahere.bank != null ?
                                                             (
-                                                                datahere.bank.bank_name ||
+                                                                datahere.bank.bank_name &&
                                                                 datahere.bank.rek_number 
                                                             ): "Data bank belum ada"
                                                         } </td>
                                                         <td className="text-center">
                                                             <div className="row-flex flex-center">
-                                                                <div className="box-btn" onClick={this.handleCreate}>
+                                                                <div className="box-btn" onClick={this.handleUpdate.bind(this,datahere.farmer_id)}>
                                                                     <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
                                                                 </div>
-                                                                 <div className="box-btn" onClick={this.toggleDeletePopup}>
+                                                                 <div className="box-btn" onClick={this.handleDelete.bind(this,datahere.farmer_id)}>
                                                                      <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
                                                                  </div>
                                                             </div>  
@@ -390,10 +441,10 @@ export default class DataPetani extends Component{
                                                         } </td>
                                                         <td className="text-center">
                                                             <div className="row-flex flex-center">
-                                                                <div className="box-btn" onClick={this.handleCreate}>
+                                                                <div className="box-btn" onClick={this.handleUpdate.bind(this,datahere.farmer_id)}>
                                                                     <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
                                                                 </div>
-                                                                 <div className="box-btn" onClick={this.toggleDeletePopup}>
+                                                                 <div className="box-btn" onClick={this.handleDelete.bind(this,datahere.farmer_id, datahere.name)}>
                                                                      <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
                                                                  </div>
                                                             </div>  
