@@ -1,6 +1,10 @@
 .input-form{
 	position: relative;
-	display: table;
+
+	@media(min-width: $screen-phone){
+		display: table;
+	}
+
 	.icon-form{
 	    position: absolute;
 	    height: 15px;
@@ -11,7 +15,13 @@
 
 .select-wrapper{
 	float: left;
+	width: 100%;
 	position: relative;
+
+	@media(min-width: $screen-phone){
+		width: auto;
+	}
+	
 }
 
 .select-wrapper::after{

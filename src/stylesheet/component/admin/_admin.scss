@@ -1,11 +1,14 @@
-@import "../../base/base";
-@import '../../base/helper';
 p{
     color: $color-02;
     font-size: 14px;
 }
 .main-content{
-    margin: 0 0 0 235px;
+    position: relative;
+    right: 0px;
+    @media screen and (min-width: $screen-desktop){
+        margin: 0 0 0 235px;
+        padding-top: 0px;
+    }
 
     .nowrap{
         .text-info{
@@ -17,35 +20,66 @@ p{
     }
 
     .dashboard{
-        padding-top: 75px;
+        @media screen and (min-width: $screen-desktop){
+            padding-top: 75px;
+        }
 
         .dashboard-top{
-            display: flex;
+            
+            @media screen and (min-width: $screen-desktop){
+                width: 100%;
+                box-sizing: border-box;
+                display: inline-block;
+            }
+
             border-bottom: 1px solid $color-04;
             .box-stat{
-                display: flex;
-                float: left;
                 width: 100%;
+                box-sizing: border-box;
+                border-bottom: 1px solid $color-04;
+                
+                @media screen and (min-width: $screen-phone){
+                    display: flex;
+                }
+
+                @media screen and (min-width: $screen-desktop){
+                    width: 60%;
+                    box-sizing: border-box;
+                    float: left;
+                    border-bottom: none;
+                }
 
                 .box{
-                    flex: 0 0 160px;
-                    float: left;
                     padding: 40px;
                     border-right: 1px solid $color-04;
+                    border-bottom: 1px solid $color-04;
+
+                    @media screen and (min-width: $screen-phone){
+                        border-bottom: none;
+                        width: (10/3)*10%;
+                    }
 
                 }
             }
             .box-tiket{
-                width: (4/12)*100%;
-                float: left;
                 padding: 40px;
+                
+                @media screen and (min-width: $screen-desktop){
+                    width: 40%;
+                    box-sizing: border-box;
+                    float: left;
+                }
 
                 .chart-wrapper{
-                    display: flex;
                     overflow: hidden;
 
+                    @media screen and (min-width: $screen-phone){
+                        display: flex;
+                        justify-content: space-between;
+                    }
+
                     ul{
-                        float: right;
+                        
                         list-style: none;
 
                         li{
@@ -65,35 +99,69 @@ p{
                             }
                         }
                     }
+                    
+                    .chart-container{
+                        height: 150px;
+                        margin-top: 40px;
 
-                    canvas{
-                        margin-left: -30px;
+                        @media screen and (min-width: $screen-phone){
+                            float: right;
+                            height: 100px;
+                        }
+
+                        @media screen and (min-width: $screen-desktop){
+                            margin-top: 0px;
+                        }
                     }
+                    
                 }
             }
         }
 
         .dashboard-middle{
-            display: flex;
             border-bottom: 1px solid $color-04;
+            @media screen and (min-width: $screen-phone){
+                display: inline-block;
+                margin-top: -5px;
+                width: 100%;
+            }
+
+            .box-program-wrapper{
+                @media screen and (min-width: $screen-desktop){
+                    display: flex;
+                    width: 60%;
+                    box-sizing: border-box;
+                    float: left;
+                }
+            }
 
             .box-program{
-                width: 401px;
-                float: left;
-                padding: 40px;
-                border-right: 1px solid $color-04;
-
+                    padding: 40px;
+                    border-right: 1px solid #DDDDDD;
+                    border-bottom: 1px solid #DDDDDD;
+                    @media screen and (min-width: $screen-phone){
+                        width: calc(100% - 80px);
+                        float: left;
+                    }
+                    @media screen and (min-width: $screen-desktop){
+                        width: calc(33.333% * 2);
+                        box-sizing: border-box;
+                        border-bottom: none;
+                    }
                 .chart-wrapper{
-                    display: flex;
                     overflow: hidden;
 
+                    @media screen and (min-width: $screen-phone){
+                        display: flex;
+                        justify-content: space-between;
+                    }
+
                     ul{
-                        float: right;
+                        
                         list-style: none;
 
                         li{
-                            display: flex;
-                            justify-content: flex-start;
+                         
                             white-space: nowrap;
                             padding-top: 15px;
                             font-size: 14px;
@@ -109,93 +177,198 @@ p{
                         }
                     }
 
-                    canvas{
-                        margin-left: -40px;
+                    .chart-container{
+                        height: 150px;
+                        margin-top: 40px;
+
+                        @media screen and (min-width: $screen-phone){
+                            float: right;
+                            height: 100px;
+                        }
+
+                        @media screen and (min-width: $screen-desktop){
+                            margin-top: 0px;
+                        }
                     }
+
                 }
             }
 
             .box-program-active{
                 padding: 40px;
-                flex: 0 0 160px;
                 border-right: 1px solid $color-04;
+                border-bottom: 1px solid $color-04;
+
+                @media screen and (min-width: $screen-phone){
+                    float: left;
+                    width: 20%;
+                    border-bottom: none;
+                }
+
+                @media screen and (min-width: $screen-desktop){
+                    box-sizing: border-box;
+                    width: 33.3333%;
+                    height: 197px;
+                    float: left;
+                }
             }
 
             .box-stat-lahan{
-                width: (4/12)*100%;
-                float: left;
                 padding: 40px;
+                @media screen and (min-width: $screen-phone){
+                    width: calc(80% - 165px);
+                    float: left;
+                }
+
+                @media(min-width: $screen-desktop){
+                    box-sizing: border-box;
+                    width: 40%;
+                    float: left;
+                    height: 197px;
+                }
 
             }
         }
 
         .dashboard-bottom{
-            display: flex;
+          
             border-bottom: 1px solid $color-04;
+
+            @media(min-width: $screen-desktop){
+                display: inline-block;
+                width: 100%;
+                margin-top: -5px;
+            }
 
             .box-kegiatan{
                 border-right: 1px solid $color-04;
-                flex: 0 0 722px;
+                
+                @media(min-width: $screen-desktop){
+                    width: 60%;
+                    box-sizing: border-box;
+                    float: left;
+                }
                 .box-top{
-                    display: table;
-                    justify-content: space-between;
                     padding: 15px 0;
                     width: 100%;
+                    margin-top: 0px;
+
+                    @media screen and (min-width: $screen-phone){
+                        display: table;
+                        margin-top: 25px;
+                    }
 
                     .table-heading{
-                    display: table-cell;
-                    vertical-align: middle;
-                    padding-left: 27px;
-                    }
-                    .search-wrapper{
-                        padding-right: 30px;
-                        display: table-cell;
-
-                        input{
-                            float: right;
+                        padding-left: 27px;
+                        @media screen and (min-width: $screen-phone){
+                            display: table-cell;
+                            vertical-align: middle;
                         }
                     }
+                    .search-wrapper{
+                        padding-left: 27px;
+                        margin-top: 20px;
+                        
+                        @media screen and (min-width: $screen-phone){
+                            display: table-cell;
+                            padding-right: 30px;
+                            padding-left: 0px;
+                            margin-top: 0px;
+                        }
+
+                        input{
+                            float: none;
+
+                            @media screen and (min-width: $screen-phone){
+                                float: right;
+                            }
+                        }
+                    }
+                }
+
+                .box-table{
+                    overflow: scroll;
                 }
             }
 
             .box-petani-nganggur{
                 width: 100%;
+
+                @media(min-width: $screen-desktop){
+                    width: 40%;
+                    box-sizing: border-box;
+                    float: left;
+                }
                 .box-top{
-                    display: table;
-                    justify-content: space-between;
                     padding: 15px 0;
                     width: 100%;
+                    margin-top: 0px;
+
+                    @media screen and (min-width: $screen-phone){
+                        display: table;
+                        margin-top: 25px;
+                    }
 
                     .table-heading{
-                    display: table-cell;
-                    vertical-align: middle;
-                    padding-left: 27px;
-                    }
-                    .search-wrapper{
-                        padding-right: 30px;
-                        display: table-cell;
-
-                        input{
-                            float: right;
+                        padding-left: 27px;
+                        @media screen and (min-width: $screen-phone){
+                            display: table-cell;
+                            vertical-align: middle;
                         }
                     }
+                    .search-wrapper{
+                        padding-left: 27px;
+                        margin-top: 20px;
+                        
+                        @media screen and (min-width: $screen-phone){
+                            display: table-cell;
+                            padding-right: 30px;
+                            padding-left: 0px;
+                            margin-top: 0px;
+                        }
+
+                        input{
+                            float: none;
+
+                            @media screen and (min-width: $screen-phone){
+                                float: right;
+                            }
+                        }
+                    }
+                }
+
+                .box-table{
+                    overflow: scroll;
                 }
             }
         }
     }
 
     .edit-akun{
-        padding-top: 75px;
         overflow: hidden;
+
+        @media(min-width: $screen-desktop){
+            padding-top: 75px;
+        }
         .content-top{
             display: inline-block;
-            padding: 0 25px;
             width: 100%;
+
+            @media(min-width: $screen-phone){
+                padding: 0 25px;
+            }
             .box-picture{
                 padding: 15px 15px 15px 0px;
                 width: 166px;
                 height: 166px;
                 float: left;
+
+                @media(max-width: $screen-phone){
+                    margin: auto;
+                    text-align: center;
+                    float: none;
+                    padding: 40px 0 0px;
+                }
                 .picture-wrapper{
                     height: 100%;
                     width: 100%; 
@@ -257,57 +430,66 @@ p{
                 padding: 15px 0 15px 15px;
                 float: left;
 
+                @media(max-width: $screen-desktop){
+                    padding-left: 0px;
+                }
+
+                @media(max-width: $screen-phone){
+                    width: calc(100% - 50px);
+                    padding: 0 25px;
+                }
+
                 .box-1,.box-2{
                     padding: 5px 15px 0 0px;
                     display: block;
 
+                    @media(max-width: $screen-phone){
+                        width: 100%;
+                        padding: 0;
+                    }
+
                     .form-control{
                         width: 240px;
-                    }
-                }
-            }
-            .box-bank-form{
-                padding: 15px 0;
-                float: left;
-                p{
-                    padding-left: 15px;
-                }
-                .box-form{
-                    padding: 5px 15px 0 15px;
-                    display: block;
 
-                    .row-flex{
-                        width: 100%;
-                    }
-
-                    .form-control{
-                        width: 280px;
-
-                        &.select-option.input-sm{
-                            font-size: 14px;
-                            height: 40px;
-                            width: 140px;
+                        @media(max-width: $screen-phone){
+                            width: 100%;
+                            float: none;
+                            box-sizing: border-box;
                         }
-                        &.input-sm{
-                            width: 130px;
-                            margin-right: 10px !important;
+                    }
+
+                    .react-datepicker-wrapper{
+                        @media(max-width: $screen-phone){
+                            width: 100%;
+                        }
+
+                        .react-datepicker__input-container{
+                            @media(max-width: $screen-phone){
+                                width: 100%;
+                            }
                         }
                     }
                 }
-
             }
         }
         .content-bottom{
             display: inline-block;
             width: 100%;
             padding: 0 25px;
+
+            @media(max-width: $screen-phone){
+                width: calc(100% - 50px);
+            }
             p{
                 padding-bottom: 5px;
             }
             .box-alamat{
-                width: 560px;
+                width: 100%;
                 float: left;
                 
+                @media(min-width: $screen-phone){
+                    width: 560px;
+                }
                 textarea{
                     resize: none;
                     color: #B7B7B7;
@@ -324,10 +506,19 @@ p{
                         width: 130px;
                         margin-right: 10px !important;
 
+                        @media(max-width: $screen-phone){
+                            width: 100%;
+                            box-sizing: border-box;
+                        }
+
                         &.select-option{
                             width: 180px;
                             height: 40px;
                             font-size: 14px;
+
+                            @media(max-width: $screen-phone){
+                                width: 100%;
+                            }
                         }
                     }
                 }
@@ -349,6 +540,13 @@ p{
             width: 195px;
             margin-left: 25px;
             margin-top: 20px;
+
+            @media(max-width: $screen-phone){
+                width: calc(100% - 50px);
+                margin: 0;
+                margin: 0 25px;
+                box-sizing: border-box;
+            }
         }
     }
 
@@ -561,6 +759,14 @@ p{
 }
 
 .box.text-center{
+    @media(min-width: $screen-phone){
+         height: 90px;
+        line-height: 60px;
+    }
+
+    @media(min-width: $screen-desktop){
+        height: 116px;
+    }
     h3{
         font-weight: 300;
         font-size: 60px;
@@ -584,11 +790,32 @@ p{
 
 
 .user-access{
-    margin-top: 75px;
-    position: absolute;
-    width: calc(100% - 235px);
+    width: 100%;
     height: 100%;
     @extend .placeholder-primary;
+    
+    @media(min-width: $screen-phone){
+        position: absolute;
+    }
+    @media(min-width: $screen-desktop){
+        margin-top: 75px;
+    }
+
+    .box-top{
+        @media(max-width: $screen-phone){
+            overflow: hidden;
+        }
+        .pull-left{
+            &.row-flex{
+                padding: 0 25px;
+                width: calc(100% - 50px);
+
+                @media(min-width: $screen-phone){
+                    padding: 0;
+                }
+            }
+        }   
+    }
 }
 
 .row-flex{

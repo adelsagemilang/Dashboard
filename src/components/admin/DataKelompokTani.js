@@ -10,6 +10,7 @@ import { ButtonIcon } from '../common/ButtonIcon'
 import TambahKelompokPetani from './popup/data-kelompok-petani/TambahKelompokPetani'
 import EditRukman from './popup/data-kelompok-petani/EditRukman'
 import Header from '../common/Header'
+import ResponsiveHeader from '../common/ResponsiveHeader'
 import InputForm from '../common/InputForm'
 import ReactPaginate from 'react-paginate'
 
@@ -206,15 +207,19 @@ export default class DataKelompokPetani extends Component{
         let ClassBgColor = this.state.classBgColor
 
         return(
-            <div>
+            <div id="outer-container">
                 {this.renderPopupTambahKelompok()}
                 {this.renderPopupUpdate()}
-                <div className="main-content">
+                <ResponsiveHeader />
+                <div id="page-wrap" className="main-content">
+                    <div className="responsive-header">
+                        <img src="../images/logo-white.svg" height="35"/>
+                    </div>
                     <Header title="Data Kelompok Tani" />
                     <div className="user-access">
                         <div className="user-access-container">
                             <div className="box-top row-flex flex-space">
-                                <div className="pull-left">
+                                <div className="pull-left row-flex">
                                     <p className="count-item">30 Kelompok Petani</p>
                                     <div className="select-wrapper">
                                         <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
@@ -228,15 +233,16 @@ export default class DataKelompokPetani extends Component{
                                     inputId="search_admin"
                                     handleChange={this.handleSearch}
                                     placeholder="Cari Nama atau ID Kelompok Tani"
-                                    class="search-item"
+                                    class="search-item form-control"
                                     type="text"/>
                                 </div>
-
+                                {/*
                                 <div className="pull-right">
                                     <div className="box-btn auto" onClick={this.toggleTambahKelompok}>
                                         <ButtonPrimary name="Tambah Kelompok Tani" />
                                     </div>
                                 </div>
+                            */}
                             </div>
 
                             <div className="box-table">
@@ -249,7 +255,7 @@ export default class DataKelompokPetani extends Component{
                                             <th>Total Luas Lahan</th>
                                             <th>Alamat</th>
                                             <th>Data Ketua</th>
-                                            <th>Aksi</th>
+                                            {/*<th>Aksi</th>*/}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -257,14 +263,15 @@ export default class DataKelompokPetani extends Component{
                                             if(i % 2 === 1){
                                                 return(
                                                     <tr key={i} className='list-grey'>
-                                                        <td className="strong">{datahere.rukman_id}</td>
-                                                        <td>{datahere.rukman_name}</td>
-                                                        <td className="text-center">10</td>
-                                                        <td>2000m</td>
-                                                        <td>{datahere.address}</td>
-                                                        <td>{datahere.surveyor_name}</td>
-                                                        <td>
-                                                            <div className="row-flex flex-center">
+                                                        <td data-th="ID" className="strong">{datahere.rukman_id}</td>
+                                                        <td data-th="Nama Kelompok Tani">{datahere.rukman_name}</td>
+                                                        <td data-th="Jumlah Anggota" className="text-center">10</td>
+                                                        <td data-th="Total Luash Lahan">2000m</td>
+                                                        <td data-th="Alamat">{datahere.address}</td>
+                                                        <td data-th="Data Ketua">{datahere.surveyor_name}</td>
+                                                        {/*
+                                                        <td data-th="Aksi">
+                                                            <div className="row-flex flex-center flex-xs">
                                                                 <div className="box-btn" onClick={this.handleUpdate.bind(this,datahere.rukman_id)}>
                                                                     <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
                                                                 </div>
@@ -273,19 +280,21 @@ export default class DataKelompokPetani extends Component{
                                                                  </div>
                                                             </div>  
                                                         </td>
+                                                    */}
                                                     </tr>
                                                 )
                                             }else{
                                                 return(
                                                     <tr key={i} >
-                                                        <td className="strong">{datahere.rukman_id}</td>
-                                                        <td>{datahere.rukman_name}</td>
-                                                        <td className="text-center">10</td>
-                                                        <td>2000m</td>
-                                                        <td>{datahere.address}</td>
-                                                        <td>{datahere.surveyor_name}</td>
-                                                        <td>
-                                                            <div className="row-flex flex-center">
+                                                        <td data-th="ID" className="strong">{datahere.rukman_id}</td>
+                                                        <td data-th="Nama Kelompok Tani">{datahere.rukman_name}</td>
+                                                        <td data-th="Jumlah Anggota" className="text-center">10</td>
+                                                        <td data-th="Total Luas Lahan">2000m</td>
+                                                        <td data-th="Alamat">{datahere.address}</td>
+                                                        <td data-th="Data Ketua">{datahere.surveyor_name}</td>
+                                                        {/*}
+                                                        <td data-th="Aksi">
+                                                            <div className="row-flex flex-center flex-xs">
                                                                 <div className="box-btn" onClick={this.handleUpdate.bind(this,datahere.rukman_id)}>
                                                                     <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
                                                                 </div>
@@ -294,6 +303,7 @@ export default class DataKelompokPetani extends Component{
                                                                  </div>
                                                             </div>  
                                                         </td>
+                                                    */}
                                                     </tr>
                                                 )
                                             }

@@ -13,7 +13,8 @@ export default class InputForm extends Component {
 
         this.state = {
             title: '',
-            startDate: moment()
+            startDate: moment(),
+            dbDate: moment(this.props.startdate)
         }
     }
 
@@ -41,10 +42,13 @@ export default class InputForm extends Component {
                 {this.props.type === "date" ? (
                     <DatePicker 
                         dateFormat="YYYY-MM-DD"
-                        selected={this.state.startDate} 
+                        showYearDropdown
+                        scrollableYearDropdown
+                        selected={this.props.startdate ? this.state.dbDate : this.state.startDate} 
                         onChange={this.handleChange} 
                         className={this.props.class}
                         placeholderText={this.props.placeholder}
+                        yearDropdownItemNumber={15}
                         />
                 ) : (
                     <input

@@ -1,5 +1,3 @@
-@import "../base/base";
-
 .login-comp{
     z-index: 10;
     @extend .placeholder-primary;
@@ -14,8 +12,13 @@
             .content{
                 @extend .radius-primary;
                 background-color: $color-01;
-                width: 390px;
+                width: 300px;
+                margin: auto;
                 height: 390px;
+
+                @media (min-width: $screen-phone){
+                    width: 390px;
+                }
                 .box-typeface-image{
                     margin: 0 auto 0 auto;
                     padding: 30px 0 0 0;
@@ -34,7 +37,11 @@
                 }
                 .form{
                     margin: 30px 0 0 0;
-                    padding: 0 40px 0 40px;
+                    padding: 0 20px;
+
+                    @media (min-width: $screen-phone){
+                        padding: 0 40px;
+                    }
                     form{
                         .form-input{
                             @extend .form-primary;

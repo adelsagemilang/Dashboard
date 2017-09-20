@@ -7,6 +7,7 @@ import autoBind from 'react-autobind'
 import { API_URL, TK_KEY } from '../../containers/RootUrl'
 import { ButtonPrimary } from '../common/ButtonPrimary'
 import Header from '../common/Header'
+import ResponsiveHeader from '../common/ResponsiveHeader'
 import InputForm from '../common/InputForm'
 import ReactPaginate from 'react-paginate'
 
@@ -148,13 +149,17 @@ export default class DataOrderOut extends Component{
         let ClassBgColor = this.state.classBgColor
 
         return(
-            <div>
-                <div className="main-content">
-                    <Header title="Data Petani" />
+            <div id="outer-container">
+                <ResponsiveHeader />
+                <div id="page-wrap" className="main-content">
+                    <div className="responsive-header">
+                        <img src="../images/logo-white.svg" height="35"/>
+                    </div>
+                    <Header title="Data Order Keluar" />
                     <div className="user-access">
                         <div className="user-access-container">
                             <div className="box-top row-flex flex-space">
-                                <div className="pull-left">
+                                <div className="pull-left row-flex">
                                     <p className="count-item">30 Order Keluar</p>
                                     <div className="select-wrapper">
                                         <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
@@ -168,7 +173,7 @@ export default class DataOrderOut extends Component{
                                     inputId="search_admin"
                                     handleChange={this.handleSearch}
                                     placeholder="Cari .."
-                                    class="search-item"
+                                    class="search-item form-control"
                                     type="text"/>
                                 </div>
                             </div>
@@ -192,13 +197,13 @@ export default class DataOrderOut extends Component{
                                                 i = i + 1
                                                 return(
                                                     <tr key={i} className='list-grey'>
-                                                        <td>{i}</td>
-                                                        <td>{datahere.farmer_name}</td>
-                                                        <td>{datahere.rukman_name}</td>
-                                                        <td>Komoditas</td>
-                                                        <td>{datahere.qty}</td>
-                                                        <td>{datahere.price}</td>
-                                                        <td className="text-center">
+                                                        <td data-th="No">{i}</td>
+                                                        <td data-th="Nama Petani">{datahere.farmer_name}</td>
+                                                        <td data-th="Nama Rukman">{datahere.rukman_name}</td>
+                                                        <td data-th="Komoditas">Komoditas</td>
+                                                        <td data-th="Jumlah">{datahere.qty}</td>
+                                                        <td data-th="Harga">{datahere.price}</td>
+                                                        <td data-th="Status" className="text-center">
                                                         	{datahere.status}	
                                                         </td>
                                                     </tr>
@@ -207,13 +212,13 @@ export default class DataOrderOut extends Component{
                                                 i = i + 1
                                                 return(
                                                     <tr key={i} >
-                                                        <td>{i}</td>
-                                                        <td>{datahere.farmer_name}</td>
-                                                        <td>{datahere.rukman_name}</td>
-                                                        <td>Komoditas</td>
-                                                        <td>{datahere.qty}</td>
-                                                        <td>{datahere.price}</td>
-                                                        <td className="text-center">
+                                                        <td data-th="No">{i}</td>
+                                                        <td data-th="Nama Petani">{datahere.farmer_name}</td>
+                                                        <td data-th="Nama Rukman">{datahere.rukman_name}</td>
+                                                        <td data-th="Komoditas">Komoditas</td>
+                                                        <td data-th="Jumlah">{datahere.qty}</td>
+                                                        <td data-th="Harga">{datahere.price}</td>
+                                                        <td data-th="Status" className="text-center">
                                                             {datahere.status}   
                                                         </td>
                                                     </tr>

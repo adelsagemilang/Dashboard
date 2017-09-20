@@ -8,6 +8,7 @@ import moment from 'moment';
 import { API_URL,API_LIST_URL , TK_KEY } from '../../containers/RootUrl'
 import { ButtonPrimary } from '../common/ButtonPrimary'
 import Header from '../common/Header'
+import ResponsiveHeader from '../common/ResponsiveHeader'
 import InputForm from '../common/InputForm'
 import TextArea from '../common/TextArea'
 
@@ -21,7 +22,7 @@ export default class EditAkun extends Component {
             listProvince: {},
             listBank: {},
             image_res: '',
-            datepicker: ''
+            datepicker: moment().format('YYYY-MM-DD')
         }
     }
 
@@ -30,11 +31,8 @@ export default class EditAkun extends Component {
     }
 
     getDatePicker(startdate){
-        let date = moment(startdate).format('YYYY-MM-DD')
-        this.setState({
-            datepicker: date
-        })
-        console.log(this.state.datepicker)
+        const date = moment(startdate).format('YYYY-MM-DD')
+        this.setState({datepicker: date})
     }
 
     onChangeInputFile(e){
@@ -166,7 +164,6 @@ export default class EditAkun extends Component {
             const data = res.data
             this.setState({data})
             window.location.reload()
-            console.log('succ: '+ this.state.data)
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -207,8 +204,7 @@ export default class EditAkun extends Component {
                 status: true
             })
 
-            console.log(this.state.name)
-            console.log(this.state.village_id)
+            console.log(this.state.birth_date)
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -261,150 +257,156 @@ export default class EditAkun extends Component {
             statusVillage
         } = this.state
         return (
-            <div className="main-content">
-            	<Header title="Edit Akun"/>
-                <div className="edit-akun">
-                 {this.state.status ? (
-                    <form onSubmit={this.handleSubmit} >
-                        <div className="content-top">
-                            <div className="box-picture">
-                                <div className="picture-wrapper">
-                                   <img className="image-profile" src={this.state.image !=null ? this.state.image : "../images/user-img.jpeg" } alt=""/>
-                                   <div className="hidden-hover">
-                                        <img src="../images/icon/icon_image.png" />
-                                        <span>Ganti Foto</span>
+            <div id="outer-container">
+                <ResponsiveHeader />
+                <div id="page-wrap" className="main-content">
+                    <div className="responsive-header">
+                        <img src="../images/logo-white.svg" height="35"/>
+                    </div>
+                    <Header title="Edit Akun"/>
+                    <div className="edit-akun">
+                     {this.state.status ? (
+                        <form onSubmit={this.handleSubmit} >
+                            <div className="content-top">
+                                <div className="box-picture">
+                                    <div className="picture-wrapper">
+                                       <img className="image-profile" src={this.state.image !=null ? this.state.image : "../images/user-img.jpeg" } alt=""/>
+                                       <div className="hidden-hover">
+                                            <img src="../images/icon/icon_image.png" />
+                                            <span>Ganti Foto</span>
+                                        </div>
+                                        <input id="uploadFile" type="file" onChange={this.onChangeInputFile}/>
+                                        <input id="image" type="hidden" value={this.state.image_res ? this.state.image_res : this.state.image}/>
                                     </div>
-                                    <input id="uploadFile" type="file" onChange={this.onChangeInputFile}/>
-                                    <input id="image" type="hidden" value={this.state.image_res ? this.state.image_res : this.state.image}/>
+                                </div>
+                                <div className="box-profile-form">
+                                    <p className="strong">Profil</p>
+                                    <div className="row-flex">
+                                        <div className="box-1">
+                                            <InputForm
+                                            inputId="name"
+                                            defaultValue={this.state.name}
+                                            handleChange={this._handleChange}
+                                            placeholder="Nama user"
+                                            type="text" class="form-control"/>
+                                            <InputForm
+                                            inputId="ktp_number"
+                                            defaultValue={this.state.ktp_number}
+                                            handleChange={this._handleChange}
+                                            placeholder="Nomor KTP"
+                                            type="text" class="form-control"/>
+                                            <InputForm
+                                            inputId="phone_number"
+                                            defaultValue={this.state.phone_number}
+                                            handleChange={this._handleChange}
+                                            placeholder="Nomor HP"
+                                            type="text" class="form-control"/>
+                                        </div>
+                                        <div className="box-2">
+                                            <InputForm
+                                            inputId="birth_place"
+                                            defaultValue={this.state.birth_place}
+                                            handleChange={this._handleChange}
+                                            placeholder="Tempat Lahir"
+                                            type="text" class="form-control"/>
+                                            <InputForm
+                                             getValueDatePicker={this.getDatePicker}
+                                            startdate={this.state.birth_date}
+                                            inputId="birth_date"
+                                            handleChange={this._handleChange}
+                                            placeholder="Tanggal Lahir"
+                                            type="date" class="form-control" icon="true" src="../images/icon/button_icon/icon-datepicker.svg"/>
+                                             <InputForm
+                                             inputId="email"
+                                            defaultValue={this.state.email}
+                                            handleChange={this._handleChange}
+                                            placeholder="Alamat Email"
+                                            type="email" class="form-control"/>
+                                        </div> 
+                                    </div>
                                 </div>
                             </div>
-                            <div className="box-profile-form">
-                                <p className="strong">Profil</p>
-                                <div className="row-flex">
-                                    <div className="box-1">
-                                        <InputForm
-                                        inputId="name"
-                                        defaultValue={this.state.name}
-                                        handleChange={this._handleChange}
-                                        placeholder="Nama user"
-                                        type="text" class="form-control"/>
-                                        <InputForm
-                                        inputId="ktp_number"
-                                        defaultValue={this.state.ktp_number}
-                                        handleChange={this._handleChange}
-                                        placeholder="Nomor KTP"
-                                        type="text" class="form-control"/>
-                                        <InputForm
-                                        inputId="phone_number"
-                                        defaultValue={this.state.phone_number}
-                                        handleChange={this._handleChange}
-                                        placeholder="Nomor HP"
-                                        type="text" class="form-control"/>
-                                    </div>
-                                    <div className="box-2">
-                                        <InputForm
-                                        inputId="birth_place"
-                                        defaultValue={this.state.birth_place}
-                                        handleChange={this._handleChange}
-                                        placeholder="Tempat Lahir"
-                                        type="text" class="form-control"/>
-                                        <InputForm
-                                         getValueDatePicker={this.getDatePicker}
-                                        inputId="birth_date"
-                                        defaultValue={this.state.birth_date}
-                                        handleChange={this._handleChange}
-                                        placeholder="Tanggal Lahir"
-                                        type="date" class="form-control" icon="true" src="../images/icon/button_icon/icon-datepicker.svg"/>
-                                         <InputForm
-                                         inputId="email"
-                                        defaultValue={this.state.email}
-                                        handleChange={this._handleChange}
-                                        placeholder="Alamat Email"
-                                        type="email" class="form-control"/>
-                                    </div> 
-                                </div>
-                            </div>
-                        </div>
-                        <div className="content-bottom">
-                            <div className="box-alamat">
-                                <p className="strong">Alamat</p>
-                                <TextArea
-                                idtextarea="address" defaultValue={this.state.address} title="Masukkan nama jalan/kampung dst..." class="form-control"/>
-                                <div className="row-flex">
-                                    <div className="select-wrapper">
-                                        <select className="form-control select-option input-sm" onChange={this.handleChangeProvince}>
-                                            <option value={this.state.location.province_id} >{this.state.location.province}</option>
-                                            {listStatus ?
-                                                listProvince.map(listprovince => 
-                                                    <option
-                                                        key={listprovince.id}
-                                                        value={listprovince.id}>
-                                                        {listprovince.name}
-                                                    </option>
-                                                ) : null
-                                            }
-                                        </select>
-                                    </div>
-                                    <div className="select-wrapper">
-                                         <select className="form-control select-option input-sm" onChange={this.handleChangeCities}>
-                                            <option value={this.state.location.city_id} >{this.state.location.city}</option>
-                                            {statusCities ?
-                                                    listCities.map(listcities => 
+                            <div className="content-bottom">
+                                <div className="box-alamat">
+                                    <p className="strong">Alamat</p>
+                                    <TextArea
+                                    idtextarea="address" defaultValue={this.state.address} title="Masukkan nama jalan/kampung dst..." class="form-control"/>
+                                    <div className="row-flex">
+                                        <div className="select-wrapper">
+                                            <select className="form-control select-option input-sm" onChange={this.handleChangeProvince}>
+                                                <option value={this.state.location.province_id} >{this.state.location.province}</option>
+                                                {listStatus ?
+                                                    listProvince.map(listprovince => 
                                                         <option
-                                                            defaultValue={this.state.cities}
-                                                            key={listcities.id}
-                                                            value={listcities.id}>
-                                                            {listcities.name}
+                                                            key={listprovince.id}
+                                                            value={listprovince.id}>
+                                                            {listprovince.name}
                                                         </option>
                                                     ) : null
-                                            }
-                                        </select>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div className="select-wrapper">
+                                             <select className="form-control select-option input-sm" onChange={this.handleChangeCities}>
+                                                <option value={this.state.location.city_id} >{this.state.location.city}</option>
+                                                {statusCities ?
+                                                        listCities.map(listcities => 
+                                                            <option
+                                                                defaultValue={this.state.cities}
+                                                                key={listcities.id}
+                                                                value={listcities.id}>
+                                                                {listcities.name}
+                                                            </option>
+                                                        ) : null
+                                                }
+                                            </select>
+                                        </div>
+                                        <div className="select-wrapper">
+                                             <select className="form-control select-option input-sm" onChange={this.handleChangeDistricts}>
+                                                <option value={this.state.location.ditsrict_id} >{this.state.location.district}</option>
+                                                {statusDistrict ?
+                                                    listDistrict.map(listdistrict => 
+                                                        <option
+                                                            defaultValue={this.state.district}
+                                                            key={listdistrict.id}
+                                                            value={listdistrict.id}>
+                                                            {listdistrict.name}
+                                                        </option>
+                                                    ) : null
+                                                }
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div className="select-wrapper">
-                                         <select className="form-control select-option input-sm" onChange={this.handleChangeDistricts}>
-                                            <option value="">Kecamatan</option>
-                                            {statusDistrict ?
-                                                listDistrict.map(listdistrict => 
-                                                    <option
-                                                        defaultValue={this.state.district}
-                                                        key={listdistrict.id}
-                                                        value={listdistrict.id}>
-                                                        {listdistrict.name}
-                                                    </option>
-                                                ) : null
-                                            }
-                                        </select>
+                                    <div className="row-flex">
+                                        <div className="select-wrapper">
+                                            <select className="form-control select-option input-sm" onChange={this.handleChangeVillage} value={this.state.value}>
+                                                <option value={this.state.location.village_id} >{this.state.location.village}</option>
+                                                {statusVillage ?
+                                                    listVillage.map(listvillage => 
+                                                        <option
+                                                            defaultValue={this.state.village}
+                                                            key={listvillage.id}
+                                                            value={listvillage.id}>
+                                                            {listvillage.name}
+                                                        </option>
+                                                    ) : null
+                                                }
+                                            </select>
+                                        </div>
+                                         <InputForm
+                                            defaultValue={this.state.location.pos_code}
+                                            inputId="pos_code"
+                                            handleChange={this._handleChange}
+                                            placeholder="Kode Pos"
+                                            type="text" class="form-control"/>
                                     </div>
-                                </div>
-                                <div className="row-flex">
-                                    <div className="select-wrapper">
-                                        <select className="form-control select-option input-sm" onChange={this.handleChangeVillage} value={this.state.value}>
-                                            <option value="">Kelurahan</option>
-                                            {statusVillage ?
-                                                listVillage.map(listvillage => 
-                                                    <option
-                                                        defaultValue={this.state.village}
-                                                        key={listvillage.id}
-                                                        value={listvillage.id}>
-                                                        {listvillage.name}
-                                                    </option>
-                                                ) : null
-                                            }
-                                        </select>
-                                    </div>
-                                     <InputForm
-                                        defaultValue={this.state.pos_code}
-                                        inputId="pos_code"
-                                        handleChange={this._handleChange}
-                                        placeholder="Kode Pos"
-                                        type="text" class="form-control"/>
                                 </div>
                             </div>
-                        </div>
-                        <ButtonPrimary name="Simpan Perubahan" />
-                    </form>
-                ): null
-                }
+                            <ButtonPrimary name="Simpan Perubahan" />
+                        </form>
+                    ): null
+                    }
+                    </div>
                 </div>
             </div>
         );

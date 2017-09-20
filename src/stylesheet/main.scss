@@ -1,18 +1,21 @@
+//base
+@import "base/base";
+@import "base/helper";
+
+//admin
+@import "component/admin/admin";
+@import "component/admin/popup";
+
 //common
 @import "component/common/button";
 @import "component/common/input_form";
 @import "component/common/header";
 @import "component/common/tags";
 
-    //common sidebar
-    @import "component/common/sidebar/sidebar";
-    @import "component/common/sidebar/list_menu";
+//common sidebar
+@import "component/common/sidebar/sidebar";
+@import "component/common/sidebar/list_menu";
 
 //compont general
 @import "component/login_comp";
-@import "component/admin/admin";
-@import "component/admin/popup";
 
-
-//base
-@import "base/helper";

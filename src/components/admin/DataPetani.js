@@ -15,6 +15,7 @@ import SearchPetani from './popup/data-petani/searchPetani'
 import PhoneFound from './popup/data-petani/phoneFound'
 import PhoneNotFound from './popup/data-petani/phoneNotFound'
 import Header from '../common/Header'
+import ResponsiveHeader from '../common/ResponsiveHeader'
 import InputForm from '../common/InputForm'
 import ReactPaginate from 'react-paginate'
 
@@ -307,7 +308,6 @@ export default class DataPetani extends Component{
     }
 
     componentDidMount(){
-        console.log(this.authToken)
         axios.get(API_URL + 'farmers?pagination=true&text=&page=0&size=10',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
@@ -333,7 +333,7 @@ export default class DataPetani extends Component{
         let ClassBgColor = this.state.classBgColor
 
         return(
-            <div>
+            <div id="outer-container">
                 {this.renderPopupAddUser()}
                 {this.renderPopupUpdate()}
                 {this.renderPopupDelete()}
@@ -341,12 +341,16 @@ export default class DataPetani extends Component{
                 {this.phoneNotFound()}
                 {this.handleDaftar()}
                 {this.renderPopupSuccess()}
-                <div className="main-content">
+                <ResponsiveHeader />
+                <div id="page-wrap" className="main-content">
+                    <div className="responsive-header">
+                        <img src="../images/logo-white.svg" height="35"/>
+                    </div>
                     <Header title="Data Petani" />
                     <div className="user-access">
                         <div className="user-access-container">
                             <div className="box-top row-flex flex-space">
-                                <div className="pull-left">
+                                <div className="pull-left row-flex">
                                     <p className="count-item">30 Petani</p>
                                     <div className="select-wrapper">
                                         <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
@@ -360,11 +364,11 @@ export default class DataPetani extends Component{
                                     inputId="search_admin"
                                     handleChange={this.handleSearch}
                                     placeholder="Cari .."
-                                    class="search-item"
+                                    class="search-item form-control"
                                     type="text"/>
                                 </div>
                                 <div className="pull-right">
-                                    <div className="box-btn" onClick={this.toggleHandleDaftar}>
+                                    <div className="box-btn auto" onClick={this.toggleHandleDaftar}>
                                         <ButtonPrimary name="Tambah Petani" />
                                     </div>
                                 </div>
@@ -388,30 +392,34 @@ export default class DataPetani extends Component{
                                             if(i % 2 === 1){
                                                 return(
                                                     <tr key={i} className='list-grey'>
-                                                        <td>
-                                                            <p>{datahere.name}</p>
-                                                            <p className="normal">{datahere.ktp_number}</p>
+                                                        <td data-th="Nama Lengkap">
+                                                            <div className="block">
+                                                                <p>{datahere.name}</p>
+                                                                <p className="normal">{datahere.ktp_number}</p>
+                                                            </div>
                                                         </td>
-                                                        <td>{datahere.phone_number}</td>
-                                                        <td>{datahere.address}</td>
-                                                        <td>
-                                                            <p>{datahere.birth_place}</p>
-                                                            <p>{datahere.birth_date}</p>
+                                                        <td data-th="No.">{datahere.phone_number}</td>
+                                                        <td data-th="Alamat">{datahere.address}</td>
+                                                        <td data-th="Tempat Tanggal Lahir">
+                                                            <div className="block">
+                                                                <p>{datahere.birth_place}</p>
+                                                                <p>{datahere.birth_date}</p>
+                                                            </div>
                                                         </td>
-                                                        <td>{datahere.biological_mothers_name}</td>
-                                                        <td>
+                                                        <td data-th="Nama Ibu Kandung">{datahere.biological_mothers_name}</td>
+                                                        <td data-th="Rek. Bank">
                                                         { datahere.bank != null ?
                                                             (
                                                                 datahere.bank.bank_name &&
                                                                 datahere.bank.rek_number 
                                                             ): "Data bank belum ada"
                                                         } </td>
-                                                        <td className="text-center">
-                                                            <div className="row-flex flex-center">
+                                                        <td data-th="Aksi" className="text-center">
+                                                            <div className="row-flex flex-center flex-xs">
                                                                 <div className="box-btn" onClick={this.handleUpdate.bind(this,datahere.farmer_id)}>
                                                                     <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
                                                                 </div>
-                                                                 <div className="box-btn" onClick={this.handleDelete.bind(this,datahere.farmer_id)}>
+                                                                 <div className="box-btn" onClick={this.handleDelete.bind(this,datahere.farmer_id,datahere.name)}>
                                                                      <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
                                                                  </div>
                                                             </div>  
@@ -421,26 +429,30 @@ export default class DataPetani extends Component{
                                             }else{
                                                 return(
                                                     <tr key={i} >
-                                                        <td>
-                                                            <p>{datahere.name}</p>
-                                                            <p className="normal">{datahere.ktp_number}</p>
+                                                        <td data-th="Nama Lengkap">
+                                                            <div className="block">
+                                                                <p>{datahere.name}</p>
+                                                                <p className="normal">{datahere.ktp_number}</p>
+                                                            </div>
                                                         </td>
-                                                        <td>{datahere.phone_number}</td>
-                                                        <td>{datahere.address}</td>
-                                                        <td>
-                                                            <p>{datahere.birth_place}</p>
-                                                            <p>{datahere.birth_date}</p>
+                                                        <td data-th="No.">{datahere.phone_number}</td>
+                                                        <td data-th="Alamat">{datahere.address}</td>
+                                                        <td data-th="Tempat Tanggal Lahir">
+                                                            <div className="block">
+                                                                 <p>{datahere.birth_place}</p>
+                                                                <p>{datahere.birth_date}</p>
+                                                            </div>
                                                         </td>
-                                                        <td>{datahere.biological_mothers_name}</td>
-                                                        <td>
+                                                        <td data-th="Nama Ibu Kandung">{datahere.biological_mothers_name}</td>
+                                                        <td data-th="Rek. Bank">
                                                         { datahere.bank != null ?
                                                             (
                                                                 datahere.bank.bank_name ||
                                                                 datahere.bank.rek_number 
                                                             ): "Data bank belum ada"
                                                         } </td>
-                                                        <td className="text-center">
-                                                            <div className="row-flex flex-center">
+                                                        <td data-th="Aksi" className="text-center">
+                                                            <div className="row-flex flex-center flex-xs">
                                                                 <div className="box-btn" onClick={this.handleUpdate.bind(this,datahere.farmer_id)}>
                                                                     <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
                                                                 </div>

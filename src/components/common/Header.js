@@ -29,9 +29,6 @@ export default class Header extends Component{
         window.location.reload(true)
     }
 
-    componentDidMount(){
-        console.log('username: '+ this.userName )
-    }
     render(){
 
         const url = window.location.pathname;
@@ -56,21 +53,23 @@ export default class Header extends Component{
                         }
                     </div>
                     
-                    <div className="box-logout header-icon" onClick={this.handleLogout}>
-                        <img src="../images/icon/logout-icon.svg" />
-                    </div>
-                    <div className="box-setting header-icon">
-                        <Link to="/admin/edit-akun">
-                            <img src={ this.state.settingActive ? '../images/icon/setting-icon-blue.svg' : '../images/icon/setting-icon.svg' } />
-                         </Link>    
-                    </div>
-                    <div className="box-user">
-                        <div className="box-img-user">
-                            <img src="../images/user-img.jpeg" />
+                    <div className="box-menu">
+                        <div className="box-user">
+                            <div className="box-img-user">
+                                <img src="../images/user-img.jpeg" />
+                            </div>
+                            <div className="box-user-text">
+                                <p className="username">{this.userName}</p>
+                                <p className="status">{this.userLevel}</p>
+                            </div>
                         </div>
-                        <div className="box-user-text">
-                            <p className="username">{this.userName}</p>
-                            <p className="status">{this.userLevel}</p>
+                        <div className="box-setting header-icon">
+                            <Link to="/admin/edit-akun">
+                                <img src={ this.state.settingActive ? '../images/icon/setting-icon-blue.svg' : '../images/icon/setting-icon.svg' } />
+                             </Link>    
+                        </div>
+                        <div className="box-logout header-icon" onClick={this.handleLogout}>
+                            <img src="../images/icon/logout-icon.svg" />
                         </div>
                     </div>
 

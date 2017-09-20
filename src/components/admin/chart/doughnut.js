@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+ import React, { Component, PropTypes } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Parser as HtmlToReactParser } from 'html-to-react';
 
@@ -39,6 +39,8 @@ const data = {
 };
 
 const options = {
+    responsive: true, 
+    maintainAspectRatio: false,
 	cutoutPercentage: 80,
 	segmentShowStroke: false,
 	elements: {
@@ -73,7 +75,9 @@ export default React.createClass({
         <p className="strong">Tiket Program</p>
         <div className="chart-wrapper">
 	        {this.refs.chart && htmlToReactParser.parse(this.refs.chart.chart_instance.generateLegend())}
-	        <Doughnut data={data} options={ options } ref="chart" height={ 100 }/>
+            <div className="chart-container">
+                <Doughnut data={data} options={ options } ref="chart" height={ 100 }/>
+            </div>
 	    </div>
       </div>
     );
