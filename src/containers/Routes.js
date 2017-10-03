@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 import {
-    Router,
     Route,
     Switch,
     Redirect
 } from 'react-router-dom'
-import App from '../components/App'
 import HomeComp from '../components/admin/HomeComp'
-import Admin from '../components/admin/Admin'
 import DataPetani from '../components/admin/DataPetani'
 import DataKelompokTani from '../components/admin/DataKelompokTani'
 import DataAnggotaKelompokTani from'../components/admin/DataAnggotaKelompokTani'
@@ -32,7 +29,6 @@ export default class Routes extends Component {
             <div>
                 <LayoutMaster>
                     <Switch>
-                        <Authenticated exact path="/" component={App} />
                         <Authenticated exact path="/dashboard" component={HomeComp}/>
                         <Authenticated exact path="/admin/data-petani" component={DataPetani}/>
                         <Authenticated exact path="/admin/data-kelompok-tani" component={DataKelompokTani}/>
@@ -47,8 +43,10 @@ export default class Routes extends Component {
                         <Authenticated exact path="/admin/kegiatan-petani" component={KegiatanPetani}/>
                         <Authenticated exact path="/admin/edit-akun" component={EditAkun}/>
                         <Authenticated exact path="/admin/rekap-kegiatan" component={RekapKegiatan}/>
-                        <Authenticated exact path="/about" component={App}/>
-                        <Authenticated exact path="/login" component={LoginComp}/>
+                        <Switch>
+                            <Authenticated exact path="/login" component={LoginComp}/>
+                            <Authenticated exact path="/" component={LoginComp}/>
+                        </Switch>
                         <Route path='/404' component={NotFound} />
                         <Redirect from='*' to='/404' />
                     </Switch>

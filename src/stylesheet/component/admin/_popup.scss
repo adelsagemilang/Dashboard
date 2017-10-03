@@ -48,6 +48,10 @@
                     width: calc(100% - 40px);
                 }
 
+                .icon-success{
+                    height: 100px !important;
+                }
+
                 .title{
                     @extend .font-secondary-6;
                     font-weight: 500;
@@ -60,6 +64,12 @@
                 .input-form{
                     width: 100%;
                     margin-top: 10px;
+
+                    .react-datepicker-wrapper{
+                        .form-control{
+                            width: 100% !important;
+                        }
+                    }
                 }
 
                 textarea{

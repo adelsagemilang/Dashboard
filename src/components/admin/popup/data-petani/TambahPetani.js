@@ -4,6 +4,7 @@ import Crypto from 'crypto-js'
 import Base64 from 'base-64'
 import axios from 'axios'
 import autoBind from 'react-autobind'
+import moment from 'moment';
 import InputForm from '../../../common/InputForm'
 import TextArea from '../../../common/TextArea'
 import { ButtonPrimary } from '../../../common/ButtonPrimary'
@@ -20,12 +21,50 @@ export default class TambahPetani extends Component{
         this.state = {
             username: '',
             listProvince: {},
-            listBank: {}
+            listBank: {},
+            error: false,
+            error_ktp: true,
+            error_hp: true,
+            datepicker: moment().format('YYYY-MM-DD')
         }
     }
 
+    getDatePicker(startdate){
+        const date = moment(startdate).format('YYYY-MM-DD')
+        this.setState({datepicker: date})
+    }
+
     _handleChange(id, value){
-        console.log('ini value: '+value)
+        console.log(id)
+        if ( id === 'no_ktp' ){
+            let re = /^\d{16}$/
+            let result =  re.test(value)
+
+            if(result){
+                this.setState({
+                    error_ktp: result
+                })
+            }else{
+                this.setState({
+                    error_ktp: false
+                })
+            }
+        }
+
+        else if( id === 'no_hp' ){
+            let re = /^(^\+62\s?|^0)(\d{3,4}-?){2}\d{3,4}$/
+            let result =  re.test(value)
+
+            if(result){
+                this.setState({
+                    error_hp: result
+                })
+            }else{
+                this.setState({
+                    error_hp: false
+                })
+            }
+        }
     }
 
     handleChangeProvince(e){
@@ -88,7 +127,6 @@ export default class TambahPetani extends Component{
     }
 
     handleSubmit(e){
-        // const doc = document.getElementById
         e.preventDefault();
         const { cookies } = this.props;
         
@@ -97,7 +135,7 @@ export default class TambahPetani extends Component{
             phone_number: document.getElementById('no_hp').value,
             ktp_number: document.getElementById('no_ktp').value,
             birth_place: document.getElementById('tempat_lahir').value,
-            birth_date: document.getElementById('tanggal_lahir').value,
+            birth_date: this.state.datepicker,
             biological_mothers_name: document.getElementById('nama-ibu').value,
             account_name: document.getElementById('bank-owner-name').value,
             rek_number: document.getElementById('no_rek').value,
@@ -120,7 +158,13 @@ export default class TambahPetani extends Component{
             console.log('succ: '+ this.state.data)
         })
         .catch((error) => {
-            console.log('err: '+ error)
+           if (error.response.status === 400){
+                let errorMessage = error.response.data[0].message
+                this.setState({
+                    error: true,
+                    errorMessage
+                })
+            }
         })
     }
 
@@ -148,7 +192,7 @@ export default class TambahPetani extends Component{
             console.log('bank'+this.state.listBank)
         })
         .catch((error) => {
-            console.log('err: '+ error)
+            
         })
 
         
@@ -178,6 +222,11 @@ export default class TambahPetani extends Component{
                         <div className="content">
                             <p className="title">Tambah User</p>
                             <p className="sub-title">Silakan masukkan data petani dengan benar.</p>
+                            {   this.state.error ? 
+                                <p className="text-danger mg-b-10 mg-t-10">{this.state.errorMessage}</p>
+                                :
+                                null
+                            }
                             <div className="row-flex col-2 mg-t-10">
                                 <InputForm
                                     inputId="nama-petani" 
@@ -190,8 +239,10 @@ export default class TambahPetani extends Component{
                                     inputId="no_hp"
                                     type="text"
                                     placeholder="No. Handphone"
-                                    class="form-control"
+                                    classError={this.state.error_hp ? "input-form" : "input-form error"}
+                                    class={this.state.error_hp ? "form-control" : "form-control has-error"}
                                     handleChange={this._handleChange}
+                                    errorMessage="Numeric minimum 10 digit angka"
                                 />
                             </div>
                             <div className="row-flex col-2">
@@ -199,8 +250,10 @@ export default class TambahPetani extends Component{
                                     inputId="no_ktp"
                                     type="text"
                                     placeholder="No. KTP"
-                                    class="form-control"
+                                    classError={this.state.error_ktp ? "input-form" : "input-form error"}
+                                    class={this.state.error_ktp ? "form-control" : "form-control has-error"}
                                     handleChange={this._handleChange}
+                                    errorMessage="Harus 16 digit angka"
                                 />
                                 <InputForm 
                                     inputId="tempat_lahir"
@@ -212,11 +265,12 @@ export default class TambahPetani extends Component{
                             </div>
                             <div className="row-flex col-2">
                                 <InputForm 
-                                    inputId="tanggal_lahir"
-                                    type="text"
-                                    placeholder="Tanggal Lahir"
-                                    class="form-control"
+                                    getValueDatePicker={this.getDatePicker}
+                                    startdate={this.state.datepicker}
+                                    inputId="birth_date"
                                     handleChange={this._handleChange}
+                                    placeholder="Tanggal Lahir"
+                                    type="date" class="form-control" icon="true" src="../images/icon/button_icon/icon-datepicker.svg"
                                 />
                                 <InputForm 
                                     inputId="nama-ibu"
@@ -298,7 +352,7 @@ export default class TambahPetani extends Component{
                                     placeholder="Kode Pos"
                                     type="text" class="form-control"/>
                             </div>
-                            <p className="strong">Informasi Akun</p>
+                            <p className="strong">Informasi Akun Bank</p>
                             <div className="row-flex col-2">
                                 <InputForm
                                     inputId="no_rek"
@@ -336,6 +390,7 @@ export default class TambahPetani extends Component{
                             </div>
                             <div className="box-btn auto" onClick={this.props.toggleHandleDaftar}>
                                 <ButtonPrimary
+                                disable={ !this.state.error_ktp && !this.state.error_hp ? true : false }
                                 class="button-secondary"
                                 type="button"
                                 name="Batal" />

@@ -11,6 +11,22 @@
 	    right: 15px;
 	    top: 17px;
 	}
+
+	.error-message{
+		display: none;
+		font-size: 12px;
+		color: $color-warning;
+	}
+
+	&.error{
+		.error-message{
+			display: block;
+		}
+	}
+}
+
+.form-control.has-error{
+	border-color: $color-warning !important;
 }
 
 .select-wrapper{

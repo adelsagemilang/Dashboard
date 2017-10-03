@@ -101,8 +101,7 @@
 
 [type="checkbox"]:checked,
 [type="checkbox"]:not(:checked) {
-    position: absolute;
-    left: -9999px;
+    opacity: 0;
 }
 [type="checkbox"]:checked + label,
 [type="checkbox"]:not(:checked) + label
@@ -134,8 +133,8 @@
     background: $color-primary;
     border-radius: 3px;
     position: absolute;
-    top: 4.8px;
-    left: 5.3px;
+    top: 5px;
+    left: 5px;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }

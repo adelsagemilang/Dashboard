@@ -190,12 +190,6 @@ export default class DataKelompokPetani extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -220,7 +214,7 @@ export default class DataKelompokPetani extends Component{
                         <div className="user-access-container">
                             <div className="box-top row-flex flex-space">
                                 <div className="pull-left row-flex">
-                                    <p className="count-item">30 Kelompok Petani</p>
+                                    <p className="count-item"> { this.state.totalElements ? this.state.totalElements : '0' } Kelompok Petani</p>
                                     <div className="select-wrapper">
                                         <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
                                             <option value="10">10 entri per halaman</option>
@@ -254,21 +248,34 @@ export default class DataKelompokPetani extends Component{
                                             <th>Jumlah Anggota</th>
                                             <th>Total Luas Lahan</th>
                                             <th>Alamat</th>
-                                            <th>Data Ketua</th>
+                                            <th className="text-center">Data Ketua</th>
                                             {/*<th>Aksi</th>*/}
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        {DataHere.map((datahere, i) => {
-                                            if(i % 2 === 1){
+                                    {
+                                        DataHere ?
+
+                                        <tbody>
+                                            {DataHere.map((datahere, i) => {
                                                 return(
-                                                    <tr key={i} className='list-grey'>
+                                                    <tr key={i}>
                                                         <td data-th="ID" className="strong">{datahere.rukman_id}</td>
                                                         <td data-th="Nama Kelompok Tani">{datahere.rukman_name}</td>
-                                                        <td data-th="Jumlah Anggota" className="text-center">10</td>
-                                                        <td data-th="Total Luash Lahan">2000m</td>
-                                                        <td data-th="Alamat">{datahere.address}</td>
-                                                        <td data-th="Data Ketua">{datahere.surveyor_name}</td>
+                                                        <td data-th="Jumlah Anggota">10</td>
+                                                        <td data-th="Total Luash Lahan">2000m<sup>2</sup></td>
+                                                        <td data-th="Alamat">
+                                                            {   ( 
+                                                                <div>
+                                                                    <p>{datahere.address}</p>
+                                                                    <p>{datahere.village} ,
+                                                                    {datahere.district}</p>
+                                                                    <p>{datahere.city} ,
+                                                                    {datahere.province}</p>
+                                                                </div>
+                                                                )
+                                                            }
+                                                        </td>
+                                                        <td className="text-center" data-th="Data Ketua">{datahere.surveyor_name}</td>
                                                         {/*
                                                         <td data-th="Aksi">
                                                             <div className="row-flex flex-center flex-xs">
@@ -283,65 +290,58 @@ export default class DataKelompokPetani extends Component{
                                                     */}
                                                     </tr>
                                                 )
-                                            }else{
-                                                return(
-                                                    <tr key={i} >
-                                                        <td data-th="ID" className="strong">{datahere.rukman_id}</td>
-                                                        <td data-th="Nama Kelompok Tani">{datahere.rukman_name}</td>
-                                                        <td data-th="Jumlah Anggota" className="text-center">10</td>
-                                                        <td data-th="Total Luas Lahan">2000m</td>
-                                                        <td data-th="Alamat">{datahere.address}</td>
-                                                        <td data-th="Data Ketua">{datahere.surveyor_name}</td>
-                                                        {/*}
-                                                        <td data-th="Aksi">
-                                                            <div className="row-flex flex-center flex-xs">
-                                                                <div className="box-btn" onClick={this.handleUpdate.bind(this,datahere.rukman_id)}>
-                                                                    <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
-                                                                </div>
-                                                                 <div className="box-btn" onClick={this.handleDelete}>
-                                                                     <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
-                                                                 </div>
-                                                            </div>  
-                                                        </td>
-                                                    */}
-                                                    </tr>
-                                                )
-                                            }
-                                        })}
-                                    </tbody>
+                                            })}
+                                        </tbody>
+
+                                        :
+
+                                        <tbody>
+                                            <tr>
+                                                <td colSpan="6">
+                                                    <p className="text-center normal">Tidak ada data</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    }
                                 </table>
                             </div>
 
-                            <div className="box-footer-table">
-                                <div className="footer-table">
-                                    <p className="text-footer">Menampilkan {this.state.totalsize} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
-                                </div>
+                            {   this.state.totalElements ?
 
-                                <div className="box-pagination">
-                                    <div className="pagination-content">
-                                        < ReactPaginate
-                                            previousLabel={
-                                                <div className="box-lable">
-                                                    <img src="/images/icon/button_icon/icon_arrow_left.png" />
-                                                </div>
-                                            }
-                                            nextLabel={
-                                                <div className="box-lable">
-                                                    <img src="/images/icon/button_icon/icon_arrow_right.png" />
-                                                </div>
-                                            }
-                                            breakLabel={<a href="">...</a>}
-                                            breakClassName={"break-me"}
-                                            pageCount={this.state.totalPage}
-                                            marginPagesDisplayed={1}
-                                            pageRangeDisplayed={2}
-                                            onPageChange={this.handlePageClick}
-                                            containerClassName={"pagination"}
-                                            subContainerClassName={"pages pagination"}
-                                            activeClassName={"active"} />
+                                (
+                                    <div className="box-footer-table">
+                                        <div className="footer-table">
+                                            <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
+                                        </div>
+
+                                        <div className="box-pagination">
+                                            <div className="pagination-content">
+                                                < ReactPaginate
+                                                    previousLabel={
+                                                        <div className="box-lable">
+                                                            <img src="/images/icon/button_icon/icon_arrow_left.png" />
+                                                        </div>
+                                                    }
+                                                    nextLabel={
+                                                        <div className="box-lable">
+                                                            <img src="/images/icon/button_icon/icon_arrow_right.png" />
+                                                        </div>
+                                                    }
+                                                    breakLabel={<a href="">...</a>}
+                                                    breakClassName={"break-me"}
+                                                    pageCount={this.state.totalPage}
+                                                    marginPagesDisplayed={1}
+                                                    pageRangeDisplayed={2}
+                                                    onPageChange={this.handlePageClick}
+                                                    containerClassName={"pagination"}
+                                                    subContainerClassName={"pages pagination"}
+                                                    activeClassName={"active"} />
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                )
+                                : null
+                            }
                         </div>
                     </div>
                 </div>

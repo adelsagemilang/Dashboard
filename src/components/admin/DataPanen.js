@@ -19,6 +19,7 @@ export default class DataPanen extends Component{
         this.state = {
             dataHere: [],
             classBgColor: '',
+            toggleNoContent: false,
             entriPage: []
         }
 
@@ -105,25 +106,37 @@ export default class DataPanen extends Component{
             this.setState({totalElements})
             this.setState({totalsize})
 
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
-            console.log('err: '+ error)
+            console.log(error.status)
         })
     }
 
+    renderNoContent(){
+        if(this.state.toggleNoContent){
+            return(
+                <tr>
+                    <td colSpan="5">
+                        <p className="text-center normal">Tidak ada data</p>
+                    </td>
+                </tr>
+            )
+        }
+    }
+
     componentDidMount(){
-        console.log(this.authToken)
-        axios.get(API_URL + 'harvests?pagination=true&text=&page=0&size=2',{
+        axios.get(API_URL + 'harvests?pagination=true&text=&page=0&size=10',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
         })
         .then(res => {
+            if(res.status === 204){
+                this.setState({
+                    toggleNoContent: true
+                })
+            }
+
             const dataHere = res.data.content
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
@@ -133,14 +146,10 @@ export default class DataPanen extends Component{
             this.setState({totalElements})
             this.setState({totalsize})
 
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
+            console.log(this.state.totalElements)
         })
         .catch((error) => {
-            console.log('err: '+ error)
+
         })
     }
 
@@ -160,7 +169,7 @@ export default class DataPanen extends Component{
                         <div className="user-access-container">
                             <div className="box-top row-flex flex-space">
                                 <div className="pull-left row-flex">
-                                    <p className="count-item">30 Order Keluar</p>
+                                    <p className="count-item">{ this.state.totalElements ? this.state.totalElements : '0' } Data Panen</p>
                                     <div className="select-wrapper">
                                         <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
                                             <option value="10">10 entri per halaman</option>
@@ -190,69 +199,61 @@ export default class DataPanen extends Component{
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {this.renderNoContent()}
                                         {DataHere.map((datahere, i) => {
-                                            if(i % 2 === 1){
-                                                i = i + 1
-                                                return(
-                                                    <tr key={i} className='list-grey'>
-                                                        <td data-th="No">{i}</td>
-                                                        <td data-th="Nama Petani">{datahere.farmer_name}</td>
-                                                        <td data-th="Komoditas">{datahere.commodity_name}</td>
-                                                        <td data-th="Jumlah">{datahere.qty}</td>
-                                                        <td data-th="Status" className="text-center">
-                                                            {datahere.status}   
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            }else{
-                                                i = i + 1
-                                                return(
-                                                    <tr key={i} >
-                                                        <td data-th="No">{i}</td>
-                                                        <td data-th="Nama Petani">{datahere.farmer_name}</td>
-                                                        <td data-th="Komoditas">{datahere.commodity_name}</td>
-                                                        <td data-th="Jumlah">{datahere.qty}</td>
-                                                        <td data-th="Status" className="text-center">
-                                                            {datahere.status}   
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            }
+                                            i = i + 1
+                                            return(
+                                                <tr key={i} className='list-grey'>
+                                                    <td data-th="No">{i}</td>
+                                                    <td data-th="Nama Petani">{datahere.farmer_name}</td>
+                                                    <td data-th="Komoditas">{datahere.commodity_name}</td>
+                                                    <td data-th="Jumlah">{datahere.qty}</td>
+                                                    <td data-th="Status" className="text-center">
+                                                        {datahere.status}   
+                                                    </td>
+                                                </tr>
+                                            )
                                         })}
                                     </tbody>
                                 </table>
                             </div>
 
-                            <div className="box-footer-table">
-                                <div className="footer-table">
-                                    <p className="text-footer">Menampilkan {this.state.totalsize} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
-                                </div>
+                            {   this.state.totalElements ?
 
-                                <div className="box-pagination">
-                                    <div className="pagination-content">
-                                        < ReactPaginate
-                                            previousLabel={
-                                                <div className="box-lable">
-                                                    <img src="/images/icon/button_icon/icon_arrow_left.png" />
-                                                </div>
-                                            }
-                                            nextLabel={
-                                                <div className="box-lable">
-                                                    <img src="/images/icon/button_icon/icon_arrow_right.png" />
-                                                </div>
-                                            }
-                                            breakLabel={<a href="">...</a>}
-                                            breakClassName={"break-me"}
-                                            pageCount={this.state.totalPage}
-                                            marginPagesDisplayed={1}
-                                            pageRangeDisplayed={2}
-                                            onPageChange={this.handlePageClick}
-                                            containerClassName={"pagination"}
-                                            subContainerClassName={"pages pagination"}
-                                            activeClassName={"active"} />
+                                (
+                                    <div className="box-footer-table">
+                                        <div className="footer-table">
+                                            <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
+                                        </div>
+
+                                        <div className="box-pagination">
+                                            <div className="pagination-content">
+                                                < ReactPaginate
+                                                    previousLabel={
+                                                        <div className="box-lable">
+                                                            <img src="/images/icon/button_icon/icon_arrow_left.png" />
+                                                        </div>
+                                                    }
+                                                    nextLabel={
+                                                        <div className="box-lable">
+                                                            <img src="/images/icon/button_icon/icon_arrow_right.png" />
+                                                        </div>
+                                                    }
+                                                    breakLabel={<a href="">...</a>}
+                                                    breakClassName={"break-me"}
+                                                    pageCount={this.state.totalPage}
+                                                    marginPagesDisplayed={1}
+                                                    pageRangeDisplayed={2}
+                                                    onPageChange={this.handlePageClick}
+                                                    containerClassName={"pagination"}
+                                                    subContainerClassName={"pages pagination"}
+                                                    activeClassName={"active"} />
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                )
+                                : null
+                            }
                         </div>
                     </div>
                 </div>

@@ -28,20 +28,28 @@ export default class HomeComp extends Component{
     }
 
     componentDidMount(){
-        console.log(this.authToken)
-        // axios.get(API_URL + 'user_access?page=0&size=100&text=&user_role=1',{
-        axios.get(API_URL + 'user_access?page=0&size=100&text=&user_role=1',{
+        
+        axios.get(API_URL + 'farmers?pagination=true&text=&page=0&size=10',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
         })
         .then(res => {
-            const dataHere = res.data.content
-            this.setState({dataHere})
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
+            const countFarmer = res.data.totalElements
+            this.setState({countFarmer})
+        })
+        .catch((error) => {
+            console.log('err: '+ error)
+        })
+
+        axios.get(API_URL + 'rukmans?pagination=true&text=&page=0&size=10',{
+            headers:{ 
+                'X-AUTH-TOKEN' : this.authToken
+            }
+        })
+        .then(res => {
+            const countRukman = res.data.totalElements
+            this.setState({countRukman})
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -64,11 +72,11 @@ export default class HomeComp extends Component{
                         <div className="dashboard-top">
                             <div className="box-stat">
                                 <div className="box text-center">
-                                    <h3>12</h3>
+                                    <h3>{ this.state.countFarmer ? this.state.countFarmer : '0' }</h3>
                                     <p>Jumlah Petani</p>
                                 </div>
                                 <div className="box text-center">
-                                    <h3>10</h3>
+                                    <h3>{ this.state.countRukman ? this.state.countRukman : '0' }</h3>
                                     <p>Jumlah Kelompok Petani</p>
                                 </div>
                                 <div className="box text-center">
@@ -94,6 +102,7 @@ export default class HomeComp extends Component{
                                 <h3>1 m<sup>2</sup><span className="text-muted">/ 5,778,435 m</span></h3>
                             </div>
                         </div>
+                        {/*}
                         <div className="dashboard-bottom">
                             <div className="box-kegiatan">
                                 <div className="box-top">
@@ -101,7 +110,7 @@ export default class HomeComp extends Component{
                                         <p className="strong">Kegiatan Petani Yang Belum Selesai</p>
                                     </div>
                                     <div className="search-wrapper">
-                                        <input className="search-item" type="text" placeholder="Cari .." />
+                                        <input className="search-item form-control" type="text" placeholder="Cari .." />
                                     </div>
                                 </div>
                                 <div className="box-table">
@@ -155,7 +164,7 @@ export default class HomeComp extends Component{
                                         <p className="strong">Daftar Petani Menganggur</p>
                                     </div>
                                     <div className="search-wrapper">
-                                        <input className="search-item" type="text" placeholder="Cari .." />
+                                        <input className="search-item form-control" type="text" placeholder="Cari .." />
                                     </div>
                                 </div>
                                 <div className="box-table">
@@ -198,6 +207,7 @@ export default class HomeComp extends Component{
                                 </div>
                             </div>
                         </div>
+                        */}
                     </div>
                 </div>
             </div>

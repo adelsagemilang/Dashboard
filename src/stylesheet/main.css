@@ -397,7 +397,7 @@ table tbody tr:nth-child(even) {
   display: none; }
 
 .text-center {
-  text-align: center; }
+  text-align: center !important; }
 
 .text-success {
   color: #79BE75 !important; }
@@ -446,6 +446,9 @@ table tbody tr:nth-child(even) {
     justify-content: start; }
   .row-flex.flex-space, .flex-space.tag-wrapper {
     justify-content: space-between; }
+
+.mg-t-10 {
+  margin-top: 10px; }
 
 .mg-t-5 {
   margin-top: 5px; }
@@ -1079,6 +1082,8 @@ p {
           .add-popup .popup-container .box-content .content {
             display: inline-block;
             width: calc(100% - 40px); } }
+        .add-popup .popup-container .box-content .content .icon-success {
+          height: 100px !important; }
         .add-popup .popup-container .box-content .content .title {
           font-weight: 500; }
           .add-popup .popup-container .box-content .content .title.warning {
@@ -1086,6 +1091,8 @@ p {
         .add-popup .popup-container .box-content .content .input-form {
           width: 100%;
           margin-top: 10px; }
+          .add-popup .popup-container .box-content .content .input-form .react-datepicker-wrapper .form-control, .add-popup .popup-container .box-content .content .input-form .react-datepicker-wrapper .tag-wrapper .react-tagsinput-input, .tag-wrapper .add-popup .popup-container .box-content .content .input-form .react-datepicker-wrapper .react-tagsinput-input {
+            width: 100% !important; }
         .add-popup .popup-container .box-content .content textarea {
           resize: none;
           color: #B7B7B7;
@@ -1244,8 +1251,7 @@ p {
 
 [type="checkbox"]:checked,
 [type="checkbox"]:not(:checked) {
-  position: absolute;
-  left: -9999px; }
+  opacity: 0; }
 
 [type="checkbox"]:checked + label,
 [type="checkbox"]:not(:checked) + label {
@@ -1276,8 +1282,8 @@ p {
   background: #27A1C3;
   border-radius: 3px;
   position: absolute;
-  top: 4.8px;
-  left: 5.3px;
+  top: 5px;
+  left: 5px;
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease; }
 
@@ -1301,6 +1307,15 @@ p {
     height: 15px;
     right: 15px;
     top: 17px; }
+  .input-form .error-message {
+    display: none;
+    font-size: 12px;
+    color: #C43737; }
+  .input-form.error .error-message {
+    display: block; }
+
+.form-control.has-error, .tag-wrapper .has-error.react-tagsinput-input {
+  border-color: #C43737 !important; }
 
 .select-wrapper {
   float: left;
@@ -1561,11 +1576,15 @@ p {
     margin-top: -12px;
     max-height: 7px;
     min-width: 66px;
+    max-width: 66px;
+    overflow: hidden;
     margin-right: 7px;
     text-transform: uppercase;
     text-decoration: none !important;
     display: inline-block;
-    vertical-align: middle; }
+    vertical-align: middle;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
 
 .list-menu {
   opacity: 0.6;
@@ -1625,7 +1644,15 @@ p {
           color: #767676; }
         .login-comp .container-login .box-form-login .content .form {
           margin: 30px 0 0 0;
-          padding: 0 20px; }
+          padding: 0 20px;
+          position: relative; }
+          .login-comp .container-login .box-form-login .content .form .text-danger {
+            font-size: 12px;
+            text-align: center;
+            top: -22px;
+            left: 50%;
+            margin-left: -107px;
+            position: absolute; }
           @media (min-width: 480px) {
             .login-comp .container-login .box-form-login .content .form {
               padding: 0 40px; } }
@@ -1636,6 +1663,8 @@ p {
             float: left; }
           .login-comp .container-login .box-form-login .content .form form .remember-me {
             margin: -1.5px 0 0 20px; }
+          .login-comp .container-login .box-form-login .content .form form .block-checkbox {
+            margin: 5px 0 15px -30px; }
         .login-comp .container-login .box-form-login .content .forgot-password {
           margin: 15px 0 0 0;
           text-align: center; }

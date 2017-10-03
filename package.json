@@ -39,5 +39,14 @@
     "watch-css": "npm run build-css && node-sass src/stylesheet/main.scss src/stylesheet/main.css -w",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/exera/pemandu-rukman-dashboard.git"
+  },
+  "author": "Adelsa",
+  "license": "ISC",
+  "homepage": "./"
 }

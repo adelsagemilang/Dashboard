@@ -288,7 +288,7 @@ export default class Datalahan extends Component{
 
                             <div className="box-footer-table">
                                 <div className="footer-table">
-                                    <p className="text-footer">Menampilkan {this.state.totalsize} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
+                                    <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
                                 </div>
 
                                 <div className="box-pagination">

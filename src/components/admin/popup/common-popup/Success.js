@@ -12,7 +12,7 @@ class Success extends Component {
 	           	<div className="popup-container sm">
 					<div className="box-content">
 						<div className="content text-center">
-							<img src="../images/icon/icon_success.svg" height="100" className="mg-b-10"/>
+							<img src="../images/icon/icon_success.svg" height="100" className="mg-b-10 icon-success"/>
 							<p className="sub-title">Data berhasil ditambahkan</p>
 							<div className="box-btn auto" onClick={this.props.toggleSuccessPopup}>
 	                        <ButtonPrimary

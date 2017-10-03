@@ -351,7 +351,7 @@ export default class DataPetani extends Component{
                         <div className="user-access-container">
                             <div className="box-top row-flex flex-space">
                                 <div className="pull-left row-flex">
-                                    <p className="count-item">30 Petani</p>
+                                    <p className="count-item">{ this.state.totalElements ? this.state.totalElements : '0' } Petani</p>
                                     <div className="select-wrapper">
                                         <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
                                             <option value="10">10 entri per halaman</option>
@@ -373,7 +373,7 @@ export default class DataPetani extends Component{
                                     </div>
                                 </div>
                             </div>
-
+                            
                             <div className="box-table">
                                 <table>
                                     <thead>
@@ -387,118 +387,102 @@ export default class DataPetani extends Component{
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        {DataHere.map((datahere, i) => {
-                                            if(i % 2 === 1){
-                                                return(
-                                                    <tr key={i} className='list-grey'>
-                                                        <td data-th="Nama Lengkap">
-                                                            <div className="block">
-                                                                <p>{datahere.name}</p>
-                                                                <p className="normal">{datahere.ktp_number}</p>
-                                                            </div>
-                                                        </td>
-                                                        <td data-th="No.">{datahere.phone_number}</td>
-                                                        <td data-th="Alamat">{datahere.address}</td>
-                                                        <td data-th="Tempat Tanggal Lahir">
-                                                            <div className="block">
-                                                                <p>{datahere.birth_place}</p>
-                                                                <p>{datahere.birth_date}</p>
-                                                            </div>
-                                                        </td>
-                                                        <td data-th="Nama Ibu Kandung">{datahere.biological_mothers_name}</td>
-                                                        <td data-th="Rek. Bank">
-                                                        { datahere.bank != null ?
-                                                            (
-                                                                datahere.bank.bank_name &&
-                                                                datahere.bank.rek_number 
-                                                            ): "Data bank belum ada"
-                                                        } </td>
-                                                        <td data-th="Aksi" className="text-center">
-                                                            <div className="row-flex flex-center flex-xs">
-                                                                <div className="box-btn" onClick={this.handleUpdate.bind(this,datahere.farmer_id)}>
-                                                                    <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
+                                    {
+                                            DataHere ?
+                                        <tbody>
+                                                {DataHere.map((datahere, i) => {
+                                                    return(
+                                                        <tr key={i}>
+                                                            <td data-th="Nama Lengkap">
+                                                                <div className="block">
+                                                                    <p>{datahere.name}</p>
+                                                                    <p className="normal">{datahere.ktp_number}</p>
                                                                 </div>
-                                                                 <div className="box-btn" onClick={this.handleDelete.bind(this,datahere.farmer_id,datahere.name)}>
-                                                                     <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
-                                                                 </div>
-                                                            </div>  
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            }else{
-                                                return(
-                                                    <tr key={i} >
-                                                        <td data-th="Nama Lengkap">
-                                                            <div className="block">
-                                                                <p>{datahere.name}</p>
-                                                                <p className="normal">{datahere.ktp_number}</p>
-                                                            </div>
-                                                        </td>
-                                                        <td data-th="No.">{datahere.phone_number}</td>
-                                                        <td data-th="Alamat">{datahere.address}</td>
-                                                        <td data-th="Tempat Tanggal Lahir">
-                                                            <div className="block">
-                                                                 <p>{datahere.birth_place}</p>
-                                                                <p>{datahere.birth_date}</p>
-                                                            </div>
-                                                        </td>
-                                                        <td data-th="Nama Ibu Kandung">{datahere.biological_mothers_name}</td>
-                                                        <td data-th="Rek. Bank">
-                                                        { datahere.bank != null ?
-                                                            (
-                                                                datahere.bank.bank_name ||
-                                                                datahere.bank.rek_number 
-                                                            ): "Data bank belum ada"
-                                                        } </td>
-                                                        <td data-th="Aksi" className="text-center">
-                                                            <div className="row-flex flex-center flex-xs">
-                                                                <div className="box-btn" onClick={this.handleUpdate.bind(this,datahere.farmer_id)}>
-                                                                    <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
+                                                            </td>
+                                                            <td data-th="No.">{datahere.phone_number}</td>
+                                                            <td data-th="Alamat">{datahere.address}
+                                                                , { datahere.village } , {datahere.district} , {datahere.city} , {datahere.province}
+                                                            </td>
+                                                            <td data-th="Tempat Tanggal Lahir">
+                                                                <div className="block">
+                                                                    <p>{datahere.birth_place}</p>
+                                                                    <p>{datahere.birth_date}</p>
                                                                 </div>
-                                                                 <div className="box-btn" onClick={this.handleDelete.bind(this,datahere.farmer_id, datahere.name)}>
-                                                                     <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
-                                                                 </div>
-                                                            </div>  
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            }
-                                        })}
-                                    </tbody>
+                                                            </td>
+                                                            <td data-th="Nama Ibu Kandung">{datahere.biological_mothers_name}</td>
+                                                            <td data-th="Rek. Bank">
+                                                            { datahere.bank != null ?
+                                                                (
+                                                                    <div>
+                                                                    <p>{datahere.bank.bank_name}</p>
+                                                                    <p>{datahere.bank.rek_number}</p>
+                                                                    </div>
+                                                                )
+                                                                : 'Data akun bank tidak ada'
+                                                             }
+                                                             </td>
+                                                            <td data-th="Aksi" className="text-center">
+                                                                <div className="row-flex flex-center flex-xs">
+                                                                    <div className="box-btn" onClick={this.handleUpdate.bind(this,datahere.farmer_id)}>
+                                                                        <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
+                                                                    </div>
+                                                                     <div className="box-btn" onClick={this.handleDelete.bind(this,datahere.farmer_id,datahere.name)}>
+                                                                         <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
+                                                                     </div>
+                                                                </div>  
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })}
+                                        </tbody>
+                                        : 
+                                        <tbody>
+                                            <tr>
+                                                <td colSpan="7">
+                                                    <p className="text-center normal">Tidak ada data</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    }
                                 </table>
                             </div>
 
-                            <div className="box-footer-table">
-                                <div className="footer-table">
-                                    <p className="text-footer">Menampilkan {this.state.totalsize} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
-                                </div>
+                            {   this.state.totalElements ?
 
-                                <div className="box-pagination">
-                                    <div className="pagination-content">
-                                        < ReactPaginate
-                                            previousLabel={
-                                                <div className="box-lable">
-                                                    <img src="/images/icon/button_icon/icon_arrow_left.png" />
-                                                </div>
-                                            }
-                                            nextLabel={
-                                                <div className="box-lable">
-                                                    <img src="/images/icon/button_icon/icon_arrow_right.png" />
-                                                </div>
-                                            }
-                                            breakLabel={<a href="">...</a>}
-                                            breakClassName={"break-me"}
-                                            pageCount={this.state.totalPage}
-                                            marginPagesDisplayed={1}
-                                            pageRangeDisplayed={2}
-                                            onPageChange={this.handlePageClick}
-                                            containerClassName={"pagination"}
-                                            subContainerClassName={"pages pagination"}
-                                            activeClassName={"active"} />
+                                (
+                                    <div className="box-footer-table">
+                                        <div className="footer-table">
+                                            <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
+                                        </div>
+
+                                        <div className="box-pagination">
+                                            <div className="pagination-content">
+                                                < ReactPaginate
+                                                    previousLabel={
+                                                        <div className="box-lable">
+                                                            <img src="/images/icon/button_icon/icon_arrow_left.png" />
+                                                        </div>
+                                                    }
+                                                    nextLabel={
+                                                        <div className="box-lable">
+                                                            <img src="/images/icon/button_icon/icon_arrow_right.png" />
+                                                        </div>
+                                                    }
+                                                    breakLabel={<a href="">...</a>}
+                                                    breakClassName={"break-me"}
+                                                    pageCount={this.state.totalPage}
+                                                    marginPagesDisplayed={1}
+                                                    pageRangeDisplayed={2}
+                                                    onPageChange={this.handlePageClick}
+                                                    containerClassName={"pagination"}
+                                                    subContainerClassName={"pages pagination"}
+                                                    activeClassName={"active"} />
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                )
+                                : null
+                            }
                         </div>
                     </div>
                 </div>

@@ -133,11 +133,7 @@ export default class DataOrderOut extends Component{
             this.setState({totalElements})
             this.setState({totalsize})
 
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
+            console.log(totalElements)
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -160,7 +156,7 @@ export default class DataOrderOut extends Component{
                         <div className="user-access-container">
                             <div className="box-top row-flex flex-space">
                                 <div className="pull-left row-flex">
-                                    <p className="count-item">30 Order Keluar</p>
+                                    <p className="count-item">{ this.state.totalElements ? this.state.totalElements : '0' } Order Keluar</p>
                                     <div className="select-wrapper">
                                         <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
                                             <option value="10">10 entri per halaman</option>
@@ -191,12 +187,13 @@ export default class DataOrderOut extends Component{
                                             <th>Status</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        {DataHere.map((datahere, i) => {
-                                            if(i % 2 === 1){
+                                    {
+                                        DataHere ?
+                                        <tbody>
+                                            {DataHere.map((datahere, i) => {
                                                 i = i + 1
                                                 return(
-                                                    <tr key={i} className='list-grey'>
+                                                    <tr key={i}>
                                                         <td data-th="No">{i}</td>
                                                         <td data-th="Nama Petani">{datahere.farmer_name}</td>
                                                         <td data-th="Nama Rukman">{datahere.rukman_name}</td>
@@ -208,57 +205,56 @@ export default class DataOrderOut extends Component{
                                                         </td>
                                                     </tr>
                                                 )
-                                            }else{
-                                                i = i + 1
-                                                return(
-                                                    <tr key={i} >
-                                                        <td data-th="No">{i}</td>
-                                                        <td data-th="Nama Petani">{datahere.farmer_name}</td>
-                                                        <td data-th="Nama Rukman">{datahere.rukman_name}</td>
-                                                        <td data-th="Komoditas">Komoditas</td>
-                                                        <td data-th="Jumlah">{datahere.qty}</td>
-                                                        <td data-th="Harga">{datahere.price}</td>
-                                                        <td data-th="Status" className="text-center">
-                                                            {datahere.status}   
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            }
-                                        })}
-                                    </tbody>
+                                            })}
+                                        </tbody>
+                                        :
+                                        <tbody>
+                                            <tr>
+                                                <td colSpan="7">
+                                                    <p className="text-center normal">Tidak ada data</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    }
                                 </table>
                             </div>
+                            
+                            {   this.state.totalElements ?
 
-                            <div className="box-footer-table">
-                                <div className="footer-table">
-                                    <p className="text-footer">Menampilkan {this.state.totalsize} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
-                                </div>
+                                (
+                                    <div className="box-footer-table">
+                                        <div className="footer-table">
+                                            <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
+                                        </div>
 
-                                <div className="box-pagination">
-                                    <div className="pagination-content">
-                                        < ReactPaginate
-                                            previousLabel={
-                                                <div className="box-lable">
-                                                    <img src="/images/icon/button_icon/icon_arrow_left.png" />
-                                                </div>
-                                            }
-                                            nextLabel={
-                                                <div className="box-lable">
-                                                    <img src="/images/icon/button_icon/icon_arrow_right.png" />
-                                                </div>
-                                            }
-                                            breakLabel={<a href="">...</a>}
-                                            breakClassName={"break-me"}
-                                            pageCount={this.state.totalPage}
-                                            marginPagesDisplayed={1}
-                                            pageRangeDisplayed={2}
-                                            onPageChange={this.handlePageClick}
-                                            containerClassName={"pagination"}
-                                            subContainerClassName={"pages pagination"}
-                                            activeClassName={"active"} />
+                                        <div className="box-pagination">
+                                            <div className="pagination-content">
+                                                < ReactPaginate
+                                                    previousLabel={
+                                                        <div className="box-lable">
+                                                            <img src="/images/icon/button_icon/icon_arrow_left.png" />
+                                                        </div>
+                                                    }
+                                                    nextLabel={
+                                                        <div className="box-lable">
+                                                            <img src="/images/icon/button_icon/icon_arrow_right.png" />
+                                                        </div>
+                                                    }
+                                                    breakLabel={<a href="">...</a>}
+                                                    breakClassName={"break-me"}
+                                                    pageCount={this.state.totalPage}
+                                                    marginPagesDisplayed={1}
+                                                    pageRangeDisplayed={2}
+                                                    onPageChange={this.handlePageClick}
+                                                    containerClassName={"pagination"}
+                                                    subContainerClassName={"pages pagination"}
+                                                    activeClassName={"active"} />
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                )
+                                : null
+                            }
                         </div>
                     </div>
                 </div>

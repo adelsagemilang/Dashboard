@@ -21,9 +21,10 @@ export default class InputForm extends Component {
 
     handleChange(date) {
         this.setState({
-          startDate: date
+          dbDate: date,
+          startDate: date,
         })
-
+         console.log(date)
         this.props.getValueDatePicker(date) 
 
       }
@@ -38,7 +39,12 @@ export default class InputForm extends Component {
 
     render(){
         return(
-            <div className="input-form">
+            <div className={ this.props.classError ? this.props.classError : "input-form" }>
+                {
+                    this.props.errorMessage ?
+                    <span className="error-message"> {this.props.errorMessage}</span>
+                    : null
+                }
                 {this.props.type === "date" ? (
                     <DatePicker 
                         dateFormat="YYYY-MM-DD"
@@ -54,6 +60,13 @@ export default class InputForm extends Component {
                     <input
                     defaultValue={this.props.defaultValue}
                     id={this.props.inputId}
+                    maxLength={(() => {
+                        switch (this.props.inputId) {
+                          case "no_ktp":   return "16";
+                          case "no_hp":   return "12";
+                          default:      return null;
+                        }
+                    })()}
                     type={this.props.type}
                     placeholder={this.props.placeholder}
                     value={this.props.title}

@@ -5,7 +5,8 @@ export function ButtonPrimary(props){
     return(
         <button
         className={props.class ? props.class : 'button-primary'}
-        type="submit">
+        type="submit"
+        disabled={ props.disable ? true : false}>
             {props.name}
         </button>
     )

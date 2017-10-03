@@ -108,10 +108,14 @@
         margin-top: -12px;
         max-height: 7px;
         min-width: 66px;
+        max-width: 66px;
+        overflow: hidden;
         margin-right: 7px;
         text-transform: uppercase;
         text-decoration: none !important;
         display: inline-block;
         vertical-align: middle;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 }

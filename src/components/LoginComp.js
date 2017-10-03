@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 import { API_URL, TK_KEY } from '../containers/RootUrl'
-import actionAuth, { authReq } from '../actions/actionAuth'
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux'
 import { hashHistory,withRouter, Redirect, router } from 'react-router';
@@ -21,20 +20,26 @@ class LoginComp extends Component{
         this.state = {
             username: '',
             pin: '',
+            error: false,
         }
     }
 
     handleChangeUsername(e){
-        this.setState({ username: e.target.value })
+        this.setState({ 
+            username: e.target.value,
+            error: false
+        })
     }
 
     handleChangePassword(e){
-        this.setState({ pin: e.target.value })
+        this.setState({ 
+            pin: e.target.value,
+            error: false
+        })
     }
 
     handleSubmit(e){
         e.preventDefault();
-        // this.props.authReq()
         const { cookies } = this.props;
         console.log('username: ' + this.state.username)
         console.log('pin: ' + this.state.pin)
@@ -51,7 +56,6 @@ class LoginComp extends Component{
             const userName = res.data.name
             const userLevel = res.data.user_level_name
             this.setState({data})
-            console.log('succ: '+ this.state.data)
 
             Cookie.save('TK', Base64.encode(Crypto.AES.encrypt(data, TK_KEY)))
             Cookie.save('username', Base64.encode(Crypto.AES.encrypt(userName, TK_KEY)))
@@ -59,7 +63,11 @@ class LoginComp extends Component{
             this.props.history.push('/dashboard');
         })
         .catch((error) => {
-            console.log('err: '+ error)
+            if (error.response.status === 401){
+                this.setState({
+                    error: true
+                })
+            }
         })
 
     }
@@ -77,6 +85,11 @@ class LoginComp extends Component{
                             <p className="title">Pemandu Rukman</p>
                             <div className="form">
                                 <form onSubmit={this.handleSubmit}>
+                                    {   this.state.error ? 
+                                        <p className="text-danger mg-b-10">Username dan password tidak terdaftar</p>
+                                        :
+                                        null
+                                    }
                                     <input 
                                     onChange={this.handleChangeUsername}
                                     className="add-username form-input"
@@ -94,12 +107,10 @@ class LoginComp extends Component{
                                     ref="password"
                                     value={this.state.password} /><br/>
 
-                                    <input
-                                    className="add-checkbox"
-                                    type="checkbox"
-                                    placeholder="Password"
-                                    ref="password"  />
-                                    <p className="remember-me">Remember Me</p> <br/>
+                                    <div className="block-checkbox">
+                                        <input type="checkbox" id="remember" />
+                                        <label className="remember-me" htmlFor="remember">Remember Me</label>
+                                    </div>
                                     <ButtonPrimary name="Login"/>
                                 </form>
                             </div>
@@ -119,7 +130,4 @@ function mapStateToProps(state) {
     }
 }
 
-// export default connect(mapStateToProps, { authReq })( LoginComp );
-// export default withRouter(LoginComp)
-// export default withRouter(LoginComp)
 export default LoginComp

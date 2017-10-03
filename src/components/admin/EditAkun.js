@@ -203,8 +203,6 @@ export default class EditAkun extends Component {
                 location,
                 status: true
             })
-
-            console.log(this.state.birth_date)
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -270,7 +268,7 @@ export default class EditAkun extends Component {
                             <div className="content-top">
                                 <div className="box-picture">
                                     <div className="picture-wrapper">
-                                       <img className="image-profile" src={this.state.image !=null ? this.state.image : "../images/user-img.jpeg" } alt=""/>
+                                       <img className="image-profile" src={this.state.image !=null ? this.state.image : "../images/user-img.png" } alt=""/>
                                        <div className="hidden-hover">
                                             <img src="../images/icon/icon_image.png" />
                                             <span>Ganti Foto</span>

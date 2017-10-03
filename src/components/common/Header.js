@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import "../../stylesheet/component/common/_header.scss"
 import Cookie from 'react-cookie';
 import Crypto from 'crypto-js';
+import axios from 'axios'
 import Base64 from 'base-64';
 import autoBind from 'react-autobind';
 import { API_URL, TK_KEY } from '../../containers/RootUrl'
@@ -27,6 +28,29 @@ export default class Header extends Component{
         Cookie.remove('user_level_name', { path: '/' });
         Cookie.remove('username', { path: '/' });
         window.location.reload(true)
+    }
+
+    componentDidMount(){
+        axios.get(API_URL + 'users',{
+            headers:{ 
+                'X-AUTH-TOKEN' : this.authToken
+            }
+        })
+        .then(res => {
+            const {
+                image = res.data.image,
+                
+                
+            } = this.state
+
+            this.setState({
+                image
+            })
+
+        })
+        .catch((error) => {
+            console.log('err: '+ error)
+        })
     }
 
     render(){
@@ -56,7 +80,7 @@ export default class Header extends Component{
                     <div className="box-menu">
                         <div className="box-user">
                             <div className="box-img-user">
-                                <img src="../images/user-img.jpeg" />
+                                <img src={ this.state.image ? this.state.image : "../images/user-img.png"} />
                             </div>
                             <div className="box-user-text">
                                 <p className="username">{this.userName}</p>
