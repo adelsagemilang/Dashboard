@@ -13,6 +13,10 @@ class HapusData extends Component {
         autoBind(this)
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
 
+        this.state = ({
+            error: false
+        })
+
     }
 
     handleAcceptDelete(){
@@ -28,6 +32,13 @@ class HapusData extends Component {
             window.location.reload()
         })
         .catch((error) => {
+            if (error.response.status == 400){
+                this.setState({
+                    errorMessage: error.response.data,
+                    error: true
+                })
+
+            }
             console.log('err: '+ error)
         })
     }
@@ -38,7 +49,11 @@ class HapusData extends Component {
 					<div className="box-content">
 						<div className="content">
 							<p className="title warning">{this.props.title}</p>
-							<p className="sub-title">Apakah anda yakin akan data dari petani <span className="strong">{this.props.name}</span> ?</p>
+                            { this.state.error ? 
+                                <p className="text-danger mg-t-10">{ this.state.errorMessage } </p>
+                                : null
+                            }
+							<p className="sub-title">Apakah anda yakin akan menghapus data <span className="strong">{this.props.name}</span> ?</p>
 							<div className="box-btn auto" onClick={this.props.toggleDeletePopup}>
 	                        <ButtonPrimary
                                 class="button-primary"

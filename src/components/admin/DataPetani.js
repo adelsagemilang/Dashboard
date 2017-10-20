@@ -202,7 +202,8 @@ export default class DataPetani extends Component{
     renderPopupUpdate(){
         if (this.state.updatePetani){
             return (
-                <EditPetani 
+                <EditPetani
+                    success={this.toggleSuccessPopup} 
                     urlget={'farmers/'+this.state.farmer_id}
                     url={'farmers/edit/'+this.state.farmer_id}
                     toggleUpdatePetani={this.toggleUpdatePetani} 
@@ -393,29 +394,30 @@ export default class DataPetani extends Component{
                                                 {DataHere.map((datahere, i) => {
                                                     return(
                                                         <tr key={i}>
-                                                            <td data-th="Nama Lengkap">
-                                                                <div className="block">
+                                                            <td data-th="Nama  dan KTP">
+                                                                <div className="block two-line">
                                                                     <p>{datahere.name}</p>
                                                                     <p className="normal">{datahere.ktp_number}</p>
                                                                 </div>
                                                             </td>
-                                                            <td data-th="No.">{datahere.phone_number}</td>
-                                                            <td data-th="Alamat">{datahere.address}
-                                                                , { datahere.village } , {datahere.district} , {datahere.city} , {datahere.province}
+                                                            <td data-th="No. Handphone">{datahere.phone_number}</td>
+                                                            <td data-th="Alamat">
+                                                                <div className="block">{datahere.address}
+                                                                , { datahere.village } , {datahere.district} , {datahere.city} , {datahere.province}</div>
                                                             </td>
                                                             <td data-th="Tempat Tanggal Lahir">
-                                                                <div className="block">
+                                                                <div className="block two-line">
                                                                     <p>{datahere.birth_place}</p>
                                                                     <p>{datahere.birth_date}</p>
                                                                 </div>
                                                             </td>
-                                                            <td data-th="Nama Ibu Kandung">{datahere.biological_mothers_name}</td>
+                                                            <td data-th="Nama Ibu">{datahere.biological_mothers_name}</td>
                                                             <td data-th="Rek. Bank">
                                                             { datahere.bank != null ?
                                                                 (
-                                                                    <div>
-                                                                    <p>{datahere.bank.bank_name}</p>
-                                                                    <p>{datahere.bank.rek_number}</p>
+                                                                    <div className="block">
+                                                                        <p>{datahere.bank.bank_name}</p>
+                                                                        <p>{datahere.bank.rek_number}</p>
                                                                     </div>
                                                                 )
                                                                 : 'Data akun bank tidak ada'
@@ -438,8 +440,8 @@ export default class DataPetani extends Component{
                                         : 
                                         <tbody>
                                             <tr>
-                                                <td colSpan="7">
-                                                    <p className="text-center normal">Tidak ada data</p>
+                                                <td className="text-center normal pd-t-10 no-content" colSpan="7">
+                                                    Tidak ada data
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -452,7 +454,7 @@ export default class DataPetani extends Component{
                                 (
                                     <div className="box-footer-table">
                                         <div className="footer-table">
-                                            <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
+                                            <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Data Petani</p>
                                         </div>
 
                                         <div className="box-pagination">

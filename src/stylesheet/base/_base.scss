@@ -211,6 +211,87 @@ body{
     @media(max-width: $screen-phone){
         margin-bottom: 25px;
     }
+
+    &.row-flex{
+        @media(max-width: 710px){
+            display: block !important;
+        }
+
+        .pull-left, .pull-right{
+            @media(max-width: 710px){
+                float: none;
+                display: block;
+                width: 100% !important;
+            }
+
+            @media(max-width: $screen-phone){
+                width: calc(100% - 50px) !important;
+            }
+
+            .count-item{
+                @media(max-width: 710px){
+                    float: none;
+                }
+            }
+
+            .select-wrapper{
+                @media(max-width: 710px){
+                    float: none;
+                    margin: 10px 25px;
+                }
+
+                @media(max-width: $screen-phone){
+                    margin: 0px;
+                }
+
+                .option-input{
+                    @media(max-width: 710px){
+                        float: none;
+                        width: 100%;
+                    }
+                }
+            }
+
+            .input-form{
+                @media(max-width: 710px){
+                    display: block;
+                    padding: 10px 25px;
+                    width: auto;
+                    box-sizing: border-box;
+                }
+
+                @media(max-width: $screen-phone){
+                    padding: 0px;
+                }
+
+                .search-item{
+                    @media(max-width: 710px){
+                        float: none;
+                        margin: 0 !important;
+                    }
+                }
+            }
+
+            .box-btn{
+                @media(max-width: 710px){
+                    margin: 0;
+                    padding: 0 25px 15px;
+                }
+
+                @media(max-width: $screen-phone){
+                    padding: 0px;
+                }
+
+                .button-primary{
+                    @media(max-width: 710px){
+                        width: 100%;
+                        max-width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
     .count-item{
         padding: 0px 0px 20px;
         margin: 5px 0 0 0;
@@ -246,10 +327,6 @@ body{
     .row-flex{
         .search-item{
             width: calc(100% - 12px);
-            
-            @media(min-width: $screen-phone){
-                width: 230px;
-            }
         }
 
         .input-form{
@@ -328,11 +405,12 @@ table{
 
 .box-table{
     
-    @media(min-width: $screen-phone){
-        overflow: scroll;
-    }
-    @media(min-width: $screen-desktop){
+    @media(max-width: $screen-phone){
         overflow: unset;
+    }
+
+    @media(max-width: $screen-desktop){
+        overflow-x: scroll;
     }
     table{
         border-top:1px solid $color-05;
@@ -380,6 +458,16 @@ table{
                         padding: 0 15px;
                     }
 
+                    &.no-content{
+                        &:before{
+                            display: none !important;
+                        }
+                        &.text-center{
+                            text-align: center !important;
+                            font-weight: 400 !important;
+                        }
+                    }
+
                     .row-flex.flex-center.flex-xs{
                         @media(max-width: $screen-phone){
                             margin-top: -20px;
@@ -392,6 +480,12 @@ table{
                         line-height: 20px;
                     }
 
+                    &.text-center{
+                        @media(max-width: $screen-phone){
+                            text-align: left !important;
+                        }
+                    }
+
                     &:first-child{
                         font-weight: 600;
                         padding-top: 20px;
@@ -401,10 +495,16 @@ table{
 
                         .block{
                             @media(max-width: $screen-phone){
-                                position: absolute;
-                                padding-left: 6.5em;
-                                top: 0;
-                                margin-top: 20px;
+                                position: relative;
+                                padding-left: 6.7em;
+                                margin-top: -20px;
+                            }
+                            &.two-line{
+                                margin-top: -40px !important;
+
+                                @media(min-width: $screen-phone){
+                                    margin-top: 0 !important;
+                                }
                             }
                         }
                     }
@@ -435,9 +535,16 @@ table{
 
                     .block{
                         @media(max-width: $screen-phone){
-                            position: absolute;
-                            padding-left: 6.5em;
-                            top: 0;
+                            position: relative;
+                            padding-left: 6.7em;
+                            margin-top: -20px;
+                        }
+                        &.two-line{
+                            margin-top: -40px !important;
+
+                            @media(min-width: $screen-phone){
+                                margin-top: 0 !important;
+                            }
                         }
                     }
                 }
@@ -492,8 +599,9 @@ table{
             @extend .font-primary;
             .active{
               border-radius: 50px;
-            //   border: 1px solid $primary-color;
-            //   background-color: $bg-secondary-color;
+              >a {
+                color: $color-secondary !important;
+                }
             }
             li{
                 padding: 0 0 0 30px;

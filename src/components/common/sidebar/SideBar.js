@@ -52,64 +52,63 @@ export default class SideBar extends Component {
                     <div className="box-list">
                         <Link to="/dashboard">
                             <div >
-                                <ListMenu text="Dashboard" icon="../images/icon/menu_icon/menu_icon_1.svg" classActive={dashboard}/>
+                                <ListMenu padding="no-pad" text="Dashboard" icon="../images/icon/menu_icon/menu_icon_1.svg" classActive={dashboard}/>
        
                             </div>
                         </Link>
                         <Link to="/admin/data-petani">
                             <div>
-                                <ListMenu text="Data Petani" icon="../images/icon/menu_icon/menu_icon_2.svg" classActive={dataPetani}/>
+                                <ListMenu padding="no-pad" text="Data Petani" icon="../images/icon/menu_icon/menu_icon_2.svg" classActive={dataPetani}/>
                             </div>
                         </Link>
                         <Link to="/admin/data-kelompok-tani">
                             <div>
-                                <ListMenu text="Data Kelompok Tani" icon="../images/icon/menu_icon/menu_icon_3.svg" classActive={dataKelTani}/>
+                                <ListMenu padding="no-pad" text="Data Kelompok Tani" icon="../images/icon/menu_icon/menu_icon_3.svg" classActive={dataKelTani}/>
                             </div>
                         </Link>
                         <Link to="/admin/order-out">
                             <div>
-                                <ListMenu text="Data Order Keluar" icon="../images/icon/menu_icon/order-icon.svg" classActive={OrderOut}/>
+                                <ListMenu padding="no-pad" text="Data Order Keluar" icon="../images/icon/menu_icon/order-icon.svg" classActive={OrderOut}/>
                             </div>
                         </Link>
                         <Link to="/admin/data-panen">
                             <div>
-                                <ListMenu text="Data Panen" icon="../images/icon/menu_icon/panen-icon.svg" classActive={dataPanen}/>
+                                <ListMenu padding="no-pad" text="Data Panen" icon="../images/icon/menu_icon/panen-icon.svg" classActive={dataPanen}/>
+                            </div>
+                        </Link>
+                        <Link to="/admin/data-lahan">
+                            <div>
+                                <ListMenu padding="no-pad" text="Data Lahan" icon="../images/icon/menu_icon/menu_icon_5.svg" classActive={dataLahan}/>
                             </div>
                         </Link>
                         <Link className="disabled-link" onClick={e => e.preventDefault()} to="/admin/data-anggota-kelompok-tani">
                             <div>
-                                <ListMenu text="Data Anggota Kel. Tani" icon="../images/icon/menu_icon/menu_icon_4.svg" classActive={dataAnggota}/>
-                                 <span className="not-available">not available</span>
-                            </div>
-                        </Link>
-                        <Link className="disabled-link" onClick={e => e.preventDefault()} to="/admin/data-lahan">
-                            <div>
-                                <ListMenu text="Data Lahan" icon="../images/icon/menu_icon/menu_icon_5.svg" classActive={dataLahan}/>
-                                 <span className="not-available">not available</span>
+                                <ListMenu padding="no-pad" text="Data Anggota Kel. Tani" icon="../images/icon/menu_icon/menu_icon_4.svg" classActive={dataAnggota}/>
+                                 <span className="not-available">coming soon</span>
                             </div>
                         </Link>
                         <Link className="disabled-link" onClick={e => e.preventDefault()} to="/admin/data-tiket-program">
                             <div>
-                                <ListMenu text="Tiket Program" icon="../images/icon/menu_icon/menu_icon_6.svg" classActive={dataTiket}/>
-                                 <span className="not-available">not available</span>
+                                <ListMenu padding="no-pad" text="Tiket Program" icon="../images/icon/menu_icon/menu_icon_6.svg" classActive={dataTiket}/>
+                                 <span className="not-available">coming soon</span>
                             </div>
                         </Link>
                         <Link className="disabled-link" onClick={e => e.preventDefault()} to="/admin/program">
                             <div>
-                                <ListMenu text="Program" icon="../images/icon/menu_icon/menu_icon_7.svg" classActive={program}/>
-                                 <span className="not-available">not available</span>
+                                <ListMenu padding="no-pad" text="Program" icon="../images/icon/menu_icon/menu_icon_7.svg" classActive={program}/>
+                                 <span className="not-available">coming soon</span>
                             </div>
                         </Link>
                         <Link className="disabled-link" onClick={e => e.preventDefault()} to="/admin/kegiatan-petani">
                             <div>
-                                <ListMenu text="Kegiatan Petani" icon="../images/icon/menu_icon/menu_icon_8.svg" classActive={kegPetani}/>
-                                 <span className="not-available">not available</span>
+                                <ListMenu padding="no-pad" text="Kegiatan Petani" icon="../images/icon/menu_icon/menu_icon_8.svg" classActive={kegPetani}/>
+                                 <span className="not-available">coming soon</span>
                             </div>
                         </Link>
                         <Link className="disabled-link" onClick={e => e.preventDefault()} to="/admin/rekap-kegiatan">
                             <div>
-                                <ListMenu text="Rekap Kegiatan" icon="../images/icon/menu_icon/menu_icon_9.svg" classActive={rekapKegiatan}/>
-                                 <span className="not-available">not available</span>
+                                <ListMenu padding="pd-b-100" text="Rekap Kegiatan" icon="../images/icon/menu_icon/menu_icon_9.svg" classActive={rekapKegiatan}/>
+                                 <span className="not-available">coming soon</span>
                             </div>
                         </Link>
                     </div>

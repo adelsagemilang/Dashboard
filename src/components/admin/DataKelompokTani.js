@@ -226,7 +226,7 @@ export default class DataKelompokPetani extends Component{
                                     <InputForm
                                     inputId="search_admin"
                                     handleChange={this.handleSearch}
-                                    placeholder="Cari Nama atau ID Kelompok Tani"
+                                    placeholder="Cari.."
                                     class="search-item form-control"
                                     type="text"/>
                                 </div>
@@ -245,8 +245,8 @@ export default class DataKelompokPetani extends Component{
                                         <tr>
                                             <th>ID</th>
                                             <th>Nama Kelompok Tani</th>
-                                            <th>Jumlah Anggota</th>
-                                            <th>Total Luas Lahan</th>
+                                            {/*<th>Jumlah Anggota</th>*/}
+                                            {/*<th>Total Luas Lahan</th>*/}
                                             <th>Alamat</th>
                                             <th className="text-center">Data Ketua</th>
                                             {/*<th>Aksi</th>*/}
@@ -261,11 +261,11 @@ export default class DataKelompokPetani extends Component{
                                                     <tr key={i}>
                                                         <td data-th="ID" className="strong">{datahere.rukman_id}</td>
                                                         <td data-th="Nama Kelompok Tani">{datahere.rukman_name}</td>
-                                                        <td data-th="Jumlah Anggota">10</td>
-                                                        <td data-th="Total Luash Lahan">2000m<sup>2</sup></td>
+                                                        {/*<td data-th="Jumlah Anggota">-</td>*/}
+                                                        {/*<td data-th="Total Luash Lahan">-</td>*/}
                                                         <td data-th="Alamat">
                                                             {   ( 
-                                                                <div>
+                                                                <div className="block">
                                                                     <p>{datahere.address}</p>
                                                                     <p>{datahere.village} ,
                                                                     {datahere.district}</p>
@@ -297,8 +297,8 @@ export default class DataKelompokPetani extends Component{
 
                                         <tbody>
                                             <tr>
-                                                <td colSpan="6">
-                                                    <p className="text-center normal">Tidak ada data</p>
+                                                <td className="text-center normal pd-t-10 no-content" colSpan="6">
+                                                    Tidak ada data
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -311,7 +311,7 @@ export default class DataKelompokPetani extends Component{
                                 (
                                     <div className="box-footer-table">
                                         <div className="footer-table">
-                                            <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
+                                            <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Data Kelompok Tani</p>
                                         </div>
 
                                         <div className="box-pagination">

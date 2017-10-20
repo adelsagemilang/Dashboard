@@ -10,6 +10,7 @@ import { ButtonPrimary } from '../common/ButtonPrimary'
 import Header from '../common/Header'
 import ResponsiveHeader from '../common/ResponsiveHeader'
 import InputForm from '../common/InputForm'
+import Success from './popup/common-popup/Success'
 import TextArea from '../common/TextArea'
 
 export default class EditAkun extends Component {
@@ -22,12 +23,77 @@ export default class EditAkun extends Component {
             listProvince: {},
             listBank: {},
             image_res: '',
-            datepicker: moment().format('YYYY-MM-DD')
+            toggleSuccess: false,
+            error: false,
+            error_pos: true,
+            error_ktp: true,
+            error_hp: true,
+            activeCities: true,
+            activeDistrict: true,
+            activeVillage: true,
+            datepicker: ''
         }
     }
 
+    toggleSuccessPopup(){
+        this.setState({
+            toggleSuccess: !this.state.toggleSuccess
+        })
+    }
+
     _handleChange(id, value){
-        console.log('ini value: '+value)
+        if ( id === 'no_ktp' ){
+            let re = /^\d{16}$/
+            let result =  re.test(value)
+
+            if(result){
+                this.setState({
+                    error_ktp: result
+                })
+            }else{
+                this.setState({
+                    error_ktp: false
+                })
+            }
+        }
+
+        else if( id === 'no_hp' ){
+            let re = /^(^\+62\s?|^0)(\d{3,4}-?){2}\d{3,4}$/
+            let result =  re.test(value)
+
+            if(result){
+                this.setState({
+                    error_hp: result,
+                    error: false
+                })
+            }else{
+                this.setState({
+                    error_hp: false,
+                    error: false
+                })
+            }
+        }
+
+        else if( id === 'postcode' ){
+            let re = /^[0-9]{5}$/
+            let result =  re.test(value)
+
+            if(result){
+                this.setState({
+                    error_pos: result
+                })
+            }else{
+                this.setState({
+                    error_pos: false
+                })
+           }
+        }
+
+        else if ( id === 'email' ){
+            this.setState({
+                error: false,
+            })
+        }
     }
 
     getDatePicker(startdate){
@@ -58,7 +124,7 @@ export default class EditAkun extends Component {
             let file = input.files[0];
             let reader = new FileReader();
             let url = reader.readAsDataURL(file);
-
+            
             reader.onloadend = function (e) {
                this.setState({
                   image: [reader.result]
@@ -77,13 +143,24 @@ export default class EditAkun extends Component {
 
     }
 
-    handleChangeProvince(e){
+     handleChangeProvince(e){
         //get list cities
-        this.setState({valueProvince: e.target.value}, () => {
+        this.setState({
+            location: false,
+            valueProvince: e.target.value}, () => {
+
             axios.get(API_LIST_URL+ 'provinces/' + this.state.valueProvince +'/cities')
             .then(res => {
                 let listCities = res.data
-                this.setState({listCities, statusCities: true})
+                this.setState({
+                    listCities, 
+                    statusCities: true,
+                    activeCities: false,
+                    statusDistrict: false,
+                    activeDistrict: false,
+                    statusVillage: false,
+                    activeVillage: false
+                })
                 console.log('cities: '+this.state.listCities)
             })
             .catch((error) => {
@@ -98,13 +175,26 @@ export default class EditAkun extends Component {
             axios.get(API_LIST_URL+ 'cities/' + this.state.valueCities +'/districts')
             .then(res => {
                 let listDistrict = res.data
-                this.setState({listDistrict, statusDistrict: true})
+                this.setState({listDistrict, 
+                    statusDistrict: true,
+                    activeDistrict: false,
+                    statusVillage: false,
+                    activeVillage: false
+                })
                 console.log('district: '+this.state.listDistrict)
             })
             .catch((error) => {
                 console.log('err: '+ error)
             })
         })
+
+
+        if( e.target.value !== '' ){
+            this.setState({activeCities: true})
+        }
+        else{
+            this.setState({activeCities: false})
+        }
     }
 
     handleChangeDistricts(e){
@@ -113,13 +203,22 @@ export default class EditAkun extends Component {
             axios.get(API_LIST_URL+ 'districts/' + this.state.valueDistrict +'/villages')
             .then(res => {
                 let listVillage = res.data
-                this.setState({listVillage, statusVillage: true})
-                console.log('district: '+this.state.listVillage)
+                this.setState({listVillage, 
+                    statusVillage: true,
+                    activeVillage: false
+                })
             })
             .catch((error) => {
                 console.log('err: '+ error)
             })
         })
+
+        if( e.target.value !== '' ){
+            this.setState({activeDistrict: true})
+        }
+        else{
+            this.setState({activeDistrict: false})
+        }
     }
 
     handleChangeVillage(e){
@@ -127,6 +226,13 @@ export default class EditAkun extends Component {
         this.setState({valueVillage: e.target.value}, () => {
             console.log(this.state.valueVillage)
         })
+
+        if( e.target.value !== '' ){
+            this.setState({activeVillage: true})
+        }
+        else{
+            this.setState({activeVillage: false})
+        }
     }
 
     handleChangeBank(e){
@@ -137,37 +243,77 @@ export default class EditAkun extends Component {
     }
 
     handleSubmit(e){
+
         // const doc = document.getElementById
         e.preventDefault();
         const { cookies } = this.props;
         
-        axios.put(API_URL + 'update', {
-            name: document.getElementById('name').value,
-            image: document.getElementById('image').value,
-            ktp_number: document.getElementById('ktp_number').value,
-            phone_number: document.getElementById('phone_number').value,
-            birth_place: document.getElementById('birth_place').value,
-            birth_date: this.state.datepicker,
-            email: document.getElementById('email').value,
-            address: document.getElementById('address').value,
-            pos_code: document.getElementById('pos_code').value,
-            village_id: this.state.valueVillage
-            
-        },
-        {
-            headers: {
-                'X-AUTH-TOKEN' : this.authToken,
-                'Content-Type' : 'application/json'
-            }
+        if ( this.state.error_pos && this.state.error_hp && this.state.error_ktp ) {
+            axios.put(API_URL + 'update', {
+                name: document.getElementById('name').value,
+                image: document.getElementById('image').value,
+                ktp_number: document.getElementById('no_ktp').value,
+                phone_number: document.getElementById('no_hp').value,
+                birth_place: document.getElementById('birth_place').value,
+                birth_date: this.state.datepicker,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                pos_code: document.getElementById('postcode').value,
+                village_id: this.state.valueVillage
+                
+            },
+            {
+                headers: {
+                    'X-AUTH-TOKEN' : this.authToken,
+                    'Content-Type' : 'application/json'
+                }
+            })
+            .then(res => {
+                const data = res.data
+                this.setState({
+                    data,
+                    toggleSuccess: !this.state.toggleSuccess
+                })
+            })
+            .catch((error) => {
+                if (error.response.status === 400){
+                    let resData = error.response.data
+
+                    if ( Array.isArray(resData) ){
+                        let errorMessage = error.response.data[0].message
+                        this.setState({
+                            error: true,
+                            errorMessage
+                        })
+                    }
+                    else{
+                        let errorMessage = error.response.data
+                        this.setState({
+                            error: true,
+                            errorMessage
+                        })
+                    }
+                }
+            })
+        }
+    }
+
+    handleSuccessDismiss(){
+        this.setState({
+            toggleSuccess: !this.state.toggleSuccess
         })
-        .then(res => {
-            const data = res.data
-            this.setState({data})
-            window.location.reload()
-        })
-        .catch((error) => {
-            console.log('err: '+ error)
-        })
+        window.location.reload()
+    }
+
+    renderPopupSuccess(){
+        if(this.state.toggleSuccess){
+            return (
+                <Success 
+                message="Data profil berhasil diupdate"
+                toggleSuccessPopup={this.handleSuccessDismiss} 
+            />
+            )
+        }
     }
 
     componentDidMount(){
@@ -186,7 +332,8 @@ export default class EditAkun extends Component {
                 birth_date = res.data.birth_date,
                 email = res.data.email,
                 address = res.data.address,
-                location = res.data.location
+                location = res.data.location,
+                pos_code = res.data.pos_code
                 
                 
             } = this.state
@@ -201,6 +348,7 @@ export default class EditAkun extends Component {
                 email,
                 address,
                 location,
+                pos_code,
                 status: true
             })
         })
@@ -256,6 +404,7 @@ export default class EditAkun extends Component {
         } = this.state
         return (
             <div id="outer-container">
+                {this.renderPopupSuccess()}
                 <ResponsiveHeader />
                 <div id="page-wrap" className="main-content">
                     <div className="responsive-header">
@@ -279,6 +428,11 @@ export default class EditAkun extends Component {
                                 </div>
                                 <div className="box-profile-form">
                                     <p className="strong">Profil</p>
+                                    {   this.state.error ? 
+                                        <p className="text-danger mg-b-10 mg-t-10">{ this.state.errorMessage }</p>
+                                        :
+                                        null
+                                    }
                                     <div className="row-flex">
                                         <div className="box-1">
                                             <InputForm
@@ -288,16 +442,22 @@ export default class EditAkun extends Component {
                                             placeholder="Nama user"
                                             type="text" class="form-control"/>
                                             <InputForm
-                                            inputId="ktp_number"
+                                            inputId="no_ktp"
+                                            classError={this.state.error_ktp ? "input-form" : "input-form error"}
+                                            class={this.state.error_ktp ? "form-control" : "form-control has-error"}
                                             defaultValue={this.state.ktp_number}
                                             handleChange={this._handleChange}
                                             placeholder="Nomor KTP"
+                                            errorMessage="Harus 16 digit angka"
                                             type="text" class="form-control"/>
                                             <InputForm
-                                            inputId="phone_number"
+                                            inputId="no_hp"
+                                            classError={this.state.error_hp ? "input-form" : "input-form error"}
+                                            class={this.state.error_hp ? "form-control" : "form-control has-error"}
                                             defaultValue={this.state.phone_number}
                                             handleChange={this._handleChange}
                                             placeholder="Nomor HP"
+                                            errorMessage="Numeric minimum 10 digit angka"
                                             type="text" class="form-control"/>
                                         </div>
                                         <div className="box-2">
@@ -328,11 +488,17 @@ export default class EditAkun extends Component {
                                 <div className="box-alamat">
                                     <p className="strong">Alamat</p>
                                     <TextArea
-                                    idtextarea="address" defaultValue={this.state.address} title="Masukkan nama jalan/kampung dst..." class="form-control"/>
+                                    idtextarea="address" defaultValue={this.state.address} title="Masukkan nama jalan/kampung dst..." class="form-control color-text"/>
                                     <div className="row-flex">
                                         <div className="select-wrapper">
-                                            <select className="form-control select-option input-sm" onChange={this.handleChangeProvince}>
-                                                <option value={this.state.location.province_id} >{this.state.location.province}</option>
+                                           
+                                             <select id="provinsi" className="text-color form-control select-option input-sm" value={this.state.value}
+                                             onChange={this.handleChangeProvince}>
+                                                { this.state.location ? 
+                                                  <option value={this.state.location.province_id} >{this.state.location.province}</option>
+                                                  :
+                                                  <option value="">Provinsi</option>
+                                                }
                                                 {listStatus ?
                                                     listProvince.map(listprovince => 
                                                         <option
@@ -345,8 +511,14 @@ export default class EditAkun extends Component {
                                             </select>
                                         </div>
                                         <div className="select-wrapper">
-                                             <select className="form-control select-option input-sm" onChange={this.handleChangeCities}>
-                                                <option value={this.state.location.city_id} >{this.state.location.city}</option>
+                                             <select id="kabupaten" className={ this.state.activeCities ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}
+                                             onChange={this.handleChangeCities}>
+                                                { this.state.location ?
+                                                   <option value={this.state.location.city_id} >{this.state.location.city}</option> 
+                                                   :
+                                                   <option value="">Kabupaten/Kota</option>
+                                                }
+                                                
                                                 {statusCities ?
                                                         listCities.map(listcities => 
                                                             <option
@@ -360,8 +532,13 @@ export default class EditAkun extends Component {
                                             </select>
                                         </div>
                                         <div className="select-wrapper">
-                                             <select className="form-control select-option input-sm" onChange={this.handleChangeDistricts}>
-                                                <option value={this.state.location.ditsrict_id} >{this.state.location.district}</option>
+                                             <select id="kecamatan" className={ this.state.activeDistrict ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}
+                                             onChange={this.handleChangeDistricts}>
+                                                { this.state.location ?
+                                                   <option value={this.state.location.ditsrict_id} >{this.state.location.district}</option>
+                                                   :
+                                                   <option value="">Kecamatan</option>
+                                                }
                                                 {statusDistrict ?
                                                     listDistrict.map(listdistrict => 
                                                         <option
@@ -377,8 +554,13 @@ export default class EditAkun extends Component {
                                     </div>
                                     <div className="row-flex">
                                         <div className="select-wrapper">
-                                            <select className="form-control select-option input-sm" onChange={this.handleChangeVillage} value={this.state.value}>
-                                                <option value={this.state.location.village_id} >{this.state.location.village}</option>
+                                            <select id="kelurahan" className={ this.state.activeVillage ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}
+                                             onChange={this.handleChangeVillage}>
+                                                { this.state.location ?
+                                                   <option value={this.state.location.village_id} >{this.state.location.village}</option>
+                                                   :
+                                                   <option value="">Kelurahan</option>
+                                                }
                                                 {statusVillage ?
                                                     listVillage.map(listvillage => 
                                                         <option
@@ -392,10 +574,13 @@ export default class EditAkun extends Component {
                                             </select>
                                         </div>
                                          <InputForm
-                                            defaultValue={this.state.location.pos_code}
-                                            inputId="pos_code"
+                                            defaultValue={this.state.pos_code}
+                                            classError={this.state.error_pos ? "input-form" : "input-form error"}
+                                            class={this.state.error_pos ? "form-control" : "form-control has-error"}
+                                            inputId="postcode"
                                             handleChange={this._handleChange}
                                             placeholder="Kode Pos"
+                                            errorMessage="Harus 5 digit angka"
                                             type="text" class="form-control"/>
                                     </div>
                                 </div>

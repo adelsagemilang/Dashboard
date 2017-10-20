@@ -12,9 +12,10 @@ export default class InputForm extends Component {
         autoBind(this)
 
         this.state = {
+            valueInput: this.props.defaultValue ? this.props.defaultValue : '',
             title: '',
             startDate: moment(),
-            dbDate: moment(this.props.startdate)
+            dbDate: this.props.startdate ? moment(this.props.startdate) : null,
         }
     }
 
@@ -27,6 +28,12 @@ export default class InputForm extends Component {
          console.log(date)
         this.props.getValueDatePicker(date) 
 
+    }
+
+    handleInput(evt) {
+        const valueInput = (evt.target.validity.valid) ? evt.target.value : this.state.valueInput;
+        
+        this.setState({ valueInput });
       }
 
     _onChange(e){
@@ -50,11 +57,12 @@ export default class InputForm extends Component {
                         dateFormat="YYYY-MM-DD"
                         showYearDropdown
                         scrollableYearDropdown
-                        selected={this.props.startdate ? this.state.dbDate : this.state.startDate} 
+                        readOnly={true}
+                        selected={this.state.dbDate ? this.state.dbDate : ""} 
                         onChange={this.handleChange} 
                         className={this.props.class}
                         placeholderText={this.props.placeholder}
-                        yearDropdownItemNumber={15}
+                        yearDropdownItemNumber={50}
                         />
                 ) : (
                     <input
@@ -64,15 +72,73 @@ export default class InputForm extends Component {
                         switch (this.props.inputId) {
                           case "no_ktp":   return "16";
                           case "no_hp":   return "12";
+                          case "postcode": return "5"
                           default:      return null;
                         }
                     })()}
                     type={this.props.type}
                     placeholder={this.props.placeholder}
-                    value={this.props.title}
                     onChange={this._onChange}
                     className={this.props.class}
-                    />
+                    pattern={(() => {
+                        switch (this.props.inputId) {
+                          case "no_ktp":   return "[0-9]*"
+                          case "no_rek":   return "[0-9]*"
+                          case "no_hp":   return "[0-9]*"
+                          case "postcode": return "[0-9]*"
+                          case "nama-petani": return "[a-zA-Z0-9 ]*"
+                          case "tempat_lahir": return "[a-zA-Z ]*"
+                          case "nama-ibu": return "[a-zA-Z ]*"
+                          case "bank-owner-name": return "[a-zA-Z ]*"
+                          case "name": return "[a-zA-Z ]*"
+                          case "birth_place": return "[a-zA-Z ]*"
+                          case "nama-rukman": return "[a-zA-Z0-9 ]*"
+                          case "nama-lahan": return "[a-zA-Z ]*"
+                          case "large": return "[0-9]+(\.[0-9]{0,2})?"
+                          case "height": return "[0-9]+(\.[0-9]{0,2})?"
+                          default:      return null
+                        }
+                    })()}
+                    onInput={(() => {
+                        switch (this.props.inputId) {
+                          case "no_ktp":   return this.handleInput.bind(this)
+                          case "no_rek":   return this.handleInput.bind(this)
+                          case "no_hp":   return this.handleInput.bind(this)
+                          case "postcode": return this.handleInput.bind(this)
+                          case "nama-petani": return this.handleInput.bind(this) 
+                          case "tempat_lahir": return this.handleInput.bind(this)
+                          case "nama-ibu": return this.handleInput.bind(this)
+                          case "bank-owner-name": return this.handleInput.bind(this)
+                          case "name": return this.handleInput.bind(this)
+                          case "birth_place": return this.handleInput.bind(this)
+                          case "nama-rukman": return this.handleInput.bind(this) 
+                          case "nama-lahan": return this.handleInput.bind(this) 
+                          case "large": return this.handleInput.bind(this)
+                          case "height": return this.handleInput.bind(this)
+                          default:      return null
+                        }
+                    })()}
+                    value={(() => {
+                        switch (this.props.inputId) {
+                          case "no_ktp":   return this.state.valueInput
+                          case "no_rek":   return this.state.valueInput
+                          case "no_hp":   return this.state.valueInput
+                          case "postcode": return this.state.valueInput
+                          case "nama-petani": return this.state.valueInput 
+                          case "tempat_lahir": return this.state.valueInput
+                          case "nama-ibu": return this.state.valueInput
+                          case "bank-owner-name": return this.state.valueInput
+                          case "name": return this.state.valueInput
+                          case "birth_place": return this.state.valueInput
+                          case "email": return this.state.valueInput
+                          case "nama-rukman": return this.state.valueInput 
+                          case "nama-lahan": return this.state.valueInput 
+                          case "large": return this.state.valueInput 
+                          case "height": return this.state.valueInput 
+                          default:      return ''
+                        }
+                    })()}
+                     />
                 )
                 }
                 { this.props.icon ? 

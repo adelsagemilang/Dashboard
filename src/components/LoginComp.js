@@ -21,6 +21,7 @@ class LoginComp extends Component{
             username: '',
             pin: '',
             error: false,
+            error_resp: false
         }
     }
 
@@ -63,11 +64,17 @@ class LoginComp extends Component{
             this.props.history.push('/dashboard');
         })
         .catch((error) => {
-            if (error.response.status === 401){
+            if (!error.response){
+                this.setState({
+                    error_resp: true
+                })
+            }
+            else if (error.response.status === 401){
                 this.setState({
                     error: true
                 })
             }
+
         })
 
     }
@@ -90,12 +97,17 @@ class LoginComp extends Component{
                                         :
                                         null
                                     }
+                                    {   this.state.error_resp ? 
+                                        <p className="text-danger mg-b-10 resp">Terjadi kesalahan koneksi</p>
+                                        :
+                                        null
+                                    }
                                     <input 
                                     onChange={this.handleChangeUsername}
                                     className="add-username form-input"
                                     name="username"
                                     type="text"
-                                    placeholder="Email atau Username"
+                                    placeholder="Username"
                                     ref="username"
                                     value={this.state.username}/><br/>
 
@@ -114,7 +126,7 @@ class LoginComp extends Component{
                                     <ButtonPrimary name="Login"/>
                                 </form>
                             </div>
-                            <p className="forgot-password"><a href="">Lupa Password?</a></p>
+                            {/*<p className="forgot-password"><a href="">Lupa Password?</a></p>*/}
                         </div>
                     </div>
                     

@@ -22,6 +22,10 @@
     color: $color-warning !important;
 }
 
+.text-color{
+    color: $color-02 !important;
+}
+
 .strong{
 	font-weight: bold;
 }
@@ -42,7 +46,7 @@
 .row-flex {
     display: block;
 
-    @media (min-width: 768px) {
+    @media (min-width: $screen-phone) {
         display: flex;
     }
 
@@ -85,6 +89,10 @@
     margin-top: 10px;
 }
 
+.mg-t-20{
+    margin-top: 20px !important;
+}
+
 .mg-t-5{
     margin-top: 5px;
 }
@@ -115,6 +123,10 @@
 
 .pull-left{
     float: left;
+}
+
+.pd-b-100{
+    padding-bottom: 100px !important;
 }
 
 .pull-right{

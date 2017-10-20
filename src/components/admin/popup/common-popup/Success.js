@@ -13,7 +13,7 @@ class Success extends Component {
 					<div className="box-content">
 						<div className="content text-center">
 							<img src="../images/icon/icon_success.svg" height="100" className="mg-b-10 icon-success"/>
-							<p className="sub-title">Data berhasil ditambahkan</p>
+							<p className="sub-title">{ this.props.message ? this.props.message : 'Berhasil' }</p>
 							<div className="box-btn auto" onClick={this.props.toggleSuccessPopup}>
 	                        <ButtonPrimary
                                 class="button-primary"

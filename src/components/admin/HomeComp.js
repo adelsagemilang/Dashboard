@@ -80,7 +80,7 @@ export default class HomeComp extends Component{
                                     <p>Jumlah Kelompok Petani</p>
                                 </div>
                                 <div className="box text-center">
-                                    <h3>7<span className="text-muted">/ 12</span></h3>
+                                    <h3>0<span className="text-muted">/ 0</span></h3>
                                     <p>Keikutsertaan Petani pada Program</p>
                                 </div>
                             </div>
@@ -94,12 +94,12 @@ export default class HomeComp extends Component{
                                     <Doughnut/>
                                 </div>
                                 <div className="box box-program-active text-center">
-                                    <h3>5<span className="text-muted">/ 12</span></h3>
+                                    <h3>0<span className="text-muted">/ 0</span></h3>
                                     <p>Program Aktif</p>
                                 </div>
                             </div>
                             <div className="box box-stat-lahan text-center">
-                                <h3>1 m<sup>2</sup><span className="text-muted">/ 5,778,435 m</span></h3>
+                                <h3>0 m<sup>2</sup><span className="text-muted">/ 0 m</span></h3>
                             </div>
                         </div>
                         {/*}

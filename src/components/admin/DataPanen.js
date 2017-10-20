@@ -116,8 +116,8 @@ export default class DataPanen extends Component{
         if(this.state.toggleNoContent){
             return(
                 <tr>
-                    <td colSpan="5">
-                        <p className="text-center normal">Tidak ada data</p>
+                    <td className="text-center normal pd-t-10 no-content" colSpan="5">
+                        Tidak ada data
                     </td>
                 </tr>
             )
@@ -223,7 +223,7 @@ export default class DataPanen extends Component{
                                 (
                                     <div className="box-footer-table">
                                         <div className="footer-table">
-                                            <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
+                                            <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Data Panen</p>
                                         </div>
 
                                         <div className="box-pagination">

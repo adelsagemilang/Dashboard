@@ -210,8 +210,8 @@ export default class DataOrderOut extends Component{
                                         :
                                         <tbody>
                                             <tr>
-                                                <td colSpan="7">
-                                                    <p className="text-center normal">Tidak ada data</p>
+                                                <td className="text-center normal pd-t-10 no-content" colSpan="7">
+                                                    Tidak ada data
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -224,7 +224,7 @@ export default class DataOrderOut extends Component{
                                 (
                                     <div className="box-footer-table">
                                         <div className="footer-table">
-                                            <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
+                                            <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Data Order Keluar</p>
                                         </div>
 
                                         <div className="box-pagination">

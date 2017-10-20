@@ -2,13 +2,20 @@
     display: none;
     @extend .gradient-color-primary;
     width: 235px;
-    height: 100vh;
+    overflow-y: auto;
+    overflow-x: unset;
+    height: 100%;
     padding: 26px 0 0 0;
     position: fixed;
     z-index: 2;
 
     @media screen and (min-width: $screen-desktop){
         display: block;
+    }
+
+    &::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
     }
     
     .container-sidebar{
@@ -25,7 +32,6 @@
         .box-image{   
             max-width: 72px;
             padding: 0 0 35px 26px;
-            img{}
         }
 
         .bg-sidebar{

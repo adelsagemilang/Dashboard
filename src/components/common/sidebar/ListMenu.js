@@ -10,7 +10,7 @@ export default class ListMenu extends Component {
     }
     render(){
         return(
-            <div className={"list-menu " + this.props.classActive}>
+            <div className={"list-menu " + this.props.classActive +" "+ this.props.padding}>
                 <div className="box-icon">
                     <img src={ this.props.icon } />
                 </div>

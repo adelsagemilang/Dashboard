@@ -25,7 +25,12 @@ export default class TambahPetani extends Component{
             error: false,
             error_ktp: true,
             error_hp: true,
-            datepicker: moment().format('YYYY-MM-DD')
+            error_pos: true,
+            activeProvince: false,
+            activeCities: false,
+            activeDistrict: false,
+            activeVillage: false,
+            datepicker: ''
         }
     }
 
@@ -35,7 +40,6 @@ export default class TambahPetani extends Component{
     }
 
     _handleChange(id, value){
-        console.log(id)
         if ( id === 'no_ktp' ){
             let re = /^\d{16}$/
             let result =  re.test(value)
@@ -57,29 +61,70 @@ export default class TambahPetani extends Component{
 
             if(result){
                 this.setState({
-                    error_hp: result
+                    error_hp: result,
+                    error: false
                 })
             }else{
                 this.setState({
-                    error_hp: false
+                    error_hp: false,
+                    error: false
                 })
             }
+        }
+
+        else if( id === 'postcode' ){
+            let re = /^[0-9]{5}$/
+            let result =  re.test(value)
+
+            if(result){
+                this.setState({
+                    error_pos: result
+                })
+            }else{
+                this.setState({
+                    error_pos: false
+                })
+           }
+        }
+
+        else if ( id === 'email' ){
+            this.setState({
+                error: false,
+            })
         }
     }
 
     handleChangeProvince(e){
         //get list cities
-        this.setState({valueProvince: e.target.value}, () => {
+        this.setState({
+            location: false,
+            valueProvince: e.target.value}, () => {
+
             axios.get(API_LIST_URL+ 'provinces/' + this.state.valueProvince +'/cities')
             .then(res => {
                 let listCities = res.data
-                this.setState({listCities, statusCities: true})
+                this.setState({
+                    listCities, 
+                    statusCities: true,
+                    activeCities: false,
+                    statusDistrict: false,
+                    activeDistrict: false,
+                    statusVillage: false,
+                    activeVillage: false
+                })
                 console.log('cities: '+this.state.listCities)
             })
             .catch((error) => {
                 console.log('err: '+ error)
             })
         })
+
+        if( e.target.value !== '' ){
+            this.setState({activeProvince: true})
+        }
+        else{
+            this.setState({activeProvince: false})
+        }
     }
 
     handleChangeCities(e){
@@ -88,13 +133,26 @@ export default class TambahPetani extends Component{
             axios.get(API_LIST_URL+ 'cities/' + this.state.valueCities +'/districts')
             .then(res => {
                 let listDistrict = res.data
-                this.setState({listDistrict, statusDistrict: true})
+                this.setState({listDistrict, 
+                    statusDistrict: true,
+                    activeDistrict: false,
+                    statusVillage: false,
+                    activeVillage: false
+                })
                 console.log('district: '+this.state.listDistrict)
             })
             .catch((error) => {
                 console.log('err: '+ error)
             })
         })
+
+
+        if( e.target.value !== '' ){
+            this.setState({activeCities: true})
+        }
+        else{
+            this.setState({activeCities: false})
+        }
     }
 
     handleChangeDistricts(e){
@@ -103,13 +161,22 @@ export default class TambahPetani extends Component{
             axios.get(API_LIST_URL+ 'districts/' + this.state.valueDistrict +'/villages')
             .then(res => {
                 let listVillage = res.data
-                this.setState({listVillage, statusVillage: true})
-                console.log('district: '+this.state.listVillage)
+                this.setState({listVillage, 
+                    statusVillage: true,
+                    activeVillage: false
+                })
             })
             .catch((error) => {
                 console.log('err: '+ error)
             })
         })
+
+        if( e.target.value !== '' ){
+            this.setState({activeDistrict: true})
+        }
+        else{
+            this.setState({activeDistrict: false})
+        }
     }
 
     handleChangeVillage(e){
@@ -117,6 +184,13 @@ export default class TambahPetani extends Component{
         this.setState({valueVillage: e.target.value}, () => {
             console.log(this.state.valueVillage)
         })
+
+        if( e.target.value !== '' ){
+            this.setState({activeVillage: true})
+        }
+        else{
+            this.setState({activeVillage: false})
+        }
     }
 
     handleChangeBank(e){
@@ -129,43 +203,57 @@ export default class TambahPetani extends Component{
     handleSubmit(e){
         e.preventDefault();
         const { cookies } = this.props;
+        console.log(this.state.datepicker)
         
-        axios.post(API_URL + 'farmers', {
-            name: document.getElementById('nama-petani').value,
-            phone_number: document.getElementById('no_hp').value,
-            ktp_number: document.getElementById('no_ktp').value,
-            birth_place: document.getElementById('tempat_lahir').value,
-            birth_date: this.state.datepicker,
-            biological_mothers_name: document.getElementById('nama-ibu').value,
-            account_name: document.getElementById('bank-owner-name').value,
-            rek_number: document.getElementById('no_rek').value,
-            address: document.getElementById('alamat').value,
-            pos_code: document.getElementById('postcode').value,
-            bank_id: this.state.bankId,
-            village_id: this.state.valueVillage
-            
-        },
-        {
-            headers: {
-                'X-AUTH-TOKEN' : this.authToken,
-                'Content-Type' : 'application/json'
-            }
-        })
-        .then(res => {
-            const data = res.data
-            this.setState({data})
-            this.props.success()
-            console.log('succ: '+ this.state.data)
-        })
-        .catch((error) => {
-           if (error.response.status === 400){
-                let errorMessage = error.response.data[0].message
-                this.setState({
-                    error: true,
-                    errorMessage
-                })
-            }
-        })
+        if ( this.state.error_pos && this.state.error_hp && this.state.error_ktp && this.state.error_pos ) {
+            axios.post(API_URL + 'farmers', {
+                name: document.getElementById('nama-petani').value,
+                phone_number: document.getElementById('no_hp').value,
+                ktp_number: document.getElementById('no_ktp').value,
+                birth_place: document.getElementById('tempat_lahir').value,
+                birth_date: this.state.datepicker,
+                biological_mothers_name: document.getElementById('nama-ibu').value,
+                account_name: document.getElementById('bank-owner-name').value,
+                rek_number: document.getElementById('no_rek').value,
+                address: document.getElementById('alamat').value,
+                pos_code: document.getElementById('postcode').value,
+                bank_id: this.state.bankId,
+                village_id: this.state.valueVillage
+                
+            },
+            {
+                headers: {
+                    'X-AUTH-TOKEN' : this.authToken,
+                    'Content-Type' : 'application/json'
+                }
+            })
+            .then(res => {
+                const data = res.data
+                this.setState({data})
+                this.props.success()
+                console.log('succ: '+ this.state.data)
+            })
+            .catch((error) => {
+               if (error.response.status === 400){
+                    let resData = error.response.data
+
+                    if ( Array.isArray(resData) ){
+                        let errorMessage = error.response.data[0].message
+                        this.setState({
+                            error: true,
+                            errorMessage
+                        })
+                    }
+                    else{
+                        let errorMessage = error.response.data
+                        this.setState({
+                            error: true,
+                            errorMessage
+                        })
+                    }
+                }
+            })
+        }
     }
 
     componentDidMount(){
@@ -266,7 +354,6 @@ export default class TambahPetani extends Component{
                             <div className="row-flex col-2">
                                 <InputForm 
                                     getValueDatePicker={this.getDatePicker}
-                                    startdate={this.state.datepicker}
                                     inputId="birth_date"
                                     handleChange={this._handleChange}
                                     placeholder="Tanggal Lahir"
@@ -284,10 +371,10 @@ export default class TambahPetani extends Component{
                             <TextArea handleChange={this._handleChange} idtextarea="alamat" title="Masukkan nama jalan/kampung dst..." class="form-control"/>
                             <div className="row-flex col-3">
                                 <div className="select-wrapper">
-                                   
-                                     <select id="provinsi" className="form-control select-option input-sm" value={this.state.value}
+                                           
+                                     <select id="provinsi" className={ this.state.activeProvince ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}
                                      onChange={this.handleChangeProvince}>
-                                        <option>Provinsi</option>
+                                        <option value="">Provinsi</option>
                                         {listStatus ?
                                             listProvince.map(listprovince => 
                                                 <option
@@ -300,12 +387,14 @@ export default class TambahPetani extends Component{
                                     </select>
                                 </div>
                                 <div className="select-wrapper">
-                                     <select id="kabupaten" className="form-control select-option input-sm" value={this.state.value}
+                                     <select id="kabupaten" className={ this.state.activeCities ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}
                                      onChange={this.handleChangeCities}>
                                         <option value="">Kabupaten/Kota</option>
+                                        
                                         {statusCities ?
                                                 listCities.map(listcities => 
                                                     <option
+                                                        defaultValue={this.state.cities}
                                                         key={listcities.id}
                                                         value={listcities.id}>
                                                         {listcities.name}
@@ -315,12 +404,13 @@ export default class TambahPetani extends Component{
                                     </select>
                                 </div>
                                 <div className="select-wrapper">
-                                     <select id="kecamatan" className="form-control select-option input-sm" value={this.state.value}
+                                     <select id="kecamatan" className={ this.state.activeDistrict ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}
                                      onChange={this.handleChangeDistricts}>
                                         <option value="">Kecamatan</option>
                                         {statusDistrict ?
                                             listDistrict.map(listdistrict => 
                                                 <option
+                                                    defaultValue={this.state.district}
                                                     key={listdistrict.id}
                                                     value={listdistrict.id}>
                                                     {listdistrict.name}
@@ -332,12 +422,13 @@ export default class TambahPetani extends Component{
                             </div>
                             <div className="row-flex col-3">
                                 <div className="select-wrapper">
-                                    <select id="kelurahan" className="form-control select-option input-sm" value={this.state.value}
+                                    <select id="kelurahan" className={ this.state.activeVillage ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}
                                      onChange={this.handleChangeVillage}>
                                         <option value="">Kelurahan</option>
                                         {statusVillage ?
                                             listVillage.map(listvillage => 
                                                 <option
+                                                    defaultValue={this.state.village}
                                                     key={listvillage.id}
                                                     value={listvillage.id}>
                                                     {listvillage.name}
@@ -348,9 +439,12 @@ export default class TambahPetani extends Component{
                                 </div>
                                  <InputForm
                                     inputId="postcode"
+                                    classError={this.state.error_pos ? "input-form" : "input-form error"}
+                                    class={this.state.error_pos ? "form-control" : "form-control has-error"}
                                     handleChange={this._handleChange}
                                     placeholder="Kode Pos"
-                                    type="text" class="form-control"/>
+                                    type="text" class="form-control"
+                                    errorMessage="Harus 5 digit angka"/>
                             </div>
                             <p className="strong">Informasi Akun Bank</p>
                             <div className="row-flex col-2">

@@ -19,7 +19,6 @@ export default class Header extends Component{
         }
 
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
-        this.userName = Crypto.AES.decrypt(Base64.decode(Cookie.load('username')), TK_KEY).toString(Crypto.enc.Utf8)
         this.userLevel = Crypto.AES.decrypt(Base64.decode(Cookie.load('user_level_name')), TK_KEY).toString(Crypto.enc.Utf8)
     }
 
@@ -39,13 +38,17 @@ export default class Header extends Component{
         .then(res => {
             const {
                 image = res.data.image,
+                name = res.data.name
                 
                 
             } = this.state
 
             this.setState({
-                image
+                image,
+                name
             })
+
+            console.log(this.state.image)
 
         })
         .catch((error) => {
@@ -83,7 +86,7 @@ export default class Header extends Component{
                                 <img src={ this.state.image ? this.state.image : "../images/user-img.png"} />
                             </div>
                             <div className="box-user-text">
-                                <p className="username">{this.userName}</p>
+                                <p className="username">{this.state.name}</p>
                                 <p className="status">{this.userLevel}</p>
                             </div>
                         </div>

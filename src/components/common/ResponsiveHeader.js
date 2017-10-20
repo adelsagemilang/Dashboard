@@ -1,6 +1,7 @@
 import React from 'react'
 import BurgerMenu from 'react-burger-menu'
 import ListMenu from './sidebar/ListMenu'
+import axios from 'axios'
 import Cookie from 'react-cookie';
 import Crypto from 'crypto-js';
 import Base64 from 'base-64';
@@ -10,7 +11,6 @@ import { Link } from 'react-router-dom'
 
 import "../../stylesheet/component/common/_header.scss"
 import "../../stylesheet/component/common/sidebar/_sidebar.scss" 
-
 
 const MenuWrap = React.createClass({
 
@@ -48,7 +48,6 @@ export default class ResponsiveHeader extends React.Component {
         }
 
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
-        this.userName = Crypto.AES.decrypt(Base64.decode(Cookie.load('username')), TK_KEY).toString(Crypto.enc.Utf8)
         this.userLevel = Crypto.AES.decrypt(Base64.decode(Cookie.load('user_level_name')), TK_KEY).toString(Crypto.enc.Utf8)
     }
 
@@ -62,6 +61,31 @@ export default class ResponsiveHeader extends React.Component {
     componentDidMount(){
         const url = window.location.pathname;
         const urlsplit = url.split('/').slice(3)[0];
+    }
+
+    componentDidMount(){
+        axios.get(API_URL + 'users',{
+            headers:{ 
+                'X-AUTH-TOKEN' : this.authToken
+            }
+        })
+        .then(res => {
+            const {
+                image = res.data.image,
+                name = res.data.name
+                
+                
+            } = this.state
+
+            this.setState({
+                image,
+                name
+            })
+
+        })
+        .catch((error) => {
+            console.log('err: '+ error)
+        })
     }
 
   render() {
@@ -158,10 +182,10 @@ export default class ResponsiveHeader extends React.Component {
                 >
                     <div className="box-user">
                         <div className="box-img-user">
-                            <img src="../images/user-img.jpeg" />
+                            <img src={ this.state.image ? this.state.image : "../images/user-img.png"} />
                         </div>
                         <div className="box-user-text">
-                            <p className="username">{this.userName}</p>
+                            <a href="/admin/edit-akun/" className="username">{this.state.name}</a>
                             <p className="status">{this.userLevel}</p>
                         </div>
                     </div>
@@ -194,37 +218,37 @@ export default class ResponsiveHeader extends React.Component {
                     <Link className="disabled-link" onClick={e => e.preventDefault()} to="/admin/data-anggota-kelompok-tani">
                         <div>
                             <ListMenu text="Data Anggota Kel. Tani" icon="../images/icon/menu_icon/menu_icon_4.svg" classActive={dataAnggota}/>
-                             <span className="not-available">not available</span>
+                             <span className="not-available">coming soon</span>
                         </div>
                     </Link>
                     <Link className="disabled-link" onClick={e => e.preventDefault()} to="/admin/data-lahan">
                         <div>
                             <ListMenu text="Data Lahan" icon="../images/icon/menu_icon/menu_icon_5.svg" classActive={dataLahan}/>
-                             <span className="not-available">not available</span>
+                             <span className="not-available">coming soon</span>
                         </div>
                     </Link>
                     <Link className="disabled-link" onClick={e => e.preventDefault()} to="/admin/data-tiket-program">
                         <div>
                             <ListMenu text="Tiket Program" icon="../images/icon/menu_icon/menu_icon_6.svg" classActive={dataTiket}/>
-                             <span className="not-available">not available</span>
+                             <span className="not-available">coming soon</span>
                         </div>
                     </Link>
                     <Link className="disabled-link" onClick={e => e.preventDefault()} to="/admin/program">
                         <div>
                             <ListMenu text="Program" icon="../images/icon/menu_icon/menu_icon_7.svg" classActive={program}/>
-                             <span className="not-available">not available</span>
+                             <span className="not-available">coming soon</span>
                         </div>
                     </Link>
                     <Link className="disabled-link" onClick={e => e.preventDefault()} to="/admin/kegiatan-petani">
                         <div>
                             <ListMenu text="Kegiatan Petani" icon="../images/icon/menu_icon/menu_icon_8.svg" classActive={kegPetani}/>
-                             <span className="not-available">not available</span>
+                             <span className="not-available">coming soon</span>
                         </div>
                     </Link>
                     <Link className="disabled-link" onClick={e => e.preventDefault()} to="/admin/rekap-kegiatan">
                         <div>
                             <ListMenu text="Rekap Kegiatan" icon="../images/icon/menu_icon/menu_icon_9.svg" classActive={rekapKegiatan}/>
-                             <span className="not-available">not available</span>
+                             <span className="not-available">coming soon</span>
                         </div>
                     </Link>
                     <div className="bg-sidebar">

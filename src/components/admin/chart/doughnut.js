@@ -32,9 +32,9 @@ const data = {
             ],
         }],
         labels: [
-            "Disetujui: ",
-            "Menunggu Persetujuan: ",
-            "Ditolak: ",
+            "Disetujui: 0 ",
+            "Menunggu Persetujuan: 0",
+            "Ditolak: 0",
         ]
 };
 

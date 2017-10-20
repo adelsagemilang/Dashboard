@@ -22,10 +22,16 @@ export default class EditPetani extends Component{
             username: '',
             listProvince: {},
             listBank: {},
+            now: moment().format('YYYY-MM-DD'),
             datepicker: moment().format('YYYY-MM-DD'),
             error: false,
+            error_pos: true,
             error_ktp: true,
-            error_hp: true
+            error_hp: true,
+            activeCities: true,
+            activeDistrict: true,
+            activeVillage: true,
+
         }
     }
 
@@ -59,6 +65,21 @@ export default class EditPetani extends Component{
                 })
             }
         }
+
+        else if( id === 'postcode' ){
+            let re = /^[0-9]{5}$/
+            let result =  re.test(value)
+
+            if(result){
+                this.setState({
+                    error_pos: result
+                })
+            }else{
+                this.setState({
+                    error_pos: false
+                })
+            }
+        }
     }
 
     getDatePicker(startdate){
@@ -69,11 +90,22 @@ export default class EditPetani extends Component{
 
     handleChangeProvince(e){
         //get list cities
-        this.setState({valueProvince: e.target.value}, () => {
+        this.setState({
+            location: false,
+            valueProvince: e.target.value}, () => {
+
             axios.get(API_LIST_URL+ 'provinces/' + this.state.valueProvince +'/cities')
             .then(res => {
                 let listCities = res.data
-                this.setState({listCities, statusCities: true})
+                this.setState({
+                    listCities, 
+                    statusCities: true,
+                    activeCities: false,
+                    statusDistrict: false,
+                    activeDistrict: false,
+                    statusVillage: false,
+                    activeVillage: false
+                })
                 console.log('cities: '+this.state.listCities)
             })
             .catch((error) => {
@@ -88,13 +120,26 @@ export default class EditPetani extends Component{
             axios.get(API_LIST_URL+ 'cities/' + this.state.valueCities +'/districts')
             .then(res => {
                 let listDistrict = res.data
-                this.setState({listDistrict, statusDistrict: true})
+                this.setState({listDistrict, 
+                    statusDistrict: true,
+                    activeDistrict: false,
+                    statusVillage: false,
+                    activeVillage: false
+                })
                 console.log('district: '+this.state.listDistrict)
             })
             .catch((error) => {
                 console.log('err: '+ error)
             })
         })
+
+
+        if( e.target.value !== '' ){
+            this.setState({activeCities: true})
+        }
+        else{
+            this.setState({activeCities: false})
+        }
     }
 
     handleChangeDistricts(e){
@@ -103,13 +148,22 @@ export default class EditPetani extends Component{
             axios.get(API_LIST_URL+ 'districts/' + this.state.valueDistrict +'/villages')
             .then(res => {
                 let listVillage = res.data
-                this.setState({listVillage, statusVillage: true})
-                console.log('district: '+this.state.listVillage)
+                this.setState({listVillage, 
+                    statusVillage: true,
+                    activeVillage: false
+                })
             })
             .catch((error) => {
                 console.log('err: '+ error)
             })
         })
+
+        if( e.target.value !== '' ){
+            this.setState({activeDistrict: true})
+        }
+        else{
+            this.setState({activeDistrict: false})
+        }
     }
 
     handleChangeVillage(e){
@@ -117,6 +171,13 @@ export default class EditPetani extends Component{
         this.setState({valueVillage: e.target.value}, () => {
             console.log(this.state.valueVillage)
         })
+
+        if( e.target.value !== '' ){
+            this.setState({activeVillage: true})
+        }
+        else{
+            this.setState({activeVillage: false})
+        }
     }
 
     handleChangeBank(e){
@@ -131,42 +192,55 @@ export default class EditPetani extends Component{
         e.preventDefault();
         const { cookies } = this.props;
         
-        axios.put(API_URL + this.props.url, {
-            name: document.getElementById('nama-petani').value,
-            phone_number: document.getElementById('no_hp').value,
-            ktp_number: document.getElementById('no_ktp').value,
-            birth_place: document.getElementById('tempat_lahir').value,
-            birth_date: this.state.datepicker,
-            biological_mothers_name: document.getElementById('nama-ibu').value,
-            account_name: document.getElementById('bank-owner-name').value,
-            rek_number: document.getElementById('no_rek').value,
-            address: document.getElementById('alamat').value,
-            pos_code: document.getElementById('postcode').value,
-            bank_id: this.state.bankId,
-            village_id: this.state.valueVillage
-            
-        },
-        {
-            headers: {
-                'X-AUTH-TOKEN' : this.authToken,
-                'Content-Type' : 'application/json'
-            }
-        })
-        .then(res => {
-            const data = res.data
-            this.setState({data})
-            window.location.reload()
-            console.log('succ: '+ this.state.data)
-        })
-        .catch((error) => {
-            if (error.response.status === 400){
-                let errorMessage = error.response.data[0].message
-                this.setState({
-                    error: true,
-                    errorMessage
+         if ( this.state.error_pos && this.state.error_hp && this.state.error_ktp && this.state.error_pos ) {
+                axios.put(API_URL + this.props.url, {
+                    farmer_id: this.state.farmer_id,
+                    name: document.getElementById('nama-petani').value,
+                    phone_number: document.getElementById('no_hp').value,
+                    ktp_number: document.getElementById('no_ktp').value,
+                    birth_place: document.getElementById('tempat_lahir').value,
+                    birth_date: this.state.datepicker === this.state.now ? this.state.birth_date : this.state.datepicker,
+                    biological_mothers_name: document.getElementById('nama-ibu').value,
+                    account_name: document.getElementById('bank-owner-name').value,
+                    rek_number: document.getElementById('no_rek').value,
+                    address: document.getElementById('alamat').value,
+                    pos_code: document.getElementById('postcode').value,
+                    bank_id: this.state.bankId ? this.state.bankId : this.state.bank_id,
+                    village_id: this.state.valueVillage ? this.state.valueVillage : this.state.location.village_id
+                    
+                },
+                {
+                    headers: {
+                        'X-AUTH-TOKEN' : this.authToken,
+                        'Content-Type' : 'application/json'
+                    }
                 })
-            }
-        })
+                .then(res => {
+                    const data = res.data
+                    this.setState({data})
+                    this.props.success()
+                })
+                .catch((error) => {
+                    if (error.response.status === 400){
+                        let resData = error.response.data
+
+                        if ( Array.isArray(resData) ){
+                            let errorMessage = error.response.data[0].message
+                            this.setState({
+                                error: true,
+                                errorMessage
+                            })
+                        }
+                        else{
+                            let errorMessage = error.response.data
+                            this.setState({
+                                error: true,
+                                errorMessage
+                            })
+                        }
+                    }
+                })
+        }
     }
 
     componentDidMount(){
@@ -185,11 +259,10 @@ export default class EditPetani extends Component{
                 birth_place = res.data.birth_place,
                 birth_date = res.data.birth_date,
                 biological_mothers_name = res.data.biological_mothers_name,
-                account_name = res.data.bank.account_name,
-                rek_number = res.data.bank.rek_number,
                 address = res.data.address,
                 location = res.data.location,
-                bank = res.data.bank,
+                bank = res.data.bank ? res.data.bank : null,
+                bank_id = res.data.bank ? res.data.bank.bank_id : '',
                 pos_code = res.data.pos_code
             } = this.state
 
@@ -201,16 +274,15 @@ export default class EditPetani extends Component{
                 birth_place,
                 birth_date,
                 biological_mothers_name,
-                account_name,
-                rek_number,
                 address,
                 pos_code,
                 location,
                 bank,
+                bank_id,
                 status: true
             })
-
-            console.log(this.state.account_name)
+            
+            console.log(this.state.bank_id)
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -348,9 +420,13 @@ export default class EditPetani extends Component{
                                     <div className="row-flex col-3">
                                         <div className="select-wrapper">
                                            
-                                             <select id="provinsi" className="form-control select-option input-sm" value={this.state.value}
+                                             <select id="provinsi" className="text-color form-control select-option input-sm" value={this.state.value}
                                              onChange={this.handleChangeProvince}>
-                                                <option value={this.state.location.province_id} >{this.state.location.province}</option>
+                                                { this.state.location ? 
+                                                  <option value={this.state.location.province_id} >{this.state.location.province}</option>
+                                                  :
+                                                  <option value="">Provinsi</option>
+                                                }
                                                 {listStatus ?
                                                     listProvince.map(listprovince => 
                                                         <option
@@ -363,9 +439,14 @@ export default class EditPetani extends Component{
                                             </select>
                                         </div>
                                         <div className="select-wrapper">
-                                             <select id="kabupaten" className="form-control select-option input-sm" value={this.state.value}
+                                             <select id="kabupaten" className={ this.state.activeCities ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}
                                              onChange={this.handleChangeCities}>
-                                                <option value={this.state.location.city_id} >{this.state.location.city}</option>
+                                                { this.state.location ?
+                                                   <option value={this.state.location.city_id} >{this.state.location.city}</option> 
+                                                   :
+                                                   <option value="">Kabupaten/Kota</option>
+                                                }
+                                                
                                                 {statusCities ?
                                                         listCities.map(listcities => 
                                                             <option
@@ -379,9 +460,13 @@ export default class EditPetani extends Component{
                                             </select>
                                         </div>
                                         <div className="select-wrapper">
-                                             <select id="kecamatan" className="form-control select-option input-sm" value={this.state.value}
+                                             <select id="kecamatan" className={ this.state.activeDistrict ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}
                                              onChange={this.handleChangeDistricts}>
-                                                <option value={this.state.location.ditsrict_id} >{this.state.location.district}</option>
+                                                { this.state.location ?
+                                                   <option value={this.state.location.ditsrict_id} >{this.state.location.district}</option>
+                                                   :
+                                                   <option value="">Kecamatan</option>
+                                                }
                                                 {statusDistrict ?
                                                     listDistrict.map(listdistrict => 
                                                         <option
@@ -397,9 +482,13 @@ export default class EditPetani extends Component{
                                     </div>
                                     <div className="row-flex col-3">
                                         <div className="select-wrapper">
-                                            <select id="kelurahan" className="form-control select-option input-sm" value={this.state.value}
+                                            <select id="kelurahan" className={ this.state.activeVillage ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}
                                              onChange={this.handleChangeVillage}>
-                                                <option value={this.state.location.village_id} >{this.state.location.village}</option>
+                                                { this.state.location ?
+                                                   <option value={this.state.location.village_id} >{this.state.location.village}</option>
+                                                   :
+                                                   <option value="">Kelurahan</option>
+                                                }
                                                 {statusVillage ?
                                                     listVillage.map(listvillage => 
                                                         <option
@@ -414,10 +503,13 @@ export default class EditPetani extends Component{
                                         </div>
                                          <InputForm
                                             inputId="postcode"
+                                            classError={this.state.error_pos ? "input-form" : "input-form error"}
+                                            class={this.state.error_pos ? "form-control" : "form-control has-error"}
                                             handleChange={this._handleChange}
                                             placeholder="Kode Pos"
                                             type="text" class="form-control"
                                             defaultValue={this.state.pos_code}
+                                             errorMessage="Harus 5 digit angka"
                                             />
                                     </div>
                                     <p className="strong">Informasi Akun Bank</p>
@@ -427,12 +519,16 @@ export default class EditPetani extends Component{
                                             handleChange={this._handleChange}
                                             placeholder="No. Rek"
                                             type="text" class="form-control"
-                                            defaultValue={this.state.rek_number}
+                                            defaultValue={this.state.bank  !== null ? this.state.bank.rek_number : ''}
                                             />
                                         <div className="select-wrapper">
-                                            <select id="bank-name" className="form-control select-option input-sm" value={this.state.value}
+                                            <select id="bank-name" className="form-control select-option input-sm text-color" value={this.state.value}
                                             onChange={this.handleChangeBank}>
-                                                <option value={this.state.bank.bank_id} >{this.state.bank.bank_name}</option>
+                                                {   this.state.bank !== null ? 
+                                                    <option value={this.state.bank.bank_id} >{this.state.bank.bank_name}</option>
+                                                    :
+                                                    <option value=''>Pilih Bank</option>
+                                                }
                                                 {listStatusBank ?
                                                     listBank.map(listbank => 
                                                         <option
@@ -451,7 +547,7 @@ export default class EditPetani extends Component{
                                             handleChange={this._handleChange}
                                             placeholder="Atas Nama"
                                             type="text" class="form-control"
-                                            defaultValue={this.state.account_name}
+                                            defaultValue={this.state.bank !== null ? this.state.bank.account_name : ''}
                                             />
                                     </div>
                                     <div className="box-btn auto">

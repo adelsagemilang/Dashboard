@@ -8,6 +8,7 @@ import { API_URL, TK_KEY } from '../../containers/RootUrl'
 import { ButtonPrimary } from '../common/ButtonPrimary'
 import { ButtonIcon } from '../common/ButtonIcon'
 import TambahLahan from './popup/data-lahan/TambahLahan'
+import HapusData from './popup/common-popup/HapusData'
 import Header from '../common/Header'
 import InputForm from '../common/InputForm'
 import ReactPaginate from 'react-paginate'
@@ -21,18 +22,16 @@ export default class Datalahan extends Component{
             dataHere: [],
             classBgColor: '',
             toggleTambahLahan: false,
+            toggleDeleteLahan: false,
             entriPage: []
         }
 
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
-        this.userName = Crypto.AES.decrypt(Base64.decode(Cookie.load('username')), TK_KEY).toString(Crypto.enc.Utf8)
-        this.userEmail = Crypto.AES.decrypt(Base64.decode(Cookie.load('email')), TK_KEY).toString(Crypto.enc.Utf8)
     }
 
     handleSearch(id, value){
-        console.log('ini value: '+value)
 
-        axios.get(API_URL + 'user_access?page=0&size=10&text=' + value + '&user_role=1',{
+        axios.get(API_URL + 'lands?page=0&size=10&text='+value,{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -46,12 +45,6 @@ export default class Datalahan extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-            
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -62,7 +55,7 @@ export default class Datalahan extends Component{
         console.log('value: '+ e.target.value)
         const valueEntri = e.target.value
 
-        axios.get(API_URL + 'user_access?page=0&size=' + valueEntri + '&text=&user_role=1',{
+        axios.get(API_URL + 'lands?page=0&size='+ valueEntri +'&text=',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -76,12 +69,6 @@ export default class Datalahan extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-            
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -94,7 +81,7 @@ export default class Datalahan extends Component{
         let selected = dataHere.selected
         console.log(selected)
 
-        axios.get(API_URL + 'user_access?page='+ selected +'&size=10&text=&user_role=1',{
+        axios.get(API_URL + 'lands?page='+ selected +'&size=10&text=',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -108,12 +95,6 @@ export default class Datalahan extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -127,17 +108,34 @@ export default class Datalahan extends Component{
         })
     }
 
-    renderPopupTambahLahan(){
-        let { toggleTambahLahan } = this.state
+    toggleDeleteLahan(){
+        this.setState({
+            toggleDeleteLahan: !this.state.toggleDeleteLahan
+        })
+    }
 
-        if( toggleTambahLahan === true ){
+    renderPopupTambahLahan(){
+
+        if( this.state.toggleTambahLahan ){
             return (
                 <TambahLahan toggleTambahLahan={this.toggleTambahLahan}
                 />
             )
         }
-        else{
-            return null;
+    }
+
+    renderPopupDeleteLahan(){
+        if( this.state.toggleDeleteLahan ){
+            return (
+                <HapusData 
+                    title="Hapus Data Lahan"
+                    url={'lands/delete/'+this.state.land_id}
+                    name={this.state.name}
+                    farmerId={this.state.land_id}
+                    handleDelete={this.handleDelete} 
+                    toggleDeletePopup={this.toggleDeleteLahan} 
+            />
+            )
         }
     }
 
@@ -148,9 +146,16 @@ export default class Datalahan extends Component{
         })
     }
 
+    handleDelete(land_id, name){
+        this.setState({
+            land_id: land_id,
+            name: name,
+            toggleDeleteLahan: !this.state.toggleDeleteLahan
+        })
+    }
+
     componentDidMount(){
-        console.log(this.authToken)
-        axios.get(API_URL + 'user_access?page=0&size=10&text=&user_role=1',{
+        axios.get(API_URL + 'lands?page=0&size=10&text=',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -164,12 +169,6 @@ export default class Datalahan extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -183,13 +182,14 @@ export default class Datalahan extends Component{
         return(
             <div>
                 {this.renderPopupTambahLahan()}
+                {this.renderPopupDeleteLahan()}
                 <div className="main-content">
                     <Header title="Data Lahan" />
                     <div className="user-access">
                         <div className="user-access-container">
                             <div className="box-top row-flex flex-space">
                                 <div className="pull-left">
-                                    <p className="count-item">30 Lahan Petani</p>
+                                    <p className="count-item">{ this.state.totalElements ? this.state.totalElements : '0' } Lahan Petani</p>
                                     <div className="select-wrapper">
                                         <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
                                             <option value="10">10 entri per halaman</option>
@@ -202,12 +202,12 @@ export default class Datalahan extends Component{
                                     inputId="search_admin"
                                     handleChange={this.handleSearch}
                                     placeholder="Cari.."
-                                    class="search-item"
+                                    class="form-control search-item"
                                     type="text"/>
                                 </div>
                                 <div className="pull-right">
                                     <div className="box-btn auto" onClick={this.toggleTambahLahan}>
-                                        <ButtonPrimary name="Tambah Kelompok Tani" />
+                                        <ButtonPrimary name="Tambah Lahan" />
                                     </div>
                                 </div>
                             </div>
@@ -230,57 +230,33 @@ export default class Datalahan extends Component{
                                     </thead>
                                     <tbody>
                                         {DataHere.map((datahere, i) => {
-                                            if(i % 2 === 1){
-                                                return(
-                                                    <tr key={i} className='list-grey'>
-                                                        <td className="strong">Rendy Syabany</td>
-                                                        <td>Lahan Cikidang</td>
-                                                        <td>2000m</td>
-                                                        <td>2000mdpl</td>
-                                                        <td>Irigasi</td>
-                                                        <td>Bawang Merah
-                                                            Cabe Rawit
-                                                            Sawi</td>
-                                                        <td>Hama Wereng</td>
-                                                        <td>Rontok</td>
-                                                        <td>Jl. Bungur 2 No. 10
-                                                        Cilendek Timur, Bogor Barat
-                                                        Kota Bogor, Jawa Barat</td>
-                                                         <td>
-                                                            <div className="row-flex flex-center">
-                                                                 <div className="box-btn" onClick={this.handleDelete}>
-                                                                     <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
-                                                                 </div>
-                                                            </div>  
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            }else{
-                                                return(
-                                                    <tr key={i} >
-                                                        <td className="strong">Rendy Syabany</td>
-                                                        <td>Lahan Cikidang</td>
-                                                        <td>2000m</td>
-                                                        <td>2000mdpl</td>
-                                                        <td>Irigasi</td>
-                                                        <td>Bawang Merah
-                                                            Cabe Rawit
-                                                            Sawi</td>
-                                                        <td>Hama Wereng</td>
-                                                        <td>Rontok</td>
-                                                        <td>Jl. Bungur 2 No. 10
-                                                        Cilendek Timur, Bogor Barat
-                                                        Kota Bogor, Jawa Barat</td>
-                                                         <td>
-                                                            <div className="row-flex flex-center">
-                                                                 <div className="box-btn" onClick={this.handleDelete}>
-                                                                     <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
-                                                                 </div>
-                                                            </div>  
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            }
+                                            return(
+                                                <tr key={i}>
+                                                    <td className="strong">{ datahere.farmer_name }</td>
+                                                    <td>{ datahere.name }</td>
+                                                    <td>{ datahere.large }m<sup>2</sup></td>
+                                                    <td>{ datahere.height }mdpl</td>
+                                                    <td>{ datahere.irigation }</td>
+                                                    <td>{ datahere.commodities.map(comodities=> 
+                                                          <p>{ comodities.name } </p>
+                                                        ) }</td>
+                                                    <td>{ datahere.pest }</td>
+                                                    <td>{ datahere.disease }</td>
+                                                    <td>{ datahere.address
+                                                          + ', Kel. '+ datahere.location.village
+                                                          + ', Kec. '+ datahere.location.district
+                                                          + ', '+ datahere.location.city
+                                                          + ', '+ datahere.location.province
+                                                         }</td>
+                                                     <td>
+                                                        <div className="row-flex flex-center">
+                                                             <div className="box-btn" onClick={this.handleDelete.bind(this,datahere.land_id,datahere.name)}>
+                                                                 <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
+                                                             </div>
+                                                        </div>  
+                                                    </td>
+                                                </tr>
+                                            )
                                         })}
                                     </tbody>
                                 </table>
@@ -288,7 +264,7 @@ export default class Datalahan extends Component{
 
                             <div className="box-footer-table">
                                 <div className="footer-table">
-                                    <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
+                                    <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Data Lahan</p>
                                 </div>
 
                                 <div className="box-pagination">

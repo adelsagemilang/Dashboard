@@ -4,16 +4,16 @@ import '../../stylesheet/component/admin/_admin.scss'
 
 export default class LayoutMaster extends Component{
 
-	componentDidMount(){
-		var DEBUG = false;
+	/*componentDidMount(){
+		let DEBUG = false;
         if(!DEBUG){
             if(!window.console) window.console = {};
-            var methods = ["log", "debug", "warn", "info"];
-            for(var i=0;i<methods.length;i++){
+            let methods = ["log", "debug", "warn", "info"];
+            for(let i=0;i<methods.length;i++){
                 console[methods[i]] = function(){};
             }
         }
-	}
+	}*/
 
     render(){
     	
