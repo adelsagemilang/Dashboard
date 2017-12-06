@@ -26,7 +26,7 @@ export default class SideBar extends Component {
         let isActive = this.state.isActive
         const url = window.location.pathname;
 
-        if(url === '/' || url === '/login' ||  url === '/login/' || url === '/404' ||  url === '/404/'){
+        if(url === '/' || url === '/login' ||  url === '/login/'){
             return null;
         }
 
@@ -41,13 +41,14 @@ export default class SideBar extends Component {
         const program = url === '/admin/program' || url === '/admin/program/' || url === '/admin/ajukan-program' || url === '/admin/ajukan-program/' || url === '/admin/peserta-program' || url === '/admin/peserta-program/' ? 'list-menu-active' : isActive = ''
         const kegPetani = url === '/admin/kegiatan-petani' || url === '/admin/kegiatan-petani/' ? 'list-menu-active' : isActive = ''
         const rekapKegiatan = url === '/admin/rekap-kegiatan' || url === '/admin/rekap-kegiatan/' ? 'list-menu-active' : isActive = ''
+        const dataRukman = url === '/admin/data-rukman' || url === '/admin/data-rukman/' ? 'list-menu-active' : isActive = ''
         
 
         return(
             <div className="sidebar">
                 <div className="container-sidebar">
                     <div className="box-image">
-                        <img src="../images/typeface-aruni.svg" />
+                        <img src="../images/logo-white.png" />
                     </div>
                     <div className="box-list">
                         <Link to="/dashboard">
@@ -61,9 +62,19 @@ export default class SideBar extends Component {
                                 <ListMenu padding="no-pad" text="Data Petani" icon="../images/icon/menu_icon/menu_icon_2.svg" classActive={dataPetani}/>
                             </div>
                         </Link>
+                        <Link to="/admin/data-rukman">
+                            <div>
+                                <ListMenu padding="no-pad" text="Data Rukman" icon="../images/icon/menu_icon/rukman.png" classActive={dataRukman}/>
+                            </div>
+                        </Link>
                         <Link to="/admin/data-kelompok-tani">
                             <div>
                                 <ListMenu padding="no-pad" text="Data Kelompok Tani" icon="../images/icon/menu_icon/menu_icon_3.svg" classActive={dataKelTani}/>
+                            </div>
+                        </Link>
+                        <Link to="/admin/data-anggota-kelompok-tani">
+                            <div>
+                                <ListMenu padding="no-pad" text="Data Anggota Kel. Tani" icon="../images/icon/menu_icon/menu_icon_4.svg" classActive={dataAnggota}/>
                             </div>
                         </Link>
                         <Link to="/admin/order-out">
@@ -81,22 +92,14 @@ export default class SideBar extends Component {
                                 <ListMenu padding="no-pad" text="Data Lahan" icon="../images/icon/menu_icon/menu_icon_5.svg" classActive={dataLahan}/>
                             </div>
                         </Link>
-                        <Link className="disabled-link" onClick={e => e.preventDefault()} to="/admin/data-anggota-kelompok-tani">
-                            <div>
-                                <ListMenu padding="no-pad" text="Data Anggota Kel. Tani" icon="../images/icon/menu_icon/menu_icon_4.svg" classActive={dataAnggota}/>
-                                 <span className="not-available">coming soon</span>
-                            </div>
-                        </Link>
-                        <Link className="disabled-link" onClick={e => e.preventDefault()} to="/admin/data-tiket-program">
+                        <Link to="/admin/data-tiket-program">
                             <div>
                                 <ListMenu padding="no-pad" text="Tiket Program" icon="../images/icon/menu_icon/menu_icon_6.svg" classActive={dataTiket}/>
-                                 <span className="not-available">coming soon</span>
                             </div>
                         </Link>
-                        <Link className="disabled-link" onClick={e => e.preventDefault()} to="/admin/program">
+                        <Link to="/admin/program">
                             <div>
                                 <ListMenu padding="no-pad" text="Program" icon="../images/icon/menu_icon/menu_icon_7.svg" classActive={program}/>
-                                 <span className="not-available">coming soon</span>
                             </div>
                         </Link>
                         <Link className="disabled-link" onClick={e => e.preventDefault()} to="/admin/kegiatan-petani">

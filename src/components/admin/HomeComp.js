@@ -29,31 +29,25 @@ export default class HomeComp extends Component{
 
     componentDidMount(){
         
-        axios.get(API_URL + 'farmers?pagination=true&text=&page=0&size=10',{
+        axios.get(API_URL,{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
         })
         .then(res => {
-            const countFarmer = res.data.totalElements
-            this.setState({countFarmer})
+            const data = res.data
+            this.setState({
+                countFarmer: data.farmer_count,
+                countRukman: data.farmer_group_count,
+                countLand: data.sum_large_land,
+                countFarmerProgram: data.count_farmer_in_program
+
+            })
         })
         .catch((error) => {
             console.log('err: '+ error)
         })
 
-        axios.get(API_URL + 'rukmans?pagination=true&text=&page=0&size=10',{
-            headers:{ 
-                'X-AUTH-TOKEN' : this.authToken
-            }
-        })
-        .then(res => {
-            const countRukman = res.data.totalElements
-            this.setState({countRukman})
-        })
-        .catch((error) => {
-            console.log('err: '+ error)
-        })
     }
 
     render(){
@@ -80,7 +74,7 @@ export default class HomeComp extends Component{
                                     <p>Jumlah Kelompok Petani</p>
                                 </div>
                                 <div className="box text-center">
-                                    <h3>0<span className="text-muted">/ 0</span></h3>
+                                    <h3>{ this.state.countFarmerProgram ? this.state.countFarmerProgram : '0' }<span className="text-muted">/ { this.state.countFarmer ? this.state.countFarmer : '0' }</span></h3>
                                     <p>Keikutsertaan Petani pada Program</p>
                                 </div>
                             </div>
@@ -99,7 +93,8 @@ export default class HomeComp extends Component{
                                 </div>
                             </div>
                             <div className="box box-stat-lahan text-center">
-                                <h3>0 m<sup>2</sup><span className="text-muted">/ 0 m</span></h3>
+                                <h3>0 m<sup>2</sup><span className="text-muted">/ { this.state.countFarmerProgram ? this.state.countFarmerProgram : '0' } m<sup>2</sup></span></h3>
+                                <p>Lahan telah digunakan</p>
                             </div>
                         </div>
                         {/*}

@@ -12,6 +12,7 @@ import HapusData from './popup/common-popup/HapusData'
 import TambahPetani from './popup/data-petani/TambahPetani'
 import EditPetani from './popup/data-petani/EditPetani'
 import SearchPetani from './popup/data-petani/searchPetani'
+import Detail from './popup/data-petani/Detail'
 import PhoneFound from './popup/data-petani/phoneFound'
 import PhoneNotFound from './popup/data-petani/phoneNotFound'
 import Header from '../common/Header'
@@ -25,10 +26,11 @@ export default class DataPetani extends Component{
         autoBind(this)
 
         this.state = {
-            dataHere: [],
+            dataHere: false,
             classBgColor: '',
             toggleAddUser: false,
             toggleDeletePopup: false,
+            togglePopupDetail: false,
             toggleSuccess: false,
             phoneFound: false,
             phoneNotFound: false,
@@ -40,9 +42,21 @@ export default class DataPetani extends Component{
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
     }
 
-    handleSearch(id, value){
-        console.log('ini value: '+value)
+    handleDetail(farmer_name, farmer_id, lat, lng, img, img2, img3, img4){
+        this.setState({
+            farmerName: farmer_name,
+            farmerId: farmer_id,
+            lat: lat,
+            lng: lng,
+            img: img,
+            img2: img2,
+            img3: img3,
+            img4: img4,
+            togglePopupDetail: !this.state.togglePopupDetail
+        })
+    }
 
+    handleSearch(id, value){
         axios.get(API_URL + 'farmers?pagination=true&text=' + value + '&page=0&size=10',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
@@ -64,10 +78,9 @@ export default class DataPetani extends Component{
     }
 
     handleChangeEntriPage(e){
-        console.log('value: '+ e.target.value)
         const valueEntri = e.target.value
 
-        axios.get(API_URL + 'farmers?pagination=true&text=&page=0&size=' + valueEntri ,{
+        axios.get(API_URL + 'farmers?pagination=true&text=&page=0&size=' + valueEntri + '&member=false' ,{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -90,11 +103,9 @@ export default class DataPetani extends Component{
     }
 
     handlePageClick(dataHere){
-        console.log('clicked')
         let selected = dataHere.selected
-        console.log(selected)
 
-        axios.get(API_URL + 'farmers?pagination=true&text=&page='+ selected +'&size=10',{
+        axios.get(API_URL + 'farmers?pagination=true&text=&page='+ selected +'&size=10&member=false',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -158,6 +169,14 @@ export default class DataPetani extends Component{
         })
     }
 
+
+    togglePopupDetail(){
+        this.setState({
+            togglePopupDetail: !this.state.togglePopupDetail
+        })
+    }
+
+
     renderPopupAddUser(){
         let { toggleAddUser } = this.state
 
@@ -181,7 +200,7 @@ export default class DataPetani extends Component{
                     title="Hapus Petani"
                     url={'farmers/delete/'+this.state.farmer_id}
                     name={this.state.name}
-                    farmerId={this.state.farmer_id}
+                    farmerId={this.state.farmerId}
                     handleDelete={this.handleDelete} 
                     toggleDeletePopup={this.toggleDeletePopup} 
             />
@@ -212,6 +231,25 @@ export default class DataPetani extends Component{
         }
     }
 
+    renderPopupDetail(){
+        if (this.state.togglePopupDetail) {
+            return(
+                <Detail
+                    farmerName={this.state.farmerName}
+                    farmerId={this.state.farmerId}
+                    lat={this.state.lat}
+                    lng={this.state.lng}
+                    img={this.state.img}
+                    img2={this.state.img2}
+                    img3={this.state.img3}
+                    img4={this.state.img4}
+                    togglePopupDetail={this.togglePopupDetail} 
+                    handleAddFamily={this.handleAddFamily}
+                />
+            )
+        }
+    }
+
     handleCancel(){
         console.log('canceled')
         this.setState({
@@ -230,7 +268,7 @@ export default class DataPetani extends Component{
     handleSearchToAdd(){
         console.log('clicked');
         const value = document.getElementById('search-to-add').value
-        axios.get(API_URL + 'farmers?pagination=true&text=' + value + '&page=0&size=10',{
+        axios.get(API_URL + 'farmers?pagination=true&text=' + value + '&page=0&size=10&member=false',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -309,13 +347,13 @@ export default class DataPetani extends Component{
     }
 
     componentDidMount(){
-        axios.get(API_URL + 'farmers?pagination=true&text=&page=0&size=10',{
+        axios.get(API_URL + 'farmers?pagination=true&text=&page=0&size=10&member=false',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -331,12 +369,12 @@ export default class DataPetani extends Component{
 
     render(){
         const DataHere = this.state.dataHere
-        let ClassBgColor = this.state.classBgColor
 
         return(
             <div id="outer-container">
                 {this.renderPopupAddUser()}
                 {this.renderPopupUpdate()}
+                {this.renderPopupDetail()}
                 {this.renderPopupDelete()}
                 {this.phoneFound()}
                 {this.phoneNotFound()}
@@ -348,113 +386,119 @@ export default class DataPetani extends Component{
                         <img src="../images/logo-white.svg" height="35"/>
                     </div>
                     <Header title="Data Petani" />
-                    <div className="user-access">
-                        <div className="user-access-container">
-                            <div className="box-top row-flex flex-space">
-                                <div className="pull-left row-flex">
-                                    <p className="count-item">{ this.state.totalElements ? this.state.totalElements : '0' } Petani</p>
-                                    <div className="select-wrapper">
-                                        <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
-                                            <option value="10">10 entri per halaman</option>
-                                            <option value="25">25 entri per halaman</option>
-                                            <option value="50">50 entri per halaman</option>
-                                            <option value="100">100 entri per halaman</option>
-                                        </select>
+                    {
+                    DataHere ?
+                        <div className="user-access">
+                        {   this.state.totalElements ?
+                            (
+                                <div className="user-access-container">
+                                    <div className="box-top row-flex flex-space">
+                                        <div className="pull-left row-flex">
+                                            <p className="count-item">{ this.state.totalElements ? this.state.totalElements : '0' } Calon Petani</p>
+                                            <div className="select-wrapper">
+                                                <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
+                                                    <option value="10">10 entri per halaman</option>
+                                                    <option value="25">25 entri per halaman</option>
+                                                    <option value="50">50 entri per halaman</option>
+                                                    <option value="100">100 entri per halaman</option>
+                                                </select>
+                                            </div>
+                                            <InputForm
+                                            inputId="search_admin"
+                                            handleChange={this.handleSearch}
+                                            placeholder="Cari .."
+                                            class="search-item form-control"
+                                            type="text"/>
+                                        </div>
+                                        <div className="pull-right">
+                                            <div className="box-btn auto" onClick={this.toggleHandleDaftar}>
+                                                <ButtonPrimary name="Tambah Petani" />
+                                            </div>
+                                        </div>
                                     </div>
-                                    <InputForm
-                                    inputId="search_admin"
-                                    handleChange={this.handleSearch}
-                                    placeholder="Cari .."
-                                    class="search-item form-control"
-                                    type="text"/>
-                                </div>
-                                <div className="pull-right">
-                                    <div className="box-btn auto" onClick={this.toggleHandleDaftar}>
-                                        <ButtonPrimary name="Tambah Petani" />
+                                    
+                                    <div className="box-table">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Nama Lengkap</th>
+                                                    <th>No. Telp</th>
+                                                    <th>Alamat</th>
+                                                    <th>Tempat Tanggal Lahir</th>
+                                                    <th>Nama Ibu Kandung</th>
+                                                    <th>Rek. Bank</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                           
+                                            <tbody>
+                                                    {DataHere.map((datahere, i) => {
+                                                        return(
+                                                            <tr key={i}>
+                                                                <td data-th="Nama  dan KTP">
+                                                                    <div className="block two-line">
+                                                                        <p>{datahere.name}</p>
+                                                                        <p className="normal">{datahere.ktp_number}</p>
+                                                                        <p className="text-info normal pointer" 
+                                                                            onClick={this.handleDetail.bind(
+                                                                                this,
+                                                                                datahere.name,
+                                                                                datahere.farmer_id,
+                                                                                datahere.lat,
+                                                                                datahere.lng,
+                                                                                datahere.house_image,
+                                                                                datahere.ktp_photo,
+                                                                                datahere.face_photo,
+                                                                                datahere.face_ktp_photo
+                                                                            )}
+                                                                        >Lihat Detail</p>
+                                                                    </div>
+                                                                </td>
+                                                                <td data-th="No. Handphone">{datahere.phone_number}</td>
+                                                                <td data-th="Alamat">
+                                                                    <div className="block">{datahere.address}
+                                                                    , { datahere.village.toLowerCase() } , {datahere.district.toLowerCase()} , {datahere.city.toLowerCase()} , {datahere.province.toLowerCase()}</div>
+                                                                </td>
+                                                                <td data-th="Tempat Tanggal Lahir">
+                                                                    <div className="block two-line">
+                                                                        <p>{datahere.birth_place}</p>
+                                                                        <p>{datahere.birth_date}</p>
+                                                                    </div>
+                                                                </td>
+                                                                <td data-th="Nama Ibu">{datahere.biological_mothers_name}</td>
+                                                                <td data-th="Rek. Bank">
+                                                                { datahere.bank != null ?
+                                                                    (
+                                                                        <div className="block">
+                                                                            <p>{datahere.bank.bank_name}</p>
+                                                                            <p>{datahere.bank.rek_number}</p>
+                                                                            <p>a/n {datahere.bank.account_name}</p>
+                                                                        </div>
+                                                                    )
+                                                                    : 'Data akun bank tidak ada'
+                                                                 }
+                                                                 </td>
+                                                                <td data-th="Aksi" className="text-center">
+                                                                    <div className="row-flex flex-center flex-xs">
+                                                                        <div className="box-btn" onClick={this.handleUpdate.bind(this,datahere.farmer_id)}>
+                                                                            <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
+                                                                        </div>
+                                                                         <div className="box-btn" onClick={this.handleDelete.bind(this,datahere.farmer_id,datahere.name)}>
+                                                                             <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
+                                                                         </div>
+                                                                    </div>  
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    })}
+                                            </tbody>
+                                        </table>
                                     </div>
-                                </div>
-                            </div>
-                            
-                            <div className="box-table">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Nama Lengkap</th>
-                                            <th>No. Telp</th>
-                                            <th>Alamat</th>
-                                            <th>Tempat Tanggal Lahir</th>
-                                            <th>Nama Ibu Kandung</th>
-                                            <th>Rek. Bank</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    {
-                                            DataHere ?
-                                        <tbody>
-                                                {DataHere.map((datahere, i) => {
-                                                    return(
-                                                        <tr key={i}>
-                                                            <td data-th="Nama  dan KTP">
-                                                                <div className="block two-line">
-                                                                    <p>{datahere.name}</p>
-                                                                    <p className="normal">{datahere.ktp_number}</p>
-                                                                </div>
-                                                            </td>
-                                                            <td data-th="No. Handphone">{datahere.phone_number}</td>
-                                                            <td data-th="Alamat">
-                                                                <div className="block">{datahere.address}
-                                                                , { datahere.village } , {datahere.district} , {datahere.city} , {datahere.province}</div>
-                                                            </td>
-                                                            <td data-th="Tempat Tanggal Lahir">
-                                                                <div className="block two-line">
-                                                                    <p>{datahere.birth_place}</p>
-                                                                    <p>{datahere.birth_date}</p>
-                                                                </div>
-                                                            </td>
-                                                            <td data-th="Nama Ibu">{datahere.biological_mothers_name}</td>
-                                                            <td data-th="Rek. Bank">
-                                                            { datahere.bank != null ?
-                                                                (
-                                                                    <div className="block">
-                                                                        <p>{datahere.bank.bank_name}</p>
-                                                                        <p>{datahere.bank.rek_number}</p>
-                                                                    </div>
-                                                                )
-                                                                : 'Data akun bank tidak ada'
-                                                             }
-                                                             </td>
-                                                            <td data-th="Aksi" className="text-center">
-                                                                <div className="row-flex flex-center flex-xs">
-                                                                    <div className="box-btn" onClick={this.handleUpdate.bind(this,datahere.farmer_id)}>
-                                                                        <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
-                                                                    </div>
-                                                                     <div className="box-btn" onClick={this.handleDelete.bind(this,datahere.farmer_id,datahere.name)}>
-                                                                         <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
-                                                                     </div>
-                                                                </div>  
-                                                            </td>
-                                                        </tr>
-                                                    )
-                                                })}
-                                        </tbody>
-                                        : 
-                                        <tbody>
-                                            <tr>
-                                                <td className="text-center normal pd-t-10 no-content" colSpan="7">
-                                                    Tidak ada data
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    }
-                                </table>
-                            </div>
 
-                            {   this.state.totalElements ?
-
-                                (
+                                    
                                     <div className="box-footer-table">
                                         <div className="footer-table">
-                                            <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Data Petani</p>
+                                            <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Data Calon Petani</p>
                                         </div>
 
                                         <div className="box-pagination">
@@ -482,11 +526,27 @@ export default class DataPetani extends Component{
                                             </div>
                                         </div>
                                     </div>
-                                )
-                                : null
-                            }
+                                </div>
+                            )
+                            : 
+                            (
+                                 <div className="user-access-container text-center no-content">
+                                    <img src="../images/empty_state.svg" alt="" height="180"/>
+                                    <h3 className="mg-t-20 normal">Data petani masih kosong</h3>
+                                    <div className="box-btn auto mg-t-40" onClick={this.toggleHandleDaftar}>
+                                        <ButtonPrimary name="Tambah Petani" />
+                                    </div>
+                                 </div>
+                            )
+                        }
+                        </div>
+                    :
+                    <div className="user-access">
+                        <div className="user-access-container text-center no-content">
+                            <img src="../images/loading.gif" alt=""/>
                         </div>
                     </div>
+                    }
                 </div>
             </div>
         )

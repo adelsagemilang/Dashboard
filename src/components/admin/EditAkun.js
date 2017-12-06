@@ -31,7 +31,8 @@ export default class EditAkun extends Component {
             activeCities: true,
             activeDistrict: true,
             activeVillage: true,
-            datepicker: ''
+            now: moment().format('YYYY-MM-DD'),
+            datepicker: moment().format('YYYY-MM-DD')
         }
     }
 
@@ -255,11 +256,14 @@ export default class EditAkun extends Component {
                 ktp_number: document.getElementById('no_ktp').value,
                 phone_number: document.getElementById('no_hp').value,
                 birth_place: document.getElementById('birth_place').value,
-                birth_date: this.state.datepicker,
+                birth_date: this.state.datepicker === this.state.now ? this.state.birth_date : this.state.datepicker,
                 email: document.getElementById('email').value,
                 address: document.getElementById('address').value,
                 pos_code: document.getElementById('postcode').value,
-                village_id: this.state.valueVillage
+                village_id: this.state.valueVillage ? this.state.valueVillage : this.state.location.village_id,
+                bank_id: this.state.bankId ? this.state.bankId : this.state.bank_id,
+                account_name: document.getElementById('bank-owner-name').value,
+                rek_number: document.getElementById('no_rek').value
                 
             },
             {
@@ -333,7 +337,9 @@ export default class EditAkun extends Component {
                 email = res.data.email,
                 address = res.data.address,
                 location = res.data.location,
-                pos_code = res.data.pos_code
+                pos_code = res.data.pos_code,
+                bank = res.data.bank ? res.data.bank : null,
+                bank_id = res.data.bank ? res.data.bank.bank_id : ''
                 
                 
             } = this.state
@@ -349,6 +355,8 @@ export default class EditAkun extends Component {
                 address,
                 location,
                 pos_code,
+                bank,
+                bank_id,
                 status: true
             })
         })
@@ -427,60 +435,102 @@ export default class EditAkun extends Component {
                                     </div>
                                 </div>
                                 <div className="box-profile-form">
-                                    <p className="strong">Profil</p>
-                                    {   this.state.error ? 
-                                        <p className="text-danger mg-b-10 mg-t-10">{ this.state.errorMessage }</p>
-                                        :
-                                        null
-                                    }
-                                    <div className="row-flex">
-                                        <div className="box-1">
-                                            <InputForm
-                                            inputId="name"
-                                            defaultValue={this.state.name}
-                                            handleChange={this._handleChange}
-                                            placeholder="Nama user"
-                                            type="text" class="form-control"/>
-                                            <InputForm
-                                            inputId="no_ktp"
-                                            classError={this.state.error_ktp ? "input-form" : "input-form error"}
-                                            class={this.state.error_ktp ? "form-control" : "form-control has-error"}
-                                            defaultValue={this.state.ktp_number}
-                                            handleChange={this._handleChange}
-                                            placeholder="Nomor KTP"
-                                            errorMessage="Harus 16 digit angka"
-                                            type="text" class="form-control"/>
-                                            <InputForm
-                                            inputId="no_hp"
-                                            classError={this.state.error_hp ? "input-form" : "input-form error"}
-                                            class={this.state.error_hp ? "form-control" : "form-control has-error"}
-                                            defaultValue={this.state.phone_number}
-                                            handleChange={this._handleChange}
-                                            placeholder="Nomor HP"
-                                            errorMessage="Numeric minimum 10 digit angka"
-                                            type="text" class="form-control"/>
-                                        </div>
-                                        <div className="box-2">
-                                            <InputForm
-                                            inputId="birth_place"
-                                            defaultValue={this.state.birth_place}
-                                            handleChange={this._handleChange}
-                                            placeholder="Tempat Lahir"
-                                            type="text" class="form-control"/>
-                                            <InputForm
-                                             getValueDatePicker={this.getDatePicker}
-                                            startdate={this.state.birth_date}
-                                            inputId="birth_date"
-                                            handleChange={this._handleChange}
-                                            placeholder="Tanggal Lahir"
-                                            type="date" class="form-control" icon="true" src="../images/icon/button_icon/icon-datepicker.svg"/>
-                                             <InputForm
-                                             inputId="email"
-                                            defaultValue={this.state.email}
-                                            handleChange={this._handleChange}
-                                            placeholder="Alamat Email"
-                                            type="email" class="form-control"/>
+                                    <div className="sub-box">
+                                       <p className="strong">Profil</p>
+                                        {   this.state.error ? 
+                                            <p className="text-danger mg-b-10 mg-t-10">{ this.state.errorMessage }</p>
+                                            :
+                                            null
+                                        }
+                                        <div className="row-flex">
+                                            <div className="box-1">
+                                                <InputForm
+                                                inputId="name"
+                                                defaultValue={this.state.name}
+                                                handleChange={this._handleChange}
+                                                placeholder="Nama user"
+                                                type="text" class="form-control"/>
+                                                <InputForm
+                                                inputId="no_ktp"
+                                                classError={this.state.error_ktp ? "input-form" : "input-form error"}
+                                                class={this.state.error_ktp ? "form-control" : "form-control has-error"}
+                                                defaultValue={this.state.ktp_number}
+                                                handleChange={this._handleChange}
+                                                placeholder="Nomor KTP"
+                                                errorMessage="Harus 16 digit angka"
+                                                type="text" class="form-control"/>
+                                                <InputForm
+                                                inputId="no_hp"
+                                                classError={this.state.error_hp ? "input-form" : "input-form error"}
+                                                class={this.state.error_hp ? "form-control" : "form-control has-error"}
+                                                defaultValue={this.state.phone_number}
+                                                handleChange={this._handleChange}
+                                                placeholder="Nomor HP"
+                                                errorMessage="Numeric minimum 10 digit angka"
+                                                type="text" class="form-control"/>
+                                            </div>
+                                            <div className="box-2">
+                                                <InputForm
+                                                inputId="birth_place"
+                                                defaultValue={this.state.birth_place}
+                                                handleChange={this._handleChange}
+                                                placeholder="Tempat Lahir"
+                                                type="text" class="form-control"/>
+                                                <InputForm
+                                                 getValueDatePicker={this.getDatePicker}
+                                                startdate={this.state.birth_date}
+                                                inputId="birth_date"
+                                                handleChange={this._handleChange}
+                                                placeholder="Tanggal Lahir"
+                                                type="date" class="form-control" icon="true" src="../images/icon/button_icon/icon-datepicker.svg"/>
+                                                 <InputForm
+                                                 inputId="email"
+                                                defaultValue={this.state.email}
+                                                handleChange={this._handleChange}
+                                                placeholder="Alamat Email"
+                                                type="email" class="form-control"/>
+                                            </div> 
                                         </div> 
+                                    </div>
+                                    <div className="sub-box">
+                                        <p className="strong">Rekening Bank</p>
+                                        <div className="row-flex">
+                                         <div className="box-1">
+                                            <InputForm
+                                                inputId="no_rek"
+                                                handleChange={this._handleChange}
+                                                placeholder="No. Rek"
+                                                type="text" class="form-control"
+                                                defaultValue={this.state.bank  !== null ? this.state.bank.rek_number : ''}
+                                                />
+                                                <div className="select-wrapper bank">
+                                                    <select id="bank-name" className="form-control select-option input-sm text-color" value={this.state.value}
+                                                    onChange={this.handleChangeBank}>
+                                                        {   this.state.bank !== null ? 
+                                                            <option value={this.state.bank.bank_id} >{this.state.bank.bank_name}</option>
+                                                            :
+                                                            <option value=''>Pilih Bank</option>
+                                                        }
+                                                        {listStatusBank ?
+                                                            listBank.map(listbank => 
+                                                                <option
+                                                                    key={listbank.id_bank}
+                                                                    value={listbank.id_bank}>
+                                                                    {listbank.bank_name}
+                                                                </option>
+                                                            ) : null
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <InputForm
+                                                    inputId="bank-owner-name"
+                                                    handleChange={this._handleChange}
+                                                    placeholder="Atas Nama"
+                                                    type="text" class="form-control"
+                                                    defaultValue={this.state.bank !== null ? this.state.bank.account_name : ''}
+                                                />
+                                         </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>

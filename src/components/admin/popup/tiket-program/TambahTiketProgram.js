@@ -13,7 +13,10 @@ import { API_URL, TK_KEY } from '../../../../containers/RootUrl'
 
 class TambahTiketProgram extends Component {
      constructor(props) {
-        super(props);
+        super(props)
+        autoBind(this)
+
+        this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
     }
 
     _handleChange(id, value){
@@ -21,16 +24,12 @@ class TambahTiketProgram extends Component {
     }
 
      handleSubmit(e){
-        // const doc = document.getElementById
         e.preventDefault();
         const { cookies } = this.props;
         
-        axios.post(API_URL + 'admins', {
-            username: document.getElementById('username').value,
-            email: document.getElementById('email').value,
-            phone_number: document.getElementById('no_hp').value,
-            name: document.getElementById('name').value
-            
+        axios.post(API_URL + 'programs/program_tickets', {
+            title: document.getElementById('title').value,
+            description: document.getElementById('desc').value    
         },
         {
             headers: {
@@ -41,8 +40,7 @@ class TambahTiketProgram extends Component {
         .then(res => {
             const data = res.data
             this.setState({data})
-            console.log('succ: '+ this.state.data)
-            window.location.reload();
+            this.props.success()
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -58,17 +56,18 @@ class TambahTiketProgram extends Component {
                             <p className="title">Tambah Tiket Program</p>
                             <p className="sub-title">Silakan masukkan data tiket program dengan benar.</p>
                             <InputForm 
+                                inputId="title"
                                 type="text"
                                 placeholder="Judul Program"
                                 class="form-control"
                                 handleChange={this._handleChange}
                             />
-                            <TextArea title="Deskripsi Program" class="form-control"/>
+                            <TextArea idtextarea="desc" title="Deskripsi Program" class="form-control h-160"/>
                             <div className="box-btn auto" onClick={this.handleSubmit}>
-                            <ButtonPrimary
-                                class="button-primary"
-                                type="submit"
-                                name="Tambah Tiket Program" />
+                                <ButtonPrimary
+                                    class="button-primary"
+                                    type="submit"
+                                    name="Tambah Tiket Program" />
                             </div>
                             <div className="box-btn auto" onClick={this.props.toggleTambahTiket}>
                                 <ButtonPrimary

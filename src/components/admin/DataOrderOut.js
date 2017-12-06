@@ -17,7 +17,7 @@ export default class DataOrderOut extends Component{
         autoBind(this)
 
         this.state = {
-            dataHere: [],
+            dataHere: false,
             classBgColor: '',
             entriPage: []
         }
@@ -124,7 +124,7 @@ export default class DataOrderOut extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -152,7 +152,12 @@ export default class DataOrderOut extends Component{
                         <img src="../images/logo-white.svg" height="35"/>
                     </div>
                     <Header title="Data Order Keluar" />
+                    {
+                    DataHere ?
                     <div className="user-access">
+                        {   this.state.totalElements ?
+
+                        (
                         <div className="user-access-container">
                             <div className="box-top row-flex flex-space">
                                 <div className="pull-left row-flex">
@@ -187,76 +192,75 @@ export default class DataOrderOut extends Component{
                                             <th>Status</th>
                                         </tr>
                                     </thead>
-                                    {
-                                        DataHere ?
-                                        <tbody>
-                                            {DataHere.map((datahere, i) => {
-                                                i = i + 1
-                                                return(
-                                                    <tr key={i}>
-                                                        <td data-th="No">{i}</td>
-                                                        <td data-th="Nama Petani">{datahere.farmer_name}</td>
-                                                        <td data-th="Nama Rukman">{datahere.rukman_name}</td>
-                                                        <td data-th="Komoditas">Komoditas</td>
-                                                        <td data-th="Jumlah">{datahere.qty}</td>
-                                                        <td data-th="Harga">{datahere.price}</td>
-                                                        <td data-th="Status" className="text-center">
-                                                        	{datahere.status}	
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            })}
-                                        </tbody>
-                                        :
-                                        <tbody>
-                                            <tr>
-                                                <td className="text-center normal pd-t-10 no-content" colSpan="7">
-                                                    Tidak ada data
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    }
+                                    <tbody>
+                                        {DataHere.map((datahere, i) => {
+                                            i = i + 1
+                                            return(
+                                                <tr key={i}>
+                                                    <td data-th="No">{i}</td>
+                                                    <td data-th="Nama Petani">{datahere.farmer_name}</td>
+                                                    <td data-th="Nama Rukman">{datahere.rukman_name}</td>
+                                                    <td data-th="Komoditas">Komoditas</td>
+                                                    <td data-th="Jumlah">{datahere.qty}</td>
+                                                    <td data-th="Harga">{datahere.price}</td>
+                                                    <td data-th="Status" className="text-center">
+                                                    	{datahere.status}	
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })}
+                                    </tbody>
                                 </table>
                             </div>
-                            
-                            {   this.state.totalElements ?
+                           
+                            <div className="box-footer-table">
+                                <div className="footer-table">
+                                    <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Data Order Keluar</p>
+                                </div>
 
-                                (
-                                    <div className="box-footer-table">
-                                        <div className="footer-table">
-                                            <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Data Order Keluar</p>
-                                        </div>
-
-                                        <div className="box-pagination">
-                                            <div className="pagination-content">
-                                                < ReactPaginate
-                                                    previousLabel={
-                                                        <div className="box-lable">
-                                                            <img src="/images/icon/button_icon/icon_arrow_left.png" />
-                                                        </div>
-                                                    }
-                                                    nextLabel={
-                                                        <div className="box-lable">
-                                                            <img src="/images/icon/button_icon/icon_arrow_right.png" />
-                                                        </div>
-                                                    }
-                                                    breakLabel={<a href="">...</a>}
-                                                    breakClassName={"break-me"}
-                                                    pageCount={this.state.totalPage}
-                                                    marginPagesDisplayed={1}
-                                                    pageRangeDisplayed={2}
-                                                    onPageChange={this.handlePageClick}
-                                                    containerClassName={"pagination"}
-                                                    subContainerClassName={"pages pagination"}
-                                                    activeClassName={"active"} />
-                                            </div>
-                                        </div>
+                                <div className="box-pagination">
+                                    <div className="pagination-content">
+                                        < ReactPaginate
+                                            previousLabel={
+                                                <div className="box-lable">
+                                                    <img src="/images/icon/button_icon/icon_arrow_left.png" />
+                                                </div>
+                                            }
+                                            nextLabel={
+                                                <div className="box-lable">
+                                                    <img src="/images/icon/button_icon/icon_arrow_right.png" />
+                                                </div>
+                                            }
+                                            breakLabel={<a href="">...</a>}
+                                            breakClassName={"break-me"}
+                                            pageCount={this.state.totalPage}
+                                            marginPagesDisplayed={1}
+                                            pageRangeDisplayed={2}
+                                            onPageChange={this.handlePageClick}
+                                            containerClassName={"pagination"}
+                                            subContainerClassName={"pages pagination"}
+                                            activeClassName={"active"} />
                                     </div>
-                                )
-                                : null
-                            }
+                                </div>
+                            </div>
+                        </div>
+                        )
+                        :
+                        (
+                        <div className="user-access-container text-center no-content">
+                            <img src="../images/empty_state.svg" alt="" height="180"/>
+                            <h3 className="mg-t-20 normal">Data order out masih kosong</h3>
+                        </div>
+                        )
+                        }   
+                    </div>
+                    :
+                    <div className="user-access">
+                        <div className="user-access-container text-center no-content">
+                            <img src="../images/loading.gif" alt=""/>
                         </div>
                     </div>
+                    }
                 </div>
             </div>
         )

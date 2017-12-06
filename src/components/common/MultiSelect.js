@@ -34,7 +34,7 @@ export default class MultiSelectField extends Component {
                   options={fruits} 
                   onChange={this.props.handleChange} 
                   labelKey="name"
-                  valueKey="id_commodity"
+                  valueKey="commodity_id"
                   />
             </div>
         );

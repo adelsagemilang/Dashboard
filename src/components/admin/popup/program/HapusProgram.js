@@ -14,19 +14,17 @@ import { API_URL, TK_KEY } from '../../../../containers/RootUrl'
 class HapusProgram extends Component {
     constructor(props) {
         super(props);
+        autoBind(this)
+        this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
     }
 
-    handleSubmit(e){
+    handleSubmitReject(e){
         // const doc = document.getElementById
         e.preventDefault();
         const { cookies } = this.props;
         
-        axios.post(API_URL + 'admins', {
-            username: document.getElementById('username').value,
-            email: document.getElementById('email').value,
-            phone_number: document.getElementById('no_hp').value,
-            name: document.getElementById('name').value
-            
+        axios.post(API_URL + 'programs/reject/' + this.props.id_program ,{
+            reason: document.getElementById('reason').value
         },
         {
             headers: {
@@ -35,10 +33,29 @@ class HapusProgram extends Component {
             }
         })
         .then(res => {
-            const data = res.data
-            this.setState({data})
-            console.log('succ: '+ this.state.data)
-            window.location.reload();
+            this.props.success()
+        })
+        .catch((error) => {
+            console.log('err: '+ error)
+        })
+    }
+
+    handleSubmit(e){
+        // const doc = document.getElementById
+        e.preventDefault();
+        const { cookies } = this.props;
+        
+        axios.post(API_URL + 'programs/delete/' + this.props.id_program ,{
+            reason: document.getElementById('reason').value
+        },
+        {
+            headers: {
+                'X-AUTH-TOKEN' : this.authToken,
+                'Content-Type' : 'application/json'
+            }
+        })
+        .then(res => {
+            this.props.success()
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -51,24 +68,45 @@ class HapusProgram extends Component {
                 <div className="popup-container md">
                     <div className="box-content">
                         <div className="content">
-                            <p className="title warning">Hapus Program</p>
-                            <p className="sub-title">Anda yakin akan menghapus program <span className="strong">Penanaman
-                            Cabai 1 Hektar.</span> Silakan tulis alasan anda menghapus
-                            program ini</p>
+                            {  this.props.reject ? 
+                                <p className="title warning">Tolak Program</p>
+                                :
+                                <p className="title warning">Hapus Program</p>
+                            }
+                            <p className="sub-title">Anda yakin akan { this.props.reject ? 'menolak' : 'menghapus' } program <span className="strong">{this.props.name}</span></p>
+                            <TextArea idtextarea="reason" title="Tulis alasan anda" class="form-control"/>
 
-                            <TextArea title="Tulis alasan anda" class="form-control"/>
-                            <div className="box-btn auto" onClick={this.props.toggleHapusProgram}>
-                            <ButtonPrimary
-                                class="button-primary"
-                                type="submit"
-                                name="Batal" />
-                            </div>
-                            <div className="box-btn auto" onClick={this.handleSubmit}>
-                                <ButtonPrimary
-                                class="button-secondary"
-                                type="button"
-                                name="Konfirmasi" />
-                            </div>
+                            { this.props.reject ? 
+                                <div>
+                                    <div className="box-btn auto" onClick={this.props.toggleTolakProgram}>
+                                        <ButtonPrimary
+                                            class="button-primary"
+                                            type="submit"
+                                            name="Batal" />
+                                    </div>
+                                    <div className="box-btn auto" onClick={this.handleSubmitReject}>
+                                        <ButtonPrimary
+                                        class="button-secondary"
+                                        type="button"
+                                        name="Konfirmasi" />
+                                    </div>
+                                </div>
+                                :
+                                <div>
+                                    <div className="box-btn auto" onClick={this.props.toggleHapusProgram}>
+                                        <ButtonPrimary
+                                            class="button-primary"
+                                            type="submit"
+                                            name="Batal" />
+                                    </div>
+                                    <div className="box-btn auto" onClick={this.handleSubmit}>
+                                        <ButtonPrimary
+                                        class="button-secondary"
+                                        type="button"
+                                        name="Konfirmasi" />
+                                    </div>
+                                </div>
+                            }
                         </div>
                         <div className="footer-content warning"></div>
                     </div>

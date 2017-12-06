@@ -58,7 +58,8 @@ export default class InputForm extends Component {
                         showYearDropdown
                         scrollableYearDropdown
                         readOnly={true}
-                        selected={this.state.dbDate ? this.state.dbDate : ""} 
+                        selected={this.state.dbDate ? this.state.dbDate : ""}
+                        openToDate={moment("1960-01-01")}
                         onChange={this.handleChange} 
                         className={this.props.class}
                         placeholderText={this.props.placeholder}
@@ -96,6 +97,12 @@ export default class InputForm extends Component {
                           case "nama-lahan": return "[a-zA-Z ]*"
                           case "large": return "[0-9]+(\.[0-9]{0,2})?"
                           case "height": return "[0-9]+(\.[0-9]{0,2})?"
+                          case "irigation": return "[a-zA-Z ]*"
+                          case "rel_status": return "[a-zA-Z ]*"
+                          case "title": return "[a-zA-Z ]*"
+                          case "search_admin": return "[a-zA-Z0-9 ]*"
+                          case "code": return "[0-9]*"
+                          case "link": return "https?://.+"
                           default:      return null
                         }
                     })()}
@@ -115,6 +122,12 @@ export default class InputForm extends Component {
                           case "nama-lahan": return this.handleInput.bind(this) 
                           case "large": return this.handleInput.bind(this)
                           case "height": return this.handleInput.bind(this)
+                          case "irigation": return this.handleInput.bind(this)
+                          case "rel_status": return this.handleInput.bind(this)
+                          case "title": return this.handleInput.bind(this)
+                          case "search_admin": return this.handleInput.bind(this)
+                          case "code": return this.handleInput.bind(this)
+                          case "link": return this.handleInput.bind(this)
                           default:      return null
                         }
                     })()}
@@ -135,6 +148,12 @@ export default class InputForm extends Component {
                           case "nama-lahan": return this.state.valueInput 
                           case "large": return this.state.valueInput 
                           case "height": return this.state.valueInput 
+                          case "irigation": return this.state.valueInput 
+                          case "rel_status": return this.state.valueInput 
+                          case "title": return this.state.valueInput 
+                          case "search_admin": return this.state.valueInput 
+                          case "code": return this.state.valueInput 
+                          case "link": return this.state.valueInput
                           default:      return ''
                         }
                     })()}

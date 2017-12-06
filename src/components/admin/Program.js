@@ -7,6 +7,7 @@ import autoBind from 'react-autobind'
 import { API_URL, TK_KEY } from '../../containers/RootUrl'
 import { ButtonPrimary } from '../common/ButtonPrimary'
 import { ButtonIcon } from '../common/ButtonIcon'
+import Success from './popup/common-popup/Success'
 import TambahProgram from './popup/program/TambahProgram'
 import BuatProgram from './popup/program/BuatProgram'
 import HapusProgram from './popup/program/HapusProgram'
@@ -14,6 +15,7 @@ import DropdownMenu from './dropdown-menu'
 import Header from '../common/Header'
 import InputForm from '../common/InputForm'
 import ReactPaginate from 'react-paginate'
+import ResponsiveHeader from '../common/ResponsiveHeader'
 
 export default class Program extends Component{
     constructor(props){
@@ -21,24 +23,67 @@ export default class Program extends Component{
         autoBind(this)
 
         this.state = {
-            dataHere: [],
+            dataHere: false,
             classBgColor: '',
             toggleTambahProgram: false,
             toggleBuatProgram: false,
             toggleHapusProgram: false,
+            toggleTolakProgram: false,
             toggleDropdownFilter: false,
+            toggleSuccess: false,
             entriPage: []
         }
 
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
-        this.userName = Crypto.AES.decrypt(Base64.decode(Cookie.load('username')), TK_KEY).toString(Crypto.enc.Utf8)
-        this.userEmail = Crypto.AES.decrypt(Base64.decode(Cookie.load('email')), TK_KEY).toString(Crypto.enc.Utf8)
     }
+
+    toggleSuccessPopup(){
+        this.setState({
+            toggleSuccess: !this.state.toggleSuccess,
+            toggleHapusProgram: false,
+            toggleTolakProgram: false
+        })
+    }
+
+    HapusProgram(id, name){
+        this.setState({
+            id_program: id,
+            name: name,
+            toggleHapusProgram: true
+        })
+    }
+
+    TolakProgram(id, name){
+        this.setState({
+            id_program: id,
+            name: name,
+            toggleTolakProgram: true
+        })
+    }
+
+    renderPopupSuccess(){
+        if(this.state.toggleSuccess){
+            return (
+                <Success 
+                toggleSuccessPopup={this.handleSuccessDismiss} 
+            />
+            )
+        }
+    }
+
+    handleSuccessDismiss(){
+        this.setState({
+            toggleSuccess: !this.state.toggleSuccess,
+            toggleBuatProgram: false
+        })
+        window.location.reload()
+    }
+
 
     handleSearch(id, value){
         console.log('ini value: '+value)
 
-        axios.get(API_URL + 'user_access?page=0&size=10&text=' + value + '&user_role=1',{
+        axios.get(API_URL + 'programs?page=0&size=10&text=' + value,{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -68,7 +113,7 @@ export default class Program extends Component{
         console.log('value: '+ e.target.value)
         const valueEntri = e.target.value
 
-        axios.get(API_URL + 'user_access?page=0&size=' + valueEntri + '&text=&user_role=1',{
+        axios.get(API_URL + 'programs?page=0&size=' + valueEntri + '&text=',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -100,7 +145,7 @@ export default class Program extends Component{
         let selected = dataHere.selected
         console.log(selected)
 
-        axios.get(API_URL + 'user_access?page='+ selected +'&size=10&text=&user_role=1',{
+        axios.get(API_URL + 'programs?page='+ selected +'&size=10&text=',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -126,6 +171,12 @@ export default class Program extends Component{
         })
     }
 
+    id_tiket(id){
+        this.setState({
+            id_tiket: id
+        })
+    }
+
 
     toggleTambahProgram(){
         this.setState({
@@ -140,17 +191,15 @@ export default class Program extends Component{
     }
 
     renderPopupTambahProgram(){
-        let { toggleTambahProgram } = this.state
 
-        if( toggleTambahProgram === true ){
+        if( this.state.toggleTambahProgram ){
             return (
-                <TambahProgram 
+                <TambahProgram
+                    toggleBuatProgram={this.toggleBuatProgram} 
                     toggleTambahProgram={this.toggleTambahProgram}
+                    id_tiket={this.id_tiket}
                 />
             )
-        }
-        else{
-            return null;
         }
     }
 
@@ -162,17 +211,29 @@ export default class Program extends Component{
 
     toggleDropdownMenu(i){
         let id = document.getElementById(i)
-        /*let active = document.getElementsByClassName("active")
+        let active = document.getElementsByClassName("active")
 
-        while (active.length){
-            active[0].classList.remove("active")
-        }*/
-        id.classList.toggle("active")
+
+        if( id.classList.contains("active") ){
+            id.classList.remove("active")
+        }
+        else{
+            while (active.length){
+                active[0].classList.remove("active")
+            }
+            id.classList.add("active")
+        }
     }
 
     toggleHapusProgram(){
         this.setState({
             toggleHapusProgram: !this.state.toggleHapusProgram
+        })
+    }
+
+    toggleTolakProgram(){
+        this.setState({
+            toggleTolakProgram: !this.state.toggleTolakProgram
         })
     }
 
@@ -209,7 +270,7 @@ export default class Program extends Component{
     renderPopupBuatProgram(){
         if (this.state.toggleBuatProgram){
             return(
-                <BuatProgram toggleBuatProgram={this.toggleBuatProgram} />
+                <BuatProgram toggleBuatProgram={this.toggleBuatProgram} id_tiket={this.state.id_tiket}  success={this.toggleSuccessPopup}/>
             )
         }
     }
@@ -217,7 +278,26 @@ export default class Program extends Component{
     renderPopupHapusProgram(){
         if (this.state.toggleHapusProgram){
             return(
-                <HapusProgram toggleHapusProgram={this.toggleHapusProgram} />
+                <HapusProgram
+                    name={this.state.name} 
+                    id_program={this.state.id_program}
+                    toggleHapusProgram={this.toggleHapusProgram}
+                    success={this.toggleSuccessPopup} 
+                />
+            )
+        }
+    }
+
+    renderPopupTolakProgram(){
+        if (this.state.toggleTolakProgram){
+            return(
+                <HapusProgram
+                    name={this.state.name} 
+                    id_program={this.state.id_program}
+                    toggleHapusProgram={this.toggleTolakProgram}
+                    success={this.toggleSuccessPopup} 
+                    reject="true"
+                />
             )
         }
     }
@@ -297,14 +377,13 @@ export default class Program extends Component{
     }
 
     componentDidMount(){
-        console.log(this.authToken)
-        axios.get(API_URL + 'user_access?page=0&size=10&text=&user_role=1',{
+        axios.get(API_URL + 'programs?page=0&size=10&text=',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -312,12 +391,24 @@ export default class Program extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
+        })
+        .catch((error) => {
+            console.log('err: '+ error)
+        })
 
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
+        axios.get(API_URL + 'programs/count_program',{
+            headers:{ 
+                'X-AUTH-TOKEN' : this.authToken
+            }
+        })
+        .then(res => {
+            const data = res.data
+            this.setState({
+                count_accepted_program: data.count_accepted_program,
+                count_added_program: data.count_added_program,
+                count_pending_program: data.count_pending_program,
+                count_rejected_program: data.count_rejected_program
+            })
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -329,174 +420,183 @@ export default class Program extends Component{
         let ClassBgColor = this.state.classBgColor
 
         return(
-            <div>
+            <div id="outer-container">
                 {this.renderPopupTambahProgram()}
                 {this.renderPopupBuatProgram()}
                 {this.renderPopupHapusProgram()}
-                <div className="main-content">
+                {this.renderPopupTolakProgram()}
+                {this.renderPopupSuccess()}
+                <ResponsiveHeader />
+                <div id="page-wrap" className="main-content">
+                    <div className="responsive-header">
+                        <img src="../images/logo-white.svg" height="35"/>
+                    </div>
                     <Header title="Program" />
-                    <div className="user-access tiket-program">
-                        <div className="user-access-container">
-                            <div className="box-status row-flex">
-                                <div className="col-4 text-center">
-                                    <h3 className="text-success">2</h3>
-                                    <p>Disetujui</p>
-                                </div>
-                                <div className="col-4 text-center">
-                                    <h3 className="text-info">31</h3>
-                                    <p>Menunggu Persetujuan</p>
-                                </div>
-                                <div className="col-4 text-center">
-                                    <h3>0</h3>
-                                    <p>Belum Diajukan</p>
-                                </div>
-                                <div className="col-4 text-center">
-                                    <h3 className="text-danger">3</h3>
-                                    <p>Ditolak</p>
-                                </div>
-                            </div>
-                            <div className="box-top row-flex flex-space">
-                                <div className="pull-left row-flex col-5">
-                                    <p className="count-item">35 Tiket Program</p>
-                                    <div className="select-wrapper">
-                                        <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
-                                            <option value="10">10 entri per halaman</option>
-                                            <option value="25">25 entri per halaman</option>
-                                            <option value="50">50 entri per halaman</option>
-                                            <option value="100">100 entri per halaman</option>
-                                        </select>
+                    {
+                    DataHere ?
+                        <div className="user-access tiket-program">
+                        {   this.state.totalElements ?
+                            (
+                                <div className="user-access-container">
+                                    <div className="box-status row-flex">
+                                        <div className="col-4 text-center">
+                                            <h3 className="text-success">{this.state.count_accepted_program}</h3>
+                                            <p>Disetujui</p>
+                                        </div>
+                                        <div className="col-4 text-center">
+                                            <h3 className="text-info">{this.state.count_added_program}</h3>
+                                            <p>Menunggu Persetujuan</p>
+                                        </div>
+                                        <div className="col-4 text-center">
+                                            <h3>{this.state.count_pending_program}</h3>
+                                            <p>Belum Diajukan</p>
+                                        </div>
+                                        <div className="col-4 text-center">
+                                            <h3 className="text-danger">{this.state.count_rejected_program}</h3>
+                                            <p>Ditolak</p>
+                                        </div>
                                     </div>
-                                    <InputForm
-                                    inputId="search_admin"
-                                    handleChange={this.handleSearch}
-                                    placeholder="Cari Tiket"
-                                    class="search-item"
-                                    type="text"/>
-                                    <InputForm
-                                    handleChange={this.handleSearch}
-                                    placeholder="Tanggal Pengajuan"
-                                    class="search-item"
-                                    type="text"
-                                    icon="true"
-                                    src="../images/icon/button_icon/icon-datepicker.svg"/>
-                                    <div className="select-wrapper dropdown">
-                                        <a href="#" className="dropdown-filter" onClick={this.toggleDropdownFilter}>
-                                            Filter
-                                        </a>
+                                    <div className="box-top row-flex flex-space">
+                                        <div className="pull-left row-flex col-5">
+                                            <p className="count-item">{ this.state.totalElements ? this.state.totalElements : '0' } Tiket Program</p>
+                                            <div className="select-wrapper">
+                                                <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
+                                                    <option value="10">10 entri per halaman</option>
+                                                    <option value="25">25 entri per halaman</option>
+                                                    <option value="50">50 entri per halaman</option>
+                                                    <option value="100">100 entri per halaman</option>
+                                                </select>
+                                            </div>
+                                            <InputForm
+                                            inputId="search_admin"
+                                            handleChange={this.handleSearch}
+                                            placeholder="Cari Tiket"
+                                            class="search-item form-control"
+                                            type="text"/>
+                                            {/*
+                                            <InputForm
+                                            handleChange={this.handleSearch}
+                                            placeholder="Tanggal Pengajuan"
+                                            class="search-item form-control"
+                                            type="text"
+                                            icon="true"
+                                            src="../images/icon/button_icon/icon-datepicker.svg"/>
+                                            <div className="select-wrapper dropdown">
+                                                <a className="dropdown-filter" onClick={this.toggleDropdownFilter}>
+                                                    Filter
+                                                </a>
 
-                                        {this.renderDropdownFilter()}
+                                                {this.renderDropdownFilter()}
+                                            </div>
+                                            */}
+                                        </div>
+                                        <div className="pull-right">
+                                            <div className="box-btn auto" onClick={this.toggleTambahProgram}>
+                                                <ButtonPrimary name="Buat Program" />
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="pull-right">
-                                    <div className="box-btn auto" onClick={this.toggleTambahProgram}>
-                                        <ButtonPrimary name="Buat Program" />
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div className="box-table">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Kode Tiket</th>
-                                            <th>Judul Program</th>
-                                            <th>Penjelasan Singkat</th>
-                                            <th>Tanggal Pengajuan</th>
-                                            <th>Status</th>
-                                            <th>Pengguna</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {DataHere.map((datahere, i) => {
-                                            if(i % 2 === 1){
-                                                return(
-                                                    <tr key={i} className='list-grey'>
-                                                        <td className="strong">020671</td>
-                                                        <td>Penanaman Cabai 1 Hektar</td>
-                                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus hic quisquam ducimus architecto iure explicabo!</td>
-                                                        <td>13:55:11 - 14 Aug 2017</td>
-                                                        <td>Pending</td>
-                                                        <td>Qelisa</td>
-                                                         <td>
-                                                            <div className="row-flex flex-center">
-                                                                 <div className="row-flex flex-center">
-                                                                     <div className="box-btn dropdown-three">
-                                                                        <div onClick={this.toggleDropdownMenu.bind(this, i) }>
-                                                                            <img src="../images/icon/dropdown-three.svg" height="7"/>
+                                    <div className="box-table">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Kode Program</th>
+                                                    <th>Judul Program</th>
+                                                    <th>Penjelasan Singkat</th>
+                                                    <th>Tanggal Pengajuan</th>
+                                                    <th>Status</th>
+                                                    <th>Pengguna</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {DataHere.map((datahere, i) => {
+                                                    return(
+                                                        <tr key={i}>
+                                                            <td data-th="Kode Program" className="strong">{ datahere.code }</td>
+                                                            <td data-th="Judul Program">{ datahere.title }</td>
+                                                            <td data-th="Penjelasan Singkat">{ datahere.tagline }</td>
+                                                            <td data-th="Tanggal Pengajuan">{ datahere.date }</td>
+                                                            <td data-th="Status" className="text-center">{ datahere.status === null ? '-' : datahere.status }</td>
+                                                            <td data-th="Pengguna" className="text-center">{ datahere.initiator }</td>
+                                                             <td>
+                                                                <div className="row-flex flex-center">
+                                                                     <div className="row-flex flex-center">
+                                                                         <div className="box-btn dropdown-three">
+                                                                            <div className="pointer" onClick={this.toggleDropdownMenu.bind(this, i) }>
+                                                                                <img src="../images/icon/dropdown-three.svg" height="7"/>
 
-                                                                            <DropdownMenu id={i} 
-                                                                                toggleHapusProgram={this.toggleHapusProgram} 
-                                                                            />
-                                                                        </div>
-                                                                     </div>
-                                                                </div>
-                                                            </div>   
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            }else{
-                                                return(
-                                                    <tr key={i} >
-                                                        <td className="strong">020671</td>
-                                                        <td>Penanaman Cabai 1 Hektar</td>
-                                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus hic quisquam ducimus architecto iure explicabo!</td>
-                                                        <td>13:55:11 - 14 Aug 2017</td>
-                                                        <td>Pending</td>
-                                                        <td>Qelisa</td>
-                                                         <td>
-                                                            <div className="row-flex flex-center">
-                                                                 <div className="box-btn dropdown-three">
-                                                                    <div onClick={this.toggleDropdownMenu.bind(this, i) }>
-                                                                        <img src="../images/icon/dropdown-three.svg" height="7"/>
-
-                                                                        <DropdownMenu id={i} 
-                                                                            toggleHapusProgram={this.toggleHapusProgram} 
-                                                                        />
+                                                                                <DropdownMenu id={i} 
+                                                                                    HapusProgram={this.HapusProgram.bind(this, datahere.id, datahere.title)}
+                                                                                    TolakProgram={this.TolakProgram.bind(this, datahere.id, datahere.title)}
+                                                                                    id_program={ datahere.id }
+                                                                                    status={datahere.status_id}
+                                                                                    success={this.toggleSuccessPopup}
+                                                                                />
+                                                                            </div>
+                                                                         </div>
                                                                     </div>
-                                                                 </div>
-                                                            </div>  
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            }
-                                        })}
-                                    </tbody>
-                                </table>
-                            </div>
+                                                                </div>   
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })}
+                                            </tbody>
+                                        </table>
+                                    </div>
 
-                            <div className="box-footer-table">
-                                <div className="footer-table">
-                                    <p className="text-footer">Menampilkan {this.state.totalsize} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
-                                </div>
+                                    <div className="box-footer-table">
+                                        <div className="footer-table">
+                                            <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
+                                        </div>
 
-                                <div className="box-pagination">
-                                    <div className="pagination-content">
-                                        < ReactPaginate
-                                            previousLabel={
-                                                <div className="box-lable">
-                                                    <img src="/images/icon/button_icon/icon_arrow_left.png" />
-                                                </div>
-                                            }
-                                            nextLabel={
-                                                <div className="box-lable">
-                                                    <img src="/images/icon/button_icon/icon_arrow_right.png" />
-                                                </div>
-                                            }
-                                            breakLabel={<a href="">...</a>}
-                                            breakClassName={"break-me"}
-                                            pageCount={this.state.totalPage}
-                                            marginPagesDisplayed={1}
-                                            pageRangeDisplayed={2}
-                                            onPageChange={this.handlePageClick}
-                                            containerClassName={"pagination"}
-                                            subContainerClassName={"pages pagination"}
-                                            activeClassName={"active"} />
+                                        <div className="box-pagination">
+                                            <div className="pagination-content">
+                                                < ReactPaginate
+                                                    previousLabel={
+                                                        <div className="box-lable">
+                                                            <img src="/images/icon/button_icon/icon_arrow_left.png" />
+                                                        </div>
+                                                    }
+                                                    nextLabel={
+                                                        <div className="box-lable">
+                                                            <img src="/images/icon/button_icon/icon_arrow_right.png" />
+                                                        </div>
+                                                    }
+                                                    breakLabel={<a href="">...</a>}
+                                                    breakClassName={"break-me"}
+                                                    pageCount={this.state.totalPage}
+                                                    marginPagesDisplayed={1}
+                                                    pageRangeDisplayed={2}
+                                                    onPageChange={this.handlePageClick}
+                                                    containerClassName={"pagination"}
+                                                    subContainerClassName={"pages pagination"}
+                                                    activeClassName={"active"} />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            )
+                            : 
+                            (
+                                 <div className="user-access-container text-center no-content">
+                                    <img src="../images/empty_state.svg" alt="" height="180"/>
+                                    <h3 className="mg-t-20 normal">Data Program masih kosong</h3>
+                                    <div className="box-btn auto mg-t-40" onClick={this.toggleTambahProgram}>
+                                        <ButtonPrimary name="Tambah Program" />
+                                    </div>
+                                 </div>
+                            )
+                        }
+                        </div>
+                    :
+                    <div className="user-access">
+                        <div className="user-access-container text-center no-content">
+                            <img src="../images/loading.gif" alt=""/>
                         </div>
                     </div>
+                    }
                 </div>
             </div>
         )

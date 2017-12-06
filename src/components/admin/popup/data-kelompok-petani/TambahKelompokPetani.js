@@ -18,27 +18,106 @@ class TambahKelompokPetani extends Component {
 
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
         this.state = {
-            listProvince: {}
+            listProvince: {},
+            listFarmer: {},
+            error: false,
+            error_ktp: true,
+            error_hp: true,
+            error_pos: true,
+            activeFarmer: false,
+            activeProvince: false,
+            activeCities: false,
+            activeDistrict: false,
+            activeVillage: false
         }
     }
 
     _handleChange(id, value){
-        console.log('ini value: '+value)
+        if ( id === 'no_ktp' ){
+            let re = /^\d{16}$/
+            let result =  re.test(value)
+
+            if(result){
+                this.setState({
+                    error_ktp: result
+                })
+            }else{
+                this.setState({
+                    error_ktp: false
+                })
+            }
+        }
+
+        else if( id === 'no_hp' ){
+            let re = /^(^\+62\s?|^0)(\d{3,4}-?){2}\d{3,4}$/
+            let result =  re.test(value)
+
+            if(result){
+                this.setState({
+                    error_hp: result,
+                    error: false
+                })
+            }else{
+                this.setState({
+                    error_hp: false,
+                    error: false
+                })
+            }
+        }
+
+        else if( id === 'postcode' ){
+            let re = /^[0-9]{5}$/
+            let result =  re.test(value)
+
+            if(result){
+                this.setState({
+                    error_pos: result
+                })
+            }else{
+                this.setState({
+                    error_pos: false
+                })
+           }
+        }
+
+        else if ( id === 'email' ){
+            this.setState({
+                error: false,
+            })
+        }
     }
 
     handleChangeProvince(e){
         //get list cities
-        this.setState({valueProvince: e.target.value}, () => {
+        this.setState({
+            location: false,
+            valueProvince: e.target.value}, () => {
+
             axios.get(API_LIST_URL+ 'provinces/' + this.state.valueProvince +'/cities')
             .then(res => {
                 let listCities = res.data
-                this.setState({listCities, statusCities: true})
+                this.setState({
+                    listCities, 
+                    statusCities: true,
+                    activeCities: false,
+                    statusDistrict: false,
+                    activeDistrict: false,
+                    statusVillage: false,
+                    activeVillage: false
+                })
                 console.log('cities: '+this.state.listCities)
             })
             .catch((error) => {
                 console.log('err: '+ error)
             })
         })
+
+        if( e.target.value !== '' ){
+            this.setState({activeProvince: true})
+        }
+        else{
+            this.setState({activeProvince: false})
+        }
     }
 
     handleChangeCities(e){
@@ -47,13 +126,26 @@ class TambahKelompokPetani extends Component {
             axios.get(API_LIST_URL+ 'cities/' + this.state.valueCities +'/districts')
             .then(res => {
                 let listDistrict = res.data
-                this.setState({listDistrict, statusDistrict: true})
+                this.setState({listDistrict, 
+                    statusDistrict: true,
+                    activeDistrict: false,
+                    statusVillage: false,
+                    activeVillage: false
+                })
                 console.log('district: '+this.state.listDistrict)
             })
             .catch((error) => {
                 console.log('err: '+ error)
             })
         })
+
+
+        if( e.target.value !== '' ){
+            this.setState({activeCities: true})
+        }
+        else{
+            this.setState({activeCities: false})
+        }
     }
 
     handleChangeDistricts(e){
@@ -62,13 +154,22 @@ class TambahKelompokPetani extends Component {
             axios.get(API_LIST_URL+ 'districts/' + this.state.valueDistrict +'/villages')
             .then(res => {
                 let listVillage = res.data
-                this.setState({listVillage, statusVillage: true})
-                console.log('district: '+this.state.listVillage)
+                this.setState({listVillage, 
+                    statusVillage: true,
+                    activeVillage: false
+                })
             })
             .catch((error) => {
                 console.log('err: '+ error)
             })
         })
+
+        if( e.target.value !== '' ){
+            this.setState({activeDistrict: true})
+        }
+        else{
+            this.setState({activeDistrict: false})
+        }
     }
 
     handleChangeVillage(e){
@@ -76,22 +177,37 @@ class TambahKelompokPetani extends Component {
         this.setState({valueVillage: e.target.value}, () => {
             console.log(this.state.valueVillage)
         })
+
+        if( e.target.value !== '' ){
+            this.setState({activeVillage: true})
+        }
+        else{
+            this.setState({activeVillage: false})
+        }
     }
 
-     handleSubmit(e){
-        // const doc = document.getElementById
+    handleChangeFarmer(e){
+        this.setState({
+            farmer_id: e.target.value
+        })
+
+        if( e.target.value !== '' ){
+            this.setState({activeFarmer: true})
+        }
+        else{
+            this.setState({activeFarmer: false})
+        }
+    }
+
+    handleSubmit(e){
         e.preventDefault();
         const { cookies } = this.props;
         
-        axios.post(API_URL + 'rukmans', {
-            rukman_name: document.getElementById('nama-rukman').value,
-            pic_name: document.getElementById('nama-pic').value,
-            pic_ktp_number: document.getElementById('ktp-number').value,
-            pic_phone_number: document.getElementById('phone_number').value,
+        axios.post(API_URL + 'farmer_groups', {
+            farmer_id: this.state.farmer_id,
+            name: document.getElementById('name').value,
             address: document.getElementById('address').value,
             pos_code: document.getElementById('postcode').value,
-            username: document.getElementById('username').value,
-            password: document.getElementById('password').value,
             village_id: this.state.valueVillage
             
         },
@@ -104,34 +220,68 @@ class TambahKelompokPetani extends Component {
         .then(res => {
             const data = res.data
             this.setState({data})
+            this.props.success()
             console.log('succ: '+ this.state.data)
-            window.location.reload();
         })
         .catch((error) => {
-            console.log('err: '+ error)
+           if (error.response.status === 400){
+                let resData = error.response.data
+
+                if ( Array.isArray(resData) ){
+                    let errorMessage = error.response.data[0].message
+                    this.setState({
+                        error: true,
+                        errorMessage
+                    })
+                }
+                else{
+                    let errorMessage = error.response.data
+                    this.setState({
+                        error: true,
+                        errorMessage
+                    })
+                }
+            }
         })
     }
 
     componentDidMount(){
+        axios.get(API_URL+ 'farmers/spinner_to_farmer_group',{
+            headers:{ 
+                'X-AUTH-TOKEN' : this.authToken
+            }
+        })
+        .then(res => {
+            let listFarmer = res.data
+            this.setState({
+                listFarmer,
+                listStatus: true
+            })
+        })
+        .catch((error) => {
+            console.log('err: '+ error)
+        })
+
          axios.get(API_LIST_URL+ 'provinces/')
         .then(res => {
             let listProvince = res.data
             this.setState({
                 listProvince,
-                listStatus: true
+                listStatusFarmer: true
             })
             console.log('province'+this.state.listProvince)
         })
         .catch((error) => {
             console.log('err: '+ error)
         })
-
-        console.log(this.state.datahere)
         
     }
 
     render() {
-        let{
+        let{ 
+            listStatusFarmer,
+            listFarmer,
+
             listStatus,
             listProvince,
 
@@ -149,48 +299,45 @@ class TambahKelompokPetani extends Component {
                 <div className="popup-container">
                     <div className="box-content">
                         <div className="content">
-                            <p className="title">Tambah User</p>
+                            <p className="title">Tambah Kelompok Tani</p>
                             <p className="sub-title">Silakan masukkan data kelompok tani dengan benar.</p>
+                            {   this.state.error ? 
+                                <p className="text-danger mg-b-10 mg-t-10">{this.state.errorMessage}</p>
+                                :
+                                null
+                            }
                             <div className="row-flex col-2 mg-t-10">
                                 <InputForm
-                                    inputId="nama-rukman" 
+                                    inputId="name" 
                                     type="text"
                                     placeholder="Nama Kelompok Tani"
                                     class="form-control"
                                     handleChange={this._handleChange}
                                 />
-                                <InputForm
-                                    inputId="nama-pic" 
-                                    type="text"
-                                    placeholder="Nama PIC"
-                                    class="form-control"
-                                    handleChange={this._handleChange}
-                                />
-                            </div>
-                            <div className="row-flex col-2 mg-t-10">
-                                <InputForm
-                                    inputId="ktp-number" 
-                                    type="text"
-                                    placeholder="Nomor KTP"
-                                    class="form-control"
-                                    handleChange={this._handleChange}
-                                />
-                                <InputForm
-                                    inputId="phone_number" 
-                                    type="text"
-                                    placeholder="Nomor HP"
-                                    class="form-control"
-                                    handleChange={this._handleChange}
-                                />
+                                <div className="select-wrapper">
+                                     <select className={ this.state.activeFarmer ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}
+                                     onChange={this.handleChangeFarmer}>
+                                        <option>Nama Ketua Kelompok Tani</option>
+                                        {listStatusFarmer ?
+                                            listFarmer.map(farmer => 
+                                                <option 
+                                                    key={farmer.farmer_id} 
+                                                    value={farmer.farmer_id}>
+                                                    {farmer.name}
+                                                </option>
+                                            ) : null
+                                        }
+                                    </select>
+                                </div>
                             </div>
                             <p className="strong">Alamat</p>
                             <TextArea idtextarea="address" title="Masukkan nama jalan/kampung dst..." class="form-control"/>
                             <div className="row-flex col-3">
                                 <div className="select-wrapper">
-                                   
-                                     <select id="provinsi" className="form-control select-option input-sm" value={this.state.value}
+                                           
+                                     <select id="provinsi" className={ this.state.activeProvince ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}
                                      onChange={this.handleChangeProvince}>
-                                        <option>Provinsi</option>
+                                        <option value="">Provinsi</option>
                                         {listStatus ?
                                             listProvince.map(listprovince => 
                                                 <option
@@ -203,12 +350,14 @@ class TambahKelompokPetani extends Component {
                                     </select>
                                 </div>
                                 <div className="select-wrapper">
-                                     <select id="kabupaten" className="form-control select-option input-sm" value={this.state.value}
+                                     <select id="kabupaten" className={ this.state.activeCities ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}
                                      onChange={this.handleChangeCities}>
                                         <option value="">Kabupaten/Kota</option>
+                                        
                                         {statusCities ?
                                                 listCities.map(listcities => 
                                                     <option
+                                                        defaultValue={this.state.cities}
                                                         key={listcities.id}
                                                         value={listcities.id}>
                                                         {listcities.name}
@@ -218,12 +367,13 @@ class TambahKelompokPetani extends Component {
                                     </select>
                                 </div>
                                 <div className="select-wrapper">
-                                     <select id="kecamatan" className="form-control select-option input-sm" value={this.state.value}
+                                     <select id="kecamatan" className={ this.state.activeDistrict ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}
                                      onChange={this.handleChangeDistricts}>
                                         <option value="">Kecamatan</option>
                                         {statusDistrict ?
                                             listDistrict.map(listdistrict => 
                                                 <option
+                                                    defaultValue={this.state.district}
                                                     key={listdistrict.id}
                                                     value={listdistrict.id}>
                                                     {listdistrict.name}
@@ -235,12 +385,13 @@ class TambahKelompokPetani extends Component {
                             </div>
                             <div className="row-flex col-3">
                                 <div className="select-wrapper">
-                                    <select id="kelurahan" className="form-control select-option input-sm" value={this.state.value}
+                                    <select id="kelurahan" className={ this.state.activeVillage ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}
                                      onChange={this.handleChangeVillage}>
                                         <option value="">Kelurahan</option>
                                         {statusVillage ?
                                             listVillage.map(listvillage => 
                                                 <option
+                                                    defaultValue={this.state.village}
                                                     key={listvillage.id}
                                                     value={listvillage.id}>
                                                     {listvillage.name}
@@ -251,25 +402,12 @@ class TambahKelompokPetani extends Component {
                                 </div>
                                  <InputForm
                                     inputId="postcode"
+                                    classError={this.state.error_pos ? "input-form" : "input-form error"}
+                                    class={this.state.error_pos ? "form-control" : "form-control has-error"}
                                     handleChange={this._handleChange}
                                     placeholder="Kode Pos"
-                                    type="text" class="form-control"/>
-                            </div>
-                            <div className="row-flex col-2 mg-t-10">
-                                <InputForm
-                                    inputId="username" 
-                                    type="text"
-                                    placeholder="Username"
-                                    class="form-control"
-                                    handleChange={this._handleChange}
-                                />
-                                <InputForm
-                                    inputId="password" 
-                                    type="password"
-                                    placeholder="Password"
-                                    class="form-control"
-                                    handleChange={this._handleChange}
-                                />
+                                    type="text" class="form-control"
+                                    errorMessage="Harus 5 digit angka"/>
                             </div>
                             <div className="box-btn auto" onClick={this.handleSubmit}>
                             <ButtonPrimary

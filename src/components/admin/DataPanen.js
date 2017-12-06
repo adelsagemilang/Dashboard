@@ -17,9 +17,8 @@ export default class DataPanen extends Component{
         autoBind(this)
 
         this.state = {
-            dataHere: [],
+            dataHere: false,
             classBgColor: '',
-            toggleNoContent: false,
             entriPage: []
         }
 
@@ -112,18 +111,6 @@ export default class DataPanen extends Component{
         })
     }
 
-    renderNoContent(){
-        if(this.state.toggleNoContent){
-            return(
-                <tr>
-                    <td className="text-center normal pd-t-10 no-content" colSpan="5">
-                        Tidak ada data
-                    </td>
-                </tr>
-            )
-        }
-    }
-
     componentDidMount(){
         axios.get(API_URL + 'harvests?pagination=true&text=&page=0&size=10',{
             headers:{ 
@@ -131,13 +118,7 @@ export default class DataPanen extends Component{
             }
         })
         .then(res => {
-            if(res.status === 204){
-                this.setState({
-                    toggleNoContent: true
-                })
-            }
-
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -165,7 +146,11 @@ export default class DataPanen extends Component{
                         <img src="../images/logo-white.svg" height="35"/>
                     </div>
                     <Header title="Data Panen" />
+                    {
+                    DataHere ?
                     <div className="user-access">
+                        { this.state.totalElements ? 
+                        (
                         <div className="user-access-container">
                             <div className="box-top row-flex flex-space">
                                 <div className="pull-left row-flex">
@@ -196,21 +181,22 @@ export default class DataPanen extends Component{
                                             <th>Komoditas</th>
                                             <th>Jumlah</th>
                                             <th>Status</th>
+                                            <th>Alasan Penolakan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {this.renderNoContent()}
                                         {DataHere.map((datahere, i) => {
                                             i = i + 1
                                             return(
-                                                <tr key={i} className='list-grey'>
+                                                <tr key={i}>
                                                     <td data-th="No">{i}</td>
                                                     <td data-th="Nama Petani">{datahere.farmer_name}</td>
                                                     <td data-th="Komoditas">{datahere.commodity_name}</td>
                                                     <td data-th="Jumlah">{datahere.qty}</td>
-                                                    <td data-th="Status" className="text-center">
+                                                    <td data-th="Status">
                                                         {datahere.status}   
                                                     </td>
+                                                    <td data-th="Alasan Penolakan" className="text-center">{datahere.reason_reject ? datahere.reason_reject : 'Tidak ada'}</td>
                                                 </tr>
                                             )
                                         })}
@@ -255,7 +241,23 @@ export default class DataPanen extends Component{
                                 : null
                             }
                         </div>
+                        )
+                        :
+                        (
+                        <div className="user-access-container text-center no-content">
+                            <img src="../images/empty_state.svg" alt="" height="180"/>
+                            <h3 className="mg-t-20 normal">Data panen masih kosong</h3>
+                        </div>
+                        )
+                        } 
                     </div>
+                    :
+                    <div className="user-access">
+                        <div className="user-access-container text-center no-content">
+                            <img src="../images/loading.gif" alt=""/>
+                        </div>
+                    </div>
+                     }
                 </div>
             </div>
         )

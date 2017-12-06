@@ -13,7 +13,20 @@ import { API_URL, TK_KEY } from '../../../../containers/RootUrl'
 
 class TambahProgram extends Component {
     constructor(props) {
-        super(props);
+        super(props)
+        autoBind(this)
+
+        this.state = {
+            error: false
+        }
+
+        this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
+    }
+
+    _handleChange(){
+        this.setState({
+            error: false
+        })
     }
 
     handleSubmit(e){
@@ -21,12 +34,8 @@ class TambahProgram extends Component {
         e.preventDefault();
         const { cookies } = this.props;
         
-        axios.post(API_URL + 'admins', {
-            username: document.getElementById('username').value,
-            email: document.getElementById('email').value,
-            phone_number: document.getElementById('no_hp').value,
-            name: document.getElementById('name').value
-            
+        axios.post(API_URL + 'programs/program_tickets/check_ticket', {
+            code: document.getElementById('code').value,
         },
         {
             headers: {
@@ -35,10 +44,16 @@ class TambahProgram extends Component {
             }
         })
         .then(res => {
-            const data = res.data
-            this.setState({data})
-            console.log('succ: '+ this.state.data)
-            window.location.reload();
+            if(res.status === 200){
+                const data = res.data
+                this.props.id_tiket(data)
+                this.props.toggleTambahProgram()
+                this.props.toggleBuatProgram()
+            } else {
+                this.setState({
+                    error: true
+                })
+            }
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -53,11 +68,16 @@ class TambahProgram extends Component {
                         <div className="content">
                             <p className="title">Buat Program</p>
                             <p className="sub-title">Silakan masukan kode tiket yang sudah anda ajukan untuk membuat program.</p>
-
-                            <InputForm 
+                            {   this.state.error ? 
+                                <p className="text-danger mg-b-10 mg-t-10">Tiket tidak terdaftar</p>
+                                :
+                                null
+                            }
+                            <InputForm
+                                inputId="code" 
                                 type="text"
-                                placeholder="ID Tiket"
-                                class="form-control"
+                                placeholder="Kode Tiket"
+                                class={!this.state.error ? "form-control" : "form-control has-error"}
                                 handleChange={this._handleChange}
                             />
                             
@@ -65,7 +85,7 @@ class TambahProgram extends Component {
                             <ButtonPrimary
                                 class="button-primary"
                                 type="submit"
-                                name="Daftarkan Petani" />
+                                name="Submit" />
                             </div>
                             <div className="box-btn auto" onClick={this.props.toggleTambahProgram}>
                                 <ButtonPrimary

@@ -99,6 +99,14 @@
     display: block;
 }
 
+.dropdown-three > img{
+    cursor: pointer;
+}
+
+.dropdown-three ul > li{
+    cursor: pointer;
+}
+
 [type="checkbox"]:checked,
 [type="checkbox"]:not(:checked) {
     opacity: 0;

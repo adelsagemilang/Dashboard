@@ -28,7 +28,8 @@ export default class TambahLahan extends Component{
             activeCities: false,
             activeDistrict: false,
             activeVillage: false,
-            valueMulti: []
+            valueMulti: [],
+            error: false
 
         }
 
@@ -37,6 +38,34 @@ export default class TambahLahan extends Component{
 
     _handleChange(id, value){
         console.log('ini value: '+value)
+    }
+
+    handleChangeRukman(e){
+        this.setState({
+            valueRukman: e.target.value}, () => {
+            console.log(this.state.valueRukman)
+            axios.get(API_URL+ 'farmers/spinner?query=' + this.state.valueRukman,{
+                headers:{ 
+                    'X-AUTH-TOKEN' : this.authToken
+                }
+            })
+            .then(res => {
+                let listfarmer = res.data
+                this.setState({
+                    listfarmer,
+                    list_farmer: true 
+                })
+            })
+            .catch((error) => {
+                console.log('err: '+ error)
+            })
+        })
+    }
+
+    handleChangeFarmer(e){
+        this.setState({valueFarmer: e.target.value}, () => {
+            console.log(this.state.valueFarmer)
+        })
     }
 
     handleChangeMulti(value) {
@@ -48,82 +77,8 @@ export default class TambahLahan extends Component{
     handleChangeStatus(e){
         //get list vilage
         this.setState({status_lahan: e.target.value}, () => {
-            console.log(this.state.bankId)
+            console.log(this.state.status_lahan)
         })
-    }
-
-    handleChangeNamaLahan(id, value){
-        console.log(value)
-        axios.get(API_URL + 'rukmans/spinner?query='+value,{
-            headers:{ 
-                'X-AUTH-TOKEN' : this.authToken
-            }
-        })
-        .then(res => {
-            const listrukman = res.data
-
-            this.setState({
-                list_rukman: true,
-                listrukman
-            })
-
-            console.log(this.state.listrukman)
-        })
-        .catch((error) => {
-            console.log('err: '+ error)
-            this.setState({
-                list_rukman: false
-            })
-        })
-    }
-
-    handleChangeNamaPetani(id, value){
-        console.log(value)
-        axios.get(API_URL + 'farmers/spinner?query='+value,{
-            headers:{ 
-                'X-AUTH-TOKEN' : this.authToken
-            }
-        })
-        .then(res => {
-            const listfarmer = res.data
-
-            this.setState({
-                list_farmer: true,
-                listfarmer
-            })
-
-        })
-        .catch((error) => {
-            console.log('err: '+ error)
-            this.setState({
-                list_farmer: false
-            })
-        })
-    }
-
-    handleSelectRukman(rukman_id, rukman_name){
-        let rukman = document.getElementById('nama-rukman')
-        this.setState({
-            rukman_id,
-            list_rukman: false
-        }, function(){
-            rukman.value = rukman_name
-        })
-
-       
-    }
-
-    handleSelectFarmer(farmer_id, farmer_name){
-
-        let lahan = document.getElementById('nama-petani');
-
-        this.setState({ 
-            farmer_id,
-            list_farmer: false
-        },function() {
-            lahan.value = farmer_name
-        })
-        
     }
 
     handleChangeTagsPenyakit(tagsPenyakit) {
@@ -245,7 +200,7 @@ export default class TambahLahan extends Component{
         const { cookies } = this.props;
         
         axios.post(API_URL + 'lands', {
-            farmer_id: this.state.farmer_id,
+            farmer_id: this.state.valueFarmer,
             land_status_id: this.state.status_lahan,
             village_id: this.state.valueVillage,
             name: document.getElementById('nama-lahan').value,
@@ -268,11 +223,27 @@ export default class TambahLahan extends Component{
         .then(res => {
             const data = res.data
             this.setState({data})
-            console.log('succ: '+ this.state.data)
             window.location.reload();
         })
         .catch((error) => {
-            console.log('err: '+ error)
+            if (error.response.status === 400){
+                let resData = error.response.data
+
+                if ( Array.isArray(resData) ){
+                    let errorMessage = error.response.data[0].message
+                    this.setState({
+                        error: true,
+                        errorMessage
+                    })
+                }
+                else{
+                    let errorMessage = error.response.data
+                    this.setState({
+                        error: true,
+                        errorMessage
+                    })
+                }
+            }
         })
     }
 
@@ -283,17 +254,17 @@ export default class TambahLahan extends Component{
             }
         })
         .then(res => {
-            const status_lahan = res.data
+            const statusLahan = res.data
             this.setState({
-                list_status: true,
-                status_lahan
+                statusLahan,
+                listStatusLahan: true,
             })
         })
         .catch((error) => {
             console.log('err: '+ error)
         })
 
-        axios.get(API_LIST_URL + 'commodity_categories/-1/commodities',{
+        axios.get(API_LIST_URL + 'commodity_categories/-1/commodities2',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -321,13 +292,31 @@ export default class TambahLahan extends Component{
         .catch((error) => {
             console.log('err: '+ error)
         })
+
+        axios.get(API_URL+ 'farmer_groups/spinner_by_surveyor?active=true',{
+            headers:{ 
+                'X-AUTH-TOKEN' : this.authToken
+            }
+        })
+        .then(res => {
+            let listrukman = res.data
+            this.setState({
+                listrukman,
+                list_rukman: true
+            })
+
+            console.log(this.state.listrukman)
+        })
+        .catch((error) => {
+            console.log('err: '+ error)
+        })
     }
 
     render(){
         const { 
 
-            list_status,
-            status_lahan,
+            listStatusLahan,
+            statusLahan,
 
             list_rukman,
             listrukman,
@@ -357,44 +346,11 @@ export default class TambahLahan extends Component{
                         <div className="content">
                             <p className="title">Tambah Lahan</p>
                             <p className="sub-title">Silakan masukkan lahan petani dengan benar.</p>
-                            <div className="row-flex col-2 mg-t-10">
-                                <div className="block input-select">
-                                    <InputForm
-                                        inputId="nama-rukman" 
-                                        type="text"
-                                        placeholder="Ketik nama atau id kelompok tani.."
-                                        class="form-control"
-                                        handleChange={this.handleChangeNamaLahan}
-                                    />
-
-                                    <ul className={ list_rukman ? "result list-unstyled" : null }>
-                                        {list_rukman ?
-                                            listrukman.map(rukman => 
-                                            <li onClick={ this.handleSelectRukman.bind(this, rukman.rukman_id, rukman.rukman_name )}>{ rukman.rukman_name }</li>
-                                            ) : null
-                                        }
-                                    </ul>
-                                </div>
-
-                                <div className="block input-select">
-                                    <InputForm 
-                                        inputId="nama-petani"
-                                        type="text"
-                                        placeholder="Ketik nama petani"
-                                        class="form-control"
-                                        handleChange={this.handleChangeNamaPetani}
-                                    />
-
-                                    <ul className={ list_farmer ? "result list-unstyled" : null }>
-                                        {list_farmer ?
-                                            listfarmer.map(farmer => 
-                                            <li onClick={ this.handleSelectFarmer.bind(this, farmer.farmer_id, farmer.name )}>{ farmer.name }</li>
-                                            ) : null
-                                        }
-                                    </ul>
-                                </div>
-                               
-                            </div>
+                            {   this.state.error ? 
+                                <p className="text-danger mg-b-10 mg-t-10">{this.state.errorMessage}</p>
+                                :
+                                null
+                            }
                             <div className="row-flex col-2">
                                 <InputForm 
                                     inputId="nama-lahan"
@@ -404,19 +360,51 @@ export default class TambahLahan extends Component{
                                     handleChange={this._handleChange}
                                 />
                                 <div className="select-wrapper">
-                                     <select id="land_status" className="form-control select-option input-sm" value={ this.state.value } onChange={this.handleChangeStatus}>
+                                     <select id="land_status" className="form-control select-option input-sm mg-r-0" value={ this.state.value } onChange={this.handleChangeStatus}>
                                         <option value="">Status Lahan</option>
-                                        {list_status ?
-                                            status_lahan.map(status => 
+                                        {listStatusLahan ?
+                                            statusLahan.map(status => 
                                                 <option
-                                                    key={status.id}
-                                                    value={status.id}>
+                                                    key={status.land_status_id}
+                                                    value={status.land_status_id}>
                                                     {status.name}
                                                 </option>
                                             ) : null
                                         }
                                     </select>
                                 </div>
+                            </div>
+                            <div className="row-flex col-2 mg-t-10">
+                                <div className="select-wrapper">
+                                     <select className="form-control select-option input-sm mg-r-10" value={ this.state.value } onChange={this.handleChangeRukman}>
+                                        <option value="">Pilih kelompok tani</option>
+                                        {list_rukman ?
+                                            listrukman.map(rukman => 
+                                                <option
+                                                    key={rukman.farmer_group_id}
+                                                    value={rukman.farmer_group_id}>
+                                                    {rukman.name}
+                                                </option>
+                                            ) : null
+                                        }
+                                    </select>
+                                </div>
+
+                                <div className="select-wrapper">
+                                     <select className="form-control select-option input-sm" value={ this.state.value } onChange={this.handleChangeFarmer}>
+                                        <option value="">Pilih petani</option>
+                                        {list_farmer ?
+                                            listfarmer.map(farmer => 
+                                                <option
+                                                    key={farmer.farmer_id}
+                                                    value={farmer.farmer_id}>
+                                                    {farmer.name}
+                                                </option>
+                                            ) : null
+                                        }
+                                    </select>
+                                </div>
+                               
                             </div>
                             <div className="row-flex col-2">
                                 <InputForm 
@@ -464,7 +452,7 @@ export default class TambahLahan extends Component{
                                 />
                             </div>
                             <p className="strong">Lokasi Lahan</p>
-                            <TextArea id="address" title="Masukkan nama jalan/kampung dst..." class="form-control"/>
+                            <TextArea idtextarea="address" title="Masukkan nama jalan/kampung dst..." class="form-control"/>
                             <div className="row-flex col-3">
                                 <div className="select-wrapper">
                                      <select id="provinsi" className={ this.state.activeProvince ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}

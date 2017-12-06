@@ -87,7 +87,7 @@ class LoginComp extends Component{
                     <div className="box-form-login">
                         <div className="content">
                             <div className="box-typeface-image">
-                                <img className="typeface-image" src="./images/img_typeface.svg" />
+                            <img className="typeface-image" src="./images/img_typeface.png"/>
                             </div>
                             <p className="title">Pemandu Rukman</p>
                             <div className="form">

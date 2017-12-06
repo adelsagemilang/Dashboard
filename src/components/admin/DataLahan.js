@@ -7,9 +7,11 @@ import autoBind from 'react-autobind'
 import { API_URL, TK_KEY } from '../../containers/RootUrl'
 import { ButtonPrimary } from '../common/ButtonPrimary'
 import { ButtonIcon } from '../common/ButtonIcon'
+import Detail from './popup/data-lahan/Detail'
 import TambahLahan from './popup/data-lahan/TambahLahan'
 import HapusData from './popup/common-popup/HapusData'
 import Header from '../common/Header'
+import ResponsiveHeader from '../common/ResponsiveHeader'
 import InputForm from '../common/InputForm'
 import ReactPaginate from 'react-paginate'
 
@@ -19,10 +21,11 @@ export default class Datalahan extends Component{
         autoBind(this)
 
         this.state = {
-            dataHere: [],
+            dataHere: false,
             classBgColor: '',
             toggleTambahLahan: false,
             toggleDeleteLahan: false,
+            togglePopupDetail: false,
             entriPage: []
         }
 
@@ -101,6 +104,18 @@ export default class Datalahan extends Component{
         })
     }
 
+    handleDetail(name, id, lat, lng, img, address, loc){
+        this.setState({
+            landName: name,
+            landId: id,
+            lat: lat,
+            lng: lng,
+            img: img,
+            address: address,
+            loc: loc,
+            togglePopupDetail: !this.state.togglePopupDetail
+        })
+    }
 
     toggleTambahLahan(){
         this.setState({
@@ -111,6 +126,12 @@ export default class Datalahan extends Component{
     toggleDeleteLahan(){
         this.setState({
             toggleDeleteLahan: !this.state.toggleDeleteLahan
+        })
+    }
+
+    togglePopupDetail(){
+        this.setState({
+            togglePopupDetail: !this.state.togglePopupDetail
         })
     }
 
@@ -139,6 +160,23 @@ export default class Datalahan extends Component{
         }
     }
 
+    renderPopupDetail(){
+        if (this.state.togglePopupDetail) {
+            return(
+                <Detail
+                    name={this.state.landName}
+                    landId={this.state.landId}
+                    lat={this.state.lat}
+                    lng={this.state.lng}
+                    img={this.state.img}
+                    loc={this.state.loc}
+                    address={this.state.address}
+                    togglePopupDetail={this.togglePopupDetail} 
+                />
+            )
+        }
+    }
+
     handleCancel(){
         console.log('canceled')
         this.setState({
@@ -161,7 +199,7 @@ export default class Datalahan extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -180,15 +218,24 @@ export default class Datalahan extends Component{
         let ClassBgColor = this.state.classBgColor
 
         return(
-            <div>
+            <div id="outer-container">
                 {this.renderPopupTambahLahan()}
                 {this.renderPopupDeleteLahan()}
-                <div className="main-content">
+                {this.renderPopupDetail()}
+                <ResponsiveHeader />
+                <div id="page-wrap" className="main-content">
+                    <div className="responsive-header">
+                        <img src="../images/logo-white.svg" height="35"/>
+                    </div>
                     <Header title="Data Lahan" />
+                    { DataHere ? 
                     <div className="user-access">
+                        {   this.state.totalElements ?
+
+                        (
                         <div className="user-access-container">
                             <div className="box-top row-flex flex-space">
-                                <div className="pull-left">
+                                <div className="pull-left row-flex">
                                     <p className="count-item">{ this.state.totalElements ? this.state.totalElements : '0' } Lahan Petani</p>
                                     <div className="select-wrapper">
                                         <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
@@ -224,31 +271,44 @@ export default class Datalahan extends Component{
                                             <th>Komoditas Tanam</th>
                                             <th>Hama Dominan</th>
                                             <th>Penyakit Dominan</th>
-                                            <th>Lokasi</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
+                                    
                                     <tbody>
                                         {DataHere.map((datahere, i) => {
                                             return(
                                                 <tr key={i}>
-                                                    <td className="strong">{ datahere.farmer_name }</td>
-                                                    <td>{ datahere.name }</td>
-                                                    <td>{ datahere.large }m<sup>2</sup></td>
-                                                    <td>{ datahere.height }mdpl</td>
-                                                    <td>{ datahere.irigation }</td>
-                                                    <td>{ datahere.commodities.map(comodities=> 
+                                                    <td data-th="Nama Petani" className="strong">{ datahere.farmer_name }</td>
+                                                    <td data-th="Nama Lahan">
+                                                        <p>{ datahere.name }</p>
+                                                        { datahere.is_surveyed ? 
+                                                            <p className="text-success text-small nowrap">Sudah Diverifikasi</p>
+                                                            :
+                                                            <p className="text-danger text-small nowrap">Belum Diverifikasi</p>
+                                                         }
+                                                         <p className="text-info normal pointer" 
+                                                            onClick={this.handleDetail.bind(
+                                                                this,
+                                                                datahere.name,
+                                                                datahere.land_id,
+                                                                datahere.lat,
+                                                                datahere.lng,
+                                                                datahere.image,
+                                                                datahere.address,
+                                                                datahere.location
+                                                            )}
+                                                        >Lihat Detail</p>
+                                                    </td>
+                                                    <td data-th="Luas">{ datahere.large }m<sup>2</sup></td>
+                                                    <td data-th="Ketinggian">{ datahere.height }mdpl</td>
+                                                    <td data-th="Sumber Pengairan">{ datahere.irigation }</td>
+                                                    <td data-th="Komoditas Tanam">{ datahere.commodities.map(comodities=> 
                                                           <p>{ comodities.name } </p>
                                                         ) }</td>
-                                                    <td>{ datahere.pest }</td>
-                                                    <td>{ datahere.disease }</td>
-                                                    <td>{ datahere.address
-                                                          + ', Kel. '+ datahere.location.village
-                                                          + ', Kec. '+ datahere.location.district
-                                                          + ', '+ datahere.location.city
-                                                          + ', '+ datahere.location.province
-                                                         }</td>
-                                                     <td>
+                                                    <td data-th="Hama Dominan">{ datahere.pest }</td>
+                                                    <td data-th="">{ datahere.disease }</td>
+                                                     <td data-th="Aksi">
                                                         <div className="row-flex flex-center">
                                                              <div className="box-btn" onClick={this.handleDelete.bind(this,datahere.land_id,datahere.name)}>
                                                                  <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
@@ -293,7 +353,26 @@ export default class Datalahan extends Component{
                                 </div>
                             </div>
                         </div>
+                        )
+                        :
+                        (
+                             <div className="user-access-container text-center no-content">
+                                <img src="../images/empty_state.svg" alt="" height="180"/>
+                                <h3 className="mg-t-20 normal">Data lahan masih kosong</h3>
+                                <div className="box-btn auto mg-t-40" onClick={this.toggleTambahLahan}>
+                                        <ButtonPrimary name="Tambah Lahan" />
+                                </div>
+                             </div>
+                        )
+                        }
                     </div>
+                    :
+                    <div className="user-access">
+                        <div className="user-access-container text-center no-content">
+                            <img src="../images/loading.gif" alt=""/>
+                        </div>
+                    </div>
+                    }
                 </div>
             </div>
         )

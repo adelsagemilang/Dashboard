@@ -9,6 +9,8 @@ import { ButtonPrimary } from '../common/ButtonPrimary'
 import { ButtonIcon } from '../common/ButtonIcon'
 import TambahAnggotaKelompokTani from './popup/data-anggota-kelompok-petani/TambahAnggotaKelompokTani'
 import Header from '../common/Header'
+import AddFamily from './popup/data-petani/AddFamily'
+import Success from './popup/common-popup/Success'
 import InputForm from '../common/InputForm'
 import ReactPaginate from 'react-paginate'
 
@@ -18,21 +20,70 @@ export default class DataAnggotaKelompokPetani extends Component{
         autoBind(this)
 
         this.state = {
-            dataHere: [],
+            dataHere: false,
+            togglePopupAddFamily: false,
+            toggleSuccess: false,
             classBgColor: '',
             toggleTambahAnggotaKelompokTani: false,
             entriPage: []
         }
 
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
-        this.userName = Crypto.AES.decrypt(Base64.decode(Cookie.load('username')), TK_KEY).toString(Crypto.enc.Utf8)
-        this.userEmail = Crypto.AES.decrypt(Base64.decode(Cookie.load('email')), TK_KEY).toString(Crypto.enc.Utf8)
+    }
+
+    handleAddFamily(farmer_id){
+        this.setState({
+            farmerId: farmer_id,
+            togglePopupAddFamily: true,
+            togglePopupFamily: false,
+        })
+    }
+
+     togglePopupAddFamily(){
+        this.setState({
+            togglePopupAddFamily: !this.state.togglePopupAddFamily
+        })
+    }
+
+    toggleSuccessPopup(){
+        this.setState({
+            toggleSuccess: !this.state.toggleSuccess
+        })
+    }
+
+    renderPopupSuccess(){
+        if(this.state.toggleSuccess){
+            return (
+                <Success 
+                toggleSuccessPopup={this.handleSuccessDismiss} 
+            />
+            )
+        }
+    }
+
+    handleSuccessDismiss(){
+        this.setState({
+            toggleSuccess: !this.state.toggleSuccess
+        })
+        window.location.reload()
+    }
+
+    renderPopupAddFamily(){
+        if (this.state.togglePopupAddFamily) {
+            return(
+                <AddFamily
+                    success={this.toggleSuccessPopup}
+                    farmerId={this.state.farmerId}
+                    togglePopupAddFamily={this.togglePopupAddFamily} 
+                />
+            )
+        }
     }
 
     handleSearch(id, value){
         console.log('ini value: '+value)
 
-        axios.get(API_URL + 'user_access?page=0&size=10&text=' + value + '&user_role=1',{
+        axios.get(API_URL + 'farmers?pagination=true&text=' + value + '&page=0&size=10&member=true',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -62,7 +113,7 @@ export default class DataAnggotaKelompokPetani extends Component{
         console.log('value: '+ e.target.value)
         const valueEntri = e.target.value
 
-        axios.get(API_URL + 'user_access?page=0&size=' + valueEntri + '&text=&user_role=1',{
+        axios.get(API_URL + 'farmers?pagination=true&text=&page=0&size=10' + valueEntri + '&member=true',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -94,7 +145,7 @@ export default class DataAnggotaKelompokPetani extends Component{
         let selected = dataHere.selected
         console.log(selected)
 
-        axios.get(API_URL + 'user_access?page='+ selected +'&size=10&text=&user_role=1',{
+        axios.get(API_URL + 'farmers?pagination=true&text=&page='+ selected +'&size=10&member=false',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -151,13 +202,13 @@ export default class DataAnggotaKelompokPetani extends Component{
 
     componentDidMount(){
         console.log(this.authToken)
-        axios.get(API_URL + 'user_access?page=0&size=10&text=&user_role=1',{
+        axios.get(API_URL + 'farmers?pagination=true&text=&page=0&size=10&member=true',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -182,15 +233,25 @@ export default class DataAnggotaKelompokPetani extends Component{
         let ClassBgColor = this.state.classBgColor
 
         return(
-            <div>
+             <div id="outer-container">
                 {this.renderPopupTambahAnggotaKelompokTani()}
-                <div className="main-content">
+                {this.renderPopupAddFamily()}
+                {this.renderPopupSuccess()}
+                <div id="page-wrap" className="main-content">
+                    <div className="responsive-header">
+                        <img src="../images/logo-white.svg" height="35"/>
+                    </div>
                     <Header title="Data Anggota Kelompok Tani" />
+                    {
+                     DataHere ?
                     <div className="user-access">
+                        {   this.state.totalElements ?
+
+                        (
                         <div className="user-access-container">
                             <div className="box-top row-flex flex-space">
                                 <div className="pull-left">
-                                    <p className="count-item">30 Anggota Kelompok Tani</p>
+                                    <p className="count-item">{ this.state.totalElements ? this.state.totalElements : '0' } Anggota Kelompok Tani</p>
                                     <div className="select-wrapper">
                                         <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
                                             <option value="10">10 entri per halaman</option>
@@ -203,12 +264,12 @@ export default class DataAnggotaKelompokPetani extends Component{
                                     inputId="search_admin"
                                     handleChange={this.handleSearch}
                                     placeholder="Cari Nama atau ID Kelompok Tani"
-                                    class="search-item"
+                                    class="search-item form-control"
                                     type="text"/>
                                 </div>
                                 <div className="pull-right">
                                     <div className="box-btn auto" onClick={this.toggleTambahAnggotaKelompokTani}>
-                                        <ButtonPrimary name="Tambah Kelompok Tani" />
+                                        <ButtonPrimary name="Tambah Anggota" />
                                     </div>
                                 </div>
                             </div>
@@ -223,48 +284,28 @@ export default class DataAnggotaKelompokPetani extends Component{
                                             <th>No. HP</th>
                                             <th>No. KTP</th>
                                             <th>Status</th>
-                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {DataHere.map((datahere, i) => {
-                                            if(i % 2 === 1){
-                                                return(
-                                                    <tr key={i} className='list-grey'>
-                                                        <td className="strong">017123</td>
-                                                        <td>Kelompok Tani Bogor</td>
-                                                        <td>Rendy Syabany</td>
-                                                        <td>082112217474</td>
-                                                        <td>1234567890123456</td>
-                                                        <td className="text-success">Aktif</td>
-                                                        <td>
-                                                            <div className="row-flex flex-center">
-                                                                 <div className="box-btn" onClick={this.handleDelete}>
-                                                                     <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
-                                                                 </div>
-                                                            </div>  
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            }else{
-                                                return(
-                                                    <tr key={i} >
-                                                        <td className="strong">017123</td>
-                                                        <td>Kelompok Tani Bogor</td>
-                                                        <td>Rendy Syabany</td>
-                                                        <td>082112217474</td>
-                                                        <td>1234567890123456</td>
-                                                        <td className="text-success">Aktif</td>
-                                                        <td>
-                                                            <div className="row-flex flex-center">
-                                                                 <div className="box-btn" onClick={this.handleDelete}>
-                                                                     <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
-                                                                 </div>
-                                                            </div>  
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            }
+                                            return(
+                                                <tr key={i}>
+                                                    <td data-th="ID Kelompok Tani" className="strong">{datahere.farmer_group_id}</td>
+                                                    <td data-th="Nama Kelompok Tani">
+                                                        <p>{datahere.farmer_group_name}</p>
+                                                    </td>
+                                                    <td data-th="Nama Anggota">{datahere.name}</td>
+                                                    <td data-th="No. HP">{datahere.phone_number}</td>
+                                                    <td data-th="No. KTP">{datahere.ktp_number}</td>
+                                                    <td data-th="Status">
+                                                        { datahere.is_surveyed ? 
+                                                            <p className="text-success nowrap">Sudah Disurvey</p>
+                                                            :
+                                                            <p className="text-danger nowrap">Belum Disurvey</p>
+                                                         }
+                                                    </td>
+                                                </tr>
+                                            )
                                         })}
                                     </tbody>
                                 </table>
@@ -272,7 +313,7 @@ export default class DataAnggotaKelompokPetani extends Component{
 
                             <div className="box-footer-table">
                                 <div className="footer-table">
-                                    <p className="text-footer">Menampilkan {this.state.totalsize} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
+                                    <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
                                 </div>
 
                                 <div className="box-pagination">
@@ -301,7 +342,26 @@ export default class DataAnggotaKelompokPetani extends Component{
                                 </div>
                             </div>
                         </div>
+                        )
+                        :
+                        (
+                             <div className="user-access-container text-center no-content">
+                                <img src="../images/empty_state.svg" alt="" height="180"/>
+                                <h3 className="mg-t-20 normal">Data anggota kelompok tani masih kosong</h3>
+                                <div className="box-btn auto mg-t-40" onClick={this.toggleTambahAnggotaKelompokTani}>
+                                        <ButtonPrimary name="Tambah Anggota" />
+                                 </div>
+                             </div>
+                        )
+                        }
                     </div>
+                    :
+                    <div className="user-access">
+                        <div className="user-access-container text-center no-content">
+                            <img src="../images/loading.gif" alt=""/>
+                        </div>
+                    </div>
+                    }
                 </div>
             </div>
         )

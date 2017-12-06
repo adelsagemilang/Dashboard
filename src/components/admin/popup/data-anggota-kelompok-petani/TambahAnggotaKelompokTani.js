@@ -13,11 +13,47 @@ import { API_URL, TK_KEY } from '../../../../containers/RootUrl'
 
 class TambahAnggotaKelompokTani extends Component {
      constructor(props) {
-        super(props);
+        super(props)
+        autoBind(this)
+
+        this.state = {
+            listFarmer: {},
+            listGroup: {},
+            activeFarmer: false,
+            activeGroup: false
+        }
+
+        this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
     }
 
     _handleChange(id, value){
         console.log('ini value: '+value)
+    }
+
+    handleChangeFarmer(e){
+        this.setState({
+            farmer_id: e.target.value
+        })
+
+        if( e.target.value !== '' ){
+            this.setState({activeFarmer: true})
+        }
+        else{
+            this.setState({activeFarmer: false})
+        }
+    }
+
+     handleChangeGroup(e){
+        this.setState({
+            farmer_group_id: e.target.value
+        })
+
+        if( e.target.value !== '' ){
+            this.setState({activeGroup: true})
+        }
+        else{
+            this.setState({activeGroup: false})
+        }
     }
 
      handleSubmit(e){
@@ -25,12 +61,9 @@ class TambahAnggotaKelompokTani extends Component {
         e.preventDefault();
         const { cookies } = this.props;
         
-        axios.post(API_URL + 'admins', {
-            username: document.getElementById('username').value,
-            email: document.getElementById('email').value,
-            phone_number: document.getElementById('no_hp').value,
-            name: document.getElementById('name').value
-            
+        axios.post(API_URL + 'farmers/add_to_farmer_group', {
+            farmer_id: this.state.farmer_id,
+            farmer_group_id: this.state.farmer_group_id            
         },
         {
             headers: {
@@ -49,7 +82,48 @@ class TambahAnggotaKelompokTani extends Component {
         })
     }
 
+    componentDidMount(){
+        axios.get(API_URL+ 'farmers/spinner_to_farmer_group',{
+            headers:{ 
+                'X-AUTH-TOKEN' : this.authToken
+            }
+        })
+        .then(res => {
+            let listFarmer = res.data
+            this.setState({
+                listFarmer,
+                listStatus: true
+            })
+        })
+        .catch((error) => {
+            console.log('err: '+ error)
+        })
+
+        axios.get(API_URL+ 'farmer_groups/spinner_by_surveyor',{
+            headers:{ 
+                'X-AUTH-TOKEN' : this.authToken
+            }
+        })
+        .then(res => {
+            let listGroup = res.data
+            this.setState({
+                listGroup,
+                listFarmerGroup: true
+            })
+        })
+        .catch((error) => {
+            
+        })
+    }
+
     render() {
+        let{
+            listStatus,
+            listFarmer,
+
+            listFarmerGroup,
+            listGroup
+        } = this.state
         return (
             <div className="add-popup">
                 <div className="popup-container sm">
@@ -57,15 +131,28 @@ class TambahAnggotaKelompokTani extends Component {
                         <div className="content">
                             <p className="title">Tambah Anggota Kelompok Tani</p>
                             <p className="sub-title">Silakan masukkan data anggota kelompok tani dengan benar.</p>
-                            <InputForm 
-                                type="text"
-                                placeholder="Ketikkan nama atau ID kelompok tani…"
-                                class="form-control"
-                                handleChange={this._handleChange}
-                            />
                             <div className="select-wrapper w-100">
-                                 <select className="form-control select-option w-100">
+                                 <select className={ this.state.activeFarmer ? "text-color form-control select-option w-100" : "form-control select-option w-100" } value={this.state.value} onChange={this.handleChangeFarmer}>
                                     <option value="">Pilih Petani</option>
+                                    {listStatus ?
+                                            listFarmer.map(farmer => 
+                                            <option key={farmer.farmer_id} value={farmer.farmer_id}>{farmer.name}</option>
+                                        )
+                                        :
+                                        null
+                                     }
+                                </select>
+                            </div>
+                            <div className="select-wrapper w-100">
+                                 <select className={ this.state.activeGroup ? "text-color form-control select-option w-100" : "form-control select-option w-100" } value={this.state.value} onChange={this.handleChangeGroup}>
+                                 <option value="">Pilih Kelompok Tani</option>
+                                 {listFarmerGroup ?
+                                        listGroup.map(group => 
+                                        <option key={group.farmer_group_id} value={group.farmer_group_id}>{group.name}</option>
+                                    )
+                                    :
+                                    null
+                                 }
                                 </select>
                             </div>
                             <div className="box-btn auto" onClick={this.handleSubmit}>

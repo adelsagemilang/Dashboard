@@ -205,7 +205,7 @@ export default class TambahPetani extends Component{
         const { cookies } = this.props;
         console.log(this.state.datepicker)
         
-        if ( this.state.error_pos && this.state.error_hp && this.state.error_ktp && this.state.error_pos ) {
+        if ( this.state.error_hp && this.state.error_ktp && this.state.error_pos ) {
             axios.post(API_URL + 'farmers', {
                 name: document.getElementById('nama-petani').value,
                 phone_number: document.getElementById('no_hp').value,
@@ -308,7 +308,7 @@ export default class TambahPetani extends Component{
                 <div className="popup-container">
                     <div className="box-content">
                         <div className="content">
-                            <p className="title">Tambah User</p>
+                            <p className="title">Tambah Petani</p>
                             <p className="sub-title">Silakan masukkan data petani dengan benar.</p>
                             {   this.state.error ? 
                                 <p className="text-danger mg-b-10 mg-t-10">{this.state.errorMessage}</p>
@@ -330,7 +330,7 @@ export default class TambahPetani extends Component{
                                     classError={this.state.error_hp ? "input-form" : "input-form error"}
                                     class={this.state.error_hp ? "form-control" : "form-control has-error"}
                                     handleChange={this._handleChange}
-                                    errorMessage="Numeric minimum 10 digit angka"
+                                    errorMessage="Nomor HP tidak valid (min 10 digit)"
                                 />
                             </div>
                             <div className="row-flex col-2">
@@ -484,7 +484,6 @@ export default class TambahPetani extends Component{
                             </div>
                             <div className="box-btn auto" onClick={this.props.toggleHandleDaftar}>
                                 <ButtonPrimary
-                                disable={ !this.state.error_ktp && !this.state.error_hp ? true : false }
                                 class="button-secondary"
                                 type="button"
                                 name="Batal" />

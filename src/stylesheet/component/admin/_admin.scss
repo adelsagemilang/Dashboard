@@ -429,6 +429,7 @@ p{
             .box-profile-form{
                 padding: 15px 0 15px 15px;
                 float: left;
+                @extend .row-flex;
 
                 @media(max-width: $screen-desktop){
                     padding-left: 0px;
@@ -437,6 +438,18 @@ p{
                 @media(max-width: $screen-phone){
                     width: calc(100% - 50px);
                     padding: 0 25px;
+                }
+
+                .sub-box{
+                    .select-wrapper.bank{
+                        float: none;
+                        width: 100%;
+                        height: 50px;
+
+                        select{
+                            width: 100%;
+                        }
+                    }
                 }
 
                 .box-1,.box-2{
@@ -552,21 +565,33 @@ p{
 
     .tiket-program{
         .box-status{
-            margin-bottom: 30px;
+            width: 100%;
+            box-sizing: border-box;
+            display: inline-block;
             border-bottom: 1px solid $color-05;
             border-top: 1px solid $color-05;
 
             .col-3{
-                    width: (10/3)*100%;
                     padding: 30px 15px;
                     border-right: 1px solid $color-05;
+
+                    @media(min-width: $screen-desktop){
+                        width: calc(100% / 3);
+                        float: left;
+                        box-sizing: border-box;
+                    }
 
             }
 
             .col-4{
-                width: (10/4)*100%;
                 padding: 30px 15px;
                 border-right: 1px solid $color-05;
+
+                @media(min-width: $screen-desktop){
+                    width: calc(100% / 4);
+                    float: left;
+                    box-sizing: border-box;
+                }
             }
 
             h3{
@@ -574,6 +599,31 @@ p{
                 font-weight: 300;
             }
 
+        }
+
+        .box-table{
+            table {
+                overflow-x: hidden;
+                overflow-y: visible;
+            }
+        }
+
+        .box-top .search-item, .select-wrapper.dropdown{
+            cursor: pointer;
+
+            @media(min-width: $screen-tablet){
+                width: 170px !important;
+            }
+        }
+
+        .input-plus-min{
+            input{
+                width: calc(100% - 91px);
+            }
+
+            button{
+                cursor: pointer;
+            }
         }
 
         .dropdown-three{
@@ -793,6 +843,26 @@ p{
     width: 100%;
     height: 100%;
     @extend .placeholder-primary;
+
+    .user-access-container.no-content{
+        margin-top: 150px;
+
+        .box-btn{
+            max-width: 150px;
+            margin: 20px auto;
+        }
+
+        img{
+            margin-left: -15px;
+        }
+    }
+
+    .block{
+        .text-info{
+            cursor: pointer;
+            white-space: nowrap;
+        }
+    }
     
     @media(min-width: $screen-phone){
         position: absolute;
@@ -821,5 +891,18 @@ p{
 .row-flex{
     .box-btn{
         padding: 5px;
+    }
+}
+
+.box-btn.btn-kel{
+    .button-primary{
+        max-width: 180px !important;
+    }
+}
+
+a.box-btn{
+    button{
+        max-width: 150px !important;
+        margin-top: 20px !important;
     }
 }
