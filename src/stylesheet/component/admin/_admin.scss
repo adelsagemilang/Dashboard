@@ -70,6 +70,10 @@ p{
                     float: left;
                 }
 
+                &.pd-r-0{
+                    padding-right: 0px;
+                }
+
                 .chart-wrapper{
                     overflow: hidden;
 
@@ -111,6 +115,7 @@ p{
 
                         @media screen and (min-width: $screen-desktop){
                             margin-top: 0px;
+                            margin-left: -50px;
                         }
                     }
                     
@@ -140,7 +145,7 @@ p{
                     border-right: 1px solid #DDDDDD;
                     border-bottom: 1px solid #DDDDDD;
                     @media screen and (min-width: $screen-phone){
-                        width: calc(100% - 80px);
+                        width: 100%;
                         float: left;
                     }
                     @media screen and (min-width: $screen-desktop){
@@ -148,6 +153,11 @@ p{
                         box-sizing: border-box;
                         border-bottom: none;
                     }
+                
+                &.pd-r-0{
+                    padding-right: 0px;
+                }
+
                 .chart-wrapper{
                     overflow: hidden;
 
@@ -188,7 +198,9 @@ p{
 
                         @media screen and (min-width: $screen-desktop){
                             margin-top: 0px;
+                            margin-left: -50px;
                         }
+
                     }
 
                 }

@@ -78,13 +78,13 @@ export default class HomeComp extends Component{
                                     <p>Keikutsertaan Petani pada Program</p>
                                 </div>
                             </div>
-                            <div className="box-tiket">
+                            <div className="box-tiket pd-r-0">
                                 <Doughnut/>
                             </div>
                         </div>
                         <div className="dashboard-middle">
                             <div className="box-program-wrapper">
-                                <div className="box-program">
+                                <div className="box-program pd-r-0">
                                     <Doughnut/>
                                 </div>
                                 <div className="box box-program-active text-center">

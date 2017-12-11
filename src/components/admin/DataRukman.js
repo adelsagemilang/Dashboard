@@ -36,20 +36,15 @@ export default class DataRukman extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.status === 204 ? true : res.data.content 
             const totalPage = res.data.totalPages
-            const totalElements = res.data.totalElements
+            const totalElements = res.status === 204 ? true : res.data.totalElements
             const totalsize = res.data.size
             this.setState({dataHere})
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-            
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
+            this.setState({searchNull: true})
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -189,36 +184,47 @@ export default class DataRukman extends Component{
                                         </tr>
                                     </thead>
                                   
-
-                                        <tbody>
-                                            {DataHere.map((datahere, i) => {
-                                                return(
-                                                    <tr key={i}>
-                                                        <td data-th="ID" className="strong">{datahere.rukman_id}</td>
-                                                        <td data-th="Nama Kelompok Tani">{datahere.rukman_name}</td>
-                                                        <td data-th="Alamat">
-                                                            {   ( 
-                                                                <div className="block lower">
-                                                                    <p>{ datahere.address}</p>
-                                                                    <p>{datahere.village} ,
-                                                                    {datahere.district}</p>
-                                                                    <p>{datahere.city} ,
-                                                                    {datahere.province}</p>
-                                                                </div>
-                                                                )
-                                                            }
-                                                        </td>
-                                                        <td className="text-center" data-th="Data Ketua">{datahere.pic_name}</td>
+                                        { this.state.searchNull ? 
+                                            (
+                                                <tbody>
+                                                    <tr>
+                                                        <td colSpan="7" className="text-center normal">Data tidak ada</td>
                                                     </tr>
-                                                )
-                                            })}
-                                        </tbody>
+                                                </tbody>
+                                            )
+                                            :
+                                            (
+                                            <tbody>
+                                                {DataHere.map((datahere, i) => {
+                                                    return(
+                                                        <tr key={i}>
+                                                            <td data-th="ID" className="strong">{datahere.rukman_id}</td>
+                                                            <td data-th="Nama Kelompok Tani">{datahere.rukman_name}</td>
+                                                            <td data-th="Alamat">
+                                                                {   ( 
+                                                                    <div className="block lower">
+                                                                        <p>{ datahere.address}</p>
+                                                                        <p>{datahere.village} ,
+                                                                        {datahere.district}</p>
+                                                                        <p>{datahere.city} ,
+                                                                        {datahere.province}</p>
+                                                                    </div>
+                                                                    )
+                                                                }
+                                                            </td>
+                                                            <td className="text-center" data-th="Data Ketua">{datahere.pic_name}</td>
+                                                        </tr>
+                                                    )
+                                                })}
+                                            </tbody>
+                                            )
+                                        }
                                 </table>
                             </div>
 
                             <div className="box-footer-table">
                                 <div className="footer-table">
-                                    <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Data Kelompok Tani</p>
+                                    <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Data Rukman</p>
                                 </div>
 
                                 <div className="box-pagination">

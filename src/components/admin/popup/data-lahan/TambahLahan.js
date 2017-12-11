@@ -534,7 +534,7 @@ export default class TambahLahan extends Component{
                             <ButtonPrimary
                                 class="button-primary"
                                 type="submit"
-                                name="Daftarkan Petani" />
+                                name="Tambah Lahan" />
                             </div>
                             <div className="box-btn auto" onClick={this.props.toggleTambahLahan}>
                                 <ButtonPrimary

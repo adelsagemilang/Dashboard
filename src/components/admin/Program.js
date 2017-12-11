@@ -294,7 +294,7 @@ export default class Program extends Component{
                 <HapusProgram
                     name={this.state.name} 
                     id_program={this.state.id_program}
-                    toggleHapusProgram={this.toggleTolakProgram}
+                    toggleTolakProgram={this.toggleTolakProgram}
                     success={this.toggleSuccessPopup} 
                     reject="true"
                 />

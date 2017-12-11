@@ -194,7 +194,7 @@ export default class DataPanen extends Component{
                                                     <td data-th="Komoditas">{datahere.commodity_name}</td>
                                                     <td data-th="Jumlah">{datahere.qty}</td>
                                                     <td data-th="Status">
-                                                        {datahere.status}   
+                                                        {datahere.status ? datahere.status : 'Sedang menunggu verifikasi'}   
                                                     </td>
                                                     <td data-th="Alasan Penolakan" className="text-center">{datahere.reason_reject ? datahere.reason_reject : 'Tidak ada'}</td>
                                                 </tr>

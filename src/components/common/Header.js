@@ -20,6 +20,7 @@ export default class Header extends Component{
 
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
         this.userLevel = Crypto.AES.decrypt(Base64.decode(Cookie.load('user_level_name')), TK_KEY).toString(Crypto.enc.Utf8)
+        this.userName = Crypto.AES.decrypt(Base64.decode(Cookie.load('username')), TK_KEY).toString(Crypto.enc.Utf8)
     }
 
      handleLogout(){
@@ -86,8 +87,8 @@ export default class Header extends Component{
                                 <img src={ this.state.image ? this.state.image : "../images/user-img.png"} />
                             </div>
                             <div className="box-user-text">
-                                <p className="username">{this.state.name}</p>
-                                <p className="status">{this.userLevel}</p>
+                                <p className="username mg-t-10">{this.userName}</p>
+                                {/*<p className="status">{this.userLevel}</p>*/}
                             </div>
                         </div>
                         <div className="box-setting header-icon">

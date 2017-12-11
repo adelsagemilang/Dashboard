@@ -89,7 +89,7 @@ class LoginComp extends Component{
                             <div className="box-typeface-image">
                             <img className="typeface-image" src="./images/img_typeface.png"/>
                             </div>
-                            <p className="title">Pemandu Rukman</p>
+                            {/*<p className="title">Pemandu Rukman</p>*/}
                             <div className="form">
                                 <form onSubmit={this.handleSubmit}>
                                     {   this.state.error ? 

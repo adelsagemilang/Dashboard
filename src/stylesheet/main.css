@@ -644,6 +644,8 @@ p {
           width: 40%;
           box-sizing: border-box;
           float: left; } }
+      .main-content .dashboard .dashboard-top .box-tiket.pd-r-0 {
+        padding-right: 0px; }
       .main-content .dashboard .dashboard-top .box-tiket .chart-wrapper {
         overflow: hidden; }
         @media screen and (min-width: 480px) {
@@ -674,7 +676,8 @@ p {
               height: 100px; } }
           @media screen and (min-width: 992px) {
             .main-content .dashboard .dashboard-top .box-tiket .chart-wrapper .chart-container {
-              margin-top: 0px; } }
+              margin-top: 0px;
+              margin-left: -50px; } }
   .main-content .dashboard .dashboard-middle {
     border-bottom: 1px solid #DDDDDD; }
     @media screen and (min-width: 480px) {
@@ -694,13 +697,15 @@ p {
       border-bottom: 1px solid #DDDDDD; }
       @media screen and (min-width: 480px) {
         .main-content .dashboard .dashboard-middle .box-program {
-          width: calc(100% - 80px);
+          width: 100%;
           float: left; } }
       @media screen and (min-width: 992px) {
         .main-content .dashboard .dashboard-middle .box-program {
           width: calc(33.333% * 2);
           box-sizing: border-box;
           border-bottom: none; } }
+      .main-content .dashboard .dashboard-middle .box-program.pd-r-0 {
+        padding-right: 0px; }
       .main-content .dashboard .dashboard-middle .box-program .chart-wrapper {
         overflow: hidden; }
         @media screen and (min-width: 480px) {
@@ -729,7 +734,8 @@ p {
               height: 100px; } }
           @media screen and (min-width: 992px) {
             .main-content .dashboard .dashboard-middle .box-program .chart-wrapper .chart-container {
-              margin-top: 0px; } }
+              margin-top: 0px;
+              margin-left: -50px; } }
     .main-content .dashboard .dashboard-middle .box-program-active {
       padding: 40px;
       border-right: 1px solid #DDDDDD;

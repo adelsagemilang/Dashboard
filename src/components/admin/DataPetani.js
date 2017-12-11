@@ -10,6 +10,7 @@ import { ButtonIcon } from '../common/ButtonIcon'
 import Success from './popup/common-popup/Success'
 import HapusData from './popup/common-popup/HapusData'
 import TambahPetani from './popup/data-petani/TambahPetani'
+import AddFamily from './popup/data-petani/AddFamily'
 import EditPetani from './popup/data-petani/EditPetani'
 import SearchPetani from './popup/data-petani/searchPetani'
 import Detail from './popup/data-petani/Detail'
@@ -31,6 +32,7 @@ export default class DataPetani extends Component{
             toggleAddUser: false,
             toggleDeletePopup: false,
             togglePopupDetail: false,
+            togglePopupAddFamily: false,
             toggleSuccess: false,
             phoneFound: false,
             phoneNotFound: false,
@@ -40,6 +42,20 @@ export default class DataPetani extends Component{
         }
 
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
+    }
+
+    handleAddFamily(farmer_id){
+        this.setState({
+            farmerId: farmer_id,
+            togglePopupAddFamily: true,
+            togglePopupFamily: false,
+        })
+    }
+
+     togglePopupAddFamily(){
+        this.setState({
+            togglePopupAddFamily: !this.state.togglePopupAddFamily
+        })
     }
 
     handleDetail(farmer_name, farmer_id, lat, lng, img, img2, img3, img4){
@@ -57,7 +73,7 @@ export default class DataPetani extends Component{
     }
 
     handleSearch(id, value){
-        axios.get(API_URL + 'farmers?pagination=true&text=' + value + '&page=0&size=10',{
+        axios.get(API_URL + 'farmers?pagination=true&text=' + value + '&page=0&size=10&member=false',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -250,6 +266,20 @@ export default class DataPetani extends Component{
         }
     }
 
+
+    renderPopupAddFamily(){
+        if (this.state.togglePopupAddFamily) {
+            return(
+                <AddFamily
+                    success={this.toggleSuccessPopup}
+                    farmerId={this.state.farmerId}
+                    togglePopupAddFamily={this.togglePopupAddFamily} 
+                />
+            )
+        }
+    }
+
+
     handleCancel(){
         console.log('canceled')
         this.setState({
@@ -375,6 +405,7 @@ export default class DataPetani extends Component{
                 {this.renderPopupAddUser()}
                 {this.renderPopupUpdate()}
                 {this.renderPopupDetail()}
+                {this.renderPopupAddFamily()}
                 {this.renderPopupDelete()}
                 {this.phoneFound()}
                 {this.phoneNotFound()}
@@ -394,7 +425,7 @@ export default class DataPetani extends Component{
                                 <div className="user-access-container">
                                     <div className="box-top row-flex flex-space">
                                         <div className="pull-left row-flex">
-                                            <p className="count-item">{ this.state.totalElements ? this.state.totalElements : '0' } Calon Petani</p>
+                                            <p className="count-item">{ this.state.totalElements ? this.state.totalElements : '0' } Petani</p>
                                             <div className="select-wrapper">
                                                 <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
                                                     <option value="10">10 entri per halaman</option>
@@ -498,7 +529,7 @@ export default class DataPetani extends Component{
                                     
                                     <div className="box-footer-table">
                                         <div className="footer-table">
-                                            <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Data Calon Petani</p>
+                                            <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Data Petani</p>
                                         </div>
 
                                         <div className="box-pagination">

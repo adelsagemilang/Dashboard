@@ -280,7 +280,7 @@ export default class DataKelompokPetani extends Component{
                                             <th>Total Luas Lahan</th>
                                             <th>Alamat</th>
                                             <th className="text-center">Data Ketua</th>
-                                            <th>Status</th>
+                                            {/*<th>Status</th>*/}
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -311,7 +311,7 @@ export default class DataKelompokPetani extends Component{
                                                             <p>{datahere.phone_number}</p>
                                                         </div>
                                                     </td>
-                                                    <td data-th="Status">{datahere.status}</td>
+                                                    {/*<td data-th="Status">{datahere.status}</td>*/}
                                                     <td data-th="Aksi">
                                                         <div className="row-flex flex-center flex-xs">
                                                             <div className="box-btn" onClick={this.handleUpdate.bind(this,datahere.farmer_group_id)}>
@@ -364,7 +364,7 @@ export default class DataKelompokPetani extends Component{
                                 <img src="../images/empty_state.svg" alt="" height="180"/>
                                 <h3 className="mg-t-20 normal">Data kelompok tani masih kosong</h3>
                                 <div className="box-btn auto mg-t-40" onClick={this.toggleTambahKelompok}>
-                                    <ButtonPrimary name="Tambah Kelompok Tani" />
+                                    <ButtonPrimary name="Tambah Kelompok" />
                                 </div>
                              </div>
                         )

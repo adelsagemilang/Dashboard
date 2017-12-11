@@ -99,7 +99,7 @@ class TambahAnggotaKelompokTani extends Component {
             console.log('err: '+ error)
         })
 
-        axios.get(API_URL+ 'farmer_groups/spinner_by_surveyor',{
+        axios.get(API_URL+ 'farmer_groups/spinner_by_surveyor?active=true',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -159,7 +159,7 @@ class TambahAnggotaKelompokTani extends Component {
                             <ButtonPrimary
                                 class="button-primary"
                                 type="submit"
-                                name="Daftarkan Petani" />
+                                name="Tambah Anggota" />
                             </div>
                             <div className="box-btn auto" onClick={this.props.toggleTambahAnggotaKelompokTani}>
                                 <ButtonPrimary

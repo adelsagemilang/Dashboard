@@ -9,7 +9,6 @@ import { ButtonPrimary } from '../common/ButtonPrimary'
 import { ButtonIcon } from '../common/ButtonIcon'
 import TambahAnggotaKelompokTani from './popup/data-anggota-kelompok-petani/TambahAnggotaKelompokTani'
 import Header from '../common/Header'
-import AddFamily from './popup/data-petani/AddFamily'
 import Success from './popup/common-popup/Success'
 import InputForm from '../common/InputForm'
 import ReactPaginate from 'react-paginate'
@@ -21,7 +20,6 @@ export default class DataAnggotaKelompokPetani extends Component{
 
         this.state = {
             dataHere: false,
-            togglePopupAddFamily: false,
             toggleSuccess: false,
             classBgColor: '',
             toggleTambahAnggotaKelompokTani: false,
@@ -29,20 +27,6 @@ export default class DataAnggotaKelompokPetani extends Component{
         }
 
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
-    }
-
-    handleAddFamily(farmer_id){
-        this.setState({
-            farmerId: farmer_id,
-            togglePopupAddFamily: true,
-            togglePopupFamily: false,
-        })
-    }
-
-     togglePopupAddFamily(){
-        this.setState({
-            togglePopupAddFamily: !this.state.togglePopupAddFamily
-        })
     }
 
     toggleSuccessPopup(){
@@ -66,18 +50,6 @@ export default class DataAnggotaKelompokPetani extends Component{
             toggleSuccess: !this.state.toggleSuccess
         })
         window.location.reload()
-    }
-
-    renderPopupAddFamily(){
-        if (this.state.togglePopupAddFamily) {
-            return(
-                <AddFamily
-                    success={this.toggleSuccessPopup}
-                    farmerId={this.state.farmerId}
-                    togglePopupAddFamily={this.togglePopupAddFamily} 
-                />
-            )
-        }
     }
 
     handleSearch(id, value){
@@ -145,7 +117,7 @@ export default class DataAnggotaKelompokPetani extends Component{
         let selected = dataHere.selected
         console.log(selected)
 
-        axios.get(API_URL + 'farmers?pagination=true&text=&page='+ selected +'&size=10&member=false',{
+        axios.get(API_URL + 'farmers?pagination=true&text=&page='+ selected +'&size=10&member=true',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -235,7 +207,6 @@ export default class DataAnggotaKelompokPetani extends Component{
         return(
              <div id="outer-container">
                 {this.renderPopupTambahAnggotaKelompokTani()}
-                {this.renderPopupAddFamily()}
                 {this.renderPopupSuccess()}
                 <div id="page-wrap" className="main-content">
                     <div className="responsive-header">
