@@ -254,7 +254,7 @@ export default class TiketProgram extends Component{
                 <ResponsiveHeader />
                 <div id="page-wrap" className="main-content">
                     <div className="responsive-header">
-                        <img src="../images/logo-white.svg" height="35"/>
+                        <img src="../images/logo-white.png" height="35"/>
                     </div>
                     <Header title="Tiket Program" />
                     {

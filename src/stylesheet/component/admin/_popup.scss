@@ -324,6 +324,24 @@
         .box-content{
             width: 820px!important;
             margin: 100px 0 0 0!important;
+
+            @media(max-width: $screen-phone){
+                width: 310px !important;
+                 margin: 100px auto !important;
+
+                 .content{
+                    width: 100%;
+
+                    .box-text{
+                        display: inline-block;
+                    }
+
+                    p{
+                        float: none;
+                        width: auto;
+                    }
+                 }
+            }
             .content{
                 padding: 20px 0 0 0!important;
                 .sub-title, .title {
@@ -342,6 +360,12 @@
         &__tab-list {
             margin: 0 0 10px;
             padding: 0;
+        }
+
+        .react-tabs__tab-list{
+            @media (max-width: $screen-phone){
+                display: flex;
+            }
         }
 
         &__tab {
@@ -395,16 +419,28 @@
     }
 
     .box-text{
+        @media(max-width: $screen-phone){
+            padding-left: 15px !important;
+            padding-bottom: 10px;
+            span{
+                padding-left: 0px !important;
+            }
+        }
         .text-title{
             padding: 15px 0 20px 20px;
             font-weight: 500;
             color: $color-02;
-            display: inline-block;
+            @media(min-width: $screen-phone){
+                display: inline-block;
+            }
         }
         .lat-long{
             font-weight: 500;
             color: $color-primary;
-            display: inline-block;
+            @media(min-width: $screen-phone){
+                display: inline-block;
+                padding: 15px 0px;
+            }
         }
     }
 

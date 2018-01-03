@@ -135,12 +135,12 @@ export default class Detail extends Component{
                                                         this.state.dataHere.map((datahere, i) => {
                                                                 return(
                                                                     <tr key={i}>
-                                                                        <td className="normal">{datahere.relationship_status}</td>
-                                                                        <td>{datahere.name}</td>
-                                                                        <td>{datahere.phone_number}</td>
-                                                                        <td>{datahere.address}</td>
-                                                                        <td>{datahere.birthdate}</td>
-                                                                        <td className="text-center">{datahere.biological_mothers_name}</td>
+                                                                        <td data-th="Status" className="normal">{datahere.relationship_status}</td>
+                                                                        <td data-th="Nama">{datahere.name}</td>
+                                                                        <td data-th="No. Handphone">{datahere.phone_number}</td>
+                                                                        <td data-th="Alamat">{datahere.address}</td>
+                                                                        <td data-th="Tempat Tanggal Lahir">{datahere.birthdate}</td>
+                                                                        <td data-th="Ibu Kandung" className="text-center">{datahere.biological_mothers_name}</td>
                                                                     </tr>
                                                                 )
                                                         })

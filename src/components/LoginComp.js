@@ -42,8 +42,6 @@ class LoginComp extends Component{
     handleSubmit(e){
         e.preventDefault();
         const { cookies } = this.props;
-        console.log('username: ' + this.state.username)
-        console.log('pin: ' + this.state.pin)
         
         axios.post(API_URL + 'login', {
             username: this.state.username,
@@ -56,11 +54,13 @@ class LoginComp extends Component{
             const data = res.data.token
             const userName = res.data.name
             const userLevel = res.data.user_level_name
+            const userId = res.data.user_id
             this.setState({data})
 
             Cookie.save('TK', Base64.encode(Crypto.AES.encrypt(data, TK_KEY)))
             Cookie.save('username', Base64.encode(Crypto.AES.encrypt(userName, TK_KEY)))
             Cookie.save('user_level_name', Base64.encode(Crypto.AES.encrypt(userLevel, TK_KEY)))
+            Cookie.save('user_id', userId)
             this.props.history.push('/dashboard');
         })
         .catch((error) => {

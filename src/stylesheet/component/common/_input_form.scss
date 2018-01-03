@@ -142,3 +142,38 @@
     color: #c94646 !important;
     line-height: 0 !important;
 }
+
+
+.react-datepicker__month-container{
+	@media (max-width: $screen-phone){
+	    height: 200px;
+		overflow-y: scroll;
+	}
+}
+
+.react-datepicker__day-name {
+	@media(max-width: $screen-phone){
+		width: 1.5rem;
+		font-size: 12px;
+	}
+}
+
+.react-datepicker__day{
+	@media(max-width: $screen-phone){
+		float: left;
+	}
+}
+
+.add-popup .popup-container .box-content .content .row-flex.col-2.table{
+	.input-form{
+		.react-datepicker-wrapper{
+			.react-datepicker__input-container{
+				.form-control{
+					@media(max-width: $screen-phone){
+						width: calc(100% - 7px) !important;
+					}
+				}
+			}
+		}
+	}
+}

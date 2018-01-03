@@ -59,7 +59,7 @@ export default class InputForm extends Component {
                         scrollableYearDropdown
                         readOnly={true}
                         selected={this.state.dbDate ? this.state.dbDate : ""}
-                        openToDate={moment("1960-01-01")}
+                        openToDate={this.state.dbDate ? this.state.dbDate : moment("1960-01-01")}
                         onChange={this.handleChange} 
                         className={this.props.class}
                         placeholderText={this.props.placeholder}

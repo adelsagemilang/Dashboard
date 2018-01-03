@@ -28,7 +28,7 @@ export default class DataOrderOut extends Component{
     handleSearch(id, value){
         console.log('ini value: '+value)
 
-        axios.get(API_URL + 'orderouts?pagination=true&text=' + value + '&page=0&size=2',{
+        axios.get(API_URL + 'orderouts?pagination=true&text=' + value + '&page=0&size=10',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -90,7 +90,7 @@ export default class DataOrderOut extends Component{
         let selected = dataHere.selected
         console.log(selected)
 
-        axios.get(API_URL + 'orderouts?pagination=true&text=&page='+ selected +'&size=2',{
+        axios.get(API_URL + 'orderouts?pagination=true&text=&page='+ selected +'&size=10',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -118,7 +118,7 @@ export default class DataOrderOut extends Component{
 
     componentDidMount(){
         console.log(this.authToken)
-        axios.get(API_URL + 'orderouts?pagination=true&text=&page=0&size=2',{
+        axios.get(API_URL + 'orderouts?pagination=true&text=&page=0&size=10',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -149,7 +149,7 @@ export default class DataOrderOut extends Component{
                 <ResponsiveHeader />
                 <div id="page-wrap" className="main-content">
                     <div className="responsive-header">
-                        <img src="../images/logo-white.svg" height="35"/>
+                        <img src="../images/logo-white.png" height="35"/>
                     </div>
                     <Header title="Data Order Keluar" />
                     {

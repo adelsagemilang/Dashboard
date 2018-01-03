@@ -28,7 +28,7 @@ export default class DataPanen extends Component{
     handleSearch(id, value){
         console.log('ini value: '+value)
 
-        axios.get(API_URL + 'harvests?pagination=true&text=' + value + '&page=0&size=9',{
+        axios.get(API_URL + 'harvests?pagination=true&text=' + value + '&page=0&size=10',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -90,7 +90,7 @@ export default class DataPanen extends Component{
         let selected = dataHere.selected
         console.log(selected)
 
-        axios.get(API_URL + 'harvests?pagination=true&text=&page='+ selected +'&size=2',{
+        axios.get(API_URL + 'harvests?pagination=true&text=&page='+ selected +'&size=10',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -143,7 +143,7 @@ export default class DataPanen extends Component{
                 <ResponsiveHeader />
                 <div id="page-wrap" className="main-content">
                     <div className="responsive-header">
-                        <img src="../images/logo-white.svg" height="35"/>
+                        <img src="../images/logo-white.png" height="35"/>
                     </div>
                     <Header title="Data Panen" />
                     {

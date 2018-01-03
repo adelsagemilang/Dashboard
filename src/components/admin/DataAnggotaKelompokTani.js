@@ -9,6 +9,7 @@ import { ButtonPrimary } from '../common/ButtonPrimary'
 import { ButtonIcon } from '../common/ButtonIcon'
 import TambahAnggotaKelompokTani from './popup/data-anggota-kelompok-petani/TambahAnggotaKelompokTani'
 import Header from '../common/Header'
+import ResponsiveHeader from '../common/ResponsiveHeader'
 import Success from './popup/common-popup/Success'
 import InputForm from '../common/InputForm'
 import ReactPaginate from 'react-paginate'
@@ -208,9 +209,10 @@ export default class DataAnggotaKelompokPetani extends Component{
              <div id="outer-container">
                 {this.renderPopupTambahAnggotaKelompokTani()}
                 {this.renderPopupSuccess()}
+                <ResponsiveHeader />
                 <div id="page-wrap" className="main-content">
                     <div className="responsive-header">
-                        <img src="../images/logo-white.svg" height="35"/>
+                        <img src="../images/logo-white.png" height="35"/>
                     </div>
                     <Header title="Data Anggota Kelompok Tani" />
                     {

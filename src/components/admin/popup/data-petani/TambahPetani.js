@@ -351,7 +351,7 @@ export default class TambahPetani extends Component{
                                     handleChange={this._handleChange}
                                 />
                             </div>
-                            <div className="row-flex col-2">
+                            <div className="row-flex col-2 table">
                                 <InputForm 
                                     getValueDatePicker={this.getDatePicker}
                                     inputId="birth_date"

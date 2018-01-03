@@ -2,6 +2,14 @@
     display: block;
 }
 
+.table{
+    display: table !important;
+
+    @media(min-width: $screen-phone){
+        display: flex !important;
+    }
+}
+
 .hidden{
     display: none;
 }
@@ -115,6 +123,10 @@
 
 .mg-r-0{
     margin-right: 0px !important;
+}
+
+.mg-r-5{
+    margin-right: 5px !important;
 }
 
 .mg-b-10{

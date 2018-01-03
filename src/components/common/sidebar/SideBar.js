@@ -50,7 +50,7 @@ export default class SideBar extends Component {
                     <div className="box-image">
                         <img src="../images/logo-white.png" />
                     </div>
-                    <div className="box-list">
+                    <div className="box-list pd-b-100">
                         <Link to="/dashboard">
                             <div >
                                 <ListMenu padding="no-pad" text="Dashboard" icon="../images/icon/menu_icon/menu_icon_1.svg" classActive={dashboard}/>
@@ -102,16 +102,14 @@ export default class SideBar extends Component {
                                 <ListMenu padding="no-pad" text="Program" icon="../images/icon/menu_icon/menu_icon_7.svg" classActive={program}/>
                             </div>
                         </Link>
-                        <Link className="disabled-link" onClick={e => e.preventDefault()} to="/admin/kegiatan-petani">
+                        <Link to="/admin/kegiatan-petani">
                             <div>
                                 <ListMenu padding="no-pad" text="Kegiatan Petani" icon="../images/icon/menu_icon/menu_icon_8.svg" classActive={kegPetani}/>
-                                 <span className="not-available">coming soon</span>
                             </div>
                         </Link>
-                        <Link className="disabled-link" onClick={e => e.preventDefault()} to="/admin/rekap-kegiatan">
+                        <Link  to="/admin/rekap-kegiatan">
                             <div>
-                                <ListMenu padding="pd-b-100" text="Rekap Kegiatan" icon="../images/icon/menu_icon/menu_icon_9.svg" classActive={rekapKegiatan}/>
-                                 <span className="not-available">coming soon</span>
+                                <ListMenu padding="no-pad" text="Rekap Kegiatan" icon="../images/icon/menu_icon/menu_icon_9.svg" classActive={rekapKegiatan}/>
                             </div>
                         </Link>
                     </div>

@@ -888,6 +888,9 @@ p{
             overflow: hidden;
         }
         .pull-left{
+            @media(max-width: $screen-phone){
+                margin: auto;
+            }
             &.row-flex{
                 padding: 0 25px;
                 width: calc(100% - 50px);

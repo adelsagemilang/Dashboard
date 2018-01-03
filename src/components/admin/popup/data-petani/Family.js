@@ -74,12 +74,12 @@ export default class Family extends Component{
                                             {DataHere.map((datahere, i) => {
                                                 return(
                                                     <tr key={i}>
-                                                        <td>{datahere.relationship_status}</td>
-                                                        <td>{datahere.name}</td>
-                                                        <td>{datahere.phone_number}</td>
-                                                        <td>{datahere.address}</td>
-                                                        <td>{datahere.birthdate}</td>
-                                                        <td>{datahere.biological_mothers_name}</td>
+                                                        <td data-th="Status">{datahere.relationship_status}</td>
+                                                        <td data-th="Nama">{datahere.name}</td>
+                                                        <td data-th="No.Handphone">{datahere.phone_number}</td>
+                                                        <td data-th="Alamat">{datahere.address}</td>
+                                                        <td data-th="Tempat Tanggal Lahir">{datahere.birthdate}</td>
+                                                        <td data-th="Ibu Kandung">{datahere.biological_mothers_name}</td>
                                                     </tr>
                                                 )
                                             })}

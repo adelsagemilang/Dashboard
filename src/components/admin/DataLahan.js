@@ -225,7 +225,7 @@ export default class Datalahan extends Component{
                 <ResponsiveHeader />
                 <div id="page-wrap" className="main-content">
                     <div className="responsive-header">
-                        <img src="../images/logo-white.svg" height="35"/>
+                        <img src="../images/logo-white.png" height="35"/>
                     </div>
                     <Header title="Data Lahan" />
                     { DataHere ? 
@@ -281,35 +281,37 @@ export default class Datalahan extends Component{
                                                 <tr key={i}>
                                                     <td data-th="Nama Petani" className="strong">{ datahere.farmer_name }</td>
                                                     <td data-th="Nama Lahan">
-                                                        <p>{ datahere.name }</p>
-                                                        { datahere.is_surveyed ? 
-                                                            <p className="text-success text-small nowrap">Sudah Diverifikasi</p>
-                                                            :
-                                                            <p className="text-danger text-small nowrap">Belum Diverifikasi</p>
-                                                         }
-                                                         <p className="text-info normal pointer" 
-                                                            onClick={this.handleDetail.bind(
-                                                                this,
-                                                                datahere.name,
-                                                                datahere.land_id,
-                                                                datahere.lat,
-                                                                datahere.lng,
-                                                                datahere.image,
-                                                                datahere.address,
-                                                                datahere.location
-                                                            )}
-                                                        >Lihat Detail</p>
+                                                        <div className="block">
+                                                            <p>{ datahere.name }</p>
+                                                            { datahere.is_surveyed ? 
+                                                                <p className="text-success text-small nowrap">Sudah Diverifikasi</p>
+                                                                :
+                                                                <p className="text-danger text-small nowrap">Belum Diverifikasi</p>
+                                                             }
+                                                             <p className="text-info normal pointer" 
+                                                                onClick={this.handleDetail.bind(
+                                                                    this,
+                                                                    datahere.name,
+                                                                    datahere.land_id,
+                                                                    datahere.lat,
+                                                                    datahere.lng,
+                                                                    datahere.image,
+                                                                    datahere.address,
+                                                                    datahere.location
+                                                                )}
+                                                            >Lihat Detail</p>
+                                                        </div>
                                                     </td>
                                                     <td data-th="Luas">{ datahere.large }m<sup>2</sup></td>
                                                     <td data-th="Ketinggian">{ datahere.height }mdpl</td>
                                                     <td data-th="Sumber Pengairan">{ datahere.irigation }</td>
-                                                    <td data-th="Komoditas Tanam">{ datahere.commodities.map(comodities=> 
-                                                          <p>{ comodities.name } </p>
+                                                    <td data-th="Komoditas Tanam">{ datahere.commodities.map((comodities,i) => 
+                                                          <span className="mg-r-5">{comodities.name + (i === datahere.commodities.length-1 ? '.' : ', ')}</span>
                                                         ) }</td>
                                                     <td data-th="Hama Dominan">{ datahere.pest }</td>
-                                                    <td data-th="">{ datahere.disease }</td>
+                                                    <td data-th="Penyakit Dominan">{ datahere.disease }</td>
                                                      <td data-th="Aksi">
-                                                        <div className="row-flex flex-center">
+                                                        <div className="row-flex flex-center flex-xs">
                                                              <div className="box-btn" onClick={this.handleDelete.bind(this,datahere.land_id,datahere.name)}>
                                                                  <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
                                                              </div>

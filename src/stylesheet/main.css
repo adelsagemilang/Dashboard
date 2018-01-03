@@ -461,6 +461,12 @@ select {
 .block {
   display: block; }
 
+.table {
+  display: table !important; }
+  @media (min-width: 480px) {
+    .table {
+      display: flex !important; } }
+
 .hidden {
   display: none; }
 
@@ -541,6 +547,9 @@ select {
 
 .mg-r-0 {
   margin-right: 0px !important; }
+
+.mg-r-5 {
+  margin-right: 5px !important; }
 
 .mg-b-10 {
   margin-bottom: 10px; }
@@ -1186,6 +1195,9 @@ p {
   @media (max-width: 480px) {
     .user-access .box-top {
       overflow: hidden; } }
+  @media (max-width: 480px) {
+    .user-access .box-top .pull-left {
+      margin: auto; } }
   .user-access .box-top .pull-left.row-flex, .user-access .box-top .main-content .edit-akun .content-top .pull-left.box-profile-form, .main-content .edit-akun .content-top .user-access .box-top .pull-left.box-profile-form, .user-access .box-top .pull-left.tag-wrapper {
     padding: 0 25px;
     width: calc(100% - 50px); }
@@ -1385,6 +1397,17 @@ a.box-btn button {
   .add-popup-map .popup-container .box-content {
     width: 820px !important;
     margin: 100px 0 0 0 !important; }
+    @media (max-width: 480px) {
+      .add-popup-map .popup-container .box-content {
+        width: 310px !important;
+        margin: 100px auto !important; }
+        .add-popup-map .popup-container .box-content .content {
+          width: 100%; }
+          .add-popup-map .popup-container .box-content .content .box-text {
+            display: inline-block; }
+          .add-popup-map .popup-container .box-content .content p {
+            float: none;
+            width: auto; } }
     .add-popup-map .popup-container .box-content .content {
       padding: 20px 0 0 0 !important; }
       .add-popup-map .popup-container .box-content .content .sub-title, .add-popup-map .popup-container .box-content .content .title {
@@ -1398,6 +1421,9 @@ a.box-btn button {
   .add-popup-map .react-tabs__tab-list {
     margin: 0 0 10px;
     padding: 0; }
+  @media (max-width: 480px) {
+    .add-popup-map .react-tabs .react-tabs__tab-list {
+      display: flex; } }
   .add-popup-map .react-tabs__tab {
     outline: none;
     display: inline-block;
@@ -1429,16 +1455,28 @@ a.box-btn button {
     .add-popup-map .react-tabs__tab-panel--disabled {
       cursor: default; }
 
+@media (max-width: 480px) {
+  .add-popup-map .box-text {
+    padding-left: 15px !important;
+    padding-bottom: 10px; }
+    .add-popup-map .box-text span {
+      padding-left: 0px !important; } }
+
 .add-popup-map .box-text .text-title {
   padding: 15px 0 20px 20px;
   font-weight: 500;
-  color: #767676;
-  display: inline-block; }
+  color: #767676; }
+  @media (min-width: 480px) {
+    .add-popup-map .box-text .text-title {
+      display: inline-block; } }
 
 .add-popup-map .box-text .lat-long {
   font-weight: 500;
-  color: #27A1C3;
-  display: inline-block; }
+  color: #27A1C3; }
+  @media (min-width: 480px) {
+    .add-popup-map .box-text .lat-long {
+      display: inline-block;
+      padding: 15px 0px; } }
 
 .add-popup-map .box-foto p {
   padding: 15px 0 20px 20px !important; }
@@ -1685,6 +1723,24 @@ a.box-btn button {
   color: #c94646 !important;
   line-height: 0 !important; }
 
+@media (max-width: 480px) {
+  .react-datepicker__month-container {
+    height: 200px;
+    overflow-y: scroll; } }
+
+@media (max-width: 480px) {
+  .react-datepicker__day-name {
+    width: 1.5rem;
+    font-size: 12px; } }
+
+@media (max-width: 480px) {
+  .react-datepicker__day {
+    float: left; } }
+
+@media (max-width: 480px) {
+  .add-popup .popup-container .box-content .content .row-flex.col-2.table .input-form .react-datepicker-wrapper .react-datepicker__input-container .form-control, .add-popup-map .popup-container .box-content .content .row-flex.col-2.table .input-form .react-datepicker-wrapper .react-datepicker__input-container .form-control, .add-popup .popup-container .box-content .content .main-content .edit-akun .content-top .col-2.table.box-profile-form .input-form .react-datepicker-wrapper .react-datepicker__input-container .form-control, .main-content .edit-akun .content-top .add-popup .popup-container .box-content .content .col-2.table.box-profile-form .input-form .react-datepicker-wrapper .react-datepicker__input-container .form-control, .add-popup-map .popup-container .box-content .content .main-content .edit-akun .content-top .col-2.table.box-profile-form .input-form .react-datepicker-wrapper .react-datepicker__input-container .form-control, .main-content .edit-akun .content-top .add-popup-map .popup-container .box-content .content .col-2.table.box-profile-form .input-form .react-datepicker-wrapper .react-datepicker__input-container .form-control, .add-popup .popup-container .box-content .content .col-2.table.tag-wrapper .input-form .react-datepicker-wrapper .react-datepicker__input-container .form-control, .add-popup-map .popup-container .box-content .content .col-2.table.tag-wrapper .input-form .react-datepicker-wrapper .react-datepicker__input-container .form-control, .add-popup .popup-container .box-content .content .row-flex.col-2.table .input-form .react-datepicker-wrapper .react-datepicker__input-container .tag-wrapper .react-tagsinput-input, .tag-wrapper .add-popup .popup-container .box-content .content .row-flex.col-2.table .input-form .react-datepicker-wrapper .react-datepicker__input-container .react-tagsinput-input, .add-popup-map .popup-container .box-content .content .row-flex.col-2.table .input-form .react-datepicker-wrapper .react-datepicker__input-container .tag-wrapper .react-tagsinput-input, .tag-wrapper .add-popup-map .popup-container .box-content .content .row-flex.col-2.table .input-form .react-datepicker-wrapper .react-datepicker__input-container .react-tagsinput-input, .add-popup .popup-container .box-content .content .main-content .edit-akun .content-top .col-2.table.box-profile-form .input-form .react-datepicker-wrapper .react-datepicker__input-container .tag-wrapper .react-tagsinput-input, .tag-wrapper .add-popup .popup-container .box-content .content .main-content .edit-akun .content-top .col-2.table.box-profile-form .input-form .react-datepicker-wrapper .react-datepicker__input-container .react-tagsinput-input, .main-content .edit-akun .content-top .add-popup .popup-container .box-content .content .col-2.table.box-profile-form .input-form .react-datepicker-wrapper .react-datepicker__input-container .tag-wrapper .react-tagsinput-input, .tag-wrapper .main-content .edit-akun .content-top .add-popup .popup-container .box-content .content .col-2.table.box-profile-form .input-form .react-datepicker-wrapper .react-datepicker__input-container .react-tagsinput-input, .add-popup-map .popup-container .box-content .content .main-content .edit-akun .content-top .col-2.table.box-profile-form .input-form .react-datepicker-wrapper .react-datepicker__input-container .tag-wrapper .react-tagsinput-input, .tag-wrapper .add-popup-map .popup-container .box-content .content .main-content .edit-akun .content-top .col-2.table.box-profile-form .input-form .react-datepicker-wrapper .react-datepicker__input-container .react-tagsinput-input, .main-content .edit-akun .content-top .add-popup-map .popup-container .box-content .content .col-2.table.box-profile-form .input-form .react-datepicker-wrapper .react-datepicker__input-container .tag-wrapper .react-tagsinput-input, .tag-wrapper .main-content .edit-akun .content-top .add-popup-map .popup-container .box-content .content .col-2.table.box-profile-form .input-form .react-datepicker-wrapper .react-datepicker__input-container .react-tagsinput-input, .add-popup .popup-container .box-content .content .col-2.table.tag-wrapper .input-form .react-datepicker-wrapper .react-datepicker__input-container .react-tagsinput-input, .add-popup-map .popup-container .box-content .content .col-2.table.tag-wrapper .input-form .react-datepicker-wrapper .react-datepicker__input-container .react-tagsinput-input {
+    width: calc(100% - 7px) !important; } }
+
 .header-comp {
   padding-top: 60px; }
   @media (min-width: 992px) {
@@ -1708,6 +1764,12 @@ a.box-btn button {
       .header-comp .header-container .box-title p {
         font-size: 25px !important;
         font-weight: 300; }
+        @media (max-width: 480px) {
+          .header-comp .header-container .box-title p {
+            white-space: nowrap;
+            max-width: 250px;
+            overflow: hidden;
+            text-overflow: ellipsis; } }
       .header-comp .header-container .box-title a {
         display: flex;
         white-space: nowrap;

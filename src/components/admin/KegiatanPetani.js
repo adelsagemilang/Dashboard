@@ -27,14 +27,13 @@ export default class KegiatanPetani extends Component{
         }
 
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
-        this.userName = Crypto.AES.decrypt(Base64.decode(Cookie.load('username')), TK_KEY).toString(Crypto.enc.Utf8)
-        this.userEmail = Crypto.AES.decrypt(Base64.decode(Cookie.load('email')), TK_KEY).toString(Crypto.enc.Utf8)
+        this.userId = Cookie.load('user_id')
     }
 
     handleSearch(id, value){
         console.log('ini value: '+value)
 
-        axios.get(API_URL + 'user_access?page=0&size=10&text=' + value + '&user_role=1',{
+        axios.get(API_URL + '/activities/'+this.userId+'/today?page=0&size=10&text='+value,{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -64,7 +63,7 @@ export default class KegiatanPetani extends Component{
         console.log('value: '+ e.target.value)
         const valueEntri = e.target.value
 
-        axios.get(API_URL + 'user_access?page=0&size=' + valueEntri + '&text=&user_role=1',{
+        axios.get(API_URL + '/activities/'+this.userId+'/today?page=0&size='+valueEntri+'&text=',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -96,7 +95,7 @@ export default class KegiatanPetani extends Component{
         let selected = dataHere.selected
         console.log(selected)
 
-        axios.get(API_URL + 'user_access?page='+ selected +'&size=10&text=&user_role=1',{
+        axios.get(API_URL + '/activities/'+this.userId+'/today?page'+selected+'0&size=10&text=',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -125,7 +124,7 @@ export default class KegiatanPetani extends Component{
 
     componentDidMount(){
         console.log(this.authToken)
-        axios.get(API_URL + 'user_access?page=0&size=10&text=&user_role=1',{
+        axios.get(API_URL + '/activities/'+this.userId+'/today?page=0&size=10&text=',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -179,13 +178,15 @@ export default class KegiatanPetani extends Component{
                                     inputId="search_admin"
                                     handleChange={this.handleSearch}
                                     placeholder="Cari.."
-                                    class="search-item"
+                                    class="search-item form-control"
                                     type="text"/>
+                                    {/*
                                     <div className="select-wrapper">
                                         <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
                                             <option value="">Status</option>
                                         </select>
                                     </div>
+                                    */}
                                 </div>
                             </div>
 
@@ -203,29 +204,16 @@ export default class KegiatanPetani extends Component{
                                     </thead>
                                     <tbody>
                                         {DataHere.map((datahere, i) => {
-                                            if(i % 2 === 1){
-                                                return(
-                                                    <tr key={i} className='list-grey'>
-                                                        <td>Kelompok Tani Sukabumi</td>
-                                                        <td>Rendy Syabany</td>
-                                                        <td>Penanam Cabai 1 Hektar</td>
-                                                        <td>Menanam Cabai</td>
-                                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam provident dolorum, quibusdam?</td>
-                                                        <td className="text-center">Sudah Selesai</td>
-                                                    </tr>
-                                                )
-                                            }else{
-                                                return(
-                                                    <tr key={i} >
-                                                        <td>Kelompok Tani Sukabumi</td>
-                                                        <td>Rendy Syabany</td>
-                                                        <td>Penanam Cabai 1 Hektar</td>
-                                                        <td>Menanam Cabai</td>
-                                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam provident dolorum, quibusdam?</td>
-                                                        <td className="text-center">Sudah Selesai</td>
-                                                    </tr>
-                                                )
-                                            }
+                                            return(
+                                                <tr key={i}>
+                                                    <td>Kelompok Tani Sukabumi</td>
+                                                    <td>Rendy Syabany</td>
+                                                    <td>Penanam Cabai 1 Hektar</td>
+                                                    <td>Menanam Cabai</td>
+                                                    <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam provident dolorum, quibusdam?</td>
+                                                    <td className="text-center">Sudah Selesai</td>
+                                                </tr>
+                                            )
                                         })}
                                     </tbody>
                                 </table>
@@ -233,7 +221,7 @@ export default class KegiatanPetani extends Component{
 
                             <div className="box-footer-table">
                                 <div className="footer-table">
-                                    <p className="text-footer">Menampilkan {this.state.totalsize} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
+                                    <p className="text-footer">Menampilkan {this.state.totalsize} entri dari {this.state.totalElements} Kegiatan Petani hari ini</p>
                                 </div>
 
                                 <div className="box-pagination">

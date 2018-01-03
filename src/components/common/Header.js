@@ -27,6 +27,7 @@ export default class Header extends Component{
         Cookie.remove('TK', { path: '/' });
         Cookie.remove('user_level_name', { path: '/' });
         Cookie.remove('username', { path: '/' });
+        Cookie.remove('user_id', { path: '/' });
         window.location.reload(true)
     }
 

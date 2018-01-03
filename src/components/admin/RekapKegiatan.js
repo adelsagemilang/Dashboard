@@ -28,14 +28,13 @@ export default class RekapKegiatan extends Component{
         }
 
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
-        this.userName = Crypto.AES.decrypt(Base64.decode(Cookie.load('username')), TK_KEY).toString(Crypto.enc.Utf8)
-        this.userEmail = Crypto.AES.decrypt(Base64.decode(Cookie.load('email')), TK_KEY).toString(Crypto.enc.Utf8)
+        this.userId = Cookie.load('user_id')
     }
 
     handleSearch(id, value){
         console.log('ini value: '+value)
 
-        axios.get(API_URL + 'user_access?page=0&size=10&text=' + value + '&user_role=1',{
+        axios.get(API_URL + '/activities/'+this.userId+'/history?page=0&size=10&text='+ value,{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -65,7 +64,7 @@ export default class RekapKegiatan extends Component{
         console.log('value: '+ e.target.value)
         const valueEntri = e.target.value
 
-        axios.get(API_URL + 'user_access?page=0&size=' + valueEntri + '&text=&user_role=1',{
+        axios.get(API_URL + '/activities/'+this.userId+'/history?page=0&size='+ valueEntri +'&text=',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -97,7 +96,7 @@ export default class RekapKegiatan extends Component{
         let selected = dataHere.selected
         console.log(selected)
 
-        axios.get(API_URL + 'user_access?page='+ selected +'&size=10&text=&user_role=1',{
+        axios.get(API_URL + '/activities/'+this.userId+'/history?page='+ selected +'&size=10&text=',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -173,8 +172,7 @@ export default class RekapKegiatan extends Component{
 
 
     componentDidMount(){
-        console.log(this.authToken)
-        axios.get(API_URL + 'user_access?page=0&size=10&text=&user_role=1',{
+        axios.get(API_URL + '/activities/'+this.userId+'/history?page=0&size=10&text=',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -225,14 +223,16 @@ export default class RekapKegiatan extends Component{
                                     inputId="search_admin"
                                     handleChange={this.handleSearch}
                                     placeholder="Cari.."
-                                    class="search-item"
+                                    class="search-item form-control"
                                     type="text"/>
+                                    {/*
                                     <div className="select-wrapper dropdown">
-                                        <a href="#" className="dropdown-filter" onClick={this.toggleDropdownFilter}>
+                                        <a className="dropdown-filter" onClick={this.toggleDropdownFilter}>
                                             Filter
                                         </a>
                                         {this.renderDropdownFilter()}
                                     </div>
+                                    */}
                                 </div>
                             </div>
 
@@ -251,31 +251,17 @@ export default class RekapKegiatan extends Component{
                                     </thead>
                                     <tbody>
                                         {DataHere.map((datahere, i) => {
-                                            if(i % 2 === 1){
-                                                return(
-                                                    <tr key={i} className='list-grey'>
-                                                        <td>Kelompok Tani Sukabumi</td>
-                                                        <td>Rendy Syabany</td>
-                                                        <td>Penanam Cabai 1 Hektar</td>
-                                                        <td>19 Agustus 2017</td>
-                                                        <td>Menanam Cabai</td>
-                                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam provident dolorum, quibusdam?</td>
-                                                        <td className="text-center">Sudah Selesai</td>
-                                                    </tr>
-                                                )
-                                            }else{
-                                                return(
-                                                    <tr key={i} >
-                                                        <td>Kelompok Tani Sukabumi</td>
-                                                        <td>Rendy Syabany</td>
-                                                        <td>Penanam Cabai 1 Hektar</td>
-                                                        <td>19 Agustus 2017</td>
-                                                        <td>Menanam Cabai</td>
-                                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam provident dolorum, quibusdam?</td>
-                                                        <td className="text-center">Sudah Selesai</td>
-                                                    </tr>
-                                                )
-                                            }
+                                            return(
+                                                <tr key={i}>
+                                                    <td>{datahere.farmer_group_name}</td>
+                                                    <td>{datahere.farmer_name}</td>
+                                                    <td>{datahere.program}</td>
+                                                    <td>{datahere.activity_date}</td>
+                                                    <td>{datahere.activity}</td>
+                                                    <td>{datahere.detail_activity}</td>
+                                                    <td className="text-center">{datahere.status}</td>
+                                                </tr>
+                                            )
                                         })}
                                     </tbody>
                                 </table>
@@ -283,7 +269,7 @@ export default class RekapKegiatan extends Component{
 
                             <div className="box-footer-table">
                                 <div className="footer-table">
-                                    <p className="text-footer">Menampilkan {this.state.totalsize} entri dari {this.state.totalElements} Anggota Kelompok Tani</p>
+                                    <p className="text-footer">Menampilkan {this.state.totalsize} entri dari {this.state.totalElements} Rekap Kegiatan Petani</p>
                                 </div>
 
                                 <div className="box-pagination">
