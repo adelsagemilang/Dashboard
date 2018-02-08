@@ -22,6 +22,7 @@ export default class Datalahan extends Component{
 
         this.state = {
             dataHere: false,
+            searchNull: true,
             classBgColor: '',
             toggleTambahLahan: false,
             toggleDeleteLahan: false,
@@ -40,7 +41,7 @@ export default class Datalahan extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -50,7 +51,10 @@ export default class Datalahan extends Component{
             this.setState({totalsize})
         })
         .catch((error) => {
-            console.log('err: '+ error)
+            this.setState({
+                totalElements: false,
+                searchNull: false
+            })
         })
     }
 
@@ -64,7 +68,7 @@ export default class Datalahan extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -90,7 +94,7 @@ export default class Datalahan extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -305,9 +309,18 @@ export default class Datalahan extends Component{
                                                     <td data-th="Luas">{ datahere.large }m<sup>2</sup></td>
                                                     <td data-th="Ketinggian">{ datahere.height }mdpl</td>
                                                     <td data-th="Sumber Pengairan">{ datahere.irigation }</td>
-                                                    <td data-th="Komoditas Tanam">{ datahere.commodities.map((comodities,i) => 
-                                                          <span className="mg-r-5">{comodities.name + (i === datahere.commodities.length-1 ? '.' : ', ')}</span>
-                                                        ) }</td>
+                                                    <td data-th="Komoditas Tanam">
+                                                    { 
+                                                        datahere.commodities !== null ?
+                                                            datahere.commodities.map((comodities,i) => 
+                                                              <span key={i} className="mg-r-5">{comodities.name + (i === datahere.commodities.length-1 ? '.' : ', ')}</span>
+                                                            )
+                                                        :
+                                                        (
+                                                            <span>Tidak memiliki komoditas</span>
+                                                        )
+                                                    }
+                                                    </td>
                                                     <td data-th="Hama Dominan">{ datahere.pest }</td>
                                                     <td data-th="Penyakit Dominan">{ datahere.disease }</td>
                                                      <td data-th="Aksi">
@@ -358,13 +371,76 @@ export default class Datalahan extends Component{
                         )
                         :
                         (
-                             <div className="user-access-container text-center no-content">
-                                <img src="../images/empty_state.svg" alt="" height="180"/>
-                                <h3 className="mg-t-20 normal">Data lahan masih kosong</h3>
-                                <div className="box-btn auto mg-t-40" onClick={this.toggleTambahLahan}>
-                                        <ButtonPrimary name="Tambah Lahan" />
+                            this.state.searchNull ? 
+                            (
+                                <div className="user-access-container text-center no-content">
+                                    <img src="../images/empty_state.svg" alt="" height="180"/>
+                                    <h3 className="mg-t-20 normal">Data lahan masih kosong</h3>
+                                    <div className="box-btn auto mg-t-40" onClick={this.toggleTambahLahan}>
+                                            <ButtonPrimary name="Tambah Lahan" />
+                                    </div>
+                                 </div>
+                            )
+                            :
+                            (
+                                <div className="user-access-container">
+                                    <div className="box-top row-flex flex-space">
+                                        <div className="pull-left row-flex">
+                                            <p className="count-item">0 Lahan Petani</p>
+                                            <div className="select-wrapper">
+                                                <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
+                                                    <option value="10">10 entri per halaman</option>
+                                                    <option value="25">25 entri per halaman</option>
+                                                    <option value="50">50 entri per halaman</option>
+                                                    <option value="100">100 entri per halaman</option>
+                                                </select>
+                                            </div>
+                                            <InputForm
+                                            inputId="search_admin"
+                                            handleChange={this.handleSearch}
+                                            placeholder="Cari.."
+                                            class="form-control search-item"
+                                            type="text"/>
+                                        </div>
+                                        <div className="pull-right">
+                                            <div className="box-btn auto" onClick={this.toggleTambahLahan}>
+                                                <ButtonPrimary name="Tambah Lahan" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="box-table">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Nama Petani</th>
+                                                    <th>Nama lahan</th>
+                                                    <th>Luas</th>
+                                                    <th>Ketinggian</th>
+                                                    <th>Sumber Pengairan</th>
+                                                    <th>Komoditas Tanam</th>
+                                                    <th>Hama Dominan</th>
+                                                    <th>Penyakit Dominan</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            
+                                            <tbody>
+                                                <tr>
+                                                    <td className="text-center normal" colSpan="9">Data tidak ditemukan</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div className="box-footer-table">
+                                        <div className="footer-table">
+                                            <p className="text-footer">Menampilkan 0 Data Lahan</p>
+                                        </div>
+
+                                    </div>
                                 </div>
-                             </div>
+                            )
                         )
                         }
                     </div>

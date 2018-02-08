@@ -3,7 +3,7 @@ import autoBind from 'react-autobind'
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
-import 'react-datepicker/dist/react-datepicker.css';
+//import 'react-datepicker/dist/react-datepicker.css';
 import "../../stylesheet/component/common/_input_form.scss"
 
 export default class InputForm extends Component {
@@ -72,7 +72,7 @@ export default class InputForm extends Component {
                     maxLength={(() => {
                         switch (this.props.inputId) {
                           case "no_ktp":   return "16";
-                          case "no_hp":   return "12";
+                          case "no_hp":   return "13";
                           case "postcode": return "5"
                           default:      return null;
                         }
@@ -87,6 +87,7 @@ export default class InputForm extends Component {
                           case "no_rek":   return "[0-9]*"
                           case "no_hp":   return "[0-9]*"
                           case "postcode": return "[0-9]*"
+                          case "biaya": return "[0-9]*"
                           case "nama-petani": return "[a-zA-Z0-9 ]*"
                           case "tempat_lahir": return "[a-zA-Z ]*"
                           case "nama-ibu": return "[a-zA-Z ]*"
@@ -94,15 +95,13 @@ export default class InputForm extends Component {
                           case "name": return "[a-zA-Z ]*"
                           case "birth_place": return "[a-zA-Z ]*"
                           case "nama-rukman": return "[a-zA-Z0-9 ]*"
-                          case "nama-lahan": return "[a-zA-Z ]*"
-                          case "large": return "[0-9]+(\.[0-9]{0,2})?"
-                          case "height": return "[0-9]+(\.[0-9]{0,2})?"
+                          case "nama-lahan": return "[a-zA-Z0-9 ]*"
+                          case "large": return "[0-9]+([.][0-9]{0,2})?"
+                          case "height": return "[0-9]+([.][0-9]{0,2})?"
                           case "irigation": return "[a-zA-Z ]*"
                           case "rel_status": return "[a-zA-Z ]*"
                           case "title": return "[a-zA-Z ]*"
                           case "search_admin": return "[a-zA-Z0-9 ]*"
-                          case "code": return "[0-9]*"
-                          case "link": return "https?://.+"
                           default:      return null
                         }
                     })()}
@@ -128,6 +127,7 @@ export default class InputForm extends Component {
                           case "search_admin": return this.handleInput.bind(this)
                           case "code": return this.handleInput.bind(this)
                           case "link": return this.handleInput.bind(this)
+                          case "biaya": return this.handleInput.bind(this)
                           default:      return null
                         }
                     })()}
@@ -154,6 +154,7 @@ export default class InputForm extends Component {
                           case "search_admin": return this.state.valueInput 
                           case "code": return this.state.valueInput 
                           case "link": return this.state.valueInput
+                          case "biaya": return this.state.valueInput
                           default:      return ''
                         }
                     })()}

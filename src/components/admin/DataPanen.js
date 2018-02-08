@@ -18,6 +18,7 @@ export default class DataPanen extends Component{
 
         this.state = {
             dataHere: false,
+            searchNull: true,
             classBgColor: '',
             entriPage: []
         }
@@ -34,7 +35,7 @@ export default class DataPanen extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -50,7 +51,10 @@ export default class DataPanen extends Component{
             }))
         })
         .catch((error) => {
-            console.log('err: '+ error)
+            this.setState({
+                totalElements: false,
+                searchNull: false
+            })
         })
     }
 
@@ -64,7 +68,7 @@ export default class DataPanen extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -72,15 +76,9 @@ export default class DataPanen extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-            
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
-            console.log('err: '+ error)
+            
         })
 
     }
@@ -96,7 +94,7 @@ export default class DataPanen extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -126,8 +124,6 @@ export default class DataPanen extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-
-            console.log(this.state.totalElements)
         })
         .catch((error) => {
 
@@ -150,105 +146,157 @@ export default class DataPanen extends Component{
                     DataHere ?
                     <div className="user-access">
                         { this.state.totalElements ? 
-                        (
-                        <div className="user-access-container">
-                            <div className="box-top row-flex flex-space">
-                                <div className="pull-left row-flex">
-                                    <p className="count-item">{ this.state.totalElements ? this.state.totalElements : '0' } Data Panen</p>
-                                    <div className="select-wrapper">
-                                        <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
-                                            <option value="10">10 entri per halaman</option>
-                                            <option value="25">25 entri per halaman</option>
-                                            <option value="50">50 entri per halaman</option>
-                                            <option value="100">100 entri per halaman</option>
-                                        </select>
-                                    </div>
-                                    <InputForm
-                                    inputId="search_admin"
-                                    handleChange={this.handleSearch}
-                                    placeholder="Cari .."
-                                    class="search-item form-control"
-                                    type="text"/>
-                                </div>
-                            </div>
-
-                            <div className="box-table">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Petani</th>
-                                            <th>Komoditas</th>
-                                            <th>Jumlah</th>
-                                            <th>Status</th>
-                                            <th>Alasan Penolakan</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {DataHere.map((datahere, i) => {
-                                            i = i + 1
-                                            return(
-                                                <tr key={i}>
-                                                    <td data-th="No">{i}</td>
-                                                    <td data-th="Nama Petani">{datahere.farmer_name}</td>
-                                                    <td data-th="Komoditas">{datahere.commodity_name}</td>
-                                                    <td data-th="Jumlah">{datahere.qty}</td>
-                                                    <td data-th="Status">
-                                                        {datahere.status ? datahere.status : 'Sedang menunggu verifikasi'}   
-                                                    </td>
-                                                    <td data-th="Alasan Penolakan" className="text-center">{datahere.reason_reject ? datahere.reason_reject : 'Tidak ada'}</td>
-                                                </tr>
-                                            )
-                                        })}
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            {   this.state.totalElements ?
-
-                                (
-                                    <div className="box-footer-table">
-                                        <div className="footer-table">
-                                            <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Data Panen</p>
+                            (
+                            <div className="user-access-container">
+                                <div className="box-top row-flex flex-space">
+                                    <div className="pull-left row-flex">
+                                        <p className="count-item">{ this.state.totalElements ? this.state.totalElements : '0' } Data Panen</p>
+                                        <div className="select-wrapper">
+                                            <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
+                                                <option value="10">10 entri per halaman</option>
+                                                <option value="25">25 entri per halaman</option>
+                                                <option value="50">50 entri per halaman</option>
+                                                <option value="100">100 entri per halaman</option>
+                                            </select>
                                         </div>
+                                        <InputForm
+                                        inputId="search_admin"
+                                        handleChange={this.handleSearch}
+                                        placeholder="Cari .."
+                                        class="search-item form-control"
+                                        type="text"/>
+                                    </div>
+                                </div>
 
-                                        <div className="box-pagination">
-                                            <div className="pagination-content">
-                                                < ReactPaginate
-                                                    previousLabel={
-                                                        <div className="box-lable">
-                                                            <img src="/images/icon/button_icon/icon_arrow_left.png" />
-                                                        </div>
-                                                    }
-                                                    nextLabel={
-                                                        <div className="box-lable">
-                                                            <img src="/images/icon/button_icon/icon_arrow_right.png" />
-                                                        </div>
-                                                    }
-                                                    breakLabel={<a href="">...</a>}
-                                                    breakClassName={"break-me"}
-                                                    pageCount={this.state.totalPage}
-                                                    marginPagesDisplayed={1}
-                                                    pageRangeDisplayed={2}
-                                                    onPageChange={this.handlePageClick}
-                                                    containerClassName={"pagination"}
-                                                    subContainerClassName={"pages pagination"}
-                                                    activeClassName={"active"} />
+                                <div className="box-table">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nama Petani</th>
+                                                <th>Komoditas</th>
+                                                <th>Jumlah</th>
+                                                <th>Status</th>
+                                                <th>Alasan Penolakan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {DataHere.map((datahere, i) => {
+                                                i = i + 1
+                                                return(
+                                                    <tr key={i}>
+                                                        <td data-th="No">{i}</td>
+                                                        <td data-th="Nama Petani">{datahere.farmer_name}</td>
+                                                        <td data-th="Komoditas">{datahere.commodity_name}</td>
+                                                        <td data-th="Jumlah">{datahere.qty}</td>
+                                                        <td data-th="Status">
+                                                            {datahere.status ? datahere.status : 'Sedang menunggu verifikasi'}   
+                                                        </td>
+                                                        <td data-th="Alasan Penolakan" className="text-center">{datahere.reason_reject ? datahere.reason_reject : 'Tidak ada'}</td>
+                                                    </tr>
+                                                )
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                {   this.state.totalElements ?
+
+                                    (
+                                        <div className="box-footer-table">
+                                            <div className="footer-table">
+                                                <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Data Panen</p>
+                                            </div>
+
+                                            <div className="box-pagination">
+                                                <div className="pagination-content">
+                                                    < ReactPaginate
+                                                        previousLabel={
+                                                            <div className="box-lable">
+                                                                <img src="/images/icon/button_icon/icon_arrow_left.png" />
+                                                            </div>
+                                                        }
+                                                        nextLabel={
+                                                            <div className="box-lable">
+                                                                <img src="/images/icon/button_icon/icon_arrow_right.png" />
+                                                            </div>
+                                                        }
+                                                        breakLabel={<a href="">...</a>}
+                                                        breakClassName={"break-me"}
+                                                        pageCount={this.state.totalPage}
+                                                        marginPagesDisplayed={1}
+                                                        pageRangeDisplayed={2}
+                                                        onPageChange={this.handlePageClick}
+                                                        containerClassName={"pagination"}
+                                                        subContainerClassName={"pages pagination"}
+                                                        activeClassName={"active"} />
+                                                </div>
                                             </div>
                                         </div>
+                                    )
+                                    : null
+                                }
+                            </div>
+                            )
+                            :
+                            this.state.searchNull ? 
+                            (
+                            <div className="user-access-container text-center no-content">
+                                <img src="../images/empty_state.svg" alt="" height="180"/>
+                                <h3 className="mg-t-20 normal">Data panen masih kosong</h3>
+                            </div>
+                            )
+                            :
+                            (
+                            <div className="user-access-container">
+                                <div className="box-top row-flex flex-space">
+                                    <div className="pull-left row-flex">
+                                        <p className="count-item">0 Data Panen</p>
+                                        <div className="select-wrapper">
+                                            <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
+                                                <option value="10">10 entri per halaman</option>
+                                                <option value="25">25 entri per halaman</option>
+                                                <option value="50">50 entri per halaman</option>
+                                                <option value="100">100 entri per halaman</option>
+                                            </select>
+                                        </div>
+                                        <InputForm
+                                        inputId="search_admin"
+                                        handleChange={this.handleSearch}
+                                        placeholder="Cari .."
+                                        class="search-item form-control"
+                                        type="text"/>
                                     </div>
-                                )
-                                : null
-                            }
-                        </div>
-                        )
-                        :
-                        (
-                        <div className="user-access-container text-center no-content">
-                            <img src="../images/empty_state.svg" alt="" height="180"/>
-                            <h3 className="mg-t-20 normal">Data panen masih kosong</h3>
-                        </div>
-                        )
+                                </div>
+
+                                <div className="box-table">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nama Petani</th>
+                                                <th>Komoditas</th>
+                                                <th>Jumlah</th>
+                                                <th>Status</th>
+                                                <th>Alasan Penolakan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                           <tr>
+                                               <td className="text-center normal" colSpan="6">Tidak ada data</td>
+                                           </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                               
+                                <div className="box-footer-table">
+                                    <div className="footer-table">
+                                        <p className="text-footer">Menampilkan 0 Data Panen</p>
+                                    </div>
+                                </div>
+                            </div>
+                            )
                         } 
                     </div>
                     :
@@ -257,7 +305,7 @@ export default class DataPanen extends Component{
                             <img src="../images/loading.gif" alt=""/>
                         </div>
                     </div>
-                     }
+                    }
                 </div>
             </div>
         )

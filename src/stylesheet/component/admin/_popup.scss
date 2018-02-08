@@ -17,6 +17,10 @@
             width: 552px;
         }
 
+        &.popup-peserta{
+            width: 810px;
+        }
+
         &.sm{
             width: 375px;
             @media(max-width: $screen-phone){

@@ -29,7 +29,7 @@ body {
   -ms-border-radius: 10px;
   border-radius: 10px; }
 
-.radius-secondary, .form-primary, .login-comp .container-login .box-form-login .content .form form .form-input, .checkbox-primary, .login-comp .container-login .box-form-login .content .form form .add-checkbox, .box-footer-table .box-pagination .pagination-content .pagination .box-lable, .add-popup .popup-container .box-content, .add-popup-map .popup-container .box-content, .btn, .button-primary, .button-secondary, .btn-sm, .btn-outline-sm, .btn-red-sm {
+.radius-secondary, .form-primary, .login-comp .container-login .box-form-login .content .form form .form-input, .checkbox-primary, .login-comp .container-login .box-form-login .content .form form .add-checkbox, .box-footer-table .box-pagination .pagination-content .pagination .box-lable, .add-popup .popup-container .box-content, .add-popup-map .popup-container .box-content, .btn, .button-primary, .button-danger, .btn-white, .button-secondary, .btn-sm, .btn-outline-sm, .btn-red-sm {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
@@ -58,7 +58,7 @@ body {
   font-size: 14px;
   color: #79BE75; }
 
-.font-secondary-2, .btn, .button-primary, .button-secondary, .list-menu .box-text-menu p {
+.font-secondary-2, .btn, .button-primary, .button-danger, .btn-white, .button-secondary, .list-menu .box-text-menu p {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   color: #FFFFFF; }
@@ -458,6 +458,9 @@ table tbody tr:nth-child(even) {
 select {
   -moz-appearance: none; }
 
+a {
+  text-decoration: none; }
+
 .block {
   display: block; }
 
@@ -535,6 +538,9 @@ select {
 
 .mg-t-10 {
   margin-top: 10px; }
+
+.mg-r-10 {
+  margin-right: 10px !important; }
 
 .mg-t-20 {
   margin-top: 20px !important; }
@@ -1043,11 +1049,9 @@ p {
   .main-content .tiket-program .box-table table {
     overflow-x: hidden;
     overflow-y: visible; }
-  .main-content .tiket-program .box-top .search-item, .main-content .tiket-program .select-wrapper.dropdown {
-    cursor: pointer; }
-    @media (min-width: 768px) {
-      .main-content .tiket-program .box-top .search-item, .main-content .tiket-program .select-wrapper.dropdown {
-        width: 170px !important; } }
+  @media (min-width: 768px) {
+    .main-content .tiket-program .box-top .search-item, .main-content .tiket-program .select-wrapper.dropdown {
+      width: 170px !important; } }
   .main-content .tiket-program .input-plus-min input {
     width: calc(100% - 91px); }
   .main-content .tiket-program .input-plus-min button {
@@ -1204,6 +1208,8 @@ p {
     @media (min-width: 480px) {
       .user-access .box-top .pull-left.row-flex, .user-access .box-top .main-content .edit-akun .content-top .pull-left.box-profile-form, .main-content .edit-akun .content-top .user-access .box-top .pull-left.box-profile-form, .user-access .box-top .pull-left.tag-wrapper {
         padding: 0; } }
+  .user-access.rab-detail .box-top .pull-left {
+    margin-left: 25px; }
 
 .row-flex .box-btn, .main-content .edit-akun .content-top .box-profile-form .box-btn, .tag-wrapper .box-btn {
   padding: 5px; }
@@ -1230,6 +1236,8 @@ a.box-btn button {
     @media (min-width: 480px) {
       .add-popup .popup-container, .add-popup-map .popup-container {
         width: 552px; } }
+    .add-popup .popup-container.popup-peserta, .add-popup-map .popup-container.popup-peserta {
+      width: 810px; }
     .add-popup .popup-container.sm, .add-popup-map .popup-container.sm {
       width: 375px; }
       @media (max-width: 480px) {
@@ -1487,7 +1495,7 @@ a.box-btn button {
 .add-popup-map.land .react-tabs__tab {
   width: 50%; }
 
-.btn, .button-primary, .button-secondary {
+.btn, .button-primary, .button-danger, .btn-white, .button-secondary {
   width: 100%;
   height: 40px;
   border: none;
@@ -1498,6 +1506,22 @@ a.box-btn button {
   background-color: #27A1C3; }
   .button-primary:hover {
     background-color: rgba(39, 161, 195, 0.8); }
+
+.button-danger {
+  background-color: #C43737; }
+  .button-danger:hover {
+    background-color: rgba(39, 161, 195, 0.8);
+    background-color: #C43737; }
+
+.btn-white {
+  background-color: #fff;
+  color: #27A1C3 !important;
+  border: 1px solid #DDDDDD !important;
+  padding-left: 15px;
+  padding-right: 15px; }
+  .btn-white:hover {
+    background-color: rgba(39, 161, 195, 0.8);
+    background-color: #fff; }
 
 .button-secondary {
   background-color: #CCCCCC; }
@@ -1568,6 +1592,14 @@ a.box-btn button {
 
 .dropdown-three ul > li {
   cursor: pointer; }
+
+.delete-doc {
+  box-sizing: border-box;
+  cursor: pointer;
+  position: absolute;
+  right: 8px; }
+  .delete-doc img {
+    height: 8px; }
 
 [type="checkbox"]:checked,
 [type="checkbox"]:not(:checked) {
@@ -1860,6 +1892,11 @@ a.box-btn button {
   height: 2.5px !important;
   border-radius: 10px !important; }
 
+@media (max-width: 480px) {
+  .tag-wrapper {
+    display: table;
+    position: relative; } }
+
 .tag-wrapper.w-100 .react-tagsinput {
   width: 100%; }
   .tag-wrapper.w-100 .react-tagsinput span {
@@ -1872,6 +1909,9 @@ a.box-btn button {
   flex-direction: row;
   flex-wrap: wrap;
   width: 205px; }
+  @media (max-width: 480px) {
+    .tag-wrapper .react-tagsinput span {
+      width: calc(100% - 50px); } }
   .tag-wrapper .react-tagsinput span .react-tagsinput-tag {
     -ms-flex-order: 2;
     order: 2;
@@ -1906,6 +1946,12 @@ a.box-btn button {
   padding: 5px 10px;
   margin: 5px;
   cursor: pointer; }
+  @media (max-width: 480px) {
+    .tag-wrapper button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      position: absolute; } }
   .tag-wrapper button img {
     height: 16px; }
 

@@ -24,6 +24,7 @@ export default class Program extends Component{
 
         this.state = {
             dataHere: false,
+            searchNull: true,
             classBgColor: '',
             toggleTambahProgram: false,
             toggleBuatProgram: false,
@@ -89,7 +90,7 @@ export default class Program extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -97,15 +98,12 @@ export default class Program extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-            
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
-            console.log('err: '+ error)
+            this.setState({
+                totalElements: false,
+                searchNull: false
+            })
         })
     }
 
@@ -119,7 +117,7 @@ export default class Program extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -151,7 +149,7 @@ export default class Program extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -171,9 +169,9 @@ export default class Program extends Component{
         })
     }
 
-    id_tiket(id){
+    getResTambah(data){
         this.setState({
-            id_tiket: id
+            res_tambah: data
         })
     }
 
@@ -197,7 +195,7 @@ export default class Program extends Component{
                 <TambahProgram
                     toggleBuatProgram={this.toggleBuatProgram} 
                     toggleTambahProgram={this.toggleTambahProgram}
-                    id_tiket={this.id_tiket}
+                    getRes={this.getResTambah}
                 />
             )
         }
@@ -270,7 +268,7 @@ export default class Program extends Component{
     renderPopupBuatProgram(){
         if (this.state.toggleBuatProgram){
             return(
-                <BuatProgram toggleBuatProgram={this.toggleBuatProgram} id_tiket={this.state.id_tiket}  success={this.toggleSuccessPopup}/>
+                <BuatProgram toggleBuatProgram={this.toggleBuatProgram} dataTambah={this.state.res_tambah}  success={this.toggleSuccessPopup}/>
             )
         }
     }

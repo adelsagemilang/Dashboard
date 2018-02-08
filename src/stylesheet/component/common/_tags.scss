@@ -1,6 +1,11 @@
 .tag-wrapper{
   @extend .row-flex;
 
+  @media(max-width: $screen-phone){
+      display: table;
+      position: relative;
+  }
+
   &.w-100{
     .react-tagsinput{
       width: 100%;
@@ -17,6 +22,9 @@
       flex-direction: row;
       flex-wrap: wrap;
       width: 205px;
+      @media(max-width: $screen-phone){
+        width: calc(100% - 50px);
+      }
       .react-tagsinput-tag{
         -ms-flex-order: 2;
         order: 2;
@@ -62,6 +70,14 @@
     padding: 5px 10px;
     margin: 5px;
     cursor: pointer;
+
+    @media(max-width: $screen-phone){
+      position: absolute;
+      top: 0;
+      right: 0;
+      position: absolute;
+
+    }
 
     img{
       height: 16px;

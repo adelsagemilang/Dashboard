@@ -100,7 +100,7 @@ class BuatProgram extends Component {
         const { cookies } = this.props;
         
         axios.post(API_URL + 'programs', {
-            program_ticket_id: this.props.id_tiket,
+            program_ticket_id: this.props.dataTambah.id,
             title: document.getElementById('title').value,
             program_category_id: this.state.valueCategories,
             start_date: this.formatDate(this.state.startDate),
@@ -199,6 +199,7 @@ class BuatProgram extends Component {
             listRule,
             listStatusRule
         } = this.state
+        const resTambah = this.props.dataTambah
         return (
             <div className="add-popup">
                 <div className="popup-container">
@@ -211,6 +212,7 @@ class BuatProgram extends Component {
                                     inputId="title" 
                                     type="text"
                                     placeholder="Judul Program"
+                                    defaultValue={resTambah.title}
                                     class="form-control"
                                     handleChange={this._handleChange}
                                 />
@@ -282,7 +284,7 @@ class BuatProgram extends Component {
                                     </select>
                                 </div>
                             </div>
-                            <TextArea idtextarea="tagline" title="Jelaskan secara singkat program anda, tidak lebih dari 140 karakter.
+                            <TextArea defaultValue={resTambah.description} idtextarea="tagline" title="Jelaskan secara singkat program anda, tidak lebih dari 140 karakter.
 								Penjelasan ini untuk membantu kami mempromosikan program anda." class="form-control"/>
 
 							<TextArea idtextarea="reason" title="Jelaskan dampak atau perubahan yang diharapkan" class="form-control"/>

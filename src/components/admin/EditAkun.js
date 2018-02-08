@@ -107,7 +107,7 @@ export default class EditAkun extends Component {
         let input = document.getElementById("uploadFile")
         let formdata = new FormData()
         formdata.append("image", input.files[0])
-
+        console.log(input.files[0])
         const { cookies } = this.props;
         
         axios.post(API_LIST_URL + 'images?path=profile_pic', formdata, {

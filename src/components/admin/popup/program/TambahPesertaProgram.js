@@ -16,9 +16,12 @@ class TambahPesertaProgram extends Component {
         autoBind(this)
 
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
+        this.userId = Cookie.load('user_id')
 
         this.state = {
-
+            arrayFile: [],
+            arrayFileRes: [],
+            arrayIndexCheck: []
         }
     }
 
@@ -26,10 +29,50 @@ class TambahPesertaProgram extends Component {
         console.log('ini value: '+value)
     }
 
-    handleChangeRukman(e){
+    removeItem(i){
+        let array = this.state.arrayFile
+
+        array.splice(i,1)
+
         this.setState({
-            valueRukman: e.target.value}, () => {
-            console.log(this.state.valueRukman)
+            arrayFile: array
+        })
+    }
+
+    handleCheck(id){
+        var elem = document.getElementById(id)
+        var index = this.state.arrayIndexCheck
+        if (elem.checked){
+            index.push(id)
+        } else {
+            index.splice(id,1)
+        }
+    }
+        
+    handleChange(e) {
+        //let selDiv = document.querySelector("#selectedFiles");
+        if(!e.target.files) return;
+        
+        let files = e.target.files;
+        let arrayFile = this.state.arrayFile
+        arrayFile.push(files)
+        this.setState({
+            statusFile: true,
+            arrayFile: arrayFile
+        })
+    }
+
+    handleChangeRab(e){
+        this.setState({
+            valueRab: e.target.value})
+    }
+
+    handleChangeRukman(e){
+        let v = e.target.value
+        let val = v.split(",");
+        this.setState({
+            valueRukman: val[0],
+            valueRukmanName: val[1]}, () => {
             axios.get(API_URL+ 'farmers/spinner?query=' + this.state.valueRukman,{
                 headers:{ 
                     'X-AUTH-TOKEN' : this.authToken
@@ -49,14 +92,23 @@ class TambahPesertaProgram extends Component {
     }
 
     handleChangeFarmer(e){
-        this.setState({valueFarmer: e.target.value}, () => {
-            axios.get(API_URL+ 'programs/farmers/'+ this.state.valueFarmer +'/lands',{
+        let v = e.target.value
+        let val = v.split(",");
+        this.setState({
+            valueFarmer: val[0],
+            valueFarmerName: val[1]
+        }, () => {
+            axios.get(API_URL+ 'lands/'+ this.state.valueFarmer +'/program-member',{
                 headers:{ 
                     'X-AUTH-TOKEN' : this.authToken
                 }
             })
             .then(res => {
                 let listLahan = res.data
+                this.setState({
+                    listLahan,
+                    statusLahan: true
+                })
                 
             })
             .catch((error) => {
@@ -68,30 +120,77 @@ class TambahPesertaProgram extends Component {
      handleSubmit(e){
         // const doc = document.getElementById
         e.preventDefault();
-        const { cookies } = this.props;
         
-        axios.post(API_URL + 'admins', {
-            username: document.getElementById('username').value,
-            email: document.getElementById('email').value,
-            phone_number: document.getElementById('no_hp').value,
-            name: document.getElementById('name').value
-            
-        },
-        {
-            headers: {
-                'X-AUTH-TOKEN' : this.authToken,
-                'Content-Type' : 'application/json'
-            }
-        })
-        .then(res => {
-            const data = res.data
-            this.setState({data})
-            console.log('succ: '+ this.state.data)
-            window.location.reload();
-        })
-        .catch((error) => {
-            console.log('err: '+ error)
-        })
+        var formdata = new FormData()
+
+        var files = this.state.arrayFile
+
+        for(var i=0; i<files.length; i++) {
+            var f = files[i];
+            formdata.append("file", f)
+            console.log(formdata)
+            axios.post('http://air.qelisa.com/qelisa-program-service/programs/document/upload?path=documents&ext=pdf', formdata,{
+                headers: {
+                    'Content-Type' : 'multipart/form-data'
+                },
+                auth: {
+                        username: 'username',
+                        password: 'password'
+                }
+
+            })
+            .then(res => {
+                let resFile = res.data
+                let arrayFileRes = this.state.arrayFileRes
+                arrayFileRes.push(resFile)
+
+                var lahan = this.state.arrayIndexCheck
+                var arrayLahan = []
+                var number = 1;
+                var i = 0;
+                while (number<=lahan.length) {
+                    arrayLahan.push({
+                              "land_id" : lahan[i],
+                              "land_name" : document.getElementById('lahan-name'+lahan[i]).value,
+                              "farm_area": document.getElementById('luas'+lahan[i]).value,
+                              "plant_capacity": document.getElementById('jumlah'+lahan[i]).value,
+                              "commodity_id": (document.getElementById('select'+lahan[i]).value).split(",")[0],
+                              "commodity_name" : (document.getElementById('select'+lahan[i]).value).split(",")[1]
+                    })
+                  number++;
+                  i++;       
+                }
+                axios.post(API_URL + 'programs/members', {
+                      program_id: this.props.id,
+                      farmer_group_id: this.state.valueRukman,
+                      farmer_id: this.state.valueFarmer,
+                      farmer_group_name : this.state.valueRukmanName,
+                      farmer_name : this.state.valueFarmerName,
+                      cost: document.getElementById('biaya').value,
+                      description: document.getElementById('description').value,
+                      reason: document.getElementById('reason').value,
+                      documents: this.state.arrayFileRes,
+                      lands: arrayLahan,
+                      rab_id : 1
+                      // rab_id : this.state.valueRab
+                },
+                {
+                    headers: {
+                        'X-AUTH-TOKEN' : this.authToken,
+                        'Content-Type' : 'application/json'
+                    }
+                })
+                .then(res => {
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    console.log('err: '+ error)
+                })
+            })
+            .catch((error) => {
+                console.log('err: '+ error)
+            })
+        }
     }
 
 
@@ -108,7 +207,27 @@ class TambahPesertaProgram extends Component {
                 list_rukman: true
             })
 
-            console.log(this.state.listrukman)
+        })
+        .catch((error) => {
+            console.log('err: '+ error)
+        })
+
+        axios.get('http://air.qelisa.com/qelisa-program-service/rabs/list-spinner?userId='+this.userId,{
+            headers:{ 
+                'X-AUTH-TOKEN' : this.authToken
+            },
+            auth: {
+                username: 'username',
+                password: 'password'
+            }
+        })
+        .then(res => {
+            let listrab = res.data
+            this.setState({
+                listrab,
+                list_rab: true
+            })
+
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -128,7 +247,7 @@ class TambahPesertaProgram extends Component {
          } = this.state
         return (
             <div className="add-popup">
-                <div className="popup-container">
+                <div className="popup-container popup-peserta">
                     <div className="box-content">
                         <div className="content">
                             <p className="title">Tambah Peserta Program</p>
@@ -141,7 +260,7 @@ class TambahPesertaProgram extends Component {
                                             listrukman.map(rukman => 
                                                 <option
                                                     key={rukman.farmer_group_id}
-                                                    value={rukman.farmer_group_id}>
+                                                    value={[rukman.farmer_group_id,rukman.name]}>
                                                     {rukman.name}
                                                 </option>
                                             ) : null
@@ -150,14 +269,29 @@ class TambahPesertaProgram extends Component {
                                 </div>
 
                                 <div className="select-wrapper">
-                                     <select className="form-control select-option input-sm" value={ this.state.value } onChange={this.handleChangeFarmer}>
+                                     <select className="form-control select-option input-sm mg-r-10" value={ this.state.value } onChange={this.handleChangeFarmer}>
                                         <option value="">Pilih petani</option>
                                         {list_farmer ?
                                             listfarmer.map(farmer => 
                                                 <option
                                                     key={farmer.farmer_id}
-                                                    value={farmer.farmer_id}>
+                                                    value={[farmer.farmer_id,farmer.name]}>
                                                     {farmer.name}
+                                                </option>
+                                            ) : null
+                                        }
+                                    </select>
+                                </div>
+
+                                <div className="select-wrapper">
+                                     <select className="form-control select-option input-sm mg-r-10" value={ this.state.value } onChange={this.handleChangeRab}>
+                                        <option value="">Pilih RAB</option>
+                                        {this.state.list_rab ?
+                                            this.state.listrab.map(rab => 
+                                                <option
+                                                    key={rab.rab_id}
+                                                    value={rab.rab_id}>
+                                                    {rab.name}
                                                 </option>
                                             ) : null
                                         }
@@ -173,16 +307,28 @@ class TambahPesertaProgram extends Component {
                                     handleChange={this._handleChange}
                                 />
                             </div>
-                            <TextArea idtextarea="jelaskan-program" title="Jelaskan secara singkat program anda, tidak lebih dari 140 karakter.
+                            <TextArea idtextarea="description" title="Jelaskan secara singkat program anda, tidak lebih dari 140 karakter.
 								Penjelasan ini untuk membantu kami mempromosikan program anda." class="form-control"/>
 
-							<TextArea title="Jelaskan dampak atau perubahan setelah program ini selesai" class="form-control"/>
+							<TextArea idtextarea="reason" title="Jelaskan dampak atau perubahan setelah program ini selesai" class="form-control"/>
 
 							<p className="strong">Dokumen</p>
                             
-                            <div className="row-flex mg-t-5">
-                                <span className="btn-file">
-                                    <img src="/images/icon/button_icon/icon_plus.svg"/> Tambah Dokumen <input type="file" multiple />
+                            <div className="row-flex mg-t-5" style={{flexWrap: 'wrap'}}>
+                                { this.state.statusFile ?
+                                    this.state.arrayFile.map((files,i) =>
+                                        <span key={i}  style={{marginTop: '5px',marginRight: '10px', padding: '8px 15px', backgroundColor: '#f5f5f5', borderRadius: '5px', whiteSpace: 'nowrap', maxWidth: '100px', overflow: 'hidden', textOverflow: 'ellipsis', position: 'relative'}}>
+                                            {files[0].name}
+                                            <span className="delete-doc" onClick={this.removeItem.bind(this, i)}>
+                                                <img src="/images/icon/button_icon/icon_x_red.svg"/>
+                                            </span>
+                                        </span>
+                                    )
+                                    :null
+                                }
+                                <span className="btn-file mg-t-10">
+                                    <img src="/images/icon/button_icon/icon_plus.svg"/> Tambah Dokumen 
+                                    <input id="file" type="file" onChange={this.handleChange.bind(this)}/>
                                 </span>
                             </div>
 
@@ -199,80 +345,64 @@ class TambahPesertaProgram extends Component {
                                             <th>Jumlah Pohon</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td className="normal">
-                                                <input type="checkbox" id="test1" />
-                                                <label htmlFor="test1">Lahan Cikidang</label>
-                                            </td>
-                                            <td>5000m</td>
-                                            <td>
-                                                <div className="select-wrapper">
-                                                     <select className="form-control select-option input-sm">
-                                                        <option value="">Cabai</option>
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <InputForm
-                                                handleChange={this.handleSearch}
-                                                class="form-control"
-                                                type="text"/>
-                                            </td>
-                                            <td><InputForm
-                                                handleChange={this.handleSearch}
-                                                class="form-control"
-                                                type="text"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td className="normal">
-                                                <input type="checkbox" id="test2" />
-                                                <label htmlFor="test2">Lahan Cikidang</label>
-                                            </td>
-                                            <td>5000m</td>
-                                            <td>
-                                                <div className="select-wrapper">
-                                                     <select className="form-control select-option input-sm">
-                                                        <option value="">Cabai</option>
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <InputForm
-                                                handleChange={this.handleSearch}
-                                                class="form-control"
-                                                type="text"/>
-                                            </td>
-                                            <td><InputForm
-                                                handleChange={this.handleSearch}
-                                                class="form-control"
-                                                type="text"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td className="normal">
-                                                <input type="checkbox" id="test3" />
-                                                <label htmlFor="test3">Lahan Cikidang</label>
-                                            </td>
-                                            <td>5000m</td>
-                                            <td>
-                                                <div className="select-wrapper">
-                                                     <select className="form-control select-option input-sm">
-                                                        <option value="">Cabai</option>
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <InputForm
-                                                handleChange={this.handleSearch}
-                                                class="form-control"
-                                                type="text"/>
-                                            </td>
-                                            <td><InputForm
-                                                handleChange={this.handleSearch}
-                                                class="form-control"
-                                                type="text"/></td>
-                                        </tr>
-                                    </tbody>
+                                    { this.state.statusLahan ? 
+                                        <tbody>
+                                            {
+                                                this.state.listLahan.map((lahan,i) =>
+                                                    <tr key={i}>
+                                                        <td className="normal">
+                                                            <input type="checkbox" id={lahan.land_id} onChange={this.handleCheck.bind(this, lahan.land_id)}/>
+                                                            <label htmlFor={lahan.land_id}>{lahan.name}</label>
+                                                            <input type="hidden" value={lahan.name} id={'lahan-name'+lahan.land_id}/>
+                                                        </td>
+                                                        <td>
+                                                            {lahan.area}m<sup>2</sup>
+                                                        </td>
+                                                        <td>
+                                                            <div className="select-wrapper">
+                                                                 <select className="form-control select-option input-sm" id={'select'+lahan.land_id}>
+                                                                    <option value="">Pilih Komoditas</option>
+                                                                    {
+                                                                        lahan.commodity ? 
+                                                                            lahan.commodity.map((com,i)=>
+                                                                                <option key={i} value={[com.commodity_id,com.name]}>{com.name}</option> 
+                                                                        )
+                                                                        :null
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div className="input-form"> 
+                                                                <input
+                                                                id={'luas'+lahan.land_id} 
+                                                                type="text"
+                                                                className="form-control"
+                                                                placeholder="Luas lahan"
+                                                                />   
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                         <div className="input-form"> 
+                                                            <input
+                                                            id={'jumlah'+lahan.land_id} 
+                                                            placeholder="Jumlah Pohon"
+                                                            className="form-control"
+                                                            type="text"
+                                                            />   
+                                                        </div>
+                                                      </td>
+                                                    </tr>
+                                                )
+                                            }
+                                        </tbody>
+                                        :
+                                        <tbody>
+                                            <tr>
+                                                <td colSpan="5" className="text-center normal">Anda belum memiliki lahan</td>
+                                            </tr>
+                                        </tbody>
+                                    }
                                 </table>
                             </div>
 

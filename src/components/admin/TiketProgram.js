@@ -22,6 +22,7 @@ export default class TiketProgram extends Component{
 
         this.state = {
             dataHere: false,
+            searchNull: true,
             classBgColor: '',
             toggleTambahTiket: false,
             toggleSuccess: false,
@@ -94,7 +95,7 @@ export default class TiketProgram extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -102,15 +103,12 @@ export default class TiketProgram extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-            
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
-            console.log('err: '+ error)
+            this.setState({
+                totalElements: false,
+                searchNull: false
+            })
         })
     }
 
@@ -124,7 +122,7 @@ export default class TiketProgram extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -156,7 +154,7 @@ export default class TiketProgram extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -388,13 +386,102 @@ export default class TiketProgram extends Component{
                             )
                             : 
                             (
-                                 <div className="user-access-container text-center no-content">
-                                    <img src="../images/empty_state.svg" alt="" height="180"/>
-                                    <h3 className="mg-t-20 normal">Data tiket program masih kosong</h3>
-                                    <div className="box-btn auto mg-t-40" onClick={this.toggleTambahTiket}>
-                                        <ButtonPrimary name="Tambah Tiket" />
+                                this.state.searchNull ?
+                                (
+                                    <div className="user-access-container text-center no-content">
+                                        <img src="../images/empty_state.svg" alt="" height="180"/>
+                                        <h3 className="mg-t-20 normal">Data tiket program masih kosong</h3>
+                                        <div className="box-btn auto mg-t-40" onClick={this.toggleTambahTiket}>
+                                            <ButtonPrimary name="Tambah Tiket" />
+                                        </div>
+                                     </div>
+                                )
+                                :
+                                (
+                                    <div className="user-access-container">
+                                        <div className="box-status row-flex">
+                                            <div className="col-3 text-center">
+                                                <h3 className="text-success">{this.state.count_accepted_program}</h3>
+                                                <p>Disetujui</p>
+                                            </div>
+                                            <div className="col-3 text-center">
+                                                <h3 className="text-info">{this.state.count_added_program}</h3>
+                                                <p>Menunggu Persetujuan</p>
+                                            </div>
+                                            <div className="col-3 text-center">
+                                                <h3 className="text-danger">{this.state.count_rejected_program}</h3>
+                                                <p>Ditolak</p>
+                                            </div>
+                                        </div>
+                                        <div className="box-top row-flex flex-space">
+                                            <div className="pull-left row-flex col-5">
+                                                <p className="count-item"> 0 Tiket Program</p>
+                                                <div className="select-wrapper">
+                                                    <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
+                                                        <option value="10">10 entri per halaman</option>
+                                                        <option value="25">25 entri per halaman</option>
+                                                        <option value="50">50 entri per halaman</option>
+                                                        <option value="100">100 entri per halaman</option>
+                                                    </select>
+                                                </div>
+                                                <InputForm
+                                                inputId="search_admin"
+                                                handleChange={this.handleSearch}
+                                                placeholder="Cari Tiket"
+                                                class="search-item form-control"
+                                                type="text"/>
+                                                {/*
+                                                <InputForm
+                                                handleChange={this.handleSearch}
+                                                placeholder="Tanggal Pengajuan"
+                                                class="search-item form-control"
+                                                type="text"
+                                                icon="true"
+                                                src="../images/icon/button_icon/icon-datepicker.svg"/>
+                                                <div className="select-wrapper">
+                                                     <select className="option-input">
+                                                        <option value="">Status</option>
+                                                    </select>
+                                                </div>
+                                                */}
+                                            </div>
+                                            <div className="pull-right">
+                                                <div className="box-btn auto" onClick={this.toggleTambahTiket}>
+                                                    <ButtonPrimary name="Tambah Tiket" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="box-table">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Kode Tiket</th>
+                                                        <th>Judul Program</th>
+                                                        <th>Penjelasan Singkat</th>
+                                                        <th>Tanggal Pengajuan</th>
+                                                        <th>Status</th>
+                                                        <th>Pengguna</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td className="text-center normal" colSpan="7">Data tidak ditemukan</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div className="box-footer-table">
+                                            <div className="footer-table">
+                                                <p className="text-footer">Menampilkan 0 Tiket Progam</p>
+                                            </div>
+
+                                        </div>
                                     </div>
-                                 </div>
+                                )
+                                 
                             )
                         }
                         </div>

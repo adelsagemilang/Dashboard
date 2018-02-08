@@ -36,7 +36,7 @@ class DropdownMenu extends Component {
             <div id={this.props.id} className="dropdown-collapse" >
                 <ul className="list-unstyled">
                     <li >
-                    	<Link to={'/admin/peserta-program/' + this.props.id}>Peserta Program</Link>
+                    	<Link to={'/admin/peserta-program/' + this.props.id_program}>Peserta Program</Link>
                     </li>
                     {
                         this.props.status === 0 ?

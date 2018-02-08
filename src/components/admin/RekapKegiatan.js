@@ -12,6 +12,7 @@ import SearchPetani from './popup/data-petani/searchPetani'
 import PhoneFound from './popup/data-petani/phoneFound'
 import PhoneNotFound from './popup/data-petani/phoneNotFound'
 import Header from '../common/Header'
+import ResponsiveHeader from '../common/ResponsiveHeader'
 import InputForm from '../common/InputForm'
 import ReactPaginate from 'react-paginate'
 
@@ -21,8 +22,8 @@ export default class RekapKegiatan extends Component{
         autoBind(this)
 
         this.state = {
-            dataHere: [],
-            classBgColor: '',
+            dataHere: false,
+            searchNull: true,
             toggleDropdownFilter: false,
             entriPage: []
         }
@@ -40,7 +41,7 @@ export default class RekapKegiatan extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -48,15 +49,12 @@ export default class RekapKegiatan extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-            
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
-            console.log('err: '+ error)
+            this.setState({
+                totalElements: false,
+                searchNull: false
+            })
         })
     }
 
@@ -70,7 +68,7 @@ export default class RekapKegiatan extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -78,12 +76,6 @@ export default class RekapKegiatan extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-            
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -102,7 +94,7 @@ export default class RekapKegiatan extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -110,12 +102,6 @@ export default class RekapKegiatan extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -178,7 +164,7 @@ export default class RekapKegiatan extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -186,12 +172,6 @@ export default class RekapKegiatan extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -200,105 +180,191 @@ export default class RekapKegiatan extends Component{
 
     render(){
         const DataHere = this.state.dataHere
-        let ClassBgColor = this.state.classBgColor
 
         return(
-            <div>
-                <div className="main-content">
+            <div id="outer-container">
+                <ResponsiveHeader />
+                <div id="page-wrap" className="main-content">
+                    <div className="responsive-header">
+                        <img src="../images/logo-white.png" height="35"/>
+                    </div>
                     <Header title="Rekap Kegiatan Petani" />
-                    <div className="user-access">
-                        <div className="user-access-container">
-                            <div className="box-top row-flex flex-space">
-                                <div className="pull-left row-flex">
-                                    <p className="count-item">30 Lahan Petani</p>
-                                    <div className="select-wrapper">
-                                        <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
-                                            <option value="10">10 entri per halaman</option>
-                                            <option value="25">25 entri per halaman</option>
-                                            <option value="50">50 entri per halaman</option>
-                                            <option value="100">100 entri per halaman</option>
-                                        </select>
-                                    </div>
-                                    <InputForm
-                                    inputId="search_admin"
-                                    handleChange={this.handleSearch}
-                                    placeholder="Cari.."
-                                    class="search-item form-control"
-                                    type="text"/>
-                                    {/*
-                                    <div className="select-wrapper dropdown">
-                                        <a className="dropdown-filter" onClick={this.toggleDropdownFilter}>
-                                            Filter
-                                        </a>
-                                        {this.renderDropdownFilter()}
-                                    </div>
-                                    */}
-                                </div>
-                            </div>
-
-                            <div className="box-table">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Kelompok Tani</th>
-                                            <th>Nama Petani</th>
-                                            <th>Program</th>
-                                            <th>Tanggal Kegiatan</th>
-                                            <th>Kegiatan</th>
-                                            <th>Rincian Kegiatan</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {DataHere.map((datahere, i) => {
-                                            return(
-                                                <tr key={i}>
-                                                    <td>{datahere.farmer_group_name}</td>
-                                                    <td>{datahere.farmer_name}</td>
-                                                    <td>{datahere.program}</td>
-                                                    <td>{datahere.activity_date}</td>
-                                                    <td>{datahere.activity}</td>
-                                                    <td>{datahere.detail_activity}</td>
-                                                    <td className="text-center">{datahere.status}</td>
-                                                </tr>
-                                            )
-                                        })}
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div className="box-footer-table">
-                                <div className="footer-table">
-                                    <p className="text-footer">Menampilkan {this.state.totalsize} entri dari {this.state.totalElements} Rekap Kegiatan Petani</p>
-                                </div>
-
-                                <div className="box-pagination">
-                                    <div className="pagination-content">
-                                        < ReactPaginate
-                                            previousLabel={
-                                                <div className="box-lable">
-                                                    <img src="/images/icon/button_icon/icon_arrow_left.png" />
+                    {
+                        DataHere ? 
+                        <div className="user-access">
+                            {
+                                this.state.totalElements ? 
+                                (
+                                    <div className="user-access-container">
+                                        <div className="box-top row-flex flex-space">
+                                            <div className="pull-left row-flex">
+                                                <p className="count-item">{ this.state.totalElements ? this.state.totalElements : '0' } Rekap Kegiatan Petani</p>
+                                                <div className="select-wrapper">
+                                                    <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
+                                                        <option value="10">10 entri per halaman</option>
+                                                        <option value="25">25 entri per halaman</option>
+                                                        <option value="50">50 entri per halaman</option>
+                                                        <option value="100">100 entri per halaman</option>
+                                                    </select>
                                                 </div>
-                                            }
-                                            nextLabel={
-                                                <div className="box-lable">
-                                                    <img src="/images/icon/button_icon/icon_arrow_right.png" />
+                                                <InputForm
+                                                inputId="search_admin"
+                                                handleChange={this.handleSearch}
+                                                placeholder="Cari.."
+                                                class="search-item form-control"
+                                                type="text"/>
+                                                {/*
+                                                <div className="select-wrapper dropdown">
+                                                    <a className="dropdown-filter" onClick={this.toggleDropdownFilter}>
+                                                        Filter
+                                                    </a>
+                                                    {this.renderDropdownFilter()}
                                                 </div>
-                                            }
-                                            breakLabel={<a href="">...</a>}
-                                            breakClassName={"break-me"}
-                                            pageCount={this.state.totalPage}
-                                            marginPagesDisplayed={1}
-                                            pageRangeDisplayed={2}
-                                            onPageChange={this.handlePageClick}
-                                            containerClassName={"pagination"}
-                                            subContainerClassName={"pages pagination"}
-                                            activeClassName={"active"} />
+                                                */}
+                                            </div>
+                                        </div>
+
+                                        <div className="box-table">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Kelompok Tani</th>
+                                                        <th>Nama Petani</th>
+                                                        <th>Program</th>
+                                                        <th>Tanggal Kegiatan</th>
+                                                        <th>Kegiatan</th>
+                                                        <th>Rincian Kegiatan</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {DataHere.map((datahere, i) => {
+                                                        return(
+                                                            <tr key={i}>
+                                                                <td data-th="Kelompok Tani">{datahere.farmer_group_name}</td>
+                                                                <td data-th="Nama Petani">{datahere.farmer_name}</td>
+                                                                <td data-th="Program">{datahere.program}</td>
+                                                                <td data-th="Tanggal Kegiatan">{datahere.activity_date}</td>
+                                                                <td data-th="Kegiatan">{datahere.activity}</td>
+                                                                <td data-th="Rincian Kegiatan">{datahere.detail_activity}</td>
+                                                                <td data-th="Status" className="text-center">{datahere.status}</td>
+                                                            </tr>
+                                                        )
+                                                    })}
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div className="box-footer-table">
+                                            <div className="footer-table">
+                                                <p className="text-footer">Menampilkan {this.state.totalElements >=10 ? this.state.totalsize : this.state.totalElements} entri dari {this.state.totalElements} Rekap Kegiatan Petani</p>
+                                            </div>
+
+                                            <div className="box-pagination">
+                                                <div className="pagination-content">
+                                                    < ReactPaginate
+                                                        previousLabel={
+                                                            <div className="box-lable">
+                                                                <img src="/images/icon/button_icon/icon_arrow_left.png" />
+                                                            </div>
+                                                        }
+                                                        nextLabel={
+                                                            <div className="box-lable">
+                                                                <img src="/images/icon/button_icon/icon_arrow_right.png" />
+                                                            </div>
+                                                        }
+                                                        breakLabel={<a href="">...</a>}
+                                                        breakClassName={"break-me"}
+                                                        pageCount={this.state.totalPage}
+                                                        marginPagesDisplayed={1}
+                                                        pageRangeDisplayed={2}
+                                                        onPageChange={this.handlePageClick}
+                                                        containerClassName={"pagination"}
+                                                        subContainerClassName={"pages pagination"}
+                                                        activeClassName={"active"} />
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                )
+                                :
+                                (
+                                    this.state.searchNull ?
+
+                                    <div className="user-access-container text-center no-content">
+                                        <img src="../images/empty_state.svg" alt="" height="180"/>
+                                        <h3 className="mg-t-20 normal">Data rekap kegiatan petani masih kosong</h3>
+                                    </div>
+
+                                    :
+                                    
+                                    <div className="user-access-container">
+                                        <div className="box-top row-flex flex-space">
+                                            <div className="pull-left row-flex">
+                                                <p className="count-item">30 Lahan Petani</p>
+                                                <div className="select-wrapper">
+                                                    <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
+                                                        <option value="10">10 entri per halaman</option>
+                                                        <option value="25">25 entri per halaman</option>
+                                                        <option value="50">50 entri per halaman</option>
+                                                        <option value="100">100 entri per halaman</option>
+                                                    </select>
+                                                </div>
+                                                <InputForm
+                                                inputId="search_admin"
+                                                handleChange={this.handleSearch}
+                                                placeholder="Cari.."
+                                                class="search-item form-control"
+                                                type="text"/>
+                                                {/*
+                                                <div className="select-wrapper dropdown">
+                                                    <a className="dropdown-filter" onClick={this.toggleDropdownFilter}>
+                                                        Filter
+                                                    </a>
+                                                    {this.renderDropdownFilter()}
+                                                </div>
+                                                */}
+                                            </div>
+                                        </div>
+
+                                        <div className="box-table">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Kelompok Tani</th>
+                                                        <th>Nama Petani</th>
+                                                        <th>Program</th>
+                                                        <th>Tanggal Kegiatan</th>
+                                                        <th>Kegiatan</th>
+                                                        <th>Rincian Kegiatan</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td className="text-center normal" colSpan="7">Tidak ada data</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div className="box-footer-table">
+                                            <div className="footer-table">
+                                                <p className="text-footer">Menampilkan 0 Rekap Kegiatan Petani</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                )
+                            }
+                        </div>
+                        :
+                        <div className="user-access">
+                            <div className="user-access-container text-center no-content">
+                                <img src="../images/loading.gif" alt=""/>
                             </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         )

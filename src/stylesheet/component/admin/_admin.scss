@@ -621,8 +621,6 @@ p{
         }
 
         .box-top .search-item, .select-wrapper.dropdown{
-            cursor: pointer;
-
             @media(min-width: $screen-tablet){
                 width: 170px !important;
             }
@@ -900,6 +898,14 @@ p{
                 }
             }
         }   
+    }
+
+    &.rab-detail{
+        .box-top{
+            .pull-left{
+                margin-left: 25px;
+            }
+        }
     }
 }
 

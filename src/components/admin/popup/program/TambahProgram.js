@@ -46,7 +46,7 @@ class TambahProgram extends Component {
         .then(res => {
             if(res.status === 200){
                 const data = res.data
-                this.props.id_tiket(data)
+                this.props.getRes(data)
                 this.props.toggleTambahProgram()
                 this.props.toggleBuatProgram()
             } else {

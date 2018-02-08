@@ -9,7 +9,7 @@ import { ButtonPrimary } from '../../../common/ButtonPrimary'
 import '../../../../stylesheet/component/admin/_popup.scss'
 import { API_URL, API_LIST_URL, TK_KEY } from '../../../../containers/RootUrl'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-//import GoogleMapReact from 'google-map-react';
+import GoogleMapReact from 'google-map-react';
 import { withScriptjs, withGoogleMap, GoogleMap, Polygon } from "react-google-maps";
 
 const AnyReactComponent = ({ text }) => 
@@ -31,8 +31,11 @@ export default class Detail extends Component{
         this.state = {
             username: '',
             center: {
+              /*
                 lat :50.0883800089,
-                lng :14.3196645721
+                lng :14.3196645721 */
+                lat :this.props.lat,
+                lng :this.props.lng
             },
             coords: [
               {
@@ -388,6 +391,7 @@ export default class Detail extends Component{
     }
 
     render(){
+        {/*
         const MapWithAMarker = withScriptjs(
         withGoogleMap(props => (
             <GoogleMap
@@ -408,6 +412,7 @@ export default class Detail extends Component{
             </GoogleMap>
          ))
         );
+      */}
         return(
             <div className="add-popup-map land">
                 <div className="popup-container">
@@ -447,6 +452,7 @@ export default class Detail extends Component{
                                                 </span>
                                         </div>
                                     </div>
+                                        {/*
                                         <MapWithAMarker
                                           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkN1_UcaTQ03AtUOnTNFTnc44I0FwMNsM"
                                           loadingElement={<div style={{ height: `100%` }} />}
@@ -454,21 +460,22 @@ export default class Detail extends Component{
                                           mapElement={<div style={{ height: `100%` }} />}
                                           coords={this.state.coords}
                                         />
-                                        {/*
-                                        <GoogleMapReact
-                                        bootstrapURLKeys={{
-                                        key: "AIzaSyCkN1_UcaTQ03AtUOnTNFTnc44I0FwMNsM"
-                                        }}
-                                            defaultCenter={this.state.center}
-                                            defaultZoom={this.state.zoom}
-                                        >
-                                            <AnyReactComponent 
-                                              lat={this.props.lat} 
-                                              lng={this.props.lng} 
-                                              text={' '} 
-                                            />
-                                        </GoogleMapReact>
-                                       */}
+                                        */}
+                                        <div style={{width: '100%', height: '250px'}}>
+                                          <GoogleMapReact
+                                          bootstrapURLKeys={{
+                                          key: "AIzaSyCkN1_UcaTQ03AtUOnTNFTnc44I0FwMNsM"
+                                          }}
+                                              defaultCenter={this.state.center}
+                                              defaultZoom={this.state.zoom}
+                                          >
+                                              <AnyReactComponent 
+                                                lat={this.props.lat} 
+                                                lng={this.props.lng} 
+                                                text={' '} 
+                                              />
+                                          </GoogleMapReact>
+                                        </div>
                                 </TabPanel>
                                 <TabPanel>
                                     <div className="box-foto text-center">

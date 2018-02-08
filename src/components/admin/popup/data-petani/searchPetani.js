@@ -32,7 +32,7 @@ class SearchPetani extends Component {
 							inputId="search-to-add"
 							handleChange={this._handleChange}
 							type="text"
-							placeholder="No. Handphone"
+							placeholder="Nama RAB"
 							class="form-control"
 						/>
 

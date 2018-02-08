@@ -19,6 +19,8 @@ import RekapKegiatan from '../components/admin/RekapKegiatan'
 import KegiatanPetani from '../components/admin/KegiatanPetani'
 import DataOrderOut from '../components/admin/DataOrderOut'
 import DataPanen from '../components/admin/DataPanen'
+import RAB from '../components/admin/RAB'
+import RABDetail from '../components/admin/RABDetail'
 import LoginComp from '../components/LoginComp'
 import { Authenticated } from './Auth'
 import LayoutMaster from '../components/common/LayoutMaster'
@@ -45,6 +47,8 @@ export default class Routes extends Component {
                         <Authenticated exact path="/admin/kegiatan-petani" component={KegiatanPetani}/>
                         <Authenticated exact path="/admin/edit-akun" component={EditAkun}/>
                         <Authenticated exact path="/admin/rekap-kegiatan" component={RekapKegiatan}/>
+                        <Authenticated exact path="/admin/data-rab" component={RAB}/>
+                        <Authenticated exact path="/admin/rab-detail" component={RABDetail}/>
                         <Authenticated exact path="/login" component={LoginComp}/>
                         <Authenticated exact path="/" component={LoginComp}/>
                         <Route path='/404' component={NotFound} />

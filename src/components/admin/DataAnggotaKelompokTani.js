@@ -21,6 +21,7 @@ export default class DataAnggotaKelompokPetani extends Component{
 
         this.state = {
             dataHere: false,
+            searchNull: true,
             toggleSuccess: false,
             classBgColor: '',
             toggleTambahAnggotaKelompokTani: false,
@@ -62,7 +63,7 @@ export default class DataAnggotaKelompokPetani extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -70,15 +71,12 @@ export default class DataAnggotaKelompokPetani extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-            
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
-            console.log('err: '+ error)
+            this.setState({
+                totalElements: false,
+                searchNull: false
+            })
         })
     }
 
@@ -236,7 +234,7 @@ export default class DataAnggotaKelompokPetani extends Component{
                                     <InputForm
                                     inputId="search_admin"
                                     handleChange={this.handleSearch}
-                                    placeholder="Cari Nama atau ID Kelompok Tani"
+                                    placeholder="Cari..."
                                     class="search-item form-control"
                                     type="text"/>
                                 </div>
@@ -317,15 +315,72 @@ export default class DataAnggotaKelompokPetani extends Component{
                         </div>
                         )
                         :
-                        (
-                             <div className="user-access-container text-center no-content">
-                                <img src="../images/empty_state.svg" alt="" height="180"/>
-                                <h3 className="mg-t-20 normal">Data anggota kelompok tani masih kosong</h3>
-                                <div className="box-btn auto mg-t-40" onClick={this.toggleTambahAnggotaKelompokTani}>
-                                        <ButtonPrimary name="Tambah Anggota" />
+                            this.state.searchNull ?
+                            (
+                                 <div className="user-access-container text-center no-content">
+                                    <img src="../images/empty_state.svg" alt="" height="180"/>
+                                    <h3 className="mg-t-20 normal">Data anggota kelompok tani masih kosong</h3>
+                                    <div className="box-btn auto mg-t-40" onClick={this.toggleTambahAnggotaKelompokTani}>
+                                            <ButtonPrimary name="Tambah Anggota" />
+                                     </div>
                                  </div>
-                             </div>
-                        )
+                            )
+                            :
+                            (
+                                <div className="user-access-container">
+                                    <div className="box-top row-flex flex-space">
+                                        <div className="pull-left">
+                                            <p className="count-item">0 Anggota Kelompok Tani</p>
+                                            <div className="select-wrapper">
+                                                <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
+                                                    <option value="10">10 entri per halaman</option>
+                                                    <option value="25">25 entri per halaman</option>
+                                                    <option value="50">50 entri per halaman</option>
+                                                    <option value="100">100 entri per halaman</option>
+                                                </select>
+                                            </div>
+                                            <InputForm
+                                            inputId="search_admin"
+                                            handleChange={this.handleSearch}
+                                            placeholder="Cari..."
+                                            class="search-item form-control"
+                                            type="text"/>
+                                        </div>
+                                        <div className="pull-right">
+                                            <div className="box-btn auto" onClick={this.toggleTambahAnggotaKelompokTani}>
+                                                <ButtonPrimary name="Tambah Anggota" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="box-table">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>ID Kelompok Tani</th>
+                                                    <th>Nama Kelompok Tani</th>
+                                                    <th>Nama Anggota</th>
+                                                    <th>No. HP</th>
+                                                    <th>No. KTP</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td className="text-center normal" colSpan="6">Tidak ada data</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div className="box-footer-table">
+                                        <div className="footer-table">
+                                            <p className="text-footer">Menampilkan 0 Anggota Kelompok Tani</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            )
                         }
                     </div>
                     :

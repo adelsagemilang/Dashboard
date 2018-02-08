@@ -150,12 +150,6 @@ class PesertaProgram extends Component {
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -199,13 +193,11 @@ class PesertaProgram extends Component {
                                             class="search-item form-control"
                                             type="text"/>
                                         </div>
-                                        {/*
                                         <div className="pull-right">
                                             <div className="box-btn auto" onClick={this.toggleTambahPesertaProgram}>
                                                 <ButtonPrimary name="Tambah Peserta Program" />
                                             </div>
                                         </div>
-                                    */}
                                     </div>
 
                                     <div className="box-table">
@@ -228,12 +220,12 @@ class PesertaProgram extends Component {
                                                     return(
                                                         <tr key={i}>
                                                             <td>
-                                                            	<p className="strong">Sri Maria</p>
-                                                            	<p className="normal">382804758247502</p>
+                                                            	<p className="strong">{datahere.farmer_name}</p>
+                                                            	<p className="normal">{datahere.ktp_number}</p>
                                                             </td>
-                                                            <td>Kelompok Tani Bogor</td>
+                                                            <td>{datahere.farmer_group_name}</td>
                                                             <td>Rp. {datahere.amount}</td>
-                                                            <td>087711242493</td>
+                                                            <td>{datahere.phone_number}</td>
                                                             <td>{datahere.description}</td>
         													<td>{datahere.reason}</td>
                                                             <td className="nowrap">
@@ -295,11 +287,11 @@ class PesertaProgram extends Component {
                                  <div className="user-access-container text-center no-content">
                                     <img src="../images/empty_state.svg" alt="" height="180"/>
                                     <h3 className="mg-t-20 normal">Data peserta masih kosong</h3>
-                                    {/*
-                                    <div className="box-btn auto mg-t-40" onClick={this.toggleTambahPesertaProgram}>
+                                    
+                                    <div className="box-btn auto mg-t-40" onClick={this.toggleTambahPesertaProgram} style={{maxWidth: '200px'}}>
                                         <ButtonPrimary name="Tambah Peserta Program" />
                                     </div>
-                                */}
+                                
                                  </div>
                             )
                         }

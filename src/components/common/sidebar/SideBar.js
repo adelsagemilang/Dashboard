@@ -42,6 +42,7 @@ export default class SideBar extends Component {
         const kegPetani = url === '/admin/kegiatan-petani' || url === '/admin/kegiatan-petani/' ? 'list-menu-active' : isActive = ''
         const rekapKegiatan = url === '/admin/rekap-kegiatan' || url === '/admin/rekap-kegiatan/' ? 'list-menu-active' : isActive = ''
         const dataRukman = url === '/admin/data-rukman' || url === '/admin/data-rukman/' ? 'list-menu-active' : isActive = ''
+        const dataRab = url === '/admin/data-rab' || url === '/admin/data-rab/' ? 'list-menu-active' : isActive = ''
         
 
         return(
@@ -112,6 +113,13 @@ export default class SideBar extends Component {
                                 <ListMenu padding="no-pad" text="Rekap Kegiatan" icon="../images/icon/menu_icon/menu_icon_9.svg" classActive={rekapKegiatan}/>
                             </div>
                         </Link>
+                        
+                        <Link  to="/admin/data-rab">
+                            <div>
+                                <ListMenu padding="no-pad" text="RAB" icon="../images/icon/menu_icon/rab-icon.svg" classActive={dataRab}/>
+                            </div>
+                        </Link>
+                        
                     </div>
                     <div className="bg-sidebar">
                         <img src="../images/bg_sidebar_expanded.png" />

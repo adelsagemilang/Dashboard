@@ -21,6 +21,7 @@ export default class DataRukman extends Component{
 
         this.state = {
             dataHere: false,
+            searchNull: true,
             entriPage: []
         }
 
@@ -36,18 +37,20 @@ export default class DataRukman extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.status === 204 ? true : res.data.content 
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
-            const totalElements = res.status === 204 ? true : res.data.totalElements
+            const totalElements = res.data.totalElements
             const totalsize = res.data.size
             this.setState({dataHere})
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-            this.setState({searchNull: true})
         })
         .catch((error) => {
-            console.log('err: '+ error)
+            this.setState({
+                totalElements: false,
+                searchNull: false
+            })
         })
     }
 
@@ -184,41 +187,31 @@ export default class DataRukman extends Component{
                                         </tr>
                                     </thead>
                                   
-                                        { this.state.searchNull ? 
-                                            (
-                                                <tbody>
-                                                    <tr>
-                                                        <td colSpan="7" className="text-center normal">Data tidak ada</td>
-                                                    </tr>
-                                                </tbody>
+                                       
+                                    <tbody>
+                                        {DataHere.map((datahere, i) => {
+                                            return(
+                                                <tr key={i}>
+                                                    <td data-th="ID" className="strong">{datahere.rukman_id}</td>
+                                                    <td data-th="Nama Kelompok Tani">{datahere.rukman_name}</td>
+                                                    <td data-th="Alamat">
+                                                        {   ( 
+                                                            <div className="block lower">
+                                                                <p>{ datahere.address}</p>
+                                                                <p>{datahere.village} ,
+                                                                {datahere.district}</p>
+                                                                <p>{datahere.city} ,
+                                                                {datahere.province}</p>
+                                                            </div>
+                                                            )
+                                                        }
+                                                    </td>
+                                                    <td className="text-center" data-th="Data Ketua">{datahere.pic_name}</td>
+                                                </tr>
                                             )
-                                            :
-                                            (
-                                            <tbody>
-                                                {DataHere.map((datahere, i) => {
-                                                    return(
-                                                        <tr key={i}>
-                                                            <td data-th="ID" className="strong">{datahere.rukman_id}</td>
-                                                            <td data-th="Nama Kelompok Tani">{datahere.rukman_name}</td>
-                                                            <td data-th="Alamat">
-                                                                {   ( 
-                                                                    <div className="block lower">
-                                                                        <p>{ datahere.address}</p>
-                                                                        <p>{datahere.village} ,
-                                                                        {datahere.district}</p>
-                                                                        <p>{datahere.city} ,
-                                                                        {datahere.province}</p>
-                                                                    </div>
-                                                                    )
-                                                                }
-                                                            </td>
-                                                            <td className="text-center" data-th="Data Ketua">{datahere.pic_name}</td>
-                                                        </tr>
-                                                    )
-                                                })}
-                                            </tbody>
-                                            )
-                                        }
+                                        })}
+                                    </tbody>
+                                         
                                 </table>
                             </div>
 
@@ -255,12 +248,66 @@ export default class DataRukman extends Component{
                         </div>
                         )
                         : 
-                        (
+                        
+                            this.state.searchNull ? 
+                            (
                              <div className="user-access-container text-center no-content">
                                 <img src="../images/empty_state.svg" alt="" height="180"/>
                                 <h3 className="mg-t-20 normal">Data rukman masih kosong</h3>
                              </div>
-                        )
+                            )
+                            :
+                            (
+                            <div className="user-access-container">
+                                <div className="box-top row-flex flex-space">
+                                    <div className="pull-left row-flex">
+                                        <p className="count-item"> 0 Rukman</p>
+                                        <div className="select-wrapper">
+                                            <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
+                                                <option value="10">10 entri per halaman</option>
+                                                <option value="25">25 entri per halaman</option>
+                                                <option value="50">50 entri per halaman</option>
+                                                <option value="100">100 entri per halaman</option>
+                                            </select>
+                                        </div>
+                                        <InputForm
+                                        inputId="search_admin"
+                                        handleChange={this.handleSearch}
+                                        placeholder="Cari.."
+                                        class="search-item form-control"
+                                        type="text"/>
+                                    </div>
+                                </div>
+
+                                <div className="box-table">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nama Kelompok Tani</th>
+                                                <th>Alamat</th>
+                                                <th className="text-center">Data Ketua</th>
+                                            </tr>
+                                        </thead>
+                                      
+                                           
+                                        <tbody>
+                                            <tr>
+                                                <td className="text-center normal" colSpan="4">Tidak ada data</td>
+                                            </tr>
+                                        </tbody>
+                                             
+                                    </table>
+                                </div>
+
+                                <div className="box-footer-table">
+                                    <div className="footer-table">
+                                        <p className="text-footer">Menampilkan 0 Data Rukman</p>
+                                    </div>
+                                </div>
+                            </div>
+                            )
+                        
                         }
                     </div>
                     :

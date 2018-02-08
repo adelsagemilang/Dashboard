@@ -18,6 +18,7 @@ export default class DataOrderOut extends Component{
 
         this.state = {
             dataHere: false,
+            searchNull: true,
             classBgColor: '',
             entriPage: []
         }
@@ -34,7 +35,7 @@ export default class DataOrderOut extends Component{
             }
         })
         .then(res => {
-            const dataHere = res.data.content
+            const dataHere = res.data !== '' ? res.data.content : true
             const totalPage = res.data.totalPages
             const totalElements = res.data.totalElements
             const totalsize = res.data.size
@@ -42,15 +43,12 @@ export default class DataOrderOut extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
-            
-            console.log('total page: '+totalPage)
-            console.log('data here: '+
-            dataHere.map( datas => {
-                return datas.email
-            }))
         })
         .catch((error) => {
-            console.log('err: '+ error)
+            this.setState({
+                totalElements: false,
+                searchNull: false
+            })
         })
     }
 
@@ -246,12 +244,64 @@ export default class DataOrderOut extends Component{
                         </div>
                         )
                         :
-                        (
-                        <div className="user-access-container text-center no-content">
-                            <img src="../images/empty_state.svg" alt="" height="180"/>
-                            <h3 className="mg-t-20 normal">Data order out masih kosong</h3>
-                        </div>
-                        )
+                            this.state.searchNull ? 
+                            (
+                                <div className="user-access-container text-center no-content">
+                                    <img src="../images/empty_state.svg" alt="" height="180"/>
+                                    <h3 className="mg-t-20 normal">Data order out masih kosong</h3>
+                                </div>
+                            )
+                            :
+                            (
+                                <div className="user-access-container">
+                                    <div className="box-top row-flex flex-space">
+                                        <div className="pull-left row-flex">
+                                            <p className="count-item">{ this.state.totalElements ? this.state.totalElements : '0' } Order Keluar</p>
+                                            <div className="select-wrapper">
+                                                <select className="per-page option-input" value={ this.state.value } onChange={ this.handleChangeEntriPage }>
+                                                    <option value="10">10 entri per halaman</option>
+                                                    <option value="25">25 entri per halaman</option>
+                                                    <option value="50">50 entri per halaman</option>
+                                                    <option value="100">100 entri per halaman</option>
+                                                </select>
+                                            </div>
+                                            <InputForm
+                                            inputId="search_admin"
+                                            handleChange={this.handleSearch}
+                                            placeholder="Cari .."
+                                            class="search-item form-control"
+                                            type="text"/>
+                                        </div>
+                                    </div>
+
+                                    <div className="box-table">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Nama Petani</th>
+                                                    <th>Nama Rukman</th>
+                                                    <th>Komoditas</th>
+                                                    <th>Jumlah</th>
+                                                    <th>Harga</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td className="text-center normal" colSpan="7">Tidak ada data</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                   
+                                    <div className="box-footer-table">
+                                        <div className="footer-table">
+                                            <p className="text-footer">Menampilkan 0 Data Order Keluar</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
                         }   
                     </div>
                     :
