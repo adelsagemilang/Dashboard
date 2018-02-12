@@ -188,7 +188,7 @@ export default class DataPanen extends Component{
                                                         <td data-th="No">{i}</td>
                                                         <td data-th="Nama Petani">{datahere.farmer_name}</td>
                                                         <td data-th="Komoditas">{datahere.commodity_name}</td>
-                                                        <td data-th="Jumlah">{datahere.qty}</td>
+                                                        <td data-th="Jumlah">{datahere.qty.toLocaleString()}</td>
                                                         <td data-th="Status">
                                                             {datahere.status ? datahere.status : 'Sedang menunggu verifikasi'}   
                                                         </td>

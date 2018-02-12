@@ -334,7 +334,7 @@ export default class RABDetail extends Component{
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <p id={'qty'+i}>{datahere.qty}</p>
+                                                                <p id={'qty'+i}>{datahere.qty.toLocaleString()}</p>
                                                                 <div id={'qty_form'+i} className="input-form" style={{display: 'none'}}>
                                                                     <input type="text"
                                                                         id={'qty_input'+i}
@@ -356,7 +356,7 @@ export default class RABDetail extends Component{
                                                                  </div>
                                                             </td>
                                                             <td>
-                                                                <p id={'harga'+i}>Rp. {datahere.price}</p>
+                                                                <p id={'harga'+i}>Rp. {datahere.price.toLocaleString()}</p>
                                                                 <div id={'harga_form'+i} className="input-form" style={{display: 'none'}}>
                                                                     <input type="text"
                                                                         id={'harga_input'+i}
@@ -368,7 +368,7 @@ export default class RABDetail extends Component{
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <p id={'subtotal'+i}>Rp. {datahere.subtotal}</p>
+                                                                <p id={'subtotal'+i}>Rp. {datahere.subtotal.toLocaleString()}</p>
                                                                 <p id={'subtotal_input'+i} style={{display: 'none'}}>Rp. <span id={'subtotal_value'+i}>{datahere.subtotal}</span></p>
                                                             </td>
                                                             <td>
