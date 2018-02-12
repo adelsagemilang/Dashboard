@@ -19,6 +19,10 @@
 
         &.popup-peserta{
             width: 810px;
+
+            .box-table{
+                overflow: unset;
+            }
         }
 
         &.sm{

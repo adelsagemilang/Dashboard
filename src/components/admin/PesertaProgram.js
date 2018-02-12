@@ -150,6 +150,7 @@ class PesertaProgram extends Component {
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
+            console.log(dataHere)
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -229,8 +230,12 @@ class PesertaProgram extends Component {
                                                             <td>{datahere.description}</td>
         													<td>{datahere.reason}</td>
                                                             <td className="nowrap">
-        														<p className="text-info">Profile Petani.jpg</p>
-        														<p className="text-info">Profile Petani.pdf</p>
+        														{
+                                                                    datahere.documents ? 
+                                                                    datahere.documents.map((doc,i)=>
+                                                                        <p key={i} className="text-info">{doc.name}</p>
+                                                                    ): null
+                                                                }
                                                             </td>
                                                             <td className="text-center"> {datahere.count_land} Lahan</td>
                                                             {/*<td className="text-center">

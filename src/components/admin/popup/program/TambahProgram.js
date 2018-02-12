@@ -35,7 +35,7 @@ class TambahProgram extends Component {
         const { cookies } = this.props;
         
         axios.post(API_URL + 'programs/program_tickets/check_ticket', {
-            code: document.getElementById('code').value,
+            ticket_code: document.getElementById('code').value,
         },
         {
             headers: {

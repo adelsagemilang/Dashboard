@@ -229,10 +229,11 @@ export default class TiketProgram extends Component{
         })
         .then(res => {
             const data = res.data
+            console.log(data)
             this.setState({
-                count_accepted_program: data.count_accepted_program,
-                count_added_program: data.count_added_program,
-                count_rejected_program: data.count_rejected_program
+                count_accepted_program: data.accept,
+                count_added_program: data.waiting,
+                count_rejected_program: data.reject
             })
         })
         .catch((error) => {
@@ -264,15 +265,15 @@ export default class TiketProgram extends Component{
                                 <div className="user-access-container">
                                     <div className="box-status row-flex">
                                         <div className="col-3 text-center">
-                                            <h3 className="text-success">{this.state.count_accepted_program}</h3>
+                                            <h3 className="text-success">{this.state.count_accepted_program ? this.state.count_accepted_program : '0'}</h3>
                                             <p>Disetujui</p>
                                         </div>
                                         <div className="col-3 text-center">
-                                            <h3 className="text-info">{this.state.count_added_program}</h3>
+                                            <h3 className="text-info">{this.state.count_added_program ? this.state.count_added_program : '0'}</h3>
                                             <p>Menunggu Persetujuan</p>
                                         </div>
                                         <div className="col-3 text-center">
-                                            <h3 className="text-danger">{this.state.count_rejected_program}</h3>
+                                            <h3 className="text-danger">{this.state.count_rejected_program ? this.state.count_rejected_program : '0'}</h3>
                                             <p>Ditolak</p>
                                         </div>
                                     </div>

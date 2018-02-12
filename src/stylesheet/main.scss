@@ -19,3 +19,32 @@
 //compont general
 @import "component/login_comp";
 
+.edit-rab{
+	line-height: 12px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size: 12px;
+	cursor: pointer;
+	img {
+		height: 12px;
+		margin-right: 3px;
+	}
+}
+
+.footer-table.rab {
+	width: 50%;
+    box-sizing: border-box;
+    padding-top: 3px;
+    border-top: 1px solid #d5d5d5;
+
+	.text-footer{
+		padding-top: 10px;
+	}
+
+	.box-btn{
+		width: 150px;
+		float: right;
+		margin-right: 30px;
+	}
+}
+

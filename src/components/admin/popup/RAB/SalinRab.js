@@ -7,20 +7,46 @@ import autoBind from 'react-autobind'
 import InputForm from '../../../common/InputForm'
 import { ButtonPrimary } from '../../../common/ButtonPrimary'
 import '../../../../stylesheet/component/admin/_popup.scss'
-import { API_URL, TK_KEY } from '../../../../containers/RootUrl'
+import { API_QELISA_URL, TK_KEY } from '../../../../containers/RootUrl'
 
 class SalinRab extends Component {
 
     constructor(props) {
         super(props)
+        autoBind(this)
+
+        this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
+        this.userId = Cookie.load('user_id')
     }
 
     _handleChange(id, value){
         console.log('ini value: '+value)
     }
 
-    handleSalinRab(){
-
+    handleSalinRab(e){
+        console.log('clicked')
+        e.preventDefault();
+        
+        axios.post(API_QELISA_URL + 'public/program/rab', {
+           "user_aruni_id" : this.userId,
+           "name" : document.getElementById('name').value
+        },
+        {
+            headers: {
+                'X-AUTH-TOKEN' : this.authToken,
+                'Content-Type' : 'application/json'
+            },
+            auth: {
+                username: 'username',
+                password: 'password'
+            }
+        })
+        .then(res => {
+            this.props.success()
+        })
+        .catch((error) => {
+            console.log('err: '+ error)
+        })
     }
 
     render() {
@@ -36,7 +62,7 @@ class SalinRab extends Component {
 							inputId="name"
 							handleChange={this._handleChange}
 							type="text"
-							placeholder="No. Handphone"
+							placeholder="Nama RAB"
 							class="form-control"
 							defaultValue={this.props.placeholder}
 						/>

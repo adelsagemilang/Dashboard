@@ -65,10 +65,22 @@
 	background-color: transparent;
 }
 
+.btn-outline-blue-sm{
+    @extend .btn-sm;
+    border-color: $color-primary;
+    background-color: transparent;
+}
+
 .btn-red-sm{
 	@extend .btn-sm;
 	background-color: $color-07;
 	border: none;
+}
+
+.btn-outline-red-sm{
+    @extend .btn-sm;
+    background-color: transparent;
+    border-color: $color-07;
 }
 
 .icon-sm{
@@ -87,6 +99,18 @@
 	@extend .icon-sm;
 	margin: auto;
 	background-image: url('/images/icon/button_icon/icon_delete.svg');
+}
+
+.icon-delete-red{
+    @extend .icon-sm;
+    margin: auto;
+    background-image: url('/images/icon/button_icon/icon_x_red.svg');
+}
+
+.icon-check-blue{
+    @extend .icon-sm;
+    margin: auto;
+    background-image: url('/images/icon/button_icon/icon_check_blue.svg');
 }
 
 .btn-file {

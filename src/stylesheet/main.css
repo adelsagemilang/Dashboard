@@ -29,7 +29,7 @@ body {
   -ms-border-radius: 10px;
   border-radius: 10px; }
 
-.radius-secondary, .form-primary, .login-comp .container-login .box-form-login .content .form form .form-input, .checkbox-primary, .login-comp .container-login .box-form-login .content .form form .add-checkbox, .box-footer-table .box-pagination .pagination-content .pagination .box-lable, .add-popup .popup-container .box-content, .add-popup-map .popup-container .box-content, .btn, .button-primary, .button-danger, .btn-white, .button-secondary, .btn-sm, .btn-outline-sm, .btn-red-sm {
+.radius-secondary, .form-primary, .login-comp .container-login .box-form-login .content .form form .form-input, .checkbox-primary, .login-comp .container-login .box-form-login .content .form form .add-checkbox, .box-footer-table .box-pagination .pagination-content .pagination .box-lable, .add-popup .popup-container .box-content, .add-popup-map .popup-container .box-content, .btn, .button-primary, .button-danger, .btn-white, .button-secondary, .btn-sm, .btn-outline-sm, .btn-outline-blue-sm, .btn-red-sm, .btn-outline-red-sm {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
@@ -580,6 +580,9 @@ a {
 
 .pd-l-20 {
   padding-left: 20px; }
+
+.pd-r-40 {
+  padding-right: 40px !important; }
 
 .pull-left {
   float: left; }
@@ -1238,6 +1241,8 @@ a.box-btn button {
         width: 552px; } }
     .add-popup .popup-container.popup-peserta, .add-popup-map .popup-container.popup-peserta {
       width: 810px; }
+      .add-popup .popup-container.popup-peserta .box-table, .add-popup-map .popup-container.popup-peserta .box-table {
+        overflow: unset; }
     .add-popup .popup-container.sm, .add-popup-map .popup-container.sm {
       width: 375px; }
       @media (max-width: 480px) {
@@ -1530,7 +1535,7 @@ a.box-btn button {
   .button-secondary:focus, .button-secondary:active {
     background-color: #8B8B8B; }
 
-.btn-sm, .btn-outline-sm, .btn-red-sm {
+.btn-sm, .btn-outline-sm, .btn-outline-blue-sm, .btn-red-sm, .btn-outline-red-sm {
   width: 30px;
   height: 30px;
   outline: none;
@@ -1542,11 +1547,19 @@ a.box-btn button {
   border-color: #DDDDDD;
   background-color: transparent; }
 
+.btn-outline-blue-sm {
+  border-color: #27A1C3;
+  background-color: transparent; }
+
 .btn-red-sm {
   background-color: #DD4A4A;
   border: none; }
 
-.icon-sm, .icon-create, .icon-delete {
+.btn-outline-red-sm {
+  background-color: transparent;
+  border-color: #DD4A4A; }
+
+.icon-sm, .icon-create, .icon-delete, .icon-delete-red, .icon-check-blue {
   width: 14px;
   height: 14px;
   background-size: cover; }
@@ -1558,6 +1571,14 @@ a.box-btn button {
 .icon-delete {
   margin: auto;
   background-image: url("/images/icon/button_icon/icon_delete.svg"); }
+
+.icon-delete-red {
+  margin: auto;
+  background-image: url("/images/icon/button_icon/icon_x_red.svg"); }
+
+.icon-check-blue {
+  margin: auto;
+  background-image: url("/images/icon/button_icon/icon_check_blue.svg"); }
 
 .btn-file {
   position: relative;
@@ -2139,3 +2160,25 @@ a.box-btn button {
           text-align: center; }
           .login-comp .container-login .box-form-login .content .forgot-password a {
             text-decoration: none; }
+
+.edit-rab {
+  line-height: 12px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  cursor: pointer; }
+  .edit-rab img {
+    height: 12px;
+    margin-right: 3px; }
+
+.footer-table.rab {
+  width: 50%;
+  box-sizing: border-box;
+  padding-top: 3px;
+  border-top: 1px solid #d5d5d5; }
+  .footer-table.rab .text-footer {
+    padding-top: 10px; }
+  .footer-table.rab .box-btn {
+    width: 150px;
+    float: right;
+    margin-right: 30px; }

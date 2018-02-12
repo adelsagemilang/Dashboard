@@ -5,7 +5,7 @@ import Base64 from 'base-64'
 import axios from 'axios'
 import autoBind from 'react-autobind'
 import { ButtonPrimary } from '../../../common/ButtonPrimary'
-import { API_URL, TK_KEY } from '../../../../containers/RootUrl'
+import { API_URL,API_QELISA_URL, TK_KEY } from '../../../../containers/RootUrl'
 
 class HapusData extends Component {
     constructor(props) {
@@ -20,27 +20,54 @@ class HapusData extends Component {
     }
 
     handleAcceptDelete(){
-        console.log('deleted')
+        if(this.props.qelisa){
+             axios.get(API_QELISA_URL + this.props.url,{
+                headers:{ 
+                    'X-AUTH-TOKEN' : this.authToken
+                },
+                auth:{
+                    username: 'username',
+                    password: 'password'
+                }
+            })
+            .then(res => {
+                window.location.reload()
+            })
+            .catch((error) => {
+                if (error.response.status == 400){
+                    this.setState({
+                        errorMessage: error.response.data,
+                        error: true
+                    })
 
-        axios.get(API_URL + this.props.url,{
-            headers:{ 
-                'X-AUTH-TOKEN' : this.authToken
-            }
-        })
-        .then(res => {
-            
-            window.location.reload()
-        })
-        .catch((error) => {
-            if (error.response.status == 400){
-                this.setState({
-                    errorMessage: error.response.data,
-                    error: true
-                })
+                }
+                console.log('err: '+ error)
+            })
+        } else {
+            axios.get(API_URL + this.props.url,{
+                headers:{ 
+                    'X-AUTH-TOKEN' : this.authToken
+                },
+                auth:{
+                    username: 'username',
+                    password: 'password'
+                }
+            })
+            .then(res => {
+                window.location.reload()
+            })
+            .catch((error) => {
+                if (error.response.status == 400){
+                    this.setState({
+                        errorMessage: error.response.data,
+                        error: true
+                    })
 
-            }
-            console.log('err: '+ error)
-        })
+                }
+                console.log('err: '+ error)
+            })
+        }
+
     }
     render() {
         return (

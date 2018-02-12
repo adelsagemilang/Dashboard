@@ -48,7 +48,7 @@ export default class Routes extends Component {
                         <Authenticated exact path="/admin/edit-akun" component={EditAkun}/>
                         <Authenticated exact path="/admin/rekap-kegiatan" component={RekapKegiatan}/>
                         <Authenticated exact path="/admin/data-rab" component={RAB}/>
-                        <Authenticated exact path="/admin/rab-detail" component={RABDetail}/>
+                        <Authenticated exact path="/admin/rab-detail/:id" component={RABDetail}/>
                         <Authenticated exact path="/login" component={LoginComp}/>
                         <Authenticated exact path="/" component={LoginComp}/>
                         <Route path='/404' component={NotFound} />

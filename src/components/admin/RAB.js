@@ -4,7 +4,7 @@ import Crypto from 'crypto-js'
 import Base64 from 'base-64'
 import axios from 'axios'
 import autoBind from 'react-autobind'
-import { API_URL, TK_KEY } from '../../containers/RootUrl'
+import { API_QELISA_URL, TK_KEY } from '../../containers/RootUrl'
 import { ButtonPrimary } from '../common/ButtonPrimary'
 import { ButtonIcon } from '../common/ButtonIcon'
 import { Link } from 'react-router-dom'
@@ -29,6 +29,8 @@ export default class RAB extends Component{
             searchNull: true,
             salinRab: false,
             tambahRab: false,
+            toggleSuccess: false,
+            toggleDeletePopup: false,
             entriPage: []
         }
 
@@ -36,7 +38,7 @@ export default class RAB extends Component{
     }
 
     handleSearch(id, value){
-        axios.get(API_URL + 'farmers?pagination=true&text=' + value + '&page=0&size=10&member=false',{
+        axios.get(API_QELISA_URL + 'public/program/rab?page=0&size=10&text=' + value + '&user=',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -63,7 +65,7 @@ export default class RAB extends Component{
     handleChangeEntriPage(e){
         const valueEntri = e.target.value
 
-        axios.get(API_URL + 'farmers?pagination=true&text=&page=0&size=' + valueEntri + '&member=false' ,{
+        axios.get(API_QELISA_URL + 'public/program/rab?page=0&size=' + valueEntri + '&text=&user=' ,{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -92,6 +94,23 @@ export default class RAB extends Component{
     	})
     }
 
+    handleDelete(id, name){
+        console.log('delete: ' + id)
+        this.setState({
+            id: id,
+            name: name,
+            toggleDeletePopup: !this.state.toggleDeletePopup
+        })
+    }
+
+    handleSuccessDismiss(){
+        this.setState({
+            toggleSuccess: !this.state.toggleSuccess,
+            daftarPetani: false
+        })
+        window.location.reload()
+    }
+
     toggleSalinRab(){
     	this.setState({
     		salinRab: !this.state.salinRab
@@ -101,6 +120,19 @@ export default class RAB extends Component{
     toggleTambahRab(){
         this.setState({
             tambahRab: !this.state.tambahRab
+        })
+    }
+
+    toggleSuccessPopup(){
+        this.setState({
+            toggleSuccess: !this.state.toggleSuccess,
+            toggleTambahRab: false
+        })
+    }
+
+    toggleDeletePopup(){
+        this.setState({
+            toggleDeletePopup : !this.state.toggleDeletePopup
         })
     }
 
@@ -116,15 +148,40 @@ export default class RAB extends Component{
     renderTambahRab(){
         if(this.state.tambahRab){
             return <TambahRab 
+                        success={this.toggleSuccessPopup}
                         toggleTambahRab={this.toggleTambahRab}
                     />
+        }
+    }
+
+    renderPopupSuccess(){
+        if(this.state.toggleSuccess){
+            return (
+                <Success 
+                toggleSuccessPopup={this.handleSuccessDismiss} 
+            />
+            )
+        }
+    }
+
+    renderPopupDelete(){
+        if (this.state.toggleDeletePopup){
+            return (
+                <HapusData 
+                    title="Hapus RAB"
+                    url={'public/program/rab/'+this.state.id+'/delete'}
+                    name={this.state.name}
+                    qelisa={true}
+                    toggleDeletePopup={this.toggleDeletePopup} 
+            />
+            )
         }
     }
 
     handlePageClick(dataHere){
         let selected = dataHere.selected
 
-        axios.get(API_URL + 'farmers?pagination=true&text=&page='+ selected +'&size=10&member=false',{
+        axios.get(API_QELISA_URL + 'public/program/rab?page='+ selected +'&size=10&text=&user=',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             }
@@ -146,9 +203,13 @@ export default class RAB extends Component{
     }
 
     componentDidMount(){
-        axios.get(API_URL + 'farmers?pagination=true&text=&page=0&size=10&member=false',{
+        axios.get(API_QELISA_URL + 'public/program/rab?page=0&size=10&text=&user=',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
+            },
+            auth:{
+                username: 'username',
+                password: 'password'
             }
         })
         .then(res => {
@@ -171,8 +232,10 @@ export default class RAB extends Component{
 
         return(
             <div id="outer-container">
+                {this.renderPopupDelete()}
             	{this.renderSalinRab()}
                 {this.renderTambahRab()}
+                {this.renderPopupSuccess()}
                 <ResponsiveHeader />
                 <div id="page-wrap" className="main-content">
                     <div className="responsive-header">
@@ -226,21 +289,20 @@ export default class RAB extends Component{
                                                     {DataHere.map((datahere, i) => {
                                                         return(
                                                             <tr key={i}>
-                                                                <td>{i}</td>
+                                                                <td>{datahere.rab_id}</td>
                                                                 <td>
-                                                                    <Link className="text-success pointer" to={'/admin/rab-detail/' + i}>RAB Gua Tea Wa Euy</Link>
+                                                                    <Link className="text-success pointer" to={'/admin/rab-detail/' + i}>{datahere.name}</Link>
                                                                 </td>
-                                                                <td>27/12/2017, 19:00</td>
+                                                                <td>{datahere.created_date}</td>
                                                                 <td>
-                                                                	<p className="text-small">Digunakan di</p>
-                                                                	<p>Program Satu Dua Tiga</p>
+                                                                	<p>{datahere.status}</p>
                                                                 </td>
                                                                 <td>
                                                                 	<div className="row-flex flex-center flex-xs">
                                                                         <div className="box-btn auto" onClick={this.handleSalinRab.bind(this,datahere.name)}>
 								                                            <ButtonPrimary name="SALIN RAB" class="btn-white" />
 								                                        </div>
-                                                                         <div className="box-btn">
+                                                                         <div className="box-btn" onClick={this.handleDelete.bind(this, datahere.rab_id,datahere.name)}>
                                                                              <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
                                                                          </div>
                                                                     </div> 

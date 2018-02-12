@@ -400,12 +400,13 @@ export default class Program extends Component{
             }
         })
         .then(res => {
+            console.log(res)
             const data = res.data
             this.setState({
-                count_accepted_program: data.count_accepted_program,
-                count_added_program: data.count_added_program,
-                count_pending_program: data.count_pending_program,
-                count_rejected_program: data.count_rejected_program
+                count_accepted_program: data.accept,
+                count_added_program: data.draft,
+                count_pending_program: data.reject,
+                count_rejected_program: data.waiting
             })
         })
         .catch((error) => {

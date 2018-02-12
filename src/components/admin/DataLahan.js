@@ -9,6 +9,7 @@ import { ButtonPrimary } from '../common/ButtonPrimary'
 import { ButtonIcon } from '../common/ButtonIcon'
 import Detail from './popup/data-lahan/Detail'
 import TambahLahan from './popup/data-lahan/TambahLahan'
+import EditLahan from './popup/data-lahan/EditLahan'
 import HapusData from './popup/common-popup/HapusData'
 import Header from '../common/Header'
 import ResponsiveHeader from '../common/ResponsiveHeader'
@@ -27,6 +28,7 @@ export default class Datalahan extends Component{
             toggleTambahLahan: false,
             toggleDeleteLahan: false,
             togglePopupDetail: false,
+            togglePopupEdit: false,
             entriPage: []
         }
 
@@ -108,18 +110,6 @@ export default class Datalahan extends Component{
         })
     }
 
-    handleDetail(name, id, lat, lng, img, address, loc){
-        this.setState({
-            landName: name,
-            landId: id,
-            lat: lat,
-            lng: lng,
-            img: img,
-            address: address,
-            loc: loc,
-            togglePopupDetail: !this.state.togglePopupDetail
-        })
-    }
 
     toggleTambahLahan(){
         this.setState({
@@ -139,11 +129,64 @@ export default class Datalahan extends Component{
         })
     }
 
+    togglePopupEdit(){
+        this.setState({
+            togglePopupEdit: !this.state.togglePopupEdit
+        })
+    }
+
+    handleDetail(name, id, lat, lng, img, address, loc){
+        this.setState({
+            landName: name,
+            landId: id,
+            lat: lat,
+            lng: lng,
+            img: img,
+            address: address,
+            loc: loc,
+            togglePopupDetail: !this.state.togglePopupDetail
+        })
+    }
+
+    handleEdit(data){
+        this.setState({
+            data: data,
+            togglePopupEdit: !this.state.togglePopupEdit
+        })
+    }
+
+    handleCancel(){
+        console.log('canceled')
+        this.setState({
+            toggleTambahLahan: false
+        })
+    }
+
+    handleDelete(land_id, name){
+        this.setState({
+            land_id: land_id,
+            name: name,
+            toggleDeleteLahan: !this.state.toggleDeleteLahan
+        })
+    }
+
     renderPopupTambahLahan(){
 
         if( this.state.toggleTambahLahan ){
             return (
                 <TambahLahan toggleTambahLahan={this.toggleTambahLahan}
+                />
+            )
+        }
+    }
+
+    renderPopupEditLahan(){
+
+        if( this.state.togglePopupEdit ){
+            return (
+                <EditLahan 
+                    toggleEdit={this.togglePopupEdit}
+                    data={this.state.data}
                 />
             )
         }
@@ -181,21 +224,6 @@ export default class Datalahan extends Component{
         }
     }
 
-    handleCancel(){
-        console.log('canceled')
-        this.setState({
-            toggleTambahLahan: false
-        })
-    }
-
-    handleDelete(land_id, name){
-        this.setState({
-            land_id: land_id,
-            name: name,
-            toggleDeleteLahan: !this.state.toggleDeleteLahan
-        })
-    }
-
     componentDidMount(){
         axios.get(API_URL + 'lands?page=0&size=10&text=',{
             headers:{ 
@@ -224,6 +252,7 @@ export default class Datalahan extends Component{
         return(
             <div id="outer-container">
                 {this.renderPopupTambahLahan()}
+                {this.renderPopupEditLahan()}
                 {this.renderPopupDeleteLahan()}
                 {this.renderPopupDetail()}
                 <ResponsiveHeader />
@@ -325,6 +354,9 @@ export default class Datalahan extends Component{
                                                     <td data-th="Penyakit Dominan">{ datahere.disease }</td>
                                                      <td data-th="Aksi">
                                                         <div className="row-flex flex-center flex-xs">
+                                                             <div className="box-btn" onClick={this.handleEdit.bind(this,datahere)}>
+                                                                 <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
+                                                             </div>
                                                              <div className="box-btn" onClick={this.handleDelete.bind(this,datahere.land_id,datahere.name)}>
                                                                  <ButtonIcon class="btn-red-sm" icon="icon-delete"/>
                                                              </div>
