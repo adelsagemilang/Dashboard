@@ -41,6 +41,10 @@ export default class RAB extends Component{
         axios.get(API_QELISA_URL + 'public/program/rab?page=0&size=10&text=' + value + '&user=',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
+            },
+            auth:{
+                username: 'username',
+                password: 'password'
             }
         })
         .then(res => {
@@ -68,6 +72,10 @@ export default class RAB extends Component{
         axios.get(API_QELISA_URL + 'public/program/rab?page=0&size=' + valueEntri + '&text=&user=' ,{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
+            },
+            auth:{
+                username: 'username',
+                password: 'password'
             }
         })
         .then(res => {
@@ -184,6 +192,10 @@ export default class RAB extends Component{
         axios.get(API_QELISA_URL + 'public/program/rab?page='+ selected +'&size=10&text=&user=',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
+            },
+            auth:{
+                username: 'username',
+                password: 'password'
             }
         })
         .then(res => {
@@ -291,9 +303,9 @@ export default class RAB extends Component{
                                                             <tr key={i}>
                                                                 <td>{datahere.rab_id}</td>
                                                                 <td>
-                                                                    <Link className="text-success pointer" to={'/admin/rab-detail/' + i}>{datahere.name}</Link>
+                                                                    <Link className="text-success pointer" to={'/admin/rab-detail/' + datahere.rab_id}>{datahere.name}</Link>
                                                                 </td>
-                                                                <td>{datahere.created_date}</td>
+                                                                <td>{new Date (datahere.created_date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</td>
                                                                 <td>
                                                                 	<p>{datahere.status}</p>
                                                                 </td>

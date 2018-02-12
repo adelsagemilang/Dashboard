@@ -2182,3 +2182,6 @@ a.box-btn button {
     width: 150px;
     float: right;
     margin-right: 30px; }
+
+.table-rab-detail tr:last-child {
+  border-bottom: unset; }

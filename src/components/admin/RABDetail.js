@@ -317,7 +317,7 @@ export default class RABDetail extends Component{
                                             </tr>
                                         </thead>
                                        
-                                        <tbody>
+                                        <tbody className="table-rab-detail">
                                                 { DataHere.details ?
                                                     DataHere.details.map((datahere, i) => {
                                                     return(
