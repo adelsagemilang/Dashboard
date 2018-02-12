@@ -290,7 +290,7 @@ export default class DataKelompokPetani extends Component{
                                                         <td data-th="ID" className="strong">{datahere.farmer_group_id}</td>
                                                         <td data-th="Nama Kelompok Tani">{datahere.name}</td>
                                                         <td data-th="Jumlah Anggota">{datahere.count_member}</td>
-                                                        <td data-th="Total Luas Lahan">{datahere.count_land_member ? datahere.count_land_member : '0'}m<sup>2</sup></td>
+                                                        <td data-th="Total Luas Lahan">{datahere.count_land_member ? datahere.count_land_member.toLocaleString() : '0'}m<sup>2</sup></td>
                                                         <td data-th="Alamat">
                                                             {   ( 
                                                                 <div className="block lower">

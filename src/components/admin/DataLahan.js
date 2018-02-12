@@ -335,8 +335,8 @@ export default class Datalahan extends Component{
                                                             >Lihat Detail</p>
                                                         </div>
                                                     </td>
-                                                    <td data-th="Luas">{ datahere.large }m<sup>2</sup></td>
-                                                    <td data-th="Ketinggian">{ datahere.height }mdpl</td>
+                                                    <td data-th="Luas">{ datahere.large.toLocaleString()} m<sup>2</sup></td>
+                                                    <td data-th="Ketinggian">{ datahere.height.toLocaleString()} mdpl</td>
                                                     <td data-th="Sumber Pengairan">{ datahere.irigation }</td>
                                                     <td data-th="Komoditas Tanam">
                                                     { 

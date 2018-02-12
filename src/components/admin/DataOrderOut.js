@@ -199,8 +199,8 @@ export default class DataOrderOut extends Component{
                                                     <td data-th="Nama Petani">{datahere.farmer_name}</td>
                                                     <td data-th="Nama Rukman">{datahere.rukman_name}</td>
                                                     <td data-th="Komoditas">Komoditas</td>
-                                                    <td data-th="Jumlah">{datahere.qty}</td>
-                                                    <td data-th="Harga">{datahere.price}</td>
+                                                    <td data-th="Jumlah">{datahere.qty.toLocaleString()}</td>
+                                                    <td data-th="Harga">Rp. {datahere.price.toLocaleString()}</td>
                                                     <td data-th="Status" className="text-center">
                                                     	{datahere.status}	
                                                     </td>
