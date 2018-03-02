@@ -31,7 +31,11 @@ class HapusData extends Component {
                 }
             })
             .then(res => {
-                window.location.reload()
+                if (this.props.successDelete) {
+                    this.props.successDelete()
+                } else {
+                    window.location.reload()
+                }
             })
             .catch((error) => {
                 if (error.response.status == 400){

@@ -25,7 +25,7 @@ class EditRab extends Component {
     handleSalinRab(e){
         e.preventDefault();
         let name = document.getElementById('name').value
-        axios.get(API_QELISA_URL + 'public/program/rab/1/change-name?name='+name, {
+        axios.get(API_QELISA_URL + 'public/program/rab/'+this.props.id+'/change-name?name='+name, {
             headers: {
                 'X-AUTH-TOKEN' : this.authToken,
                 'Content-Type' : 'application/json'

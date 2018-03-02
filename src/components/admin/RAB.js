@@ -19,6 +19,8 @@ import TambahRab from './popup/RAB/TambahRab'
 
 import ReactPaginate from 'react-paginate'
 
+import { hashHistory,withRouter, Redirect, router } from 'react-router';
+
 export default class RAB extends Component{
     constructor(props){
         super(props)
@@ -35,6 +37,11 @@ export default class RAB extends Component{
         }
 
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
+        this.user_id = Cookie.load('user_id')
+    }
+
+    salinRABSuccess(id){
+        this.props.history.push('/admin/rab-detail/'+id);
     }
 
     handleSearch(id, value){
@@ -95,8 +102,9 @@ export default class RAB extends Component{
 
     }
 
-    handleSalinRab(name){
+    handleSalinRab(id,name){
     	this.setState({
+            id: id,
     		name: name,
     		salinRab: true
     	})
@@ -148,7 +156,9 @@ export default class RAB extends Component{
     	if(this.state.salinRab){
     		return <SalinRab 
     					toggleSalinRab={this.toggleSalinRab}
+                        id={this.state.id}
     					placeholder={this.state.name}
+                        redirect={this.salinRABSuccess}
     				/>
     	}
     }
@@ -215,7 +225,7 @@ export default class RAB extends Component{
     }
 
     componentDidMount(){
-        axios.get(API_QELISA_URL + 'public/program/rab?page=0&size=10&text=&user=',{
+        axios.get(API_QELISA_URL + 'public/program/rab?page=0&size=10&text=&user='+this.user_id,{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             },
@@ -301,17 +311,17 @@ export default class RAB extends Component{
                                                     {DataHere.map((datahere, i) => {
                                                         return(
                                                             <tr key={i}>
-                                                                <td>{datahere.rab_id}</td>
-                                                                <td>
+                                                                <td data-th="ID">{datahere.rab_id}</td>
+                                                                <td data-th="Nama RAB">
                                                                     <Link className="text-success pointer" to={'/admin/rab-detail/' + datahere.rab_id}>{datahere.name}</Link>
                                                                 </td>
-                                                                <td>{new Date (datahere.created_date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</td>
-                                                                <td>
+                                                                <td data-th="Tanggal Dibuat">{new Date (datahere.created_date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</td>
+                                                                <td data-th="Status">
                                                                 	<p>{datahere.status}</p>
                                                                 </td>
-                                                                <td>
+                                                                <td data-th="Aksi">
                                                                 	<div className="row-flex flex-center flex-xs">
-                                                                        <div className="box-btn auto" onClick={this.handleSalinRab.bind(this,datahere.name)}>
+                                                                        <div className="box-btn auto" onClick={this.handleSalinRab.bind(this,datahere.rab_id,datahere.name)}>
 								                                            <ButtonPrimary name="SALIN RAB" class="btn-white" />
 								                                        </div>
                                                                          <div className="box-btn" onClick={this.handleDelete.bind(this, datahere.rab_id,datahere.name)}>
@@ -365,7 +375,7 @@ export default class RAB extends Component{
                                      <div className="user-access-container text-center no-content">
                                         <img src="../images/empty_state.svg" alt="" height="180"/>
                                         <h3 className="mg-t-20 normal">Data RAB masih kosong</h3>
-                                        <div className="box-btn auto mg-t-40">
+                                        <div className="box-btn auto mg-t-40" onClick={this.toggleTambahRab}>
                                             <ButtonPrimary name="Tambah RAB" />
                                         </div>
                                      </div>

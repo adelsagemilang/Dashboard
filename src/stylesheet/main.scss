@@ -48,7 +48,40 @@
 	}
 }
 
+.rab-detail{
+	.box-footer-table{
+		.footer-table{
+			.text-footer{
+				@media(max-width: $screen-phone){
+					text-align: left;
+				}
+			}
+		}
+	}
+}
+
 .table-rab-detail tr:last-child{
 	border-bottom: unset;
+}
+
+.table-rab-detail{
+	tr{
+		td {
+			@media(max-width: $screen-phone){
+				display: flex !important;
+			}
+
+			.select-wrapper{
+				@media (max-width: $screen-phone){
+				    width: calc(100% - 75px) !important;
+   					 margin-right: -7px !important;
+				}
+			}
+
+			&:last-child{
+				display: block !important;
+			}
+		}
+	} 
 }
 

@@ -225,7 +225,7 @@ class PesertaProgram extends Component {
                                                             	<p className="normal">{datahere.ktp_number}</p>
                                                             </td>
                                                             <td>{datahere.farmer_group_name}</td>
-                                                            <td>Rp. {datahere.amount}</td>
+                                                            <td>Rp. {datahere.amount.toLocaleString()}</td>
                                                             <td>{datahere.phone_number}</td>
                                                             <td>{datahere.description}</td>
         													<td>{datahere.reason}</td>
@@ -233,7 +233,7 @@ class PesertaProgram extends Component {
         														{
                                                                     datahere.documents ? 
                                                                     datahere.documents.map((doc,i)=>
-                                                                        <p key={i} className="text-info">{doc.name}</p>
+                                                                        <a href={doc.name} key={i} className="text-info">{doc.name}</a>
                                                                     ): null
                                                                 }
                                                             </td>

@@ -8,6 +8,7 @@ import { API_URL, TK_KEY } from '../../containers/RootUrl'
 import { ButtonPrimary } from '../common/ButtonPrimary'
 import { ButtonIcon } from '../common/ButtonIcon'
 import Detail from './popup/data-lahan/Detail'
+import Koordinat from './popup/data-lahan/Koordinat'
 import TambahLahan from './popup/data-lahan/TambahLahan'
 import EditLahan from './popup/data-lahan/EditLahan'
 import HapusData from './popup/common-popup/HapusData'
@@ -28,6 +29,7 @@ export default class Datalahan extends Component{
             toggleTambahLahan: false,
             toggleDeleteLahan: false,
             togglePopupDetail: false,
+            togglePopupKoordinat: false,
             togglePopupEdit: false,
             entriPage: []
         }
@@ -110,6 +112,19 @@ export default class Datalahan extends Component{
         })
     }
 
+    handleShowKoordinat(id){
+        this.setState({
+            togglePopupKoordinat: true,
+            id: id
+        })
+    }
+
+    togglePopupKoordinat(){
+        this.setState({
+            togglePopupKoordinat: !this.state.togglePopupKoordinat
+        })
+    }
+
 
     toggleTambahLahan(){
         this.setState({
@@ -135,12 +150,11 @@ export default class Datalahan extends Component{
         })
     }
 
-    handleDetail(name, id, lat, lng, img, address, loc){
+    handleDetail(name, id, geolocations, img, address, loc){
         this.setState({
             landName: name,
             landId: id,
-            lat: lat,
-            lng: lng,
+            geolocations: geolocations,
             img: img,
             address: address,
             loc: loc,
@@ -213,12 +227,23 @@ export default class Datalahan extends Component{
                 <Detail
                     name={this.state.landName}
                     landId={this.state.landId}
-                    lat={this.state.lat}
-                    lng={this.state.lng}
+                    geolocations={this.state.geolocations}
                     img={this.state.img}
                     loc={this.state.loc}
                     address={this.state.address}
                     togglePopupDetail={this.togglePopupDetail} 
+                    togglePopupKoordinat={this.handleShowKoordinat}
+                />
+            )
+        }
+    }
+
+    renderPopupKoordinat(){
+        if(this.state.togglePopupKoordinat){
+            return(
+                <Koordinat
+                   id={this.state.id}
+                   togglePopupKoordinat={this.togglePopupKoordinat}
                 />
             )
         }
@@ -255,6 +280,7 @@ export default class Datalahan extends Component{
                 {this.renderPopupEditLahan()}
                 {this.renderPopupDeleteLahan()}
                 {this.renderPopupDetail()}
+                {this.renderPopupKoordinat()}
                 <ResponsiveHeader />
                 <div id="page-wrap" className="main-content">
                     <div className="responsive-header">
@@ -312,7 +338,7 @@ export default class Datalahan extends Component{
                                         {DataHere.map((datahere, i) => {
                                             return(
                                                 <tr key={i}>
-                                                    <td data-th="Nama Petani" className="strong">{ datahere.farmer_name }</td>
+                                                    <td data-th="Nama Petani" className="strong">{ datahere.farmer.name }</td>
                                                     <td data-th="Nama Lahan">
                                                         <div className="block">
                                                             <p>{ datahere.name }</p>
@@ -326,8 +352,7 @@ export default class Datalahan extends Component{
                                                                     this,
                                                                     datahere.name,
                                                                     datahere.land_id,
-                                                                    datahere.lat,
-                                                                    datahere.lng,
+                                                                    datahere.geolocations,
                                                                     datahere.image,
                                                                     datahere.address,
                                                                     datahere.location

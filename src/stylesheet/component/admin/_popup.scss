@@ -322,6 +322,61 @@
 
 .add-popup-map{
     @extend .add-popup;
+    &.koordinat{
+        .popup-container.md{
+            width: 450px !important;
+            .box-content{
+                width: 450px !important;
+                .row-flex.col-3{
+                    color: red;
+                    margin-bottom: 15px !important;
+                    .input-form{
+                        margin-top: 10px !important;
+                    }
+
+                    .box-btn{
+                        width: unset !important;
+                        margin: 0 !important;
+                        margin-left: 5px !important;
+                         button{
+                            margin-top: 15px !important;
+                        }
+                    }
+                }
+
+                .box-table{
+                    overflow: unset !important;
+
+                    table{
+                        overflow: unset !important;
+                    }
+                }
+
+                .box-footer-table{
+                    width: unset;
+                    text-align: center;
+                    padding: 15px 0;
+                    border-bottom: 1px solid #d5d5d5;
+
+                    .box-pagination{
+                        width: unset !important;
+                    }
+
+                    .pagination-content{
+                        position: relative;
+                        margin: 0;
+                        right: 0;
+
+                        .pagination{
+                            .previous{
+                                padding: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     .popup-container{
         max-width: 820px!important;
 

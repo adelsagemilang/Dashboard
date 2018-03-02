@@ -22,7 +22,11 @@ class TambahPesertaProgram extends Component {
             loading: false,
             arrayFile: [],
             arrayFileRes: [],
-            arrayIndexCheck: []
+            arrayIndexCheck: [],
+            activeFarmer: false,
+            activeGroup: false,
+            activeRAB: false,
+            activeClass: false
         }
     }
 
@@ -38,6 +42,15 @@ class TambahPesertaProgram extends Component {
         this.setState({
             arrayFile: array
         })
+    }
+    
+    handleChangeClass(e){
+        if( e.target.value !== '' ){
+            this.setState({activeClass: true})
+        }
+        else{
+            this.setState({activeClass: false})
+        }
     }
 
     handleCheck(id){
@@ -66,6 +79,12 @@ class TambahPesertaProgram extends Component {
     handleChangeRab(e){
         this.setState({
             valueRab: e.target.value})
+        if( e.target.value !== '' ){
+            this.setState({activeRAB: true})
+        }
+        else{
+            this.setState({activeRAB: false})
+        }
     }
 
     handleChangeRukman(e){
@@ -90,6 +109,13 @@ class TambahPesertaProgram extends Component {
                 console.log('err: '+ error)
             })
         })
+
+        if( e.target.value !== '' ){
+            this.setState({activeGroup: true})
+        }
+        else{
+            this.setState({activeGroup: false})
+        }
     }
 
     handleChangeFarmer(e){
@@ -116,6 +142,13 @@ class TambahPesertaProgram extends Component {
                 console.log('err: '+ error)
             })
         })
+
+        if( e.target.value !== '' ){
+            this.setState({activeFarmer: true})
+        }
+        else{
+            this.setState({activeFarmer: false})
+        }
     }
 
     renderloading(){
@@ -183,6 +216,7 @@ class TambahPesertaProgram extends Component {
         }
 
         var fileres = this.state.arrayFileRes
+        console.log(fileres)
 
         var post = setInterval(function(){ 
             if(files.length == fileres.length){
@@ -193,8 +227,8 @@ class TambahPesertaProgram extends Component {
                           farmer_group_name : this.state.valueRukmanName,
                           farmer_name : this.state.valueFarmerName,
                           cost: document.getElementById('biaya').value,
-                          description: document.getElementById('description').value,
-                          reason: document.getElementById('reason').value,
+                          /*description: document.getElementById('description').value,
+                          reason: document.getElementById('reason').value,*/
                           documents: this.state.arrayFileRes,
                           lands: arrayLahan,
                           rab_id : this.state.valueRab
@@ -286,7 +320,7 @@ class TambahPesertaProgram extends Component {
                                 <p className="sub-title">Silahkan masukkan data peserta program.</p>
                                 <div className="row-flex col-2 mg-t-10">
                                     <div className="select-wrapper">
-                                         <select className="form-control select-option input-sm mg-r-10" value={ this.state.value } onChange={this.handleChangeRukman}>
+                                         <select className={ this.state.activeGroup ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={ this.state.value } onChange={this.handleChangeRukman}>
                                             <option value="">Pilih kelompok tani</option>
                                             {list_rukman ?
                                                 listrukman.map(rukman => 
@@ -301,7 +335,7 @@ class TambahPesertaProgram extends Component {
                                     </div>
 
                                     <div className="select-wrapper">
-                                         <select className="form-control select-option input-sm mg-r-10" value={ this.state.value } onChange={this.handleChangeFarmer}>
+                                         <select className={ this.state.activeFarmer ? "text-color form-control select-option input-sm mg-r-10" : "form-control select-option input-sm mg-r-10" } value={ this.state.value } onChange={this.handleChangeFarmer}>
                                             <option value="">Pilih petani</option>
                                             {list_farmer ?
                                                 listfarmer.map(farmer => 
@@ -316,7 +350,7 @@ class TambahPesertaProgram extends Component {
                                     </div>
 
                                     <div className="select-wrapper">
-                                         <select className="form-control select-option input-sm mg-r-10" value={ this.state.value } onChange={this.handleChangeRab}>
+                                         <select className={ this.state.activeRAB ? "text-color form-control select-option input-sm mg-r-10" : "form-control select-option input-sm mg-r-10" } value={ this.state.value } onChange={this.handleChangeRab}>
                                             <option value="">Pilih RAB</option>
                                             {this.state.list_rab ?
                                                 this.state.listrab.map(rab => 
@@ -339,10 +373,10 @@ class TambahPesertaProgram extends Component {
                                         handleChange={this._handleChange}
                                     />
                                 </div>
-                                <TextArea idtextarea="description" title="Jelaskan secara singkat program anda, tidak lebih dari 140 karakter.
+                                {/*<TextArea idtextarea="description" title="Jelaskan secara singkat program anda, tidak lebih dari 140 karakter.
     								Penjelasan ini untuk membantu kami mempromosikan program anda." class="form-control"/>
 
-    							<TextArea idtextarea="reason" title="Jelaskan dampak atau perubahan setelah program ini selesai" class="form-control"/>
+    							<TextArea idtextarea="reason" title="Jelaskan dampak atau perubahan setelah program ini selesai" class="form-control"/>*/}
 
     							<p className="strong">Dokumen</p>
                                 
@@ -392,7 +426,7 @@ class TambahPesertaProgram extends Component {
                                                             </td>
                                                             <td>
                                                                 <div className="select-wrapper">
-                                                                     <select className="form-control select-option input-sm" id={'select'+lahan.land_id}>
+                                                                     <select className={ this.state.activeClass ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } id={'select'+lahan.land_id} onChange={this.handleChangeClass}>
                                                                         <option value="">Pilih Komoditas</option>
                                                                         {
                                                                             lahan.commodity ? 

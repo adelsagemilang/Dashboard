@@ -87,7 +87,6 @@ export default class InputForm extends Component {
                           case "no_rek":   return "[0-9]*"
                           case "no_hp":   return "[0-9]*"
                           case "postcode": return "[0-9]*"
-                          case "qty": return "[0-9]*"
                           case "biaya": return "[0-9]*"
                           case "nama-petani": return "[a-zA-Z0-9 ]*"
                           case "tempat_lahir": return "[a-zA-Z ]*"
@@ -104,6 +103,7 @@ export default class InputForm extends Component {
                           case "title": return "[a-zA-Z ]*"
                           case "search_admin": return "[a-zA-Z0-9 ]*"
                           case "item": return "[a-zA-Z0-9 ]*"
+                          case "satuan": return "[a-zA-Z0-9.^%$#,-]+"
                           default:      return null
                         }
                     })()}
@@ -132,6 +132,7 @@ export default class InputForm extends Component {
                           case "biaya": return this.handleInput.bind(this)
                           case "qty":   return this.handleInput.bind(this)
                           case "item":   return this.handleInput.bind(this)
+                          case "satuan":   return this.handleInput.bind(this)
                           default:      return null
                         }
                     })()}
@@ -161,6 +162,7 @@ export default class InputForm extends Component {
                           case "biaya": return this.state.valueInput
                           case "qty": return this.state.valueInput
                           case "item": return this.state.valueInput
+                          case "satuan": return this.state.valueInput
                           default:      return ''
                         }
                     })()}

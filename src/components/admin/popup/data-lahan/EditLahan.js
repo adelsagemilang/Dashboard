@@ -199,10 +199,10 @@ export default class EditLahan extends Component{
         e.preventDefault();
         const { cookies } = this.props;
         
-        axios.post(API_URL + 'lands', {
-            farmer_id: this.state.valueFarmer,
-            land_status_id: this.state.status_lahan,
-            village_id: this.state.valueVillage,
+        axios.put(API_URL + 'lands', {
+            farmer_id: this.state.valueFarmer ? this.state.valueFarmer : this.props.data.farmer.farmer_id,
+            land_status_id: this.state.status_lahan ? this.state.status_lahan : this.props.data.land_status.land_status_id,
+            village_id: this.state.valueVillage ? this.state.valueVillage : this.props.data.location.village_id,
             name: document.getElementById('nama-lahan').value,
             large: document.getElementById('large').value,
             height: document.getElementById('height').value,
@@ -248,7 +248,16 @@ export default class EditLahan extends Component{
     }
 
     componentDidMount(){
-        console.log(this.props.data)
+        var tags = this.props.data.disease
+        var pest = this.props.data.pest
+        var commodities = this.props.data.commodities
+        var tagsValue = tags.split(",")
+        var pestValue = pest.split(",")
+        this.setState({
+            tagsPenyakit: tagsValue,
+            tagsHama: pestValue,
+            valueMulti: commodities
+        })
         axios.get(API_URL + 'lands/land_status',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
@@ -346,7 +355,7 @@ export default class EditLahan extends Component{
                 <div className="popup-container">
                     <div className="box-content">
                         <div className="content">
-                            <p className="title">Tambah Lahan</p>
+                            <p className="title">Edit Lahan</p>
                             <p className="sub-title">Silakan masukkan lahan petani dengan benar.</p>
                             {   this.state.error ? 
                                 <p className="text-danger mg-b-10 mg-t-10">{this.state.errorMessage}</p>
@@ -356,6 +365,7 @@ export default class EditLahan extends Component{
                             <div className="row-flex col-2">
                                 <InputForm 
                                     inputId="nama-lahan"
+                                    defaultValue={data.name}
                                     type="text"
                                     placeholder="Nama Lahan"
                                     class="form-control"
@@ -363,7 +373,11 @@ export default class EditLahan extends Component{
                                 />
                                 <div className="select-wrapper">
                                      <select id="land_status" className="form-control select-option input-sm mg-r-0" value={ this.state.value } onChange={this.handleChangeStatus}>
-                                        <option value="">Status Lahan</option>
+                                        { data.land_status ?
+                                            <option value={data.land_status.land_status_id}>{data.land_status.name}</option>
+                                            :
+                                            <option value="">Status Lahan</option>
+                                        }
                                         {listStatusLahan ?
                                             statusLahan.map(status => 
                                                 <option
@@ -379,7 +393,11 @@ export default class EditLahan extends Component{
                             <div className="row-flex col-2 mg-t-10">
                                 <div className="select-wrapper">
                                      <select className="form-control select-option input-sm mg-r-10" value={ this.state.value } onChange={this.handleChangeRukman}>
-                                        <option value="">Pilih kelompok tani</option>
+                                        { data.farmer_group ?
+                                            <option value={data.farmer_group.farmer_group_id}>{data.farmer_group.name}</option>
+                                            :
+                                            <option value="">Pilih kelompok tani</option>
+                                        }
                                         {list_rukman ?
                                             listrukman.map(rukman => 
                                                 <option
@@ -394,7 +412,11 @@ export default class EditLahan extends Component{
 
                                 <div className="select-wrapper">
                                      <select className="form-control select-option input-sm" value={ this.state.value } onChange={this.handleChangeFarmer}>
-                                        <option value="">Pilih petani</option>
+                                        {  data.farmer ? 
+                                            <option value={data.farmer.farmer_id}>{data.farmer.name}</option>
+                                            :
+                                            <option>Pilih petani</option>
+                                        }
                                         {list_farmer ?
                                             listfarmer.map(farmer => 
                                                 <option
@@ -411,6 +433,7 @@ export default class EditLahan extends Component{
                             <div className="row-flex col-2">
                                 <InputForm 
                                     inputId="large"
+                                    defaultValue={data.large}
                                     type="text"
                                     placeholder="Luas"
                                     class="form-control"
@@ -418,6 +441,7 @@ export default class EditLahan extends Component{
                                 />
                                 <InputForm 
                                     inputId="height"
+                                    defaultValue={data.height}
                                     type="text"
                                     placeholder="Ketinggian"
                                     class="form-control"
@@ -447,6 +471,7 @@ export default class EditLahan extends Component{
                             <div className="row-flex col-2">
 								<InputForm 
                                     inputId="irigation"
+                                    defaultValue={data.irigation}
                                     type="text"
                                     placeholder="Sumber Pengairan"
                                     class="form-control"
@@ -454,12 +479,16 @@ export default class EditLahan extends Component{
                                 />
                             </div>
                             <p className="strong">Lokasi Lahan</p>
-                            <TextArea idtextarea="address" title="Masukkan nama jalan/kampung dst..." class="form-control"/>
+                            <TextArea idtextarea="address" title="Masukkan nama jalan/kampung dst..." class="form-control" defaultValue={data.address}/>
                             <div className="row-flex col-3">
                                 <div className="select-wrapper">
                                      <select id="provinsi" className={ this.state.activeProvince ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}
                                      onChange={this.handleChangeProvince}>
-                                        <option value="">Provinsi</option>
+                                        { this.state.location ? 
+                                          <option value={data.location.province_id} >{this.state.location.province}</option>
+                                          :
+                                          <option value="">Provinsi</option>
+                                        }
                                         {listStatus ?
                                             listProvince.map(listprovince => 
                                                 <option
@@ -474,7 +503,11 @@ export default class EditLahan extends Component{
                                 <div className="select-wrapper">
                                      <select id="kabupaten" className={ this.state.activeCities ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}
                                      onChange={this.handleChangeCities}>
-                                        <option value="">Kabupaten/Kota</option>
+                                        { data.location ?
+                                           <option value={data.location.city_id} >{data.location.city}</option> 
+                                           :
+                                           <option value="">Kabupaten/Kota</option>
+                                        }
                                         
                                         {statusCities ?
                                                 listCities.map(listcities => 
@@ -491,7 +524,11 @@ export default class EditLahan extends Component{
                                 <div className="select-wrapper">
                                      <select id="kecamatan" className={ this.state.activeDistrict ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}
                                      onChange={this.handleChangeDistricts}>
-                                        <option value="">Kecamatan</option>
+                                        { data.location ?
+                                           <option value={data.location.ditsrict_id} >{data.location.district}</option>
+                                           :
+                                           <option value="">Kecamatan</option>
+                                        }
                                         {statusDistrict ?
                                             listDistrict.map(listdistrict => 
                                                 <option
@@ -509,7 +546,11 @@ export default class EditLahan extends Component{
                                 <div className="select-wrapper">
                                     <select id="kelurahan" className={ this.state.activeVillage ? "text-color form-control select-option input-sm" : "form-control select-option input-sm" } value={this.state.value}
                                      onChange={this.handleChangeVillage}>
-                                        <option value="">Kelurahan</option>
+                                        { data.location ?
+                                           <option value={data.location.village_id} >{data.location.village}</option>
+                                           :
+                                           <option value="">Kelurahan</option>
+                                        }
                                         {statusVillage ?
                                             listVillage.map(listvillage => 
                                                 <option
@@ -524,6 +565,7 @@ export default class EditLahan extends Component{
                                 </div>
                                  <InputForm
                                     inputId="postcode"
+                                    defaultValue={data.location.pos_code}
                                     handleChange={this._handleChange}
                                     placeholder="Kode Pos"
                                     type="text" class="form-control"/>
@@ -536,7 +578,7 @@ export default class EditLahan extends Component{
                             <ButtonPrimary
                                 class="button-primary"
                                 type="submit"
-                                name="Tambah Lahan" />
+                                name="Edit Lahan" />
                             </div>
                             <div className="box-btn auto" onClick={this.props.toggleEdit}>
                                 <ButtonPrimary

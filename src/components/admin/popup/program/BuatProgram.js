@@ -100,7 +100,7 @@ class BuatProgram extends Component {
         const { cookies } = this.props;
         
         axios.post(API_URL + 'programs', {
-            program_ticket_id: this.props.dataTambah.id,
+            program_ticket_id: this.props.dataTambah.data.id,
             title: document.getElementById('title').value,
             program_category_id: this.state.valueCategories,
             start_date: this.formatDate(this.state.startDate),
@@ -128,7 +128,7 @@ class BuatProgram extends Component {
     }
 
      componentDidMount(){
-        console.log(this.props.id_tiket)
+        console.log(this.props.dataTambah)
         axios.get(API_URL+ 'programs/categories?type=Investasi',
         {
             headers: {
@@ -199,7 +199,7 @@ class BuatProgram extends Component {
             listRule,
             listStatusRule
         } = this.state
-        const resTambah = this.props.dataTambah
+        const resTambah = this.props.dataTambah.data
         return (
             <div className="add-popup">
                 <div className="popup-container">

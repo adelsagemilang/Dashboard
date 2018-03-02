@@ -16,6 +16,8 @@ import HapusData from './popup/common-popup/HapusData'
 
 import EditRab from './popup/RAB/EditRab'
 
+import { hashHistory,withRouter, Redirect, router } from 'react-router';
+
 export default class RABDetail extends Component{
     constructor(props){
         super(props)
@@ -94,9 +96,9 @@ export default class RABDetail extends Component{
         document.getElementById('aksi_input'+key).style.display = "none";
     }
 
-    handleSubmitEditItem(i){
-        axios.put(API_QELISA_URL + 'public/program/rab/'+this.props.match.params.id+'/detail', {
-            rab_id : this.props.match.params.id,
+    handleSubmitEditItem(i, id){
+        axios.put(API_QELISA_URL + 'public/program/rab/'+id+'/detail', {
+            rab_id : id,
             item : document.getElementById('item_input'+i).value,
             qty : document.getElementById('qty_input'+i).value,
             unit : document.getElementById('satuan_input'+i).value,
@@ -121,10 +123,15 @@ export default class RABDetail extends Component{
         })
     }
 
-    edit(){
+    edit(id){
         this.setState({
+            id: id,
             togglePopUpEdit: true
         })
+    }
+
+    successDelete(){
+        this.props.history.push('/admin/data-rab')
     }
 
     toggleAdd(){
@@ -155,6 +162,7 @@ export default class RABDetail extends Component{
         if(this.state.togglePopUpEdit){
             return (
                 <EditRab 
+                    id={this.state.id}
                     name={this.state.dataHere.name}
                     togglePopUpEdit={this.togglePopUpEdit}
                 />
@@ -227,6 +235,7 @@ export default class RABDetail extends Component{
                     name={this.state.name}
                     qelisa={true}
                     toggleDeletePopup={this.toggleDeletePopup} 
+                    successDelete={this.successDelete} 
             />
             )
         }
@@ -237,17 +246,17 @@ export default class RABDetail extends Component{
             return (
                 <HapusData 
                     title="Hapus Item RAB"
-                    url={'public/program/rab/'+this.state.id_item+'/delete'}
+                    url={'public/program/rab/'+this.state.id_item+'/detail/delete'}
                     name={this.state.name_item}
                     qelisa={true}
-                    toggleDeletePopup={this.toggleDeletePopupItem} 
+                    toggleDeletePopup={this.toggleDeletePopupItem}
             />
             )
         }
     }
 
     componentDidMount(){
-        axios.get(API_QELISA_URL + '/public/program/rab/'+this.props.match.params.id+'/detail',{
+        axios.get(API_QELISA_URL + 'public/program/rab/'+this.props.match.params.id+'/detail',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
             },
@@ -265,6 +274,7 @@ export default class RABDetail extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
+            console.log(dataHere)
         })
         .catch((error) => {
             console.log('err: '+ error)
@@ -290,7 +300,7 @@ export default class RABDetail extends Component{
                                 <div className="box-top row-flex flex-space">
                                     <div className="pull-left">
                                         <h4 className="text-info">{DataHere.name}</h4>
-                                        <div className="edit-rab" onClick={this.edit}>
+                                        <div className="edit-rab" onClick={this.edit.bind(this,DataHere.rab_id)}>
                                             <span>
                                                 <img src="../images/edit.png" alt=""/>
                                             </span>
@@ -322,7 +332,7 @@ export default class RABDetail extends Component{
                                                     DataHere.details.map((datahere, i) => {
                                                     return(
                                                         <tr key={i}>
-                                                            <td>
+                                                            <td data-th="item" >
                                                                 <p id={'item'+i}>{datahere.item}</p>
                                                                 <div id={'item_form'+i} className="input-form" style={{display: 'none'}}>
                                                                     <input type="text"
@@ -333,8 +343,8 @@ export default class RABDetail extends Component{
                                                                     />
                                                                 </div>
                                                             </td>
-                                                            <td>
-                                                                <p id={'qty'+i}>{datahere.qty.toLocaleString()}</p>
+                                                            <td data-th="Kuantitas">
+                                                                <p id={'qty'+i}>{datahere.qty}</p>
                                                                 <div id={'qty_form'+i} className="input-form" style={{display: 'none'}}>
                                                                     <input type="text"
                                                                         id={'qty_input'+i}
@@ -345,17 +355,18 @@ export default class RABDetail extends Component{
                                                                     />
                                                                 </div>
                                                             </td>
-                                                            <td>
+                                                            <td data-th="Satuan">
                                                                 <p id={'satuan'+i}>{datahere.unit}</p>
-                                                                <div id={'satuan_form'+i} className="select-wrapper" style={{display: 'none'}}>
-                                                                    <select id={'satuan_input'+i} className="form-control select-option input-sm w-100 pd-r-40" value={this.state.value}>
-                                                                        <option value={datahere.unit}>{datahere.unit}</option>
-                                                                        <option value="KG">Kg</option>
-                                                                        <option value="TON">Ton</option>
-                                                                    </select>
+                                                                <div id={'satuan_form'+i} className="input-form" style={{display: 'none'}}>
+                                                                    <input type="text"
+                                                                        id={'satuan_input'+i} 
+                                                                        placeholder="Tuliskan Satuan"
+                                                                        className="form-control"
+                                                                        defaultValue={datahere.unit}
+                                                                    />
                                                                  </div>
                                                             </td>
-                                                            <td>
+                                                            <td data-th="Harga">
                                                                 <p id={'harga'+i}>Rp. {datahere.price.toLocaleString()}</p>
                                                                 <div id={'harga_form'+i} className="input-form" style={{display: 'none'}}>
                                                                     <input type="text"
@@ -363,15 +374,15 @@ export default class RABDetail extends Component{
                                                                         onChange={this.handleChangeEditHarga.bind(this, i)}
                                                                         placeholder="Tuliskan Harga"
                                                                         className="form-control"
-                                                                        defaultValue={datahere.price}
+                                                                        defaultValue={datahere.price.toLocaleString()}
                                                                     />
                                                                 </div>
                                                             </td>
-                                                            <td>
+                                                            <td data-th="Subtotal">
                                                                 <p id={'subtotal'+i}>Rp. {datahere.subtotal.toLocaleString()}</p>
-                                                                <p id={'subtotal_input'+i} style={{display: 'none'}}>Rp. <span id={'subtotal_value'+i}>{datahere.subtotal}</span></p>
+                                                                <p id={'subtotal_input'+i} style={{display: 'none'}}>Rp. <span id={'subtotal_value'+i}>{datahere.subtotal.toLocaleString()}</span></p>
                                                             </td>
-                                                            <td>
+                                                            <td data-th="Aksi">
                                                                 <div id={'aksi'+i} className="row-flex flex-center flex-xs">
                                                                     <div className="box-btn" onClick={this.handleEdit.bind(this,i)}>
                                                                         <ButtonIcon class="btn-outline-sm" icon="icon-create"/>
@@ -381,7 +392,7 @@ export default class RABDetail extends Component{
                                                                      </div>
                                                                 </div> 
                                                                 <div id={'aksi_input'+i} className="row-flex flex-center flex-xs" style={{display: 'none'}}>
-                                                                    <div className="box-btn auto" onClick={this.handleSubmitEditItem.bind(this,i)}>
+                                                                    <div className="box-btn auto" onClick={this.handleSubmitEditItem.bind(this,i, datahere.rab_detail_id)}>
                                                                         <ButtonIcon class="btn-outline-blue-sm" icon="icon-check-blue" />
                                                                     </div>
                                                                      <div className="box-btn" onClick={this.handleDismissEdit.bind(this,i)}>
@@ -396,7 +407,7 @@ export default class RABDetail extends Component{
                                                 {
                                                     this.state.toggleAdd ? 
                                                         <tr>
-                                                            <td>
+                                                            <td data-th="item">
                                                                 <InputForm 
                                                                     inputId="item"
                                                                     handleChange={this._handleChange}
@@ -405,7 +416,7 @@ export default class RABDetail extends Component{
                                                                     class="form-control"
                                                                 />
                                                             </td>
-                                                             <td>
+                                                             <td data-th="Kuantitas">
                                                                 <InputForm 
                                                                     inputId="qty"
                                                                     handleChange={this._handleChange}
@@ -414,7 +425,8 @@ export default class RABDetail extends Component{
                                                                     class="form-control"
                                                                 />
                                                             </td>
-                                                            <td>
+                                                            <td data-th="Satuan">
+                                                                {/*
                                                                  <div className="select-wrapper">
                                                                     <select id="satuan" className="form-control select-option input-sm w-100 pd-r-40" value={this.state.value}>
                                                                         <option value="">Pilih Satuan</option>
@@ -422,8 +434,16 @@ export default class RABDetail extends Component{
                                                                         <option value="TON">Ton</option>
                                                                     </select>
                                                                  </div>
+                                                                */}
+                                                                <InputForm 
+                                                                    inputId="satuan"
+                                                                    handleChange={this._handleChange}
+                                                                    type="text"
+                                                                    placeholder="Tuliskan Satuan"
+                                                                    class="form-control"
+                                                                />
                                                             </td>
-                                                            <td>
+                                                            <td data-th="Harga">
                                                                 <InputForm 
                                                                     inputId="biaya"
                                                                     handleChange={this._handleChange}
@@ -432,10 +452,10 @@ export default class RABDetail extends Component{
                                                                     class="form-control"
                                                                 />
                                                             </td>
-                                                            <td>
-                                                                <p className="text-info bold">Rp. {this.state.total ? this.state.total : '0'}</p>
+                                                            <td data-th="Subtotal">
+                                                                <p className="text-info bold">Rp. {this.state.total ? this.state.total.toLocaleString() : '0'}</p>
                                                             </td>
-                                                            <td>
+                                                            <td data-th="Aksi">
                                                                 <div className="row-flex flex-center flex-xs">
                                                                     <div className="box-btn auto" onClick={this.handleSubmit}>
                                                                         <ButtonIcon class="btn-outline-blue-sm" icon="icon-check-blue" />
@@ -454,7 +474,7 @@ export default class RABDetail extends Component{
                                 </div>
                                 <div className="box-footer-table row-flex">
                                     <div className="footer-table rab pull-left">
-                                        <p className="text-footer">Total <span className="text-info">Rp. 400.000</span></p>
+                                        <p className="text-footer">Total <span className="text-info">Rp. {DataHere.total ? DataHere.total.toLocaleString() : '0'}</span></p>
                                     </div>
 
                                     <div className="footer-table rab pull-right">

@@ -34,28 +34,44 @@ export default class TambahPetani extends Component{
         }
     }
 
+    ChangeKTP(id,value){
+        let re = /^\d{16}$/
+        let result =  re.test(value)
+
+        if(result){
+            this.setState({
+                error_ktp: result
+            },function(){
+                axios.get(API_URL+ 'check_ktp?ktp_number='+value,{
+                    headers: {
+                        'X-AUTH-TOKEN': this.authToken
+                    }
+                })
+                .then(res => {
+                })
+                .catch((error) => {
+                    this.setState({
+                        error_ktp: false,
+                        errorMessage_ktp: error.response.data
+                    })
+                })
+            })
+        }else{
+            this.setState({
+                error_ktp: false,
+                errorMessage_ktp: 'Harus 16 digit angka'
+            })
+        }
+    }
+
     getDatePicker(startdate){
         const date = moment(startdate).format('YYYY-MM-DD')
         this.setState({datepicker: date})
     }
 
     _handleChange(id, value){
-        if ( id === 'no_ktp' ){
-            let re = /^\d{16}$/
-            let result =  re.test(value)
 
-            if(result){
-                this.setState({
-                    error_ktp: result
-                })
-            }else{
-                this.setState({
-                    error_ktp: false
-                })
-            }
-        }
-
-        else if( id === 'no_hp' ){
+        if( id === 'no_hp' ){
             let re = /^(^\+62\s?|^0)(\d{3,4}-?){2}\d{3,4}$/
             let result =  re.test(value)
 
@@ -340,8 +356,8 @@ export default class TambahPetani extends Component{
                                     placeholder="No. KTP"
                                     classError={this.state.error_ktp ? "input-form" : "input-form error"}
                                     class={this.state.error_ktp ? "form-control" : "form-control has-error"}
-                                    handleChange={this._handleChange}
-                                    errorMessage="Harus 16 digit angka"
+                                    handleChange={this.ChangeKTP}
+                                    errorMessage={this.state.errorMessage_ktp}
                                 />
                                 <InputForm 
                                     inputId="tempat_lahir"

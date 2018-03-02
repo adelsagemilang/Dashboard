@@ -83,6 +83,11 @@
     border-color: $color-07;
 }
 
+.btn-primary-sm{
+    @extend .btn-sm;
+    background-color: $color-primary;
+}
+
 .icon-sm{
 	width: 14px;
 	height: 14px;
@@ -111,6 +116,12 @@
     @extend .icon-sm;
     margin: auto;
     background-image: url('/images/icon/button_icon/icon_check_blue.svg');
+}
+
+.icon-plus{
+    @extend .icon-sm;
+    margin: auto;
+    background-image: url('/images/icon/button_icon/icon_plus_white.svg');
 }
 
 .btn-file {

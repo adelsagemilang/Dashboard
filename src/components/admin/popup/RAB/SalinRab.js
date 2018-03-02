@@ -24,10 +24,10 @@ class SalinRab extends Component {
     }
 
     handleSalinRab(e){
-        console.log('clicked')
         e.preventDefault();
+        const { cookies } = this.props;
         
-        axios.post(API_QELISA_URL + 'public/program/rab', {
+        axios.post(API_QELISA_URL + 'public/program/rab/'+this.props.id+'/copy', {
            "user_aruni_id" : this.userId,
            "name" : document.getElementById('name').value
         },
@@ -42,7 +42,7 @@ class SalinRab extends Component {
             }
         })
         .then(res => {
-            this.props.success()
+            this.props.redirect(res.data.rab_id) 
         })
         .catch((error) => {
             console.log('err: '+ error)

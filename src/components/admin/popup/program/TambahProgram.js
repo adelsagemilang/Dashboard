@@ -56,7 +56,9 @@ class TambahProgram extends Component {
             }
         })
         .catch((error) => {
-            console.log('err: '+ error)
+            this.setState({
+                error: true
+            })
         })
     }
 
