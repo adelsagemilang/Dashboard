@@ -495,6 +495,7 @@
             color: $color-02;
             @media(min-width: $screen-phone){
                 display: inline-block;
+                float: left;
             }
         }
         .lat-long{
@@ -502,7 +503,34 @@
             color: $color-primary;
             @media(min-width: $screen-phone){
                 display: inline-block;
-                padding: 15px 0px;
+                padding-top: 15px;
+
+                span, div {
+                    float: left;
+
+                    &.edit-lat{
+                        margin-left: 5px;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        .form-edit-lat{
+            margin-top: 10px;
+
+            .form-control {
+                max-height: 30px;
+            }
+
+            .box-btn {
+                margin: 0px !important;
+            }
+
+            .text-title{
+                float: none !important;
+                padding-top: 13px;
+                padding-bottom: 0px;
             }
         }
     }

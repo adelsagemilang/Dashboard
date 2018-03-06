@@ -150,9 +150,11 @@ export default class Datalahan extends Component{
         })
     }
 
-    handleDetail(name, id, geolocations, img, address, loc){
+    handleDetail(name, lat, lng, id, geolocations, img, address, loc){
         this.setState({
             landName: name,
+            lat: lat,
+            lng: lng,
             landId: id,
             geolocations: geolocations,
             img: img,
@@ -226,6 +228,8 @@ export default class Datalahan extends Component{
             return(
                 <Detail
                     name={this.state.landName}
+                    lat={this.state.lat}
+                    lng={this.state.lng}
                     landId={this.state.landId}
                     geolocations={this.state.geolocations}
                     img={this.state.img}
@@ -351,6 +355,8 @@ export default class Datalahan extends Component{
                                                                 onClick={this.handleDetail.bind(
                                                                     this,
                                                                     datahere.name,
+                                                                    datahere.lat,
+                                                                    datahere.lng,
                                                                     datahere.land_id,
                                                                     datahere.geolocations,
                                                                     datahere.image,

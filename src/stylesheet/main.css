@@ -602,6 +602,9 @@ a {
 .pd-b-0 {
   padding-bottom: 0px !important; }
 
+.pd-t-0 {
+  padding-top: 0px !important; }
+
 .pull-right {
   float: right; }
 
@@ -1523,7 +1526,8 @@ a.box-btn button {
   color: #767676; }
   @media (min-width: 480px) {
     .add-popup-map .box-text .text-title {
-      display: inline-block; } }
+      display: inline-block;
+      float: left; } }
 
 .add-popup-map .box-text .lat-long {
   font-weight: 500;
@@ -1531,7 +1535,23 @@ a.box-btn button {
   @media (min-width: 480px) {
     .add-popup-map .box-text .lat-long {
       display: inline-block;
-      padding: 15px 0px; } }
+      padding-top: 15px; }
+      .add-popup-map .box-text .lat-long span, .add-popup-map .box-text .lat-long div {
+        float: left; }
+        .add-popup-map .box-text .lat-long span.edit-lat, .add-popup-map .box-text .lat-long div.edit-lat {
+          margin-left: 5px;
+          cursor: pointer; } }
+
+.add-popup-map .box-text .form-edit-lat {
+  margin-top: 10px; }
+  .add-popup-map .box-text .form-edit-lat .form-control, .add-popup-map .box-text .form-edit-lat .tag-wrapper .react-tagsinput-input, .tag-wrapper .add-popup-map .box-text .form-edit-lat .react-tagsinput-input {
+    max-height: 30px; }
+  .add-popup-map .box-text .form-edit-lat .box-btn {
+    margin: 0px !important; }
+  .add-popup-map .box-text .form-edit-lat .text-title {
+    float: none !important;
+    padding-top: 13px;
+    padding-bottom: 0px; }
 
 .add-popup-map .box-foto p {
   padding: 15px 0 20px 20px !important; }

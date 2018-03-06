@@ -6,6 +6,7 @@ import Base64 from 'base-64'
 import axios from 'axios'
 import autoBind from 'react-autobind'
 import { ButtonPrimary } from '../../../common/ButtonPrimary'
+import { ButtonIcon } from '../../../common/ButtonIcon'
 import '../../../../stylesheet/component/admin/_popup.scss'
 import { API_URL, API_LIST_URL, TK_KEY } from '../../../../containers/RootUrl'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -30,10 +31,11 @@ export default class Detail extends Component{
         this.authToken = Crypto.AES.decrypt(Base64.decode(Cookie.load('TK')), TK_KEY).toString(Crypto.enc.Utf8)
         this.state = {
             username: '',
-            center: this.props.geolocations ? this.props.geolocations[0] : {lat: 0, lng: 0},
+            center: this.props.lat && this.props.lng ? {lat: parseFloat(this.props.lat), lng: parseFloat(this.props.lng)} : {lat: 0, lng: 0},
             coords: [],
             zoom: 15,
-            hideButton: false
+            hideButton: false,
+            showEditLat: false
         }
     }
 
@@ -53,7 +55,41 @@ export default class Detail extends Component{
       })
     }
 
+    toggleEditLat(){
+      this.setState({
+        showEditLat: !this.state.showEditLat
+      })
+    }
+
+    handleEditLat(){
+      var koor1 = document.getElementById('koordinat1').value
+      var koor2 = document.getElementById('koordinat2').value
+      axios.put(API_URL + 'lands/'+this.props.landId+'/land-coordinate', {
+          lat : koor1,
+          lng : koor2
+      },
+      {
+          headers: {
+              'X-AUTH-TOKEN' : this.authToken,
+              'Content-Type' : 'application/json'
+          }
+      })
+      .then(res => {
+          this.setState({
+            center: {
+              lat: koor1,
+              lng: koor2
+            },
+            showEditLat: false
+          })
+      })
+      .catch((error) => {
+          console.log(error)
+      })
+    }
+
     componentDidMount(){
+      console.log(this.props.lat)
       var coords = this.props.geolocations
       var arrayCoords = []
       var number = 1;
@@ -119,12 +155,42 @@ export default class Detail extends Component{
                                         <span className="text-title pd-b-0">Koordinat Awal: &nbsp;</span>
                                         <span className="lat-long">
                                             {this.props.geolocations ? 
-                                              <span>{this.props.geolocations[0].lat},{this.props.geolocations[0].lng}</span>
+                                              <span>{this.state.center.lat},{this.state.center.lng}</span>
                                               : 
                                               <span>0,0</span>
                                             }
+                                            <div className="edit-lat" onClick={this.toggleEditLat}>
+                                              <img src="../images/edit.png" alt=""/>
+                                            </div>
                                         </span>
                                         <br/>
+                                        {this.state.showEditLat ? 
+                                          <div className="form-edit-lat">
+                                              <div className="row-flex col-3 table">
+                                                  <span className="text-title">Edit Koordinat Pusat:</span>
+                                                  <div className="input-form mg-l-20">
+                                                    <input type="text"
+                                                     defaultValue={this.state.center.lat}
+                                                     id="koordinat1"
+                                                     className="form-control"
+                                                     placeholder="Koordinat"
+                                                    />
+                                                  </div>
+                                                  <div className="input-form mg-r-0">
+                                                    <input type="text"
+                                                     defaultValue={this.state.center.lng}
+                                                     id="koordinat2"
+                                                     className="form-control"
+                                                     placeholder="Koordinat 2"
+                                                    />
+                                                  </div>
+                                                  <div className="box-btn" onClick={this.handleEditLat}>
+                                                       <ButtonIcon class="btn-outline-blue-sm" icon="icon-check-blue"/>
+                                                   </div>
+                                              </div>
+                                          </div>
+                                          : null
+                                        }
                                         <div className="row-flex"> 
                                                 <span className="text-title">Lokasi: &nbsp;</span>
                                                 <span className="lat-long">
