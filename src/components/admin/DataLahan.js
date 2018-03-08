@@ -268,6 +268,7 @@ export default class Datalahan extends Component{
             this.setState({totalPage})
             this.setState({totalElements})
             this.setState({totalsize})
+            console.log(dataHere)
         })
         .catch((error) => {
             console.log('err: '+ error)

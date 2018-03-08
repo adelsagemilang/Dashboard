@@ -77,8 +77,8 @@ export default class Detail extends Component{
       .then(res => {
           this.setState({
             center: {
-              lat: koor1,
-              lng: koor2
+              lat: parseFloat(koor1),
+              lng: parseFloat(koor2)
             },
             showEditLat: false
           })
@@ -89,22 +89,23 @@ export default class Detail extends Component{
     }
 
     componentDidMount(){
-      console.log(this.props.lat)
-      var coords = this.props.geolocations
-      var arrayCoords = []
-      var number = 1;
-      var i = 0;
-      while (number<=coords.length) {
-          arrayCoords.push({
-                    "lat" : parseFloat(coords[i].lat),
-                    "lng" : parseFloat(coords[i].lng),
-          })
-        number++;
-        i++;       
+      if (this.props.geolocations !== null) {
+          var coords = this.props.geolocations
+          var arrayCoords = []
+          var number = 1;
+          var i = 0;
+          while (number<=coords.length) {
+              arrayCoords.push({
+                        "lat" : parseFloat(coords[i].lat),
+                        "lng" : parseFloat(coords[i].lng),
+              })
+            number++;
+            i++;       
+          }
+         this.setState({
+            coords: arrayCoords
+         })
       }
-     this.setState({
-        coords: arrayCoords
-     })
     }
 
     togglePopupKoordinat(){
@@ -116,7 +117,7 @@ export default class Detail extends Component{
         withGoogleMap(props => (
             <GoogleMap
               defaultCenter={this.state.center}
-              defaultZoom={8}
+              defaultZoom={11}
             >
                   <Polygon 
                     path={this.state.coords}

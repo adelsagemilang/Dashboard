@@ -567,7 +567,7 @@ a {
   margin-bottom: 10px; }
 
 .mg-b-20 {
-  margin-bottom: 10px; }
+  margin-bottom: 20px; }
 
 .mg-r-10 {
   margin-right: 10px !important; }
@@ -1392,7 +1392,6 @@ a.box-btn button {
             width: 100%;
             float: left; } }
     .add-popup .popup-container .box-table, .add-popup-map .popup-container .box-table {
-      overflow: scroll;
       max-width: 100%;
       display: -webkit-box; }
       .add-popup .popup-container .box-table th, .add-popup-map .popup-container .box-table th {

@@ -6,6 +6,7 @@ import Base64 from 'base-64'
 import axios from 'axios'
 import autoBind from 'react-autobind'
 import { ButtonPrimary } from '../../../common/ButtonPrimary'
+import { ButtonIcon } from '../../../common/ButtonIcon'
 import '../../../../stylesheet/component/admin/_popup.scss'
 import { API_URL, API_LIST_URL, TK_KEY } from '../../../../containers/RootUrl'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -32,8 +33,15 @@ export default class Detail extends Component{
                 lat: this.props.lat === null || this.props.lat === undefined ? 0 : this.props.lat,
                 lng: this.props.lng === null || this.props.lng === undefined ? 0 : this.props.lng
             },
-            zoom: 15
+            zoom: 15,
+            showEditLat: false
         }
+    }
+
+    toggleEditLat(){
+      this.setState({
+        showEditLat: !this.state.showEditLat
+      })
     }
 
     _handleChange(id, value){
@@ -45,8 +53,36 @@ export default class Detail extends Component{
         this.props.handleAddFamily(id)
     }
 
+    handleEditLat(){
+      var koor1 = document.getElementById('koordinat1').value
+      var koor2 = document.getElementById('koordinat2').value
+      this.setState({
+        center: {
+          lat: parseFloat(koor1),
+          lng: parseFloat(koor2)
+        }
+      })
+      axios.put(API_URL + 'farmers/'+ this.props.farmerId +'/update-coordinate', {
+          lat : koor1,
+          lng : koor2
+      },
+      {
+          headers: {
+              'X-AUTH-TOKEN' : this.authToken,
+              'Content-Type' : 'application/json'
+          }
+      })
+      .then(res => {
+          this.setState({
+            showEditLat: false
+          })
+      })
+      .catch((error) => {
+          console.log(error)
+      })
+    }
+
     componentDidMount(){
-        console.log(this.props.img)
         axios.get(API_URL + 'farmers/' + this.props.farmerId +'/families',{
             headers:{ 
                 'X-AUTH-TOKEN' : this.authToken
@@ -70,7 +106,6 @@ export default class Detail extends Component{
             const errorMessage = error.response.data
             this.setState({ statusCode,errorMessage })
         })
-        console.log(this.props.lat)
     }
 
     render(){
@@ -158,23 +193,53 @@ export default class Detail extends Component{
                                 </div>
                                 </TabPanel>
                                 <TabPanel>
-                                    <div className="box-text">
-                                        <p className="text-title">Koordinat: &nbsp;</p>
-                                        <p className="lat-long">
-                                            {this.props.lat === null || this.props.lat === undefined ? 0 : this.props.lat }, {this.props.lng === null || this.props.lng === undefined ? 0 : this.props.lng}
-                                        </p>
+                                    <div className="box-text mg-b-10">
+                                        <span className="text-title">Koordinat: &nbsp;</span>
+                                        <span className="lat-long">
+                                            <span>{this.state.center.lat},{this.state.center.lng}</span>
+                                            <div className="edit-lat" onClick={this.toggleEditLat}>
+                                              <img src="../images/edit.png" alt=""/>
+                                            </div>
+                                        </span>
+                                        {this.state.showEditLat ? 
+                                          <div className="form-edit-lat">
+                                              <div className="row-flex col-3 table">
+                                                  <span className="text-title">Edit Koordinat Pusat:</span>
+                                                  <div className="input-form mg-l-20">
+                                                    <input type="text"
+                                                     defaultValue={this.state.center.lat}
+                                                     id="koordinat1"
+                                                     className="form-control"
+                                                     placeholder="Koordinat"
+                                                    />
+                                                  </div>
+                                                  <div className="input-form mg-r-0">
+                                                    <input type="text"
+                                                     defaultValue={this.state.center.lng}
+                                                     id="koordinat2"
+                                                     className="form-control"
+                                                     placeholder="Koordinat 2"
+                                                    />
+                                                  </div>
+                                                  <div className="box-btn" onClick={this.handleEditLat}>
+                                                       <ButtonIcon class="btn-outline-blue-sm" icon="icon-check-blue"/>
+                                                   </div>
+                                              </div>
+                                          </div>
+                                          : null
+                                        }
                                     </div>
                                     <div style={{width: '100%', height: '250px'}}>
                                         <GoogleMapReact
                                         bootstrapURLKeys={{
                                         key: "AIzaSyCkN1_UcaTQ03AtUOnTNFTnc44I0FwMNsM"
                                         }}
-                                            defaultCenter={this.state.center}
+                                            center={this.state.center}
                                             defaultZoom={this.state.zoom}
                                         >
                                             <AnyReactComponent 
-                                              lat={this.props.lat} 
-                                              lng={this.props.lng} 
+                                              lat={this.state.center.lat} 
+                                              lng={this.state.center.lng} 
                                               text={' '} 
                                             />
                                         </GoogleMapReact>

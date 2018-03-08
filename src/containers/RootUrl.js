@@ -1,6 +1,6 @@
 
 export const TK_KEY = 'zru-Tr9AT-'
-//export const API_URL = 'http://api.rukman.online/dashboardsurveyor-service/'
+// export const API_URL = 'http://api.rukman.online/dashboardsurveyor-service/'
 //export const API_URL = 'http://ec2-54-169-105-42.ap-southeast-1.compute.amazonaws.com:8080/dashboardsurveyor-service/'
 export const API_URL = 'http://103.43.44.124:8080/dashboardsurveyor-service/'
 
